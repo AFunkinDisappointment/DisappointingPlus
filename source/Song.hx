@@ -115,28 +115,6 @@ class Song
 				parsedJson.isCheer = true;
 			}
 		}
-		if (parsedJson.preferredNoteAmount == null) {
-			switch (parsedJson.mania) {
-				case 1:
-					parsedJson.preferredNoteAmount = 6;
-				case 2:
-					parsedJson.preferredNoteAmount = 9;
-				default:
-					parsedJson.preferredNoteAmount = 4;
-			}
-		}
-		if (parsedJson.mania == null) {
-			switch (parsedJson.preferredNoteAmount) {
-				case 4:
-					parsedJson.mania = 0;
-				case 6:
-					parsedJson.mania = 1;
-				case 9:
-					parsedJson.mania = 2;
-				default:
-					parsedJson.mania = 0;
-			}
-		}
 		trace(parsedJson.stage);
 		if (parsedJson.gf == null) {
 			// are you kidding me did i really do song to lowercase
@@ -242,6 +220,30 @@ class Song
 			parsedJson.bpm = realJson.bpm;
 			parsedJson.needsVoices = realJson.needsVoices;
 			parsedJson.speed = realJson.speed;
+			parsedJson.mania = realJson.mania;
+			parsedJson.preferredNoteAmount = realJson.preferredNoteAmount;
+			if (parsedJson.preferredNoteAmount == null) {
+				switch (parsedJson.mania) {
+					case 1:
+						parsedJson.preferredNoteAmount = 6;
+					case 2:
+						parsedJson.preferredNoteAmount = 9;
+					default:
+						parsedJson.preferredNoteAmount = 4;
+				}
+			}
+			if (parsedJson.mania == null) {
+				switch (parsedJson.preferredNoteAmount) {
+					case 4:
+						parsedJson.mania = 0;
+					case 6:
+						parsedJson.mania = 1;
+					case 9:
+						parsedJson.mania = 2;
+					default:
+						parsedJson.mania = 0;
+				}
+			}
 		}
 		return parsedJson;
 	}

@@ -51,6 +51,8 @@ class NewStageState extends MusicBeatState
 	var crazyPngButton:FlxButton;
 	var crazyXmlButton:FlxButton;
 	var likeText:FlxUIInputText;
+	var likeButton:FlxButton;
+	var hscriptPath:String;
 	var iconAlive:FlxUINumericStepper;
 	var iconDead:FlxUINumericStepper;
 	var iconPoison:FlxUINumericStepper;
@@ -68,38 +70,54 @@ class NewStageState extends MusicBeatState
 		epicFiles = [];
 		var bg:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuBGBlue.png');
 		add(bg);
-		mainPngButton = new FlxButton(10,10,"Stage Files",function ():Void {
+		mainPngButton = new FlxButton(10, 10, "Stage Files", function ():Void {
 			var coolDialog = new FileDialog();
 			coolDialog.browse(FileDialogType.OPEN_MULTIPLE);
 			coolDialog.onSelectMultiple.add(function (paths:Array<String>):Void {
 				epicFiles = paths;
 			});
 		});
-		nameText = new FlxUIInputText(100,50,70,"template");
-		likeText = new FlxUIInputText(100, 10, 70,"stage");
-		add(mainPngButton);
+		nameText = new FlxUIInputText(100, 10, 70, "template");
+		likeText = new FlxUIInputText(100, 50, 70, "stage");
+		likeButton = new FlxButton(10, 50, "HScript File", function ():Void {
+			var coolDialog = new FileDialog();
+			coolDialog.browse(FileDialogType.OPEN);
+			coolDialog.onSelect.add(function (path:String):Void {
+				hscriptPath = path;
+			});
+		});
 		finishButton = new FlxButton(FlxG.width - 170, FlxG.height - 50, "Finish", function():Void {
 			writeCharacters();
 			LoadingState.loadAndSwitchState(new SaveDataState());
 		});
-		var cancelButton = new FlxButton(FlxG.width - 300, FlxG.height - 50, "Cancel", function():Void
-		{
+		var cancelButton = new FlxButton(FlxG.width - 300, FlxG.height - 50, "Cancel", function():Void {
 			// go back
 			LoadingState.loadAndSwitchState(new SaveDataState());
 		});
 		add(cancelButton);
 		add(finishButton);
+		add(mainPngButton);
 		add(nameText);
 		add(likeText);
+		add(likeButton);
 		super.create();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
-
 	}
+	
 	function writeCharacters() {
+		var daData:ModuleFunctions.StageImport = {
+			name: nameText.text,
+			like: likeText.text,
+			likePath: hscriptPath,
+			assets: epicFiles
+		};
+		ModuleFunctions.importStage(daData);
+	}
+
+	function oldwriteCharacters() {
 		// check to see if directory exists
 		#if sys
 		if (!FileSystem.exists('assets/images/custom_stages/'+nameText.text)) {
@@ -113,7 +131,7 @@ class NewStageState extends MusicBeatState
 			File.copy(epicFile,pathString);
 		}
 
-		var epicStageFile:Dynamic =CoolUtil.parseJson(FNFAssets.getText('assets/images/custom_stages/custom_stages'));
+		var epicStageFile:Dynamic = CoolUtil.parseJson(FNFAssets.getText('assets/images/custom_stages/custom_stages'));
 		trace("parsed");
 		Reflect.setField(epicStageFile,nameText.text,likeText.text);
 

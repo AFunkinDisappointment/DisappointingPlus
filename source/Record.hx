@@ -24,10 +24,13 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
     var shiney:FlxSprite;
     var doubleShiney:FlxSprite;
     var almostSticker:FlxSprite;
+    var parsedWeekJson:StoryMenuState.StorySongsJson;
     // var smudge:FlxSprite;
     public function new(X:Float=0, Y:Float=0, colors:Array<String>, ?character:String="bf", ?week:Int = -1, ?completion:Bool) {
         super();
         reordering = true;
+        parsedWeekJson = CoolUtil.parseJson(FNFAssets.getJson("assets/data/storySonglist"));
+        var weekName = parsedWeekJson.weeks[week].name;
         var sussyRecordGraphic:BitmapData;
         if (week == -1) {
             if (completion)
@@ -37,18 +40,18 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
             sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png');
         } else {
             if (completion) {
-				if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-gold.png'))
+				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png'))
 				{
-					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-gold.png');
+					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-gold.png');
 				}
 				else
 				{
 					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-gold.png');
 				}
             } else {
-				if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-record.png'))
+				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png'))
 				{
-					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-record.png');
+					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-record.png');
 				}
 				else
 				{
@@ -56,8 +59,8 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
 				}
             }
             
-            if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-center.png')) {
-				sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-center.png');
+            if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-center.png')) {
+				sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-center.png');
             } else {
 				sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png');
             }
@@ -98,6 +101,7 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
     }
     public function changeColor(colors:Array<String>, ?character:String="bf", ?week:Int = -1, ?song:String, ?diff:Int) {
         reordering = true;
+        var weekName = parsedWeekJson.weeks[week].name;
 		var sussyColors = [];
 		for (color in colors)
 		{
@@ -126,9 +130,9 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         {
             if (rating >= Bad)
             {
-                if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-gold.png'))
+                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png'))
                 {
-                    sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-gold.png');
+                    sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-gold.png');
                 }
                 else
                 {
@@ -137,33 +141,33 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
             }
             else
             {
-                if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-record.png'))
+                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png'))
                 {
-                    sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-record.png');
+                    sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-record.png');
                 }
                 else
                 {
                     sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-record.png');
                 }
             }
-            if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-shine.png')) {
-				sussyShine = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-shine.png');
-				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/week$week-shine.png');
+            if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-shine.png')) {
+				sussyShine = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-shine.png');
+				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/' + weekName + '-shine.png');
             } else {
 				sussyShine = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-shine.png');
 				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/default-shine.xml');
             }
-            if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-center.png'))
+            if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-center.png'))
             {
-                sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-center.png', false);
+                sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-center.png', false);
             }
             else
             {
                 sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png', false);
             }
-			if (FNFAssets.exists('assets/images/campaign-ui-week/week$week-almost.png'))
+			if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-almost.png'))
 			{
-				almostPng = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week$week-almost.png');
+				almostPng = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-almost.png');
 			}
 			else
 			{

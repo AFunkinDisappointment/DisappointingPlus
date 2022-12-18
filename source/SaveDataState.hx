@@ -69,14 +69,18 @@ class SaveDataState extends MusicBeatState
 		FlxG.sound.playMusic(goodSound);
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuDesat.png');
 			optionList = [
+							{name: "Controls...", value: false, intName:'controls', desc:"Edit bindings!", ignore: true,},
+							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "What should the max fps be. (Requires restart to apply)", amount: 60, defAmount: 60, max: 240, min: 20, precision: 10,},
+							{name: "Scroll Speed", value: false, intName: "scrollSpeed", desc: "Sets the scroll speed (1 uses the song's scroll speed)", amount: 1.0, defAmount: 1.0, max: 10.0, min: 1.0, precision: 0.1,},
+							{name: "Downscroll", value: false, intName: "downscroll", desc: "Put da arrows on the bottom and have em scroll down"},
+							{name: "Middlescroll", value: false, intName: "midscroll", desc: "Become the main attraction. Your story will be told"},
 							{name: "Always Show Cutscenes", intName: "alwaysDoCutscenes", value: false, desc: "Force show cutscenes, even in freeplay"}, 
 							{name: "Skip Modifier Menu", value: false, intName: "skipModifierMenu", desc: "Skip the modifier menu"}, 
 							{name: "Skip Victory Screen", value: false, intName : "skipVictoryScreen", desc: "Skip the victory screen at the end of songs."},
-							{name: "Scroll Speed", value: false, intName: "scrollSpeed", desc: "Sets the scroll speed (1 uses the song's scroll speed)", amount: 1.0, defAmount: 1.0, max: 10.0, min: 1.0, precision: 0.1,},
-							{name: "Downscroll", value: false, intName: "downscroll", desc: "Put da arrows on the bottom and have em scroll down"},
 							{name: "Don't mute on miss", intName: "dontMuteMiss", value: false, desc: "When missing notes, don't mute vocals"},
 							{name: "Judge", value: false, intName: "judge", desc: "The Judge to use.", amount: cast Judge.Jury.Classic, defAmount: cast Judge.Jury.Classic, max: 10},
 							{name: "Ghost Tapping", value: false, intName: "useCustomInput", desc: "Whether to allow spamming"},
+							{name: "Sing Whenever", value: false, intName: "singYourHeartOut", desc: "Lets you do the sing animation whenever you want (Requires ghost tapping)"},
 							{name: "Move cam with notes", value: false, intName: "camNotes", desc: "Moves the camera in the direction of the notes."},
 							// sorry, always ignore bad timing :penisve:
 							/*{name: "Ignore Bad Timing", value: false, intName:"ignoreShittyTiming", desc: "Even with new input on, if you hit a note really poorly, it counts as a miss. This disables that."},*/
@@ -107,20 +111,18 @@ class SaveDataState extends MusicBeatState
 							{name: "Accuracy Mode", value: false, intName: "accuracyMode", desc: "How accuracy is calculated. Complex = uses ms timing, Simple = uses rating only", amount: 0, defAmount: 0, min: -1, max: 2,},
 							{name: "Credits", value: false, intName:'credits', desc: "Show the credits!", ignore: true},
 							{name: "Sound Test...", value: false, intName: 'soundtest', desc: "Listen to the soundtrack", ignore: true,},
-							{name: "Controls...", value: false, intName:'controls', desc:"Edit bindings!", ignore: true,},
 							{name: "Hit Sounds", value: false, intName:"hitSounds", desc: "Play a sound when hitting a note"},
-							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "What should the max fps be.", amount: 60, defAmount: 60, max: 240, min: 20, precision: 10,},
 							{name: "Allow Story Mode", value: false, intName:"allowStoryMode", desc: "Show story mode from the main menu."},
 							{name: "Allow Freeplay", value: false, intName:"allowFreeplay", desc: "Show freeplay from the main menu."},
 							{name: "Allow Donate Button", value: false, intName:"allowDonate", desc: "Show the donate button from the main menu."},
 							#if sys
 							{name: "Toggle Title Background", value: true, intName:'titleToggle', desc:"Turn on/off the title screen background.", ignore: true,},
-							{name: "Import Assets...", value: false, intName:'newassets', desc: "Import assets from other versions of Modding Plus! (COMING SOON)", ignore: true,},
 							//{name: "UI Layout...", value: false, intName:'newui', desc: "Change the layout of the UI in-game!", ignore: true,},
-							{name:"New Character...", value: false, intName:'newchar', desc: "Make a new character!", ignore: true,},
-							{name:"New Stage...", value:false, intName:'newstage', desc: "Make a new stage!", ignore: true,},
-							{name: "New Song...", value: false, intName:'newsong', desc: "Make a new song!", ignore: true,},
-							{name: "New Week...", value: false, intName: 'newweek', desc: "Make a new week!", ignore: true,},
+							{name:"Module...", value:false, intName:'module', desc: "Make new stuff!", ignore: true,},
+							//{name:"New Character...", value: false, intName:'newchar', desc: "Make a new character!", ignore: true,},
+							//{name:"New Stage...", value:false, intName:'newstage', desc: "Make a new stage!", ignore: true,},
+							//{name: "New Song...", value: false, intName:'newsong', desc: "Make a new song!", ignore: true,},
+							//{name: "New Week...", value: false, intName: 'newweek', desc: "Make a new week!", ignore: true,},
 							{name: "Sort...", value: false, intName: 'sort', desc: "Sort some of your current songs/weeks!", ignore : true,}
 							#end
 						];
@@ -339,6 +341,10 @@ class SaveDataState extends MusicBeatState
 						saveOptions();
 
 						LoadingState.loadAndSwitchState(new NewSongState());
+					case "Module...":
+						saveOptions();
+
+						LoadingState.loadAndSwitchState(new ModuleState());
 					case "New Week...":
 						saveOptions();
 						NewWeekState.sorted = false;
@@ -347,10 +353,6 @@ class SaveDataState extends MusicBeatState
 						saveOptions();
 
 						LoadingState.loadAndSwitchState(new SelectSortState());
-					case "Import Assets...":
-						//saveOptions();
-						trace('Coming soon');
-						//LoadingState.loadAndSwitchState(new ModPlusCarryState());
 					case "UI Layout...":
 						//saveOptions();
 

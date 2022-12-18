@@ -6,7 +6,7 @@ import flixel.FlxG;
 class LoadingState extends FlxState {
     public static function loadAndSwitchState(target:FlxState, ?allowDjkf:Bool) {
 
-		PlayerSettings.player1.controls.setKeyboardScheme(Solo(false));
+		PlayerSettings.player1.controls.setKeyboardScheme(Solo(4));
         if ((target is ChartingState)) {
             FlxG.switchState(new LoadingState());
         } else {

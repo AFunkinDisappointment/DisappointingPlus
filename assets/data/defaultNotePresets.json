@@ -1,0 +1,335 @@
+{
+    "key1" : [
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    }
+    ],
+    "key2" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key3" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key4" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key5" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key6" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    },
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	    	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key7" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	    	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ],
+    "key8" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    },
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ]
+    "key9" : [
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "purple",
+	    	"idle": "arrowLEFT",
+	    	"pressed": "left press",
+	   	"confirm": "left confirm",
+	    	"sing": "singLEFT"
+	    },
+	    {
+	    	"note": "blue",
+	    	"idle": "arrowDOWN",
+	    	"pressed": "down press",
+	    	"confirm": "down confirm",
+	    	"sing": "singDOWN"
+	    },
+	    {
+	    	"note": "green",
+	    	"idle": "arrowUP",
+	    	"pressed": "up press",
+	    	"confirm": "up confirm",
+	    	"sing": "singUP"
+	    },
+	    {
+	    	"note": "red",
+	    	"idle": "arrowRIGHT",
+	    	"pressed": "right press",
+	    	"confirm": "right confirm",
+	    	"sing": "singRIGHT"
+	    }
+    ]
+}

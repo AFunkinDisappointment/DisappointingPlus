@@ -177,6 +177,7 @@ class CategoryState extends MusicBeatState
 					}
 				}
 			}
+			FreeplayState.curCategory = categories[curSelected];
 			FreeplayState.currentSongList = songsButData;
 			LoadingState.loadAndSwitchState(new FreeplayState());
 

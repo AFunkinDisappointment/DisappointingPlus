@@ -27,63 +27,29 @@ class DifficultyManager {
             }
         }
         var weekJson:StorySongsJson = CoolUtil.parseJson(FNFAssets.getText('assets/data/storySonglist.json'));
-        if (weekJson.version == null || weekJson.version == 1) {
-            var week = 0;
-            for (weekSongs in weekJson.songs) {
-                var supThingies:Array<Int> = [];
-                var thingsInWeek:Array<Int> = [];
-                for (i in 1...weekSongs.length) {
-                    thingsInWeek = thingsInWeek.concat(supportedDiff.get(weekSongs[i].toLowerCase()));
-
-                }
-                for (diff in 0...diffJson.difficulties.length) {
-                    var count = 0;
-                    for (thing in thingsInWeek) {
-                        if (diff == thing) {
-                            count++;
-                        }
-                    }
-                    if (count < weekSongs.length - 2) {
-                        // do nothing, it isn't supported
-                    } else {
-                        supThingies.push(diff);
-                    }
-                }
-                // postfix means we get the value before it is incremented!
-                weeksSupported.set(week++, supThingies);
-            }
-        } else if (weekJson.version == 2) {
-            var week = 0;
-            for (weekThing in weekJson.weeks) {
-                var weekSongs = weekThing.songs;
-				var supThingies:Array<Int> = [];
-				var thingsInWeek:Array<Int> = [];
-				for (i in 0...weekSongs.length)
-				{
-					thingsInWeek = thingsInWeek.concat(supportedDiff.get(weekSongs[i].toLowerCase()));
-				}
-				for (diff in 0...diffJson.difficulties.length)
-				{
-					var count = 0;
-					for (thing in thingsInWeek)
-					{
-						if (diff == thing)
-						{
-							count++;
-						}
-					}
-					if (count < weekSongs.length - 1)
-					{
-						// do nothing, it isn't supported
-					}
-					else
-					{
-						supThingies.push(diff);
+        var week = 0;
+        for (weekThing in weekJson.weeks) {
+            var weekSongs = weekThing.songs;
+			var supThingies:Array<Int> = [];
+			var thingsInWeek:Array<Int> = [];
+			for (i in 0...weekSongs.length) {
+				thingsInWeek = thingsInWeek.concat(supportedDiff.get(weekSongs[i].toLowerCase()));
+			}
+			for (diff in 0...diffJson.difficulties.length) {
+				var count = 0;
+				for (thing in thingsInWeek) {
+					if (diff == thing) {
+						count++;
 					}
 				}
-				// postfix means we get the value before it is incremented!
-				weeksSupported.set(week++, supThingies);
-            }
+				if (count < weekSongs.length - 1) {
+					// do nothing, it isn't supported
+				} else {
+					supThingies.push(diff);
+				}
+			}
+			// postfix means we get the value before it is incremented!
+			weeksSupported.set(week++, supThingies);
         }
     }
     public static function changeDifficulty(diff:Int, ?change:Int=0):DiffInfo {

@@ -1,6 +1,7 @@
 package;
 
 import flash.display.BitmapData;
+import Judgement.TUI;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -64,6 +65,8 @@ class EdtNote extends FlxSprite
 	public var nukeNote = false;
 	public var drainNote = false;
 
+	var currentKey = null; // I tried pulling this from Playstate but it was being weird...
+
 	static var coolCustomGraphics:Array<FlxGraphic> = [];
 
 	// altNote can be int or bool. int just determines what alt is played
@@ -79,36 +82,28 @@ class EdtNote extends FlxSprite
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
 		this.strumTime = strumTime;
+		NOTE_AMOUNT = ChartingState._song.preferredNoteAmount;
 
-		this.noteData = noteData % 8;
+		var notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/data/defaultNotePresets.json'));
+		currentKey = Reflect.field(notePresets, 'key' + NOTE_AMOUNT);
+
+		this.noteData = noteData;
 		var sussy:Bool = false;
-		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4)
-		{
+		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4) {
 			mineNote = true;
-		}
-		if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6)
-		{
+		} else if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6) {
 			isLiftNote = true;
-		}
-		// die : )
-		if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8)
-		{
+		} else if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8) {
 			nukeNote = true;
-		}
-		if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10)
-		{
+		} else if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10) {
 			drainNote = true;
-		}
-		if (noteData >= NOTE_AMOUNT * 10)
-		{
+		} else if (noteData >= NOTE_AMOUNT * 10) {
 			sussy = true;
 		}
 
-		// var daStage:String = PlayState.curStage;
 		frames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/normal/NOTE_assets.png',
 			'assets/images/custom_ui/ui_packs/normal/NOTE_assets.xml');
-		if (sussy)
-		{
+		if (sussy) {
 			// we need to load a unique instance
 			// we only need 1 unique instance per number so we do save the graphics
 			var sussyInfo = Math.floor(noteData / (NOTE_AMOUNT * 2)) - 5;
@@ -117,61 +112,24 @@ class EdtNote extends FlxSprite
 
 			frames = FlxAtlasFrames.fromSparrow(coolCustomGraphics[sussyInfo], 'assets/images/custom_ui/ui_packs/normal/NOTE_assets.xml');
 		}
-		animation.addByPrefix('greenScroll', 'green0');
-		animation.addByPrefix('redScroll', 'red0');
-		animation.addByPrefix('blueScroll', 'blue0');
-		animation.addByPrefix('purpleScroll', 'purple0');
 
-		animation.addByPrefix('purpleholdend', 'pruple end hold');
-		animation.addByPrefix('greenholdend', 'green hold end');
-		animation.addByPrefix('redholdend', 'red hold end');
-		animation.addByPrefix('blueholdend', 'blue hold end');
-
-		animation.addByPrefix('purplehold', 'purple hold piece');
-		animation.addByPrefix('greenhold', 'green hold piece');
-		animation.addByPrefix('redhold', 'red hold piece');
-		animation.addByPrefix('bluehold', 'blue hold piece');
+		var noteName = currentKey[noteData % NOTE_AMOUNT].note;
 		if (isLiftNote)
-		{
-			animation.addByPrefix('greenScroll', 'green lift');
-			animation.addByPrefix('redScroll', 'red lift');
-			animation.addByPrefix('blueScroll', 'blue lift');
-			animation.addByPrefix('purpleScroll', 'purple lift');
-		}
-		if (nukeNote)
-		{
-			animation.addByPrefix('greenScroll', 'green nuke');
-			animation.addByPrefix('redScroll', 'red nuke');
-			animation.addByPrefix('blueScroll', 'blue nuke');
-			animation.addByPrefix('purpleScroll', 'purple nuke');
-		}
-		if (mineNote)
-		{
-			animation.addByPrefix('greenScroll', 'green mine');
-			animation.addByPrefix('redScroll', 'red mine');
-			animation.addByPrefix('blueScroll', 'blue mine');
-			animation.addByPrefix('purpleScroll', 'purple mine');
-		}
+			animation.addByPrefix('Scroll', noteName + ' lift');
+		else if (nukeNote)
+			animation.addByPrefix('Scroll', noteName + ' nuke');
+		else if (mineNote)
+			animation.addByPrefix('Scroll', noteName + ' mine');
+		else
+			animation.addByPrefix('Scroll', noteName + '0');
 
 		setGraphicSize(Std.int(width * 0.7));
 		updateHitbox();
 		antialiasing = true;
 
-		switch (noteData % 4)
-		{
-			case 0:
-				x += swagWidth * 0;
-				animation.play('purpleScroll');
-			case 1:
-				x += swagWidth * 1;
-				animation.play('blueScroll');
-			case 2:
-				x += swagWidth * 2;
-				animation.play('greenScroll');
-			case 3:
-				x += swagWidth * 3;
-				animation.play('redScroll');
-		}
+		x += swagWidth * (noteData % NOTE_AMOUNT);
+		animation.play('Scroll');
+
 		if (noteData >= NOTE_AMOUNT * 10)
 		{
 			var sussyInfo = Math.floor(noteData / (NOTE_AMOUNT * 2));

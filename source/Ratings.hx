@@ -173,11 +173,11 @@ class Ratings
 			"Score:"
 			+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
 			+ // Score
-			" | Combo Breaks:"
+			" | Misses:"
 			+ PlayState.misses
 			+ // Misses/Combo Breaks
 			" | Accuracy:"
-			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")
+			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + "%")
 			+ // Accuracy
 			" | "
 			+ GenerateLetterRank(accuracy) : ""); // Letter Rank

@@ -46,14 +46,12 @@ class HealthIcon extends FlxSprite
 		}
 		return iconState = x;
 	}
-	public function new(char:String = 'bf', isPlayer:Bool = false)
-	{
+	public function new(char:String = 'bf', isPlayer:Bool = false) {
 		player = isPlayer;
 		super();
 		antialiasing = true;
 		switchAnim(char);
 		scrollFactor.set();
-
 	}
 	public function switchAnim(char:String = 'bf') {
 		var charJson:Dynamic = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/custom_chars"));

@@ -15,6 +15,7 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.graphics.frames.FlxFramesCollection;
 import flash.display.BitmapData;
 import lime.utils.Assets;
 import flixel.FlxG;
@@ -22,6 +23,7 @@ import lime.system.System;
 import lime.app.Application;
 import flixel.system.FlxSound;
 import openfl.utils.AssetType;
+import Song.SwagSong;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
@@ -56,6 +58,9 @@ class Character extends FlxSprite
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var camOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
+
+	public static var charStorage:Map<String, FlxFramesCollection>;
+	public static var makeStorage:Bool = true;
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
@@ -147,6 +152,10 @@ class Character extends FlxSprite
 	{
 		animOffsets = new Map<String, Array<Dynamic>>();
 		camOffsets = new Map<String, Array<Dynamic>>();
+		if (makeStorage) {
+			charStorage = new Map<String, FlxFramesCollection>();
+			makeStorage = false;
+		}
 		super(x, y);
 
 		curCharacter = character;
@@ -249,7 +258,7 @@ class Character extends FlxSprite
 			// third, we want character to turn purple, which is handled here.
 			color = 0xCFAFFF;
 		}
-		else if (color != FlxColor.WHITE)
+		else if (color == 0xCFAFFF)
 		{
 			color = FlxColor.WHITE;
 		}
@@ -261,6 +270,10 @@ class Character extends FlxSprite
 			}
 		}
 		playAnim(directName, true);
+	}
+	public static function preloadCharacter(daChar:String) {
+		var charLoad = new Character(0, 0, daChar);
+		charStorage[daChar] = charLoad.frames;
 	}
 	override function update(elapsed:Float)
 	{
@@ -353,7 +366,7 @@ class Character extends FlxSprite
 				callInterp("dance", [this]);
 			else
 				playAnim('idle');
-			if (color != FlxColor.WHITE)
+			if (color == 0xCFAFFF)
 			{
 				color = FlxColor.WHITE;
 			}
@@ -400,12 +413,23 @@ class Character extends FlxSprite
 			}
 		}
 	}
-	public function loadMappedAnims() {
+	public function loadMappedAnims(?song:SwagSong, ?char:String) {
 		// todo, make better
-		// wish granted
-		var mappedAnims = Song.loadFromJson(curCharacter, PlayState.SONG.song).notes;
+		// wish granted (again)
+		if (animationNotes != [])
+			animationNotes = [];
+
+		var mappedAnims;
+		if (song != null)
+			mappedAnims = song.notes;
+		else
+			mappedAnims = Song.loadFromJson(curCharacter, PlayState.SONG.song).notes;
+
 		for (anim in mappedAnims) {
 			for (note in anim.sectionNotes) {
+				if ((char == 'bf' && ((note[1] <= 3 && anim.mustHitSection) || (note[1] > 3 && note[1] < 8 && !anim.mustHitSection))) 
+					|| (char == 'dad' && ((note[1] <= 3 && !anim.mustHitSection) || (note[1] > 3 && note[1] < 8 &&anim.mustHitSection)))
+					|| char == null) //dude what the funk is this
 				animationNotes.push(note);
 			}
 		} 

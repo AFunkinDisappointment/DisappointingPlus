@@ -44,6 +44,7 @@ class NewWeekState extends MusicBeatState
 {
 	var addCharUi:FlxUI;
 	var nameText:FlxUIInputText;
+	var descText:FlxUIInputText;
 	var mainPngButton:FlxUIButton;
 	var mainXmlButton:FlxUIButton;
 	var selectSongsButton:FlxButton;
@@ -71,8 +72,7 @@ class NewWeekState extends MusicBeatState
 			{
 				var coolDialog = new FileDialog();
 				coolDialog.browse(FileDialogType.OPEN);
-				coolDialog.onSelect.add(function(path:String):Void
-				{
+				coolDialog.onSelect.add(function(path:String):Void {
 					epicFiles.png = path;
 				});
 			});
@@ -80,8 +80,7 @@ class NewWeekState extends MusicBeatState
 			{
 				var coolDialog = new FileDialog();
 				coolDialog.browse(FileDialogType.OPEN);
-				coolDialog.onSelect.add(function(path:String):Void
-				{
+				coolDialog.onSelect.add(function(path:String):Void {
 					epicFiles.xml = path;
 					trace(epicFiles);
 				});
@@ -91,11 +90,12 @@ class NewWeekState extends MusicBeatState
 				SelectSongsState.selectedSongs = [];
 				openSubState(new SelectSongsState());
 			});
-			nameText = new FlxUIInputText(100, 50, 70, "daddy dearest");
-			likeText = new FlxUIInputText(100, 10, 70, "WEEK1 select");
-			dadText = new FlxUIInputText(100, 90, 70, "dad");
-			bfText = new FlxUIInputText(100, 130, 70, "bf");
-			gfText = new FlxUIInputText(100, 170, 70, "gf");
+			nameText = new FlxUIInputText(100, 10, 70, "week1");
+			descText = new FlxUIInputText(100, 50, 70, "daddy dearest");
+			likeText = new FlxUIInputText(100, 90, 70, "WEEK1 select");
+			dadText = new FlxUIInputText(100, 130, 70, "dad");
+			bfText = new FlxUIInputText(100, 170, 70, "bf");
+			gfText = new FlxUIInputText(100, 210, 70, "gf");
 			add(mainPngButton);
 			add(mainXmlButton);
 			finishButton = new FlxButton(FlxG.width - 170, FlxG.height - 50, "Finish", function():Void
@@ -104,6 +104,7 @@ class NewWeekState extends MusicBeatState
 				LoadingState.loadAndSwitchState(new SaveDataState());
 			});
 			add(nameText);
+			add(descText);
 			add(likeText);
 			add(selectSongsButton);
 			add(dadText);
@@ -121,12 +122,10 @@ class NewWeekState extends MusicBeatState
 		
 	}
 
-
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
-
 	}
+
 	function writeCharacters() {
 		#if sys
 		var parsedWeekJson:StoryMenuState.StorySongsJson = CoolUtil.parseJson(FNFAssets.getJson("assets/data/storySonglist"));
@@ -137,21 +136,12 @@ class NewWeekState extends MusicBeatState
 		for (song in SelectSongsState.selectedSongs) {
 			coolSongArray.push(song);
 		}
-		trace("Pog");
-		trace(epicFiles.png);
-		File.copy(epicFiles.png, 'assets/images/campaign-ui-week/week' + parsedWeekJson.songs.length + '.png');
-		trace("ehh");
-		File.copy(epicFiles.xml, 'assets/images/campaign-ui-week/week' + parsedWeekJson.songs.length + '.xml');
-		trace("parsed");
-		if (parsedWeekJson.version == 1 || parsedWeekJson.version == null) {
-			parsedWeekJson.songs.push(coolSongArray);
-			parsedWeekJson.weekNames.push(nameText.text);
-			parsedWeekJson.characters.push([dadText.text, bfText.text, gfText.text]);
-		} else if (parsedWeekJson.version == 2) {
-			var coolObject:StoryMenuState.WeekInfo = {animation: coolSongArray[0], name: nameText.text, bf: bfText.text, gf: gfText.text, dad: dadText.text, songs: coolSongArray.slice(1)};
-			parsedWeekJson.weeks.push(coolObject);
+		File.copy(epicFiles.png, 'assets/images/campaign-ui-week/' + nameText.text + '.png');
 
-		}
+		File.copy(epicFiles.xml, 'assets/images/campaign-ui-week/' + nameText.text + '.xml');
+
+		var coolObject:StoryMenuState.WeekInfo = {animation: coolSongArray[0], name: nameText.text, desc: descText.text, bf: bfText.text, gf: gfText.text, dad: dadText.text, songs: coolSongArray.slice(1)};
+		parsedWeekJson.weeks.push(coolObject);
 		
 		File.saveContent('assets/data/storySonglist.json', CoolUtil.stringifyJson(parsedWeekJson));
 		trace("cool stuff");

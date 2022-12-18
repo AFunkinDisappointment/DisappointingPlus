@@ -119,6 +119,8 @@ class TitleState extends MusicBeatState
 		PlayerSettings.init();
 		Highscore.load();
 
+		FlxG.sound.volumeUpKeys = FlxG.save.data.keys.volUp;
+		FlxG.sound.volumeDownKeys = FlxG.save.data.keys.volDown;
 
 		#if FREEPLAY
 		LoadingState.loadAndSwitchState(new CategoryState());

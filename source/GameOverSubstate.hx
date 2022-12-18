@@ -24,31 +24,24 @@ class GameOverSubstate extends MusicBeatSubstate
 	var bf:Character;
 	var camFollow:FlxObject;
 
-	var stageSuffix:String = "";
+	var musicSuffix:String = "";
 
-	public function new(x:Float, y:Float)
-	{
-		var daStage = PlayState.curStage;
-		var p1 = PlayState.SONG.player1;
-		// hscript means everything is custom
-		// and they don't  fucking lose their shit if 
-		// they don't have the proper animation
-		var daBf:String = p1 + '-dead';
-		trace(p1);
+	public function new(x:Float, y:Float, player:Character) {
+		var daBf:String = player.curCharacter + '-dead';
+		trace(player.curCharacter);
 		
 		super();
 		Conductor.songPosition = 0;
 
 		bf = new Character(x, y, daBf, true);
-		// : )
 		bf.beingControlled = true;
 		add(bf);
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);
 		if (bf.isPixel)
-			stageSuffix = "-pixel";
-		FlxG.sound.play('assets/sounds/fnf_loss_sfx' + stageSuffix + TitleState.soundExt);
+			musicSuffix = "-pixel";
+		FlxG.sound.play('assets/sounds/fnf_loss_sfx' + musicSuffix + TitleState.soundExt);
 		Conductor.changeBPM(100);
 
 		// FlxG.camera.followLerp = 1;
@@ -59,17 +52,14 @@ class GameOverSubstate extends MusicBeatSubstate
 		bf.playAnim('firstDeath');
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.ACCEPT)
-		{
+		if (controls.ACCEPT) {
 			endBullshit();
 		}
 
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			FlxG.sound.music.stop();
 
 			if (PlayState.isStoryMode)
@@ -78,24 +68,20 @@ class GameOverSubstate extends MusicBeatSubstate
 				LoadingState.loadAndSwitchState(new FreeplayState());
 		}
 
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.curFrame == 12)
-		{
+		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.curFrame == 12) {
 			FlxG.camera.follow(camFollow, LOCKON, 0.01);
 		}
 
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
-		{
-			FlxG.sound.playMusic('assets/music/gameOver' + stageSuffix + '.ogg');
+		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished) {
+			FlxG.sound.playMusic('assets/music/gameOver' + musicSuffix + '.ogg');
 		}
 
-		if (FlxG.sound.music.playing)
-		{
+		if (FlxG.sound.music.playing) {
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		FlxG.log.add('beat');
@@ -103,18 +89,14 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	var isEnding:Bool = false;
 
-	function endBullshit():Void
-	{
-		if (!isEnding)
-		{
+	function endBullshit():Void {
+		if (!isEnding) {
 			isEnding = true;
 			bf.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
-			FlxG.sound.play('assets/music/gameOverEnd' + stageSuffix + TitleState.soundExt);
-			new FlxTimer().start(0.7, function(tmr:FlxTimer)
-			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
+			FlxG.sound.play('assets/music/gameOverEnd' + musicSuffix + TitleState.soundExt);
+			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+				FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
 					LoadingState.loadAndSwitchState(new PlayState());
 				});
 			});

@@ -166,11 +166,10 @@ class NewCharacterState extends MusicBeatState
 		super.create();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
-
 	}
+
 	function writeCharacters() {
 		// check to see if directory exists
 		#if sys

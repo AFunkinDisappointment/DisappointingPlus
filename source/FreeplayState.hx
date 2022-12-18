@@ -41,6 +41,8 @@ class FreeplayState extends MusicBeatState
 	var selector:FlxText;
 	static var curSelected:Int = 0;
 	var curDifficulty:Int = 1;
+	public static var curCategory = '';
+	private static var prevCategory = '';
 	var soundTestSong:Song.SwagSong;
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -92,7 +94,7 @@ class FreeplayState extends MusicBeatState
 								var difficultiesFP:Array<Dynamic> = diffJson.difficulties;
 								var existsWeek = false;
 								for (diff in 0...difficultiesFP.length) {
-									if (Highscore.getWeekScore(week, diff) != 0) {
+									if (Highscore.getWeekScore('$week', diff) != 0) {
 										existsWeek = true;
 										break;
 									}
@@ -128,6 +130,8 @@ class FreeplayState extends MusicBeatState
 					songs.push(songData);
 			}
 		}
+		if (curCategory != prevCategory)
+			curSelected = 0;
 
 		curDifficulty = DifficultyIcons.getDefaultDiffFP();
 		/*
@@ -137,8 +141,7 @@ class FreeplayState extends MusicBeatState
 					FlxG.sound.playMusic('assets/music/freakyMenu' + TitleState.soundExt);
 			}
 		 */
-		if (!FlxG.sound.music.playing)
-		{
+		if (!FlxG.sound.music.playing) {
 			FlxG.sound.playMusic(FNFAssets.getSound('assets/music/custom_menu_music/'
 				+ CoolUtil.parseJson(FNFAssets.getJson("assets/music/custom_menu_music/custom_menu_music")).Menu
 				+ '/freakyMenu'
@@ -180,8 +183,7 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
-		for (i in 0...songs.length)
-		{
+		for (i in 0...songs.length) {
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true, false, false, null, null, null, true);
 			if (!OptionsHandler.options.style) {
 				songText.itemType = "Classic";

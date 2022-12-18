@@ -26,10 +26,13 @@
     ["parents-christmas", "bf", "gf"],
     ["senpai", "bf", "gf"]
   ],
+  //ignore everything above this
+  //game no work if it isn't there or smth
   "weeks": [
     {
+      "name": "tutorial",
       "songs": ["Tutorial"],
-      "name": "Learnin' How To Rap",
+      "desc": "Learnin' How To Rap",
       "animation": "tutorial selected",
       // bf and gf default to regular values,
       // but for examples sake i include them here
@@ -38,45 +41,46 @@
       "gf": "gf"
     },
     {
+      "name": "week1",
       "songs": ["Bopeebo", "Fresh", "Dadbattle"],
-      "name": "Daddy Dearest",
+      "desc": "Daddy Dearest",
       "animation": "WEEK1 select",
       "dad": "dad"
     },
     {
+      "name": "week2",
       "songs": ["Spookeez", "South", "Monster"],
       "animation": "week2 select",
-      "name": "Spooky Month",
+      "desc": "Spooky Month",
       "dad": "spooky"
     },
     {
+      "name": "week3",
       "songs": ["Pico", "Philly", "Blammed"],
       "animation": "Week 3 press",
-      "name": "PICO",
+      "desc": "PICO",
       "dad": "pico"
     },
     {
+      "name": "week4",
       "songs": ["Satin-Panties", "High", "Milf"],
       "animation": "Week 4 press",
-      "name": "MOMMY MUST MURDER",
+      "desc": "MOMMY MUST MURDER",
       "dad": "mom"
     },
     {
+      "name": "week5",
       "songs": ["Cocoa", "Eggnog", "Winter-Horrorland"],
       "animation": "week 5",
-      "name": "RED SNOW",
+      "desc": "RED SNOW",
       "dad": "parents-christmas"
     },
     {
+      "name": "week6",
       "songs": ["Senpai", "Roses", "Thorns"],
       "animation": "Week 6",
-      "name": "hating simulator ft. moawling",
+      "desc": "hating simulator ft. moawling",
       "dad": "senpai"
     }
-
-  ],
-  // version 2 uses weeks one
-  // version 1 uses old system...
-  // i think version 2 is more intutive
-  "version": 2
+  ]
 }

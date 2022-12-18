@@ -64,7 +64,9 @@ class PluginManager {
 		// : )
 		interp.variables.set("FlxG", HscriptGlobals);
 		interp.variables.set("FlxTimer", flixel.util.FlxTimer);
+        interp.variables.set("FlxObject", flixel.FlxObject);
 		interp.variables.set("FlxTween", flixel.tweens.FlxTween);
+        interp.variables.set("FlxCamera", flixel.FlxCamera);
         interp.variables.set("FlxText", flixel.text.FlxText);
         interp.variables.set("FlxBar", flixel.ui.FlxBar);
 		interp.variables.set("Std", Std);

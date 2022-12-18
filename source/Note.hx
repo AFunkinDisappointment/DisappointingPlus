@@ -115,6 +115,7 @@ typedef NoteInfo = {
 	var ?noteMiss:Null<String>;
 	/**
 	 * The function for when a note is at the strumline
+	 * VERY BROKEN DONT USE PLEASE
 	 */
 	var ?noteStrum:Null<String>;
 	/**
@@ -144,7 +145,7 @@ class Note extends DynamicSprite
 {
 	public var strumTime:Float = 0;
 	public static var getFrames:Bool = true;
-	static var gotFrames:FlxAtlasFrames = null;
+	public static var gotFrames:FlxAtlasFrames = null;
 	public static var getSpecialFrames:Bool = true;
 	static var specialFramesKey:Array<String> = [];
 	static var gotSpecialFrames:Array<FlxAtlasFrames> = [];
@@ -203,6 +204,7 @@ class Note extends DynamicSprite
 	public var coolId:Null<String> = null;
 	public var oppntSing:Null<SingInfo>;
 	public var customNotePath:Null<String> = null;
+	var currentKey = null; // I tried pulling this from Playstate but it was being weird...
 	// altNote can be int or bool. int just determines what alt is played
 	// format: [strumTime:Float, noteDirection:Int, sustainLength:Float, altNote:Union<Bool, Int>, isLiftNote:Bool, healMultiplier:Float, damageMultipler:Float, consistentHealth:Bool, timingMultiplier:Float, shouldBeSung:Bool, ignoreHealthMods:Bool, animSuffix:Union<String, Int>]
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?customImage:Null<BitmapData>, ?customXml:Null<String>, ?customEnds:Null<BitmapData>, ?LiftNote:Bool=false, ?animSuffix:String, ?numSuffix:Int)
@@ -215,6 +217,14 @@ class Note extends DynamicSprite
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
 		isLiftNote = LiftNote;
+
+		var curUiType:TUI = Reflect.field(Judgement.uiJson, PlayState.SONG.uiType);
+		var notePresets;
+		if (FNFAssets.exists('assets/images/custom_ui/ui_packs/' + curUiType.uses + '/multiNotePresets.json'))
+			notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/images/custom_ui/ui_packs/' + curUiType.uses + '/multiNotePresets.json'));
+		else
+			notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/data/defaultNotePresets.json'));
+		currentKey = Reflect.field(notePresets, 'key' + NOTE_AMOUNT);
 		
 		x += 50;
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
@@ -314,8 +324,7 @@ class Note extends DynamicSprite
 			shouldBeSung = false;
 			// dontStrum = true;
 		}
-		var curUiType:TUI = Reflect.field(Judgement.uiJson, PlayState.SONG.uiType);
-		// var daStage:String = PlayState.curStage;
+
 		if (!curUiType.isPixel) {	
 			if (customNotePath != null) {
 				if (getSpecialFrames) {
@@ -348,142 +357,163 @@ class Note extends DynamicSprite
 			} else {
 				animSuffix = ' ' + animSuffix;
 			}
-			animation.addByPrefix('greenScroll', 'green${animSuffix}0');
-			animation.addByPrefix('redScroll', 'red${animSuffix}0');
-			animation.addByPrefix('blueScroll', 'blue${animSuffix}0');
-			animation.addByPrefix('purpleScroll', 'purple${animSuffix}0');
 
-			animation.addByPrefix('purpleholdend', 'pruple end hold${animSuffix}');
-			animation.addByPrefix('greenholdend', 'green hold end${animSuffix}');
-			animation.addByPrefix('redholdend', 'red hold end${animSuffix}');
-			animation.addByPrefix('blueholdend', 'blue hold end${animSuffix}');
+			var noteName = currentKey[noteData % NOTE_AMOUNT].note;
+			if (isLiftNote)
+				animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}');
+			else if (nukeNote)
+				animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}');
+			else if (mineNote)
+				animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}');
+			else if (dontEdit)
+				animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT]);
+			else
+				animation.addByPrefix('Scroll', noteName + '${animSuffix}0');
 
-			animation.addByPrefix('purplehold', 'purple hold piece${animSuffix}');
-			animation.addByPrefix('greenhold', 'green hold piece${animSuffix}');
-			animation.addByPrefix('redhold', 'red hold piece${animSuffix}');
-			animation.addByPrefix('bluehold', 'blue hold piece${animSuffix}');
-			if (isLiftNote) {
-				animation.addByPrefix('greenScroll', 'green lift${animSuffix}');
-				animation.addByPrefix('redScroll', 'red lift${animSuffix}');
-				animation.addByPrefix('blueScroll', 'blue lift${animSuffix}');
-				animation.addByPrefix('purpleScroll', 'purple lift${animSuffix}');
-			}
-			if (nukeNote) {
-				animation.addByPrefix('greenScroll', 'green nuke${animSuffix}');
-				animation.addByPrefix('redScroll', 'red nuke${animSuffix}');
-				animation.addByPrefix('blueScroll', 'blue nuke${animSuffix}');
-				animation.addByPrefix('purpleScroll', 'purple nuke${animSuffix}');
-			}
-			
-			if (mineNote) {
-				animation.addByPrefix('greenScroll', 'green mine${animSuffix}');
-				animation.addByPrefix('redScroll', 'red mine${animSuffix}');
-				animation.addByPrefix('blueScroll', 'blue mine${animSuffix}');
-				animation.addByPrefix('purpleScroll', 'purple mine${animSuffix}');
-			}
-			if (dontEdit) {
-				animation.addByPrefix('greenScroll', specialNoteInfo.animNames[2]);
-				animation.addByPrefix('redScroll', specialNoteInfo.animNames[3]);
-				animation.addByPrefix('purpleScroll', specialNoteInfo.animNames[0]);
-				animation.addByPrefix('blueScroll', specialNoteInfo.animNames[1]);
+			animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
+			animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
 
-			}
 			setGraphicSize(Std.int(width * 0.7));
 			updateHitbox();
 			antialiasing = true;
 			// when arrowsEnds != arrowEnds :laughing_crying:
-		}
-		else
-		{
+		} else {
 			isPixel = true;
-			if (customNotePath != null)
-				loadGraphic(customNotePath + '.png', true, 17, 17);
-			else
-				loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrows-pixels.png", true, 17, 17);
+			if (FNFAssets.exists('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrows-pixels.xml")) {
+				if (customNotePath != null) {
+					if (getSpecialFrames) {
+						getSpecialFrames = false;
+						specialFramesKey = [];
+						gotSpecialFrames = [];
+					}
+					var funnyNum = specialFramesKey.indexOf(customNotePath);
+					if (funnyNum == -1) {
+						var daFrames = DynamicAtlasFrames.fromSparrow(customNotePath + '.png', customNotePath + '.xml');
+						specialFramesKey.push(customNotePath);
+						gotSpecialFrames.push(daFrames);
+						funnyNum = specialFramesKey.length - 1;
+					}
+					frames = gotSpecialFrames[funnyNum];
+				} else {
+					if (getFrames) {
+						getFrames = false;
+						gotFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+							+ curUiType.uses
+							+ "/arrows-pixels.png",
+							'assets/images/custom_ui/ui_packs/'
+							+ curUiType.uses
+							+ "/arrows-pixels.xml");
+					}
+					frames = gotFrames;
+				}
 
-			if (animSuffix != null && numSuffix == null) {
-				numSuffix = Std.parseInt(animSuffix);
-			}
-			if (numSuffix != null) {
-				var intSuffix = numSuffix;
-				animation.add('greenScroll', [intSuffix]);
-				animation.add('redScroll', [intSuffix]);
-				animation.add('blueScroll', [intSuffix]);
-				animation.add('purpleScroll', [intSuffix]);
+				if (animSuffix == null) {
+					animSuffix = '';
+				} else {
+					animSuffix = ' ' + animSuffix;
+				}
+
+				var noteName = currentKey[noteData % NOTE_AMOUNT].note;
+				if (isLiftNote)
+					animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}');
+				else if (nukeNote)
+					animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}');
+				else if (mineNote)
+					animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}');
+				else if (dontEdit)
+					animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT]);
+				else
+					animation.addByPrefix('Scroll', noteName + '${animSuffix}0');
+
 				if (isSustainNote) {
-					loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrowEnds.png", true, 7, 6);
+					frames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+							+ curUiType.uses
+							+ "/arrowEnds.png",
+							'assets/images/custom_ui/ui_packs/'
+							+ curUiType.uses
+							+ "/arrowEnds.xml");
 
-					animation.add('purpleholdend', [intSuffix]);
-					animation.add('greenholdend', [intSuffix]);
-					animation.add('redholdend', [intSuffix]);
-					animation.add('blueholdend', [intSuffix]);
-
-					animation.add('purplehold', [intSuffix]);
-					animation.add('greenhold', [intSuffix]);
-					animation.add('redhold', [intSuffix]);
-					animation.add('bluehold', [intSuffix]);
+					animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
+					animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
 				}
 			} else {
-				animation.add('greenScroll', [6]);
-				animation.add('redScroll', [7]);
-				animation.add('blueScroll', [5]);
-				animation.add('purpleScroll', [4]);
+				if (customNotePath != null)
+					loadGraphic(customNotePath + '.png', true, 17, 17);
+				else
+					loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrows-pixels.png", true, 17, 17);
 
-				if (isSustainNote) {
-					loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrowEnds.png", true, 7, 6);
+				if (animSuffix != null && numSuffix == null) {
+					numSuffix = Std.parseInt(animSuffix);
+				}
+				if (numSuffix != null) {
+					var intSuffix = numSuffix;
+					animation.add('greenScroll', [intSuffix]);
+					animation.add('redScroll', [intSuffix]);
+					animation.add('blueScroll', [intSuffix]);
+					animation.add('purpleScroll', [intSuffix]);
+					if (isSustainNote) {
+						loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrowEnds.png", true, 7, 6);
 
-					animation.add('purpleholdend', [4]);
-					animation.add('greenholdend', [6]);
-					animation.add('redholdend', [7]);
-					animation.add('blueholdend', [5]);
+						animation.add('purpleholdend', [intSuffix]);
+						animation.add('greenholdend', [intSuffix]);
+						animation.add('redholdend', [intSuffix]);
+						animation.add('blueholdend', [intSuffix]);
 
-					animation.add('purplehold', [0]);
-					animation.add('greenhold', [2]);
-					animation.add('redhold', [3]);
-					animation.add('bluehold', [1]);
+						animation.add('purplehold', [intSuffix]);
+						animation.add('greenhold', [intSuffix]);
+						animation.add('redhold', [intSuffix]);
+						animation.add('bluehold', [intSuffix]);
+					}
+				} else {
+					animation.add('greenScroll', [6]);
+					animation.add('redScroll', [7]);
+					animation.add('blueScroll', [5]);
+					animation.add('purpleScroll', [4]);
+
+					if (isSustainNote) {
+						loadGraphic('assets/images/custom_ui/ui_packs/' + curUiType.uses + "/arrowEnds.png", true, 7, 6);
+
+						animation.add('purpleholdend', [4]);
+						animation.add('greenholdend', [6]);
+						animation.add('redholdend', [7]);
+						animation.add('blueholdend', [5]);
+
+						animation.add('purplehold', [0]);
+						animation.add('greenhold', [2]);
+						animation.add('redhold', [3]);
+						animation.add('bluehold', [1]);
+					}
+					if (isLiftNote) {
+						animation.add('greenScroll', [22]);
+						animation.add('redScroll', [23]);
+						animation.add('blueScroll', [21]);
+						animation.add('purpleScroll', [20]);
+					}
+					if (mineNote) {
+						animation.add('greenScroll', [26]);
+						animation.add('redScroll', [27]);
+						animation.add('blueScroll', [25]);
+						animation.add('purpleScroll', [24]);
+					}
+					if (nukeNote) {
+						animation.add('greenScroll', [30]);
+						animation.add('redScroll', [31]);
+						animation.add('blueScroll', [29]);
+						animation.add('purpleScroll', [28]);
+					}
 				}
-				if (isLiftNote) {
-					animation.add('greenScroll', [22]);
-					animation.add('redScroll', [23]);
-					animation.add('blueScroll', [21]);
-					animation.add('purpleScroll', [20]);
+				if (dontEdit) {
+					animation.add('greenScroll', [specialNoteInfo.animInt[2]]);
+					animation.add('redScroll', [specialNoteInfo.animInt[3]]);
+					animation.add('purpleScroll', [specialNoteInfo.animInt[0]]);
+					animation.add('blueScroll', [specialNoteInfo.animInt[1]]);
 				}
-				if (mineNote) {
-					animation.add('greenScroll', [26]);
-					animation.add('redScroll', [27]);
-					animation.add('blueScroll', [25]);
-					animation.add('purpleScroll', [24]);
-				}
-				if (nukeNote) {
-					animation.add('greenScroll', [30]);
-					animation.add('redScroll', [31]);
-					animation.add('blueScroll', [29]);
-					animation.add('purpleScroll', [28]);
-				}
-			}
-			if (dontEdit) {
-				animation.add('greenScroll', [specialNoteInfo.animInt[2]]);
-				animation.add('redScroll', [specialNoteInfo.animInt[3]]);
-				animation.add('purpleScroll', [specialNoteInfo.animInt[0]]);
-				animation.add('blueScroll', [specialNoteInfo.animInt[1]]);
 			}
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 			updateHitbox();
 		}
-		switch (noteData % NOTE_AMOUNT) {
-			case 0:
-				x += swagWidth * 0;
-				animation.play('purpleScroll');
-			case 1:
-				x += swagWidth * 1;
-				animation.play('blueScroll');
-			case 2:
-				x += swagWidth * 2;
-				animation.play('greenScroll');
-			case 3:
-				x += swagWidth * 3;
-				animation.play('redScroll');
-		}
+		x += swagWidth * (noteData % NOTE_AMOUNT);
+		animation.play('Scroll');
 
 		// trace(prevNote);
 		if (isSustainNote && OptionsHandler.options.downscroll) {
@@ -493,18 +523,12 @@ class Note extends DynamicSprite
 			noteScore * 0.2;
 			alpha = 0.6;
 
+			altNote = prevNote.altNote;
+			altNum = prevNote.altNum;
+
 			x += width / 2;
 
-			switch (noteData % NOTE_AMOUNT) {
-				case 2:
-					animation.play('greenholdend');
-				case 3:
-					animation.play('redholdend');
-				case 1:
-					animation.play('blueholdend');
-				case 0:
-					animation.play('purpleholdend');
-			}
+			animation.play('holdend');
 
 			updateHitbox();
 
@@ -515,16 +539,7 @@ class Note extends DynamicSprite
 
 			if (prevNote.isSustainNote) {
 				// DO mod it because we DIDN'T do that
-				switch (prevNote.noteData % NOTE_AMOUNT) {
-					case 0:
-						prevNote.animation.play('purplehold');
-					case 1:
-						prevNote.animation.play('bluehold');
-					case 2:
-						prevNote.animation.play('greenhold');
-					case 3:
-						prevNote.animation.play('redhold');
-				}
+				prevNote.animation.play('hold');
 
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.daScrollSpeed;
 				prevNote.updateHitbox();

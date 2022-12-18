@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="NOTE_assets.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="arrowLEFT0000" x="0" y="0" width="17" height="17"/>
+	<SubTexture name="arrowDOWN0000" x="17" y="0" width="17" height="17"/>
+	<SubTexture name="arrowUP0000" x="34" y="0" width="17" height="17"/>
+	<SubTexture name="arrowRIGHT0000" x="51" y="0" width="17" height="17"/>
+	<SubTexture name="purple0000" x="0" y="17" width="17" height="17"/>
+	<SubTexture name="left press0000" x="0" y="17" width="17" height="17"/>
+	<SubTexture name="left press0001" x="0" y="34" width="17" height="17"/>
+	<SubTexture name="left confirm0000" x="0" y="51" width="17" height="17"/>
+	<SubTexture name="left confirm0001" x="0" y="68" width="17" height="17"/>
+	<SubTexture name="blue0000" x="17" y="17" width="17" height="17"/>
+	<SubTexture name="down press0000" x="17" y="17" width="17" height="17"/>
+	<SubTexture name="down press0001" x="17" y="34" width="17" height="17"/>
+	<SubTexture name="down confirm0000" x="17" y="51" width="17" height="17"/>
+	<SubTexture name="down confirm0001" x="17" y="68" width="17" height="17"/>
+	<SubTexture name="green0000" x="34" y="17" width="17" height="17"/>
+	<SubTexture name="up press0000" x="34" y="17" width="17" height="17"/>
+	<SubTexture name="up press0001" x="34" y="34" width="17" height="17"/>
+	<SubTexture name="up confirm0000" x="34" y="51" width="17" height="17"/>
+	<SubTexture name="up confirm0001" x="34" y="68" width="17" height="17"/>
+	<SubTexture name="red0000" x="51" y="17" width="17" height="17"/>
+	<SubTexture name="right press0000" x="51" y="17" width="17" height="17"/>
+	<SubTexture name="right press0001" x="51" y="34" width="17" height="17"/>
+	<SubTexture name="right confirm0000" x="51" y="51" width="17" height="17"/>
+	<SubTexture name="right confirm0001" x="51" y="68" width="17" height="17"/>
+
+	<SubTexture name="purple lift0000" x="0" y="85" width="17" height="17"/>
+	<SubTexture name="blue lift0000" x="17" y="85" width="17" height="17"/>
+	<SubTexture name="green lift0000" x="34" y="85" width="17" height="17"/>
+	<SubTexture name="red lift0000" x="51" y="85" width="17" height="17"/>
+
+	<SubTexture name="purple mine0000" x="0" y="102" width="17" height="17"/>
+	<SubTexture name="blue mine0000" x="17" y="102" width="17" height="17"/>
+	<SubTexture name="green mine0000" x="34" y="102" width="17" height="17"/>
+	<SubTexture name="red mine0000" x="51" y="102" width="17" height="17"/>
+
+	<SubTexture name="purple nuke0000" x="0" y="119" width="17" height="17"/>
+	<SubTexture name="blue nuke0000" x="17" y="119" width="17" height="17"/>
+	<SubTexture name="green nuke0000" x="34" y="119" width="17" height="17"/>
+	<SubTexture name="red nuke0000" x="51" y="119" width="17" height="17"/>
+</TextureAtlas>

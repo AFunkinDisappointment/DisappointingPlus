@@ -357,6 +357,34 @@ class NewSongState extends MusicBeatState
 		}
 	}
 	function writeCharacters() {
+		var daData:ModuleFunctions.SongImport = {
+			name: nameText.text,
+			p1: p1Text.text,
+			p2: p2Text.text,
+			gf: gfText.text,
+			stage: stageText.text,
+			ui: uiText.text,
+			cutscene: cutsceneText.text,
+			category: categoryText.text,
+			isHey: isHey.checked,
+			isCheer: isCheer.checked,
+			isMoody: isMoody.checked,
+			isSpooky: isSpooky.checked,
+			stageID: Std.int(stageID.value),
+			week: Std.parseInt(weekText.text),
+			char: charText.text,
+			display: displayText.text,
+			inst: instPath,
+			voices: voicePath,
+			dialog: dialogPath,
+			modchart: modchartPath,
+			diffFiles: coolDiffFiles
+		}
+		ModuleFunctions.importSong(daData);
+	}
+
+
+	function oldwriteCharacters() {
 		// check to see if directory exists
 		#if sys
 		if (!FileSystem.exists('assets/data/' + nameText.text.toLowerCase())) {

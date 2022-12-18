@@ -1,7 +1,7 @@
 THIS IS FOR YOU LITTLE CUNTS WHO KEEP SUGGESTING IT IN THE DISCORD
 FUCK YOU
 
-outsiders who haven't seen the chaos in the discord server deserve this more then you, and i'm writing this for 3 reasons
+outsiders who haven't seen the chaos in the discord server deserve this more than you, and i'm writing this for 3 reasons
 1. bulby literally won't
 2. to shut the little cunts up
 3. to make it easier for people to actually use this shit

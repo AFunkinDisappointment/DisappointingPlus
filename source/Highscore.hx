@@ -104,9 +104,9 @@ class Highscore
 				setFCLevel(bestOfAll, rating);
 		}
 	}
-	public static function saveWeekScore(week:Int = 1, score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, saving:String = "best"):Void
+	public static function saveWeekScore(week:String = 'Tutorial', score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?saving:String = "best"):Void
 	{
-		var daWeek:String = formatSong('week' + week, diff, saving);
+		var daWeek:String = formatSong('week-' + week, diff, saving);
 
 		if (songScores.exists(daWeek))
 		{
@@ -120,6 +120,19 @@ class Highscore
 			setScore(daWeek, score);
 			setAccuracy(daWeek, accuracy);
 		}
+	}
+
+	public static function deleteSongScore(song:String = 'Tutorial', ?diff:Int = 0):Void
+	{
+		var daSong:String = formatSong(song, diff, 'best');
+		setScore(daSong, 0);
+		setAccuracy(daSong, 0);
+	}
+	public static function deleteWeekScore(week:String = 'Tutorial', ?diff:Int = 0):Void
+	{
+		var daWeek:String = formatSong('week-' + week, diff, 'best');
+		setScore(daWeek, 0);
+		setAccuracy(daWeek, 0);
 	}
 
 	/**
@@ -230,18 +243,18 @@ class Highscore
 		}
 		return totalScore;
 	}
-	public static function getWeekScore(week:Int, diff:Int, useFor:String = "best"):Int
+	public static function getWeekScore(week:String, diff:Int, useFor:String = "best"):Int
 	{
-		if (!songScores.exists(formatSong('week' + week, diff, useFor)))
-			setScore(formatSong('week' + week, diff, useFor), 0);
+		if (!songScores.exists(formatSong('week-' + week, diff, useFor)))
+			setScore(formatSong('week-' + week, diff, useFor), 0);
 
-		return songScores.get(formatSong('week' + week, diff, useFor));
+		return songScores.get(formatSong('week-' + week, diff, useFor));
 	}
-	public static function getWeekAccuracy(week:Int, diff:Int, useFor:String = "best"):Float {
-		if (!songAccuracy.exists(formatSong('week' + week, diff, useFor)))
-			setAccuracy(formatSong('week' + week, diff, useFor), 0);
+	public static function getWeekAccuracy(week:String, diff:Int, useFor:String = "best"):Float {
+		if (!songAccuracy.exists(formatSong('week-' + week, diff, useFor)))
+			setAccuracy(formatSong('week-' + week, diff, useFor), 0);
 
-		return songAccuracy.get(formatSong('week' + week, diff, useFor));
+		return songAccuracy.get(formatSong('week-' + week, diff, useFor));
 	}
 
 	public static function load():Void

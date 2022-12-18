@@ -28,26 +28,21 @@ class MenuItem extends FlxSpriteGroup
 		// NO WONDER THERE ARE PREFORMANCE ISSUE
 		
 		var parsedWeekJson:StoryMenuState.StorySongsJson = CoolUtil.parseJson(FNFAssets.getJson("assets/data/storySongList"));
-		var rawPic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/week'+weekNum+".png");
+		var weekName = parsedWeekJson.weeks[weekNum].name;
+		var rawPic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + ".png");
 		
 		var rawXml:String = "";
-		if (FNFAssets.exists('assets/images/campaign-ui-week/week' + weekNum + ".xml")) {
-			rawXml = FNFAssets.getText('assets/images/campaign-ui-week/week' + weekNum + ".xml");
+		if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + ".xml")) {
+			rawXml = FNFAssets.getText('assets/images/campaign-ui-week/' + weekName + ".xml");
 		}
 		if (rawXml != "") {
 			var tex = FlxAtlasFrames.fromSparrow(rawPic, rawXml);
 			var animName:String = "";
-			if (parsedWeekJson.version == 1)
-			{
-				animName = parsedWeekJson.songs[weekNum][0];
-			}
-			if (parsedWeekJson.version == 2)
-			{
-				animName = parsedWeekJson.weeks[weekNum].animation;
-			}
+			animName = parsedWeekJson.weeks[weekNum].animation;
+
 			week = new FlxSprite();
 			week.frames = tex;
-			// TUTORIAL IS WEEK 0
+			// TUTORIAL IS tutorial (because I feel like it)
 			week.animation.addByPrefix("default", animName, 24);
 			add(week);
 

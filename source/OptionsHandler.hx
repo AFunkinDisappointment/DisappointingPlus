@@ -19,9 +19,11 @@ typedef TOptions = {
     var skipModifierMenu:Bool;
     var alwaysDoCutscenes:Bool;
     var useCustomInput:Bool;
+    var singYourHeartOut:Bool;
     // var DJFKKeys:Bool;
     var allowEditOptions:Bool;
     var downscroll:Bool;
+    var midscroll:Bool;
     var useSaveDataMenu:Bool;
     var preferredSave:Int;
     var showSongPos:Bool;
@@ -98,6 +100,7 @@ class OptionsHandler {
 			lastOptions.skipModifierMenu = true; // i'm going to use a special thing to do it
 			lastOptions.alwaysDoCutscenes = false;
 			lastOptions.useCustomInput = true;
+            lastOptions.singYourHeartOut = false;
             lastOptions.allowEditOptions = false;
             lastOptions.useSaveDataMenu = false;
             // lastOptions.downscroll // we are going to add this to a special new menu

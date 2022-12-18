@@ -14,6 +14,36 @@ import flixel.input.keyboard.FlxKey;
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
 {
+	var CTRLA = "ctrl1";
+	var CTRLB = "ctrl2";
+	var CTRLC = "ctrl3";
+	var CTRLD = "ctrl4";
+	var CTRLE = "ctrl5";
+	var CTRLF = "ctrl6";
+	var CTRLG = "ctrl7";
+	var CTRLH = "ctrl8";
+	var CTRLI = "ctrl9";
+
+	var CTRLA_P = "ctrl1-press";
+	var CTRLB_P = "ctrl2-press";
+	var CTRLC_P = "ctrl3-press";
+	var CTRLD_P = "ctrl4-press";
+	var CTRLE_P = "ctrl5-press";
+	var CTRLF_P = "ctrl6-press";
+	var CTRLG_P = "ctrl7-press";
+	var CTRLH_P = "ctrl8-press";
+	var CTRLI_P = "ctrl9-press";
+
+	var CTRLA_R = "ctrl1-release";
+	var CTRLB_R = "ctrl2-release";
+	var CTRLC_R = "ctrl3-release";
+	var CTRLD_R = "ctrl4-release";
+	var CTRLE_R = "ctrl5-release";
+	var CTRLF_R = "ctrl6-release";
+	var CTRLG_R = "ctrl7-release";
+	var CTRLH_R = "ctrl8-release";
+	var CTRLI_R = "ctrl9-release";
+
 	var UP = "up";
 	var LEFT = "left";
 	var RIGHT = "right";
@@ -26,6 +56,7 @@ enum abstract Action(String) to String from String
 	var LEFT_R = "left-release";
 	var RIGHT_R = "right-release";
 	var DOWN_R = "down-release";
+
 	var UP_MENU = "up-menu";
 	var LEFT_MENU = "left-menu";
 	var RIGHT_MENU = "right-menu";
@@ -37,6 +68,7 @@ enum abstract Action(String) to String from String
 	var ACCEPT = "accept";
 	var SECONDARY = "secondary";
 	var TERTIARY = "tertiary";
+	var SYNC_VOCALS = "syncVocals";
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
@@ -81,10 +113,21 @@ enum Device
  */
 enum Control
 {
+	CTRLA;
+	CTRLB;
+	CTRLC;
+	CTRLD;
+	CTRLE;
+	CTRLF;
+	CTRLG;
+	CTRLH;
+	CTRLI;
+
 	UP;
 	LEFT;
 	RIGHT;
 	DOWN;
+
 	RESET;
 	ACCEPT;
 	BACK;
@@ -92,6 +135,7 @@ enum Control
 	CHEAT;
 	SECONDARY;
 	TERTIARY;
+	SYNC_VOCALS;
 	LEFT_MENU;
 	RIGHT_MENU;
 	UP_MENU;
@@ -102,7 +146,7 @@ enum Control
 
 enum KeyboardScheme
 {
-	Solo(dfjk:Bool);
+	Solo(key:Int);
 	Duo(first:Bool);
 	None;
 	Custom;
@@ -115,6 +159,36 @@ enum KeyboardScheme
  @:allow(PlayState)
 class Controls extends FlxActionSet
 {
+	var _ctrla = new FlxActionDigital(Action.CTRLA);
+	var _ctrlb = new FlxActionDigital(Action.CTRLB);
+	var _ctrlc = new FlxActionDigital(Action.CTRLC);
+	var _ctrld = new FlxActionDigital(Action.CTRLD);
+	var _ctrle = new FlxActionDigital(Action.CTRLE);
+	var _ctrlf = new FlxActionDigital(Action.CTRLF);
+	var _ctrlg = new FlxActionDigital(Action.CTRLG);
+	var _ctrlh = new FlxActionDigital(Action.CTRLH);
+	var _ctrli = new FlxActionDigital(Action.CTRLI);
+
+	var _ctrlaP = new FlxActionDigital(Action.CTRLA_P);
+	var _ctrlbP = new FlxActionDigital(Action.CTRLB_P);
+	var _ctrlcP = new FlxActionDigital(Action.CTRLC_P);
+	var _ctrldP = new FlxActionDigital(Action.CTRLD_P);
+	var _ctrleP = new FlxActionDigital(Action.CTRLE_P);
+	var _ctrlfP = new FlxActionDigital(Action.CTRLF_P);
+	var _ctrlgP = new FlxActionDigital(Action.CTRLG_P);
+	var _ctrlhP = new FlxActionDigital(Action.CTRLH_P);
+	var _ctrliP = new FlxActionDigital(Action.CTRLI_P);
+
+	var _ctrlaR = new FlxActionDigital(Action.CTRLA_R);
+	var _ctrlbR = new FlxActionDigital(Action.CTRLB_R);
+	var _ctrlcR = new FlxActionDigital(Action.CTRLC_R);
+	var _ctrldR = new FlxActionDigital(Action.CTRLD_R);
+	var _ctrleR = new FlxActionDigital(Action.CTRLE_R);
+	var _ctrlfR = new FlxActionDigital(Action.CTRLF_R);
+	var _ctrlgR = new FlxActionDigital(Action.CTRLG_R);
+	var _ctrlhR = new FlxActionDigital(Action.CTRLH_R);
+	var _ctrliR = new FlxActionDigital(Action.CTRLI_R);
+
 	var _up = new FlxActionDigital(Action.UP);
 	var _left = new FlxActionDigital(Action.LEFT);
 	var _right = new FlxActionDigital(Action.RIGHT);
@@ -127,6 +201,7 @@ class Controls extends FlxActionSet
 	var _leftR = new FlxActionDigital(Action.LEFT_R);
 	var _rightR = new FlxActionDigital(Action.RIGHT_R);
 	var _downR = new FlxActionDigital(Action.DOWN_R);
+
 	var _menuLeft = new FlxActionDigital(Action.LEFT_MENU);
 	var _menuRight = new FlxActionDigital(Action.RIGHT_MENU);
 	var _menuUp = new FlxActionDigital(Action.UP_MENU);
@@ -142,6 +217,7 @@ class Controls extends FlxActionSet
 	var _cheat = new FlxActionDigital(Action.CHEAT);
 	var _secondary = new FlxActionDigital(Action.SECONDARY);
 	var _tertiary = new FlxActionDigital(Action.TERTIARY);
+	var _syncVocals = new FlxActionDigital(Action.SYNC_VOCALS);
 	var _leftTab = new FlxActionDigital(Action.LEFT_TAB);
 	var _rightTab = new FlxActionDigital(Action.RIGHT_TAB);
 	#if (haxe >= "4.0.0")
@@ -154,142 +230,208 @@ class Controls extends FlxActionSet
 	public var keyboardScheme = KeyboardScheme.None;
 
 	public var UP_MENU(get, never):Bool;
-	
 	inline function get_UP_MENU()
 		return _menuUp.check();
 
 	public var DOWN_MENU(get, never):Bool;
-
 	inline function get_DOWN_MENU()
 		return _menuDown.check();
 
 	public var LEFT_MENU(get, never):Bool;
-
 	inline function get_LEFT_MENU()
 		return _menuLeft.check();
 
 	public var RIGHT_MENU(get, never):Bool;
-
 	inline function get_RIGHT_MENU()
 		return _menuRight.check();
 
 	public var UP_MENU_H(get, never):Bool;
-
 	inline function get_UP_MENU_H()
 		return _menuUpHold.check();
 
 	public var DOWN_MENU_H(get, never):Bool;
-
 	inline function get_DOWN_MENU_H()
 		return _menuDownHold.check();
 
 	public var LEFT_MENU_H(get, never):Bool;
-
 	inline function get_LEFT_MENU_H()
 		return _menuLeftHold.check();
 
 	public var RIGHT_MENU_H(get, never):Bool;
-
 	inline function get_RIGHT_MENU_H()
 		return _menuRightHold.check();
 
-	public var UP(get, never):Bool;
 
+	public var CTRLA(get, never):Bool;
+	inline function get_CTRLA() {return _ctrla.check();}
+
+	public var CTRLB(get, never):Bool;
+	inline function get_CTRLB() {return _ctrlb.check();}
+
+	public var CTRLC(get, never):Bool;
+	inline function get_CTRLC() {return _ctrlc.check();}
+
+	public var CTRLD(get, never):Bool;
+	inline function get_CTRLD() {return _ctrld.check();}
+
+	public var CTRLE(get, never):Bool;
+	inline function get_CTRLE() {return _ctrle.check();}
+
+	public var CTRLF(get, never):Bool;
+	inline function get_CTRLF() {return _ctrlf.check();}
+
+	public var CTRLG(get, never):Bool;
+	inline function get_CTRLG() {return _ctrlg.check();}
+
+	public var CTRLH(get, never):Bool;
+	inline function get_CTRLH() {return _ctrlh.check();}
+
+	public var CTRLI(get, never):Bool;
+	inline function get_CTRLI() {return _ctrli.check();}
+
+
+	public var CTRLA_P(get, never):Bool;
+	inline function get_CTRLA_P() {return _ctrlaP.check();}
+
+	public var CTRLB_P(get, never):Bool;
+	inline function get_CTRLB_P() {return _ctrlbP.check();}
+
+	public var CTRLC_P(get, never):Bool;
+	inline function get_CTRLC_P() {return _ctrlcP.check();}
+
+	public var CTRLD_P(get, never):Bool;
+	inline function get_CTRLD_P() {return _ctrldP.check();}
+
+	public var CTRLE_P(get, never):Bool;
+	inline function get_CTRLE_P() {return _ctrleP.check();}
+
+	public var CTRLF_P(get, never):Bool;
+	inline function get_CTRLF_P() {return _ctrlfP.check();}
+
+	public var CTRLG_P(get, never):Bool;
+	inline function get_CTRLG_P() {return _ctrlgP.check();}
+
+	public var CTRLH_P(get, never):Bool;
+	inline function get_CTRLH_P() {return _ctrlhP.check();}
+
+	public var CTRLI_P(get, never):Bool;
+	inline function get_CTRLI_P() {return _ctrliP.check();}
+
+	
+	public var CTRLA_R(get, never):Bool;
+	inline function get_CTRLA_R() {return _ctrlaR.check();}
+
+	public var CTRLB_R(get, never):Bool;
+	inline function get_CTRLB_R() {return _ctrlbR.check();}
+
+	public var CTRLC_R(get, never):Bool;
+	inline function get_CTRLC_R() {return _ctrlcR.check();}
+
+	public var CTRLD_R(get, never):Bool;
+	inline function get_CTRLD_R() {return _ctrldR.check();}
+
+	public var CTRLE_R(get, never):Bool;
+	inline function get_CTRLE_R() {return _ctrleR.check();}
+
+	public var CTRLF_R(get, never):Bool;
+	inline function get_CTRLF_R() {return _ctrlfR.check();}
+
+	public var CTRLG_R(get, never):Bool;
+	inline function get_CTRLG_R() {return _ctrlgR.check();}
+
+	public var CTRLH_R(get, never):Bool;
+	inline function get_CTRLH_R() {return _ctrlhR.check();}
+
+	public var CTRLI_R(get, never):Bool;
+	inline function get_CTRLI_R() {return _ctrliR.check();}
+
+
+	public var UP(get, never):Bool;
 	inline function get_UP()
 		return _up.check();
 
 	public var LEFT(get, never):Bool;
-
 	inline function get_LEFT()
 		return _left.check();
 
 	public var RIGHT(get, never):Bool;
-
 	inline function get_RIGHT()
 		return _right.check();
 
 	public var DOWN(get, never):Bool;
-
 	inline function get_DOWN()
 		return _down.check();
 
 	public var UP_P(get, never):Bool;
-
 	inline function get_UP_P()
 		return _upP.check();
 
 	public var LEFT_P(get, never):Bool;
-
 	inline function get_LEFT_P()
 		return _leftP.check();
 
 	public var RIGHT_P(get, never):Bool;
-
 	inline function get_RIGHT_P()
 		return _rightP.check();
 
 	public var DOWN_P(get, never):Bool;
-
 	inline function get_DOWN_P()
 		return _downP.check();
 
 	public var UP_R(get, never):Bool;
-
 	inline function get_UP_R()
 		return _upR.check();
 
 	public var LEFT_R(get, never):Bool;
-
 	inline function get_LEFT_R()
 		return _leftR.check();
 
 	public var RIGHT_R(get, never):Bool;
-
 	inline function get_RIGHT_R()
 		return _rightR.check();
 
 	public var DOWN_R(get, never):Bool;
-
 	inline function get_DOWN_R()
 		return _downR.check();
 
+	
 	public var ACCEPT(get, never):Bool;
-
 	inline function get_ACCEPT()
 		return _accept.check();
 
 	public var BACK(get, never):Bool;
-
 	inline function get_BACK()
 		return _back.check();
 
 	public var PAUSE(get, never):Bool;
-
 	inline function get_PAUSE()
 		return _pause.check();	
+
 	public var SECONDARY(get, never):Bool;
 	inline function get_SECONDARY()
 		return _secondary.check();
+
 	public var TERTIARY(get,never):Bool;
 	inline function get_TERTIARY()
 		return _tertiary.check();
 
-	public var LEFT_TAB(get, never):Bool;
+	public var SYNC_VOCALS(get,never):Bool;
+	inline function get_SYNC_VOCALS()
+		return _syncVocals.check();
 
+	public var LEFT_TAB(get, never):Bool;
 	inline function get_LEFT_TAB()
 		return _leftTab.check();
 
 	public var RIGHT_TAB(get, never):Bool;
-
 	inline function get_RIGHT_TAB()
 		return _rightTab.check();
-	public var RESET(get, never):Bool;
 
+	public var RESET(get, never):Bool;
 	inline function get_RESET()
 		return _reset.check();
 
 	public var CHEAT(get, never):Bool;
-
 	inline function get_CHEAT()
 		return _cheat.check();
 
@@ -297,6 +439,36 @@ class Controls extends FlxActionSet
 	public function new(name, scheme = None)
 	{
 		super(name);
+
+		add(_ctrla);
+		add(_ctrlb);
+		add(_ctrlc);
+		add(_ctrld);
+		add(_ctrle);
+		add(_ctrlf);
+		add(_ctrlg);
+		add(_ctrlh);
+		add(_ctrli);
+
+		add(_ctrlaP);
+		add(_ctrlbP);
+		add(_ctrlcP);
+		add(_ctrldP);
+		add(_ctrleP);
+		add(_ctrlfP);
+		add(_ctrlgP);
+		add(_ctrlhP);
+		add(_ctrliP);
+
+		add(_ctrlaR);
+		add(_ctrlbR);
+		add(_ctrlcR);
+		add(_ctrldR);
+		add(_ctrleR);
+		add(_ctrlfR);
+		add(_ctrlgR);
+		add(_ctrlhR);
+		add(_ctrliR);
 
 		add(_up);
 		add(_left);
@@ -310,6 +482,7 @@ class Controls extends FlxActionSet
 		add(_leftR);
 		add(_rightR);
 		add(_downR);
+
 		add(_accept);
 		add(_back);
 		add(_pause);
@@ -317,6 +490,7 @@ class Controls extends FlxActionSet
 		add(_cheat);
 		add(_secondary);
 		add(_tertiary);
+		add(_syncVocals);
 		add(_menuDown);
 		add(_menuDownHold);
 		add(_menuLeft);
@@ -337,6 +511,36 @@ class Controls extends FlxActionSet
 	{
 		super(name);
 
+		add(_ctrla);
+		add(_ctrlb);
+		add(_ctrlc);
+		add(_ctrld);
+		add(_ctrle);
+		add(_ctrlf);
+		add(_ctrlg);
+		add(_ctrlh);
+		add(_ctrli);
+
+		add(_ctrlaP);
+		add(_ctrlbP);
+		add(_ctrlcP);
+		add(_ctrldP);
+		add(_ctrleP);
+		add(_ctrlfP);
+		add(_ctrlgP);
+		add(_ctrlhP);
+		add(_ctrliP);
+
+		add(_ctrlaR);
+		add(_ctrlbR);
+		add(_ctrlcR);
+		add(_ctrldR);
+		add(_ctrleR);
+		add(_ctrlfR);
+		add(_ctrlgR);
+		add(_ctrlhR);
+		add(_ctrliR);
+
 		add(_up);
 		add(_left);
 		add(_right);
@@ -350,6 +554,7 @@ class Controls extends FlxActionSet
 		add(_rightR);
 		add(_downR);
 		add(_accept);
+		add(_syncVocals);
 		add(_back);
 		add(_pause);
 		add(_reset);
@@ -399,10 +604,21 @@ class Controls extends FlxActionSet
 	{
 		return switch (control)
 		{
+			case CTRLA: _ctrla;
+			case CTRLB: _ctrlb;
+			case CTRLC: _ctrlc;
+			case CTRLD: _ctrld;
+			case CTRLE: _ctrle;
+			case CTRLF: _ctrlf;
+			case CTRLG: _ctrlg;
+			case CTRLH: _ctrlh;
+			case CTRLI: _ctrli;
+
 			case UP: _up;
 			case DOWN: _down;
 			case LEFT: _left;
 			case RIGHT: _right;
+
 			case ACCEPT: _accept;
 			case BACK: _back;
 			case PAUSE: _pause;
@@ -410,6 +626,7 @@ class Controls extends FlxActionSet
 			case CHEAT: _cheat;
 			case SECONDARY: _secondary;
 			case TERTIARY: _tertiary;
+			case SYNC_VOCALS: _syncVocals;
 			case UP_MENU: _menuUp;
 			case DOWN_MENU: _menuDown;
 			case LEFT_MENU: _menuLeft;
@@ -435,6 +652,43 @@ class Controls extends FlxActionSet
 	{
 		switch (control)
 		{
+			case CTRLA:
+				func(_ctrla, PRESSED);
+				func(_ctrlaP, JUST_PRESSED);
+				func(_ctrlaR, JUST_RELEASED);
+			case CTRLB:
+				func(_ctrlb, PRESSED);
+				func(_ctrlbP, JUST_PRESSED);
+				func(_ctrlbR, JUST_RELEASED);
+			case CTRLC:
+				func(_ctrlc, PRESSED);
+				func(_ctrlcP, JUST_PRESSED);
+				func(_ctrlcR, JUST_RELEASED);
+			case CTRLD:
+				func(_ctrld, PRESSED);
+				func(_ctrldP, JUST_PRESSED);
+				func(_ctrldR, JUST_RELEASED);
+			case CTRLE:
+				func(_ctrle, PRESSED);
+				func(_ctrleP, JUST_PRESSED);
+				func(_ctrleR, JUST_RELEASED);
+			case CTRLF:
+				func(_ctrlf, PRESSED);
+				func(_ctrlfP, JUST_PRESSED);
+				func(_ctrlfR, JUST_RELEASED);
+			case CTRLG:
+				func(_ctrlg, PRESSED);
+				func(_ctrlgP, JUST_PRESSED);
+				func(_ctrlgR, JUST_RELEASED);
+			case CTRLH:
+				func(_ctrlh, PRESSED);
+				func(_ctrlhP, JUST_PRESSED);
+				func(_ctrlhR, JUST_RELEASED);
+			case CTRLI:
+				func(_ctrli, PRESSED);
+				func(_ctrliP, JUST_PRESSED);
+				func(_ctrliR, JUST_RELEASED);
+
 			case UP:
 				func(_up, PRESSED);
 				func(_upP, JUST_PRESSED);
@@ -451,6 +705,7 @@ class Controls extends FlxActionSet
 				func(_down, PRESSED);
 				func(_downP, JUST_PRESSED);
 				func(_downR, JUST_RELEASED);
+
 			case ACCEPT:
 				func(_accept, JUST_PRESSED);
 			case BACK:
@@ -465,6 +720,8 @@ class Controls extends FlxActionSet
 				func(_secondary, JUST_PRESSED);
 			case TERTIARY:
 				func(_tertiary, JUST_PRESSED);
+			case SYNC_VOCALS:
+				func(_syncVocals, JUST_PRESSED);
 			case LEFT_MENU:
 				func(_menuLeft, JUST_PRESSED);
 				func(_menuLeftHold, PRESSED);
@@ -613,33 +870,205 @@ class Controls extends FlxActionSet
 		}
 	}
 
+	public static function saveDefaultKeys(daKey:String = 'all') {
+		// maybe later lol
+		if (daKey == 'all' || daKey == '1') {
+			FlxG.save.data.key1 = {
+				"ctrla": [SPACE]
+			};
+		}
+		if (daKey == 'all' || daKey == '2') {
+			FlxG.save.data.key2 = {
+				"ctrla": [A, FlxKey.LEFT],
+				"ctrlb": [D, FlxKey.RIGHT]
+			};
+		}
+		if (daKey == 'all' || daKey == '3') {
+			FlxG.save.data.key3 = {
+				"ctrla": [A, FlxKey.LEFT],
+				"ctrlb": [S, FlxKey.DOWN],
+				"ctrlc": [D, FlxKey.RIGHT]
+			};
+		}
+		if (daKey == 'all' || daKey == '4') {
+			FlxG.save.data.keys = {
+				"left": [A, FlxKey.LEFT],
+				"down": [S, FlxKey.DOWN],
+				"up": [W, FlxKey.UP],
+				"right": [D, FlxKey.RIGHT],
+				"syncVocals": FlxG.save.data.keys.syncVocals,
+				"volUp": FlxG.save.data.keys.volUp,
+				"volDown": FlxG.save.data.keys.volDown
+			};
+		}
+		if (daKey == 'all' || daKey == '5') {
+			FlxG.save.data.key5 = {
+				"ctrla": [A, FlxKey.LEFT],
+				"ctrlb": [S, FlxKey.DOWN],
+				"ctrlc": [SPACE],
+				"ctrld": [W, FlxKey.UP],
+				"ctrle": [D, FlxKey.RIGHT]
+			};
+		}
+		if (daKey == 'all' || daKey == '6') {
+			FlxG.save.data.key6 = {
+				"ctrla": [S],
+				"ctrlb": [D],
+				"ctrlc": [F],
+				"ctrld": [J],
+				"ctrle": [K],
+				"ctrlf": [L]
+			};
+		}
+		if (daKey == 'all' || daKey == '7') {
+			FlxG.save.data.key7 = {
+				"ctrla": [S],
+				"ctrlb": [D],
+				"ctrlc": [F],
+				"ctrld": [SPACE],
+				"ctrle": [J],
+				"ctrlf": [K],
+				"ctrlg": [L]
+			};
+		}
+		if (daKey == 'all' || daKey == '8') {
+			FlxG.save.data.key8 = {
+				"ctrla": [A],
+				"ctrlb": [S],
+				"ctrlc": [D],
+				"ctrld": [F],
+				"ctrle": [J],
+				"ctrlf": [K],
+				"ctrlg": [L],
+				"ctrlh": [SEMICOLON]
+			};
+		}
+		if (daKey == 'all' || daKey == '9') {
+			FlxG.save.data.key9 = {
+				"ctrla": [A],
+				"ctrlb": [S],
+				"ctrlc": [D],
+				"ctrld": [F],
+				"ctrle": [SPACE],
+				"ctrlf": [J],
+				"ctrlg": [K],
+				"ctrlh": [L],
+				"ctrli": [SEMICOLON]
+			};
+		}
+		if (daKey == 'all' || daKey == 'misc') {
+			FlxG.save.data.keys = {
+				"left": FlxG.save.data.keys.left,
+				"down": FlxG.save.data.keys.down,
+				"up": FlxG.save.data.keys.up,
+				"right": FlxG.save.data.keys.right,
+				"syncVocals": [G],
+				"volUp": [PLUS, NUMPADPLUS],
+				"volDown": [MINUS, NUMPADMINUS]
+			};
+		}
+	}
+
 	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true)
 	{
 		if (reset)
 			removeKeyboard();
 
 		keyboardScheme = scheme;
-		if (!Reflect.hasField(FlxG.save.data, "keys") || !(FlxG.save.data.keys.left is Array)) {
-			FlxG.save.data.keys = {
-				"left": [D],
-				"down": [F],
-				"up": [J],
-				"right": [K]
-			};
+		if (!Reflect.hasField(FlxG.save.data, "keys") || !(FlxG.save.data.keys.left is Array) || !(FlxG.save.data.keys.syncVocals is Array)) {
+			saveDefaultKeys();
 		}
+		var deCtrls = [];
+		switch(scheme) {
+			case Solo(1):
+				if (!Reflect.hasField(FlxG.save.data, "key1")) {
+					saveDefaultKeys('1');
+				}
+				deCtrls = [FlxG.save.data.key1.ctrla];
+			case Solo(2):
+				if (!Reflect.hasField(FlxG.save.data, "key2")) {
+					saveDefaultKeys('2');
+				}
+				deCtrls = [FlxG.save.data.key2.ctrla, FlxG.save.data.key2.ctrlb];
+			case Solo(3):
+				if (!Reflect.hasField(FlxG.save.data, "key3")) {
+					saveDefaultKeys('3');
+				}
+				deCtrls = [FlxG.save.data.key3.ctrla, FlxG.save.data.key3.ctrlb, FlxG.save.data.key3.ctrlc];
+			case Solo(4):
+				// funny hahahaha laugh
+				deCtrls = [FlxG.save.data.keys.left, FlxG.save.data.keys.down, FlxG.save.data.keys.up, FlxG.save.data.keys.right];
+			case Solo(5):
+				if (!Reflect.hasField(FlxG.save.data, "key5")) {
+					saveDefaultKeys('5');
+				}
+				deCtrls = [FlxG.save.data.key5.ctrla, FlxG.save.data.key5.ctrlb, FlxG.save.data.key5.ctrlc,
+							FlxG.save.data.key5.ctrld, FlxG.save.data.key5.ctrle];
+			case Solo(6):
+				if (!Reflect.hasField(FlxG.save.data, "key6")) {
+					saveDefaultKeys('6');
+				}
+				deCtrls = [FlxG.save.data.key6.ctrla, FlxG.save.data.key6.ctrlb, FlxG.save.data.key6.ctrlc, 
+							FlxG.save.data.key6.ctrld, FlxG.save.data.key6.ctrle, FlxG.save.data.key6.ctrlf];
+			case Solo(7):
+				if (!Reflect.hasField(FlxG.save.data, "key7")) {
+					saveDefaultKeys('7');
+				}
+				deCtrls = [FlxG.save.data.key7.ctrla, FlxG.save.data.key7.ctrlb, FlxG.save.data.key7.ctrlc, 
+							FlxG.save.data.key7.ctrld, FlxG.save.data.key7.ctrle, FlxG.save.data.key7.ctrlf,
+							FlxG.save.data.key7.ctrlg];
+			case Solo(8):
+				if (!Reflect.hasField(FlxG.save.data, "key8")) {
+					saveDefaultKeys('8');
+				}
+				deCtrls = [FlxG.save.data.key8.ctrla, FlxG.save.data.key8.ctrlb, FlxG.save.data.key8.ctrlc, 
+							FlxG.save.data.key8.ctrld, FlxG.save.data.key8.ctrle, FlxG.save.data.key8.ctrlf,
+							FlxG.save.data.key8.ctrlg, FlxG.save.data.key8.ctrlh];
+			case Solo(9):
+				if (!Reflect.hasField(FlxG.save.data, "key9")) {
+					saveDefaultKeys('9');
+				}
+				deCtrls = [FlxG.save.data.key9.ctrla, FlxG.save.data.key9.ctrlb, FlxG.save.data.key9.ctrlc, 
+							FlxG.save.data.key9.ctrld, FlxG.save.data.key9.ctrle, FlxG.save.data.key9.ctrlf,
+							FlxG.save.data.key9.ctrlg, FlxG.save.data.key9.ctrlh, FlxG.save.data.key9.ctrli];
+			default:
+				// do nothing ya funk
+		}
+		
 		#if (haxe >= "4.0.0")
 		switch (scheme)
 		{
 			// Keys are always rebinded before playstate starts. Note that this totally fucks up menuing lol.
-			case Solo(false) | Solo(true):
+			case Solo(_):
+				if (deCtrls[0] != null)
+					inline bindKeys(Control.CTRLA, deCtrls[0]);
+				if (deCtrls[1] != null)
+					inline bindKeys(Control.CTRLB, deCtrls[1]);
+				if (deCtrls[2] != null)
+					inline bindKeys(Control.CTRLC, deCtrls[2]);
+				if (deCtrls[3] != null)
+					inline bindKeys(Control.CTRLD, deCtrls[3]);
+				if (deCtrls[4] != null)
+					inline bindKeys(Control.CTRLE, deCtrls[4]);
+				if (deCtrls[5] != null)
+					inline bindKeys(Control.CTRLF, deCtrls[5]);
+				if (deCtrls[6] != null)
+					inline bindKeys(Control.CTRLG, deCtrls[6]);
+				if (deCtrls[7] != null)
+					inline bindKeys(Control.CTRLH, deCtrls[7]);
+				if (deCtrls[8] != null)
+					inline bindKeys(Control.CTRLI, deCtrls[8]);
+
 				inline bindKeys(Control.UP, FlxG.save.data.keys.up);
 				inline bindKeys(Control.DOWN, FlxG.save.data.keys.down);
 				inline bindKeys(Control.LEFT, FlxG.save.data.keys.left);
 				inline bindKeys(Control.RIGHT, FlxG.save.data.keys.right);
+
 				inline bindKeys(Control.UP_MENU, [W, FlxKey.UP]);
 				inline bindKeys(Control.DOWN_MENU, [S, FlxKey.DOWN]);
 				inline bindKeys(Control.LEFT_MENU, [A, FlxKey.LEFT]);
 				inline bindKeys(Control.RIGHT_MENU, [D, FlxKey.RIGHT]);
+				inline bindKeys(Control.SYNC_VOCALS, FlxG.save.data.keys.syncVocals);
 				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
