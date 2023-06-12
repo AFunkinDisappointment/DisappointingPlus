@@ -57,26 +57,18 @@ class HealthIcon extends FlxSprite
 		var charJson:Dynamic = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/custom_chars"));
 		var iconJson:Dynamic = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/icon_only_chars"));
 		var iconFrames:Array<Int> = [];
-		if (Reflect.hasField(charJson, char))
-		{
+		if (Reflect.hasField(charJson, char)) {
 			iconFrames = Reflect.field(charJson, char).icons;
-		}
-		else if (Reflect.hasField(iconJson, char))
-		{
+		} else if (Reflect.hasField(iconJson, char)) {
 			iconFrames = Reflect.field(iconJson, char).frames;
-		}
-		else
-		{
+		} else {
 			iconFrames = [0, 0, 0, 0];
 		}
-		if (FNFAssets.exists('assets/images/custom_chars/' + char + "/icons.png"))
-		{
+		if (FNFAssets.exists('assets/images/custom_chars/' + char + "/icons.png")) {
 			var rawPic:BitmapData = FNFAssets.getBitmapData('assets/images/custom_chars/' + char + "/icons.png");
 			loadGraphic(rawPic, true, 150, 150);
 			animation.add('icon', iconFrames, false, player);
-		}
-		else
-		{
+		} else {
 			loadGraphic('assets/images/iconGrid.png', true, 150, 150);
 			animation.add('icon', iconFrames, false, player);
 		}

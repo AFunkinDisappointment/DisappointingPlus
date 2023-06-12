@@ -799,12 +799,12 @@ class Controls extends FlxActionSet
 					  gamepadsAdded.push(gamepad);
 				#end
 
-				mergeKeyboardScheme(controls.keyboardScheme);
+				mergeKeyboardScheme(keyboardScheme);
 
 			case Gamepad(id):
 				gamepadsAdded.push(id);
 			case Keys:
-				mergeKeyboardScheme(controls.keyboardScheme);
+				mergeKeyboardScheme(keyboardScheme);
 		}
 	}
 
@@ -969,15 +969,7 @@ class Controls extends FlxActionSet
 		}
 	}
 
-	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true)
-	{
-		if (reset)
-			removeKeyboard();
-
-		keyboardScheme = scheme;
-		if (!Reflect.hasField(FlxG.save.data, "keys") || !(FlxG.save.data.keys.left is Array) || !(FlxG.save.data.keys.syncVocals is Array)) {
-			saveDefaultKeys();
-		}
+	public static function getDeCtrls(scheme:KeyboardScheme) {
 		var deCtrls = [];
 		switch(scheme) {
 			case Solo(1):
@@ -1031,9 +1023,25 @@ class Controls extends FlxActionSet
 				deCtrls = [FlxG.save.data.key9.ctrla, FlxG.save.data.key9.ctrlb, FlxG.save.data.key9.ctrlc, 
 							FlxG.save.data.key9.ctrld, FlxG.save.data.key9.ctrle, FlxG.save.data.key9.ctrlf,
 							FlxG.save.data.key9.ctrlg, FlxG.save.data.key9.ctrlh, FlxG.save.data.key9.ctrli];
+			case Duo(true):
+				deCtrls = [[A,H], [S,J], [W,K], [D,L]];
+			case Duo(false):
+				deCtrls = [[FlxKey.LEFT,X], [FlxKey.DOWN,C], [FlxKey.UP,PERIOD], [FlxKey.RIGHT,SLASH]];
 			default:
 				// do nothing ya funk
 		}
+		return deCtrls;
+	}
+
+	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true) {
+		if (reset)
+			removeKeyboard();
+
+		keyboardScheme = scheme;
+		if (!Reflect.hasField(FlxG.save.data, "keys") || !(FlxG.save.data.keys.left is Array) || !(FlxG.save.data.keys.syncVocals is Array)) {
+			saveDefaultKeys();
+		}
+		var deCtrls = getDeCtrls(scheme);
 		
 		#if (haxe >= "4.0.0")
 		switch (scheme)
@@ -1078,6 +1086,11 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.LEFT_TAB, [Q]);
 				inline bindKeys(Control.RIGHT_TAB, [E]);
 			case Duo(true):
+				inline bindKeys(Control.CTRLA, deCtrls[0]);
+				inline bindKeys(Control.CTRLB, deCtrls[1]);
+				inline bindKeys(Control.CTRLC, deCtrls[2]);
+				inline bindKeys(Control.CTRLD, deCtrls[3]);
+
 				inline bindKeys(Control.UP, [W,K]);
 				inline bindKeys(Control.DOWN, [S,J]);
 				inline bindKeys(Control.LEFT, [A,H]);
@@ -1093,6 +1106,11 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.LEFT_MENU, [A, FlxKey.LEFT]);
 				inline bindKeys(Control.RIGHT_MENU, [D, FlxKey.RIGHT]);
 			case Duo(false):
+				inline bindKeys(Control.CTRLA, deCtrls[0]);
+				inline bindKeys(Control.CTRLB, deCtrls[1]);
+				inline bindKeys(Control.CTRLC, deCtrls[2]);
+				inline bindKeys(Control.CTRLD, deCtrls[3]);
+
 				inline bindKeys(Control.UP, [FlxKey.UP,PERIOD]);
 				inline bindKeys(Control.DOWN, [FlxKey.DOWN,C]);
 				inline bindKeys(Control.LEFT, [FlxKey.LEFT,X]);
@@ -1111,10 +1129,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.RIGHT_TAB, [BACKSLASH]);
 			case None: // nothing
 			case Custom:
-				inline bindKeys(Control.UP, FlxG.save.data.keys.up);
-				inline bindKeys(Control.DOWN, FlxG.save.data.keys.down);
-				inline bindKeys(Control.LEFT, FlxG.save.data.keys.left);
-				inline bindKeys(Control.RIGHT, FlxG.save.data.keys.right);
+				inline bindKeys(Control.CTRLA, FlxG.save.data.keys.up);
+				inline bindKeys(Control.CTRLB, FlxG.save.data.keys.down);
+				inline bindKeys(Control.CTRLC, FlxG.save.data.keys.left);
+				inline bindKeys(Control.CTRLD, FlxG.save.data.keys.right);
 				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);

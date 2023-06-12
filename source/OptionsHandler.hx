@@ -39,6 +39,7 @@ typedef TOptions = {
     var emuOsuLifts:Bool;
     var showComboBreaks:Bool;
     var useKadeHealth:Bool;
+    var useCharColor:Bool;
     var useMissStun:Bool;
     var offset:Float;
     var accuracyMode:AccuracyMode;
@@ -115,6 +116,7 @@ class OptionsHandler {
             // lastOptions.skipDebugScreen // i'm removing debug entirely in dance mode
             // lastOptions.showComboBreaks // i'm going to add this to the special new menu
             lastOptions.useKadeHealth = false;
+            lastOptions.useCharColor = true;
             // lastOptions.offset // i'll remove it from options, but json can still be edited. perfect those things!
             lastOptions.useMissStun = false;
 			lastOptions.accuracyMode = Simple;

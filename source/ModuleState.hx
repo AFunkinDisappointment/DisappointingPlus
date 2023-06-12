@@ -117,7 +117,7 @@ class ModuleState extends MusicBeatState {
 		bg.cameras = [camGame];
 		add(bg);
 
-		gf = new Character(-50, 0, 'gf');
+		gf = new Character(-150, 0, 'gf');
 		gf.beingControlled = true;
 		gf.scrollFactor.set(0.95, 0.95);
 		gf.cameras = [camGame];
@@ -148,7 +148,7 @@ class ModuleState extends MusicBeatState {
 		importButton = new FlxUIButton(500, (FlxG.height / 2) - 100, "Import", function():Void {
 			selectMode.text = 'Loading...';
 			moduleMode = 'Import';
-			generateSongs();
+			generateStuff();
 			removeModeButtons();
 			remove(selectMode);
 			songsLoaded = true;
@@ -156,7 +156,7 @@ class ModuleState extends MusicBeatState {
 		exportButton = new FlxUIButton(600, (FlxG.height / 2) - 100, "Export", function():Void {
 			selectMode.text = 'Loading...';
 			moduleMode = 'Export';
-			generateSongs();
+			generateStuff();
 			removeModeButtons();
 			remove(selectMode);
 			songsLoaded = true;
@@ -170,7 +170,7 @@ class ModuleState extends MusicBeatState {
 					selectMode.text = 'Loading...';
 					moduleMode = 'Transfer';
 					transferPath = path;
-					generateSongs();
+					generateStuff();
 					removeModeButtons();
 					remove(selectMode);
 					songsLoaded = true;
@@ -209,6 +209,13 @@ class ModuleState extends MusicBeatState {
 		remove(exportButton);
 		remove(transferButton);
 	}
+	function generateStuff() {
+		generateSongs();
+		generateChars();
+		generateStages();
+		generateWeeks();
+		generateOther();
+	}
 	var currentBoxNum = 0;
 	override function update(elapsed:Float) {
 		Conductor.songPosition += FlxG.elapsed * 1000;
@@ -221,16 +228,18 @@ class ModuleState extends MusicBeatState {
 			FlxG.sound.play('assets/sounds/fnf_loss_sfx' + TitleState.soundExt, 0.5);
 		}
 
-		if (FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.BACKSPACE)
+		if (FlxG.keys.justPressed.ESCAPE || FlxG.keys.justPressed.BACKSPACE) {
+			FlxG.mouse.visible = false;
 			LoadingState.loadAndSwitchState(new SaveDataState());
+		}
 
 		switch(section) {
 			case 0:
 				currentBoxNum = songBoxes.length + 1;
 			case 1:
-				currentBoxNum = stageBoxes.length + 1;
-			case 2:
 				currentBoxNum = charBoxes.length + 1;
+			case 2:
+				currentBoxNum = stageBoxes.length + 1;
 			case 3:
 				currentBoxNum = weekBoxes.length + 1;
 		}
@@ -267,17 +276,60 @@ class ModuleState extends MusicBeatState {
 		if (section == -1) {
 			gameFollow.setPosition(300, 375); // 301.5, 324 + 50
 		} else {
-			gameFollow.setPosition(FlxG.width / 2 + FlxG.width * section, FlxG.height / 2);
+			gameFollow.setPosition(FlxG.width / 2, FlxG.height / 2);
 		}
 		
+		for (ibox in 0...3) {
+			var curBox = switch(ibox) {
+				case 0:
+					songBoxes;
+				case 1:
+					charBoxes;
+				case 2:
+					stageBoxes;
+				case 3:
+					weekBoxes;
+				default:
+					[];
+			}
+			if (curBox.length > 0) {
+				for (i in 0...curBox.length) {
+					var daBox = curBox[i];
+					daBox.background.y = 60 + (180 * i) + scrollNum[ibox];
+					daBox.icon.y = daBox.background.y + 10;
+					daBox.nameText.y = daBox.background.y + 10;
+					daBox.importButton.x = daBox.background.x + daBox.background.width - 120 - camHUD.scroll.x;
+					daBox.importButton.y = daBox.background.y + 20;
+					daBox.miscButton.x = daBox.background.x + daBox.background.width - 120 - camHUD.scroll.x;
+					daBox.miscButton.y = daBox.background.y + 60;
 
-		if (songBoxes.length > 0) {
-			for (i in 0...songBoxes.length) {
-				songBoxes[i].background.y = 10 + (180 * i) + scrollNum[0];
-				songBoxes[i].icon.y = songBoxes[i].background.y + 10;
-				songBoxes[i].nameText.y = songBoxes[i].background.y + 10;
-				songBoxes[i].importButton.y = songBoxes[i].background.y + 20;
-				songBoxes[i].miscButton.y = songBoxes[i].background.y + 60;
+					if (daBox.background.y > FlxG.height || daBox.background.y + daBox.background.height < 0-FlxG.height 
+						|| daBox.background.x - camHUD.scroll.x  > FlxG.width || daBox.background.x + daBox.background.width - camHUD.scroll.x < 0-FlxG.width) {
+						// this feels like its overcomplicated
+						daBox.background.active = false;
+						daBox.background.visible = false;
+						daBox.icon.active = false;
+						daBox.icon.visible = false;
+						daBox.nameText.active = false;
+						daBox.nameText.visible = false;
+						daBox.importButton.active = false;
+						daBox.importButton.visible = false;
+						daBox.miscButton.active = false;
+						daBox.miscButton.visible = false;
+					} else {
+						daBox.background.active = true;
+						daBox.icon.active = true;
+						daBox.nameText.active = true;
+						daBox.importButton.active = true;
+						daBox.miscButton.active = true;
+
+						daBox.background.visible = true;
+						daBox.icon.visible = true;
+						daBox.nameText.visible = true;
+						daBox.importButton.visible = true;
+						daBox.miscButton.visible = true;
+					}
+				}
 			}
 		}
 
@@ -302,27 +354,19 @@ class ModuleState extends MusicBeatState {
 					var songName = 'null';
 					var iconP2 = 'bf';
 					if (moduleMode == 'Import') {
-						var info = CoolUtil.coolTextFile(haxe.io.Path.join([path, '/info.txt']));
-						for (i in 0...info.length) {
-							var data:Array<String> = info[i].split(':');
-							switch(data[0]) { // this is probably unnecessary
-								case 'songname':
-									songName = data[1];
-								case 'player2':
-									iconP2 = data[1];
-							}
-						}
+						var info = ModuleFunctions.processInfo(haxe.io.Path.join([path, '/info.txt']));
+						songName = info.get('songname');
+						iconP2 = info.get('iconP2');
 					} else {
+						var data = null;
 						if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json']))) {
-							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json'])));
-							songName = data.song;
-							iconP2 = data.player2;
+							data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json'])));
 						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json']))) {
-							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json'])));
-							songName = data.song;
-							iconP2 = data.player2;
+							data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json'])));
 						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json']))) {
-							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json'])));
+							data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json'])));
+						}
+						if (data != null) {
 							songName = data.song;
 							iconP2 = data.player2;
 						}
@@ -342,7 +386,7 @@ class ModuleState extends MusicBeatState {
 					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
 					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Song", function():Void {
 						if (moduleMode != 'Export')
-							checkFile(songName.toLowerCase(), 'song', daFolding);
+							checkFile(songName.toLowerCase(), 'song', song);
 						else
 							ModuleFunctions.exportSong(songName);
 					});
@@ -366,21 +410,16 @@ class ModuleState extends MusicBeatState {
 				var path = haxe.io.Path.join([dataFolder, song]);
 				if (sys.FileSystem.isDirectory(path)) {
 					songs.push(path);
-					var songName = 'null';
-					var iconP2 = 'bf';
+					var data = null;
 					if (FileSystem.exists(haxe.io.Path.join([path, '/' + song + '-hard.json']))) {
-						var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '-hard.json'])));
-						songName = data.song;
-						iconP2 = data.player2;
+						data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '-hard.json'])));
 					} else if (FileSystem.exists(haxe.io.Path.join([path, '/' + song + '.json']))) {
-						var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '.json'])));
-						songName = data.song;
-						iconP2 = data.player2;
+						data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '.json'])));
 					} else if (FileSystem.exists(haxe.io.Path.join([path, '/' + song + '-easy.json']))) {
-						var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '-easy.json'])));
-						songName = data.song;
-						iconP2 = data.player2;
+						data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '/' + song + '-easy.json'])));
 					}
+					var songName = data.song;
+					var iconP2 = data.player2;
 					var daBox:ImportBox = {
 						background: null,
 						icon: null,
@@ -415,6 +454,199 @@ class ModuleState extends MusicBeatState {
 				}
 			}
 		}
+
+		var backdrop = new FlxSprite(650, 0).makeGraphic(FlxG.width - 650, 50, 0xFF808080);
+		backdrop.alpha = 0.7;
+		add(backdrop);
+
+		var songText = new FlxText(650, 0, FlxG.width - 650, "Songs", 40);
+		songText.alignment = 'center';
+		add(songText);
+	}
+	function generateChars() {
+		var daFolding:String = '';
+		switch(moduleMode) {
+			case 'Import':
+				daFolding = 'assets/module/import/characters/';
+			case 'Export':
+				daFolding = 'assets/images/custom_chars/';
+			case 'Transfer':
+				daFolding =  haxe.io.Path.join([transferPath, 'images/custom_chars/']);
+		}
+		for (char in FileSystem.readDirectory(daFolding)) {
+			var path = haxe.io.Path.join([daFolding, char]);
+			if (sys.FileSystem.isDirectory(path)) {
+				if (moduleMode != 'Import' || (moduleMode == 'Import' && FileSystem.exists(haxe.io.Path.join([path, '/info.txt'])))) {
+					characters.push(path);
+					var charName = 'null';
+					var iconNum1 = 0;
+					if (moduleMode == 'Import') {
+						var info = ModuleFunctions.processInfo(haxe.io.Path.join([path, '/info.txt']));
+						charName = info.get('charname');
+						iconNum1 = Std.int(info.get('iconnums').split(',')[0]);
+					} else {
+						charName = char;
+						/*if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						}*/
+					}
+					var daBox:ImportBox = {
+						background: null,
+						icon: null,
+						nameText: null,
+						importButton: null,
+						miscButton: null
+					}; 
+					daBox.background = new FlxSprite(650 + FlxG.width, 60 + (180 * characters.indexOf(path))).loadGraphic('assets/images/plainbox.png');
+					daBox.icon = new HealthIcon(charName);
+					daBox.icon.x = daBox.background.x + 5;
+					daBox.icon.scrollFactor.set(1, 1);
+					daBox.nameText = new FlxText(daBox.background.x + 180, daBox.background.y, daBox.background.width - 240, charName);
+					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
+					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Char", function():Void {
+						if (moduleMode != 'Export')
+							importChar(char);
+						else {
+							//make later
+							//ModuleFunctions.exportChar(charName);
+						}
+					});
+					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Load Character", function():Void {
+						if (songPlaying != null)
+							endSong();
+						var newbf = new Character(250, 350, charName, true);
+						newbf.beingControlled = true;
+						newbf.cameras = [camGame];
+						newbf.x += newbf.playerOffsetX;
+						newbf.y += newbf.playerOffsetY;
+						var oldbf = bf;
+						remove(bf);
+						bf = newbf;
+						oldbf.destroy();
+						add(bf);
+					});
+					add(daBox.background);
+					add(daBox.icon);
+					add(daBox.nameText);
+					add(daBox.importButton);
+					add(daBox.miscButton);
+					charBoxes.push(daBox);
+				}
+			}
+		}
+
+		var backdrop = new FlxSprite(650 + FlxG.width, 0).makeGraphic(FlxG.width - 650, 50, 0xFF808080);
+		backdrop.alpha = 0.7;
+		add(backdrop);
+
+		var charText = new FlxText(650 + FlxG.width, 0, FlxG.width - 650, "Characters", 40);
+		charText.alignment = 'center';
+		add(charText);
+	}
+	function generateStages() {
+		var daFolding:String = '';
+		switch(moduleMode) {
+			case 'Import':
+				daFolding = 'assets/module/import/stages/';
+			case 'Export':
+				daFolding = 'assets/images/custom_stages/';
+			case 'Transfer':
+				daFolding =  haxe.io.Path.join([transferPath, 'images/custom_stages/']);
+		}
+		for (stage in FileSystem.readDirectory(daFolding)) {
+			var path = haxe.io.Path.join([daFolding, stage]);
+			if (sys.FileSystem.isDirectory(path)) {
+				if (moduleMode != 'Import' || (moduleMode == 'Import' && FileSystem.exists(haxe.io.Path.join([path, '/info.txt'])))) {
+					stages.push(path);
+					var stageName = 'null';
+					if (moduleMode == 'Import') {
+						var info = ModuleFunctions.processInfo(haxe.io.Path.join([path, '/info.txt']));
+						stageName = info.get('stagename');
+					} else {
+						stageName = stage;
+						/*if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						} else if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json']))) {
+							var data = Song.parseJSONshit(File.getContent(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-easy.json'])));
+							songName = data.song;
+							iconP2 = data.player2;
+						}*/
+					}
+					var daBox:ImportBox = {
+						background: null,
+						icon: null,
+						nameText: null,
+						importButton: null,
+						miscButton: null
+					}; 
+					daBox.background = new FlxSprite(650 + FlxG.width*2, 10 + (180 * stages.indexOf(path))).loadGraphic('assets/images/plainbox.png');
+					daBox.icon = new HealthIcon('bf');
+					daBox.icon.x = daBox.background.x + 5;
+					daBox.icon.scrollFactor.set(1, 1);
+					daBox.nameText = new FlxText(daBox.background.x + 180, daBox.background.y, daBox.background.width - 240, stageName);
+					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
+					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Stage", function():Void {
+						if (moduleMode != 'Export')
+							importStage(stage);
+						else {
+							//make later
+							//ModuleFunctions.exportStage(stageName);
+						}
+					});
+					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Nothing", function():Void {
+						// just cuz
+					});
+					add(daBox.background);
+					add(daBox.icon);
+					add(daBox.nameText);
+					add(daBox.importButton);
+					add(daBox.miscButton);
+					stageBoxes.push(daBox);
+				}
+			}
+		}
+
+		var backdrop = new FlxSprite(650 + FlxG.width*2, 0).makeGraphic(FlxG.width - 650, 50, 0xFF808080);
+		backdrop.alpha = 0.7;
+		add(backdrop);
+
+		var stageText = new FlxText(650 + FlxG.width*2, 0, FlxG.width - 650, "Stages", 40);
+		stageText.alignment = 'center';
+		add(stageText);
+	}
+	function generateWeeks() {
+		var backdrop = new FlxSprite(650 + FlxG.width*3, 0).makeGraphic(FlxG.width - 650, 50, 0xFF808080);
+		backdrop.alpha = 0.7;
+		add(backdrop);
+
+		var weekText = new FlxText(650 + FlxG.width*3, 0, FlxG.width - 650, "Weeks", 40);
+		weekText.alignment = 'center';
+		add(weekText);
+	}
+	function generateOther() {
+		var backdrop = new FlxSprite(650 + FlxG.width*4, 0).makeGraphic(FlxG.width - 650, 50, 0xFF808080);
+		backdrop.alpha = 0.7;
+		add(backdrop);
+
+		var otherText = new FlxText(650 + FlxG.width*4, 0, FlxG.width - 650, "Other", 40);
+		otherText.alignment = 'center';
+		add(otherText);
 	}
 	function removeDaBox(box) {
 		remove(box.background);
@@ -513,7 +745,7 @@ class ModuleState extends MusicBeatState {
 							}
 							fileExists(daName, 'song');
 						} else {
-							importSong(daName);
+							importSong(path);
 						}
 					}
 				} else {
@@ -528,7 +760,7 @@ class ModuleState extends MusicBeatState {
 			case 'stage':
 
 			case 'char':
-				var charPath = 'assets/songs/';
+				var charPath = 'assets/images/custom_chars/';
 				if (FileSystem.exists(charPath + daName)) {
 					var daCharName = 'Null';
 					var infoText:Array<String> = CoolUtil.coolTextFile('assets/module/import/characters/' + daName + '/info.txt');
@@ -578,20 +810,8 @@ class ModuleState extends MusicBeatState {
 				}
 			}
 		} else {
-			if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + song + '_Inst' + TitleState.soundExt]))) {
-				inst = haxe.io.Path.join([path, '/' + song + "_Inst" + TitleState.soundExt]);
-			} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '/Inst' + TitleState.soundExt]))) {
-				inst = haxe.io.Path.join([path, '/Inst' + TitleState.soundExt]);
-			} else {
-				inst = haxe.io.Path.join([path, '../../music/' + song + '_Inst' + TitleState.soundExt]);
-			}
-			if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + song + '_Voices' + TitleState.soundExt]))) {
-				voices = haxe.io.Path.join([path, '/' + song + "_Voices" + TitleState.soundExt]);
-			} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '/Voices' + TitleState.soundExt]))) {
-				voices = haxe.io.Path.join([path, '/Voices' + TitleState.soundExt]);
-			} else {
-				voices = haxe.io.Path.join([path, '../../music/' + song + '_Voices' + TitleState.soundExt]);
-			}
+			inst = CoolUtil.getSongFile(song, path);
+			voices = CoolUtil.getSongFile(song, path, false);
 			for (i in 0...2) { // im too lazy to find the proper function for difficulty lol
 				switch (i) {
 					case 2:
@@ -660,7 +880,7 @@ class ModuleState extends MusicBeatState {
 			gf.dance();
 	}
 
-	function convertToBool(theInfo:String) {
+	function convertToBool(theInfo:String) { //this is stupid but i don't know the proper function
 		var daBool:Bool = false;
 		switch(theInfo) {
 			case 'false':
@@ -675,95 +895,60 @@ class ModuleState extends MusicBeatState {
 		#if sys
 		if (moduleMode == 'Import') {
 			var basePath = "assets/module/import/songs/" + path;
-			if (FileSystem.exists("assets/module/import/songs/" + path)) {
-				var songData:ModuleFunctions.SongImport = {
-					name:'Bopeebo',
-					p1:'bf',
-					p2:'dad',
-					gf:'gf',
-					stage:'stage',
-					ui:'normal',
-					cutscene:'none',
-					category:'Base Game',
-					isHey:false,
-					isCheer:false,
-					isMoody:false,
-					isSpooky:false,
-					stageID:0,
-					week:0,
-					char:'dad',
-					display:'null',
-					inst:null,
-					voices:null,
-					dialog:null,
-					modchart:null,
-					diffFiles:[]
-				};
 
-				var infoText:Array<String> = CoolUtil.coolTextFile(basePath + '/info.txt');
-				for (i in 0...infoText.length) {
-					var data:Array<String> = infoText[i].split(':');
-					switch(data[0]) {
-						case 'songname':
-							songData.name = data[1];
-						case 'player1':
-							songData.p1 = data[1];
-						case 'player2':
-							songData.p2 = data[1];
-						case 'gf':
-							songData.gf = data[1];
-						case 'stage':
-							songData.stage = data[1];
-						case 'uiType':
-							songData.ui = data[1];
-						case 'cutsceneType':
-							songData.cutscene = data[1];
-						case 'category':
-							songData.category = data[1];
-						case 'isHey':
-							songData.isHey = convertToBool(data[1]);
-						case 'isCheer':
-							songData.isCheer = convertToBool(data[1]);
-						case 'isMoody':
-							songData.isMoody = convertToBool(data[1]);
-						case 'isSpooky':
-							songData.isSpooky = convertToBool(data[1]);
-						case 'stageID':
-							songData.stageID = Std.int(Std.parseFloat(data[1]));
-						case 'week':
-							songData.week = Std.int(Std.parseFloat(data[1]));
-						case 'char':
-							songData.char = data[1];
-						case 'display':
-							songData.display = data[1];
-					}
-				}
+			var info = ModuleFunctions.processInfo(basePath + '/info.txt');
+
+			var songData:ModuleFunctions.SongImport = {
+				name: info.get('songname'),
+				p1: info.get('player1'),
+				p2: info.get('player2'),
+				gf: info.get('gf'),
+				stage: info.get('stage'),
+				ui: info.get('uiType'),
+				cutscene: info.get('cutsceneType'),
+				category: info.get('category'),
+				isHey: convertToBool(info.get('isHey')),
+				isCheer: convertToBool(info.get('isCheer')),
+				isMoody: convertToBool(info.get('isMoody')),
+				isSpooky: convertToBool(info.get('isSpooky')),
+				stageID: Std.int(Std.parseFloat(info.get('stageID'))),
+				week: Std.int(Std.parseFloat(info.get('week'))),
+				char: info.get('char'),
+				display: info.get('display'),
+				inst:null,
+				voices:null,
+				dialog:null,
+				modchart:null,
+				diffFiles:[]
+			};
 	
-				if (rename != null)
-					songData.name = rename;
+			if (rename != null)
+				songData.name = rename;
 
-				songData.inst = basePath + '/Inst.ogg';
-				if (FileSystem.exists(basePath + '/Voices.ogg'))
-					songData.voices = basePath + '/Voices.ogg';
-				if (FileSystem.exists(basePath + '/dialog.txt'))
-					songData.dialog = basePath + '/dialog.txt';
-				if (FileSystem.exists(basePath + '/modchart.hscript'))
-					songData.modchart = basePath + '/modchart.hscript';
+			songData.inst = basePath + '/Inst.ogg';
+			if (FileSystem.exists(basePath + '/Voices.ogg'))
+				songData.voices = basePath + '/Voices.ogg';
+			if (FileSystem.exists(basePath + '/dialog.txt'))
+				songData.dialog = basePath + '/dialog.txt';
+			if (FileSystem.exists(basePath + '/modchart.hscript'))
+				songData.modchart = basePath + '/modchart.hscript';
 
-				var coolDiffFiles:Array<String> = [];
-				var diffJson:TDifficulties = CoolUtil.parseJson(Assets.getText("assets/images/custom_difficulties/difficulties.json"));
-				for (i in 0...diffJson.difficulties.length) {
-					if (FileSystem.exists(basePath + '/' + diffJson.difficulties[i].name + '.json'))
-						coolDiffFiles[i] = basePath + '/' + diffJson.difficulties[i].name + '.json';
-				}
-				songData.diffFiles = coolDiffFiles;
-				ModuleFunctions.importSong(songData);
+			var coolDiffFiles:Array<String> = [];
+			var diffJson:TDifficulties = CoolUtil.parseJson(Assets.getText("assets/images/custom_difficulties/difficulties.json"));
+			for (i in 0...diffJson.difficulties.length) {
+				if (FileSystem.exists(basePath + '/' + diffJson.difficulties[i].name + '.json'))
+					coolDiffFiles[i] = basePath + '/' + diffJson.difficulties[i].name + '.json';
 			}
+			songData.diffFiles = coolDiffFiles;
+			ModuleFunctions.importSong(songData);
 		} else {
 			if (!FileSystem.exists('assets/songs/' + path))
 				FileSystem.createDirectory('assets/songs/' + path);
 
-			if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']))) {
+			File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/'])), 'assets/songs/' + path + '/Inst.ogg');
+			File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/']), false), 'assets/songs/' + path + '/Voices.ogg');
+			
+			/*if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']))) {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']), 'assets/songs/' + path + '/Inst.ogg');
 			} else if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Inst.ogg']))) {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Inst.ogg']), 'assets/songs/' + path + '/Inst.ogg');
@@ -777,7 +962,7 @@ class ModuleState extends MusicBeatState {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Voices.ogg']), 'assets/songs/' + path + '/Voices.ogg');
 			} else {
 				File.copy(haxe.io.Path.join([assets, 'music/' + path + '_Voices.ogg']), 'assets/songs/' + path + '/Voices.ogg');
-			}
+			}*/
 
 			if (!FileSystem.exists('assets/data/' + path))
 				FileSystem.createDirectory('assets/data/' + path);
@@ -800,8 +985,70 @@ class ModuleState extends MusicBeatState {
 		}
 		#end
 	}
-	function importChar(path:String, rename = null) {
-		
+	function importChar(path:String, rename = null, ?assets:String) {
+		#if sys
+		if (moduleMode == 'Import') {
+			var basePath = "assets/module/import/characters/" + path;
+
+			var info = ModuleFunctions.processInfo(basePath + '/info.txt');
+
+			var numArray:Array<Float> = [];
+
+			var theNums = info.get('iconnums').split(',');
+			for (i in 0...theNums.length)
+				numArray.push(Std.parseFloat(theNums[i]));
+
+			var assets = {
+				"charpng": null,
+				"charxml": null,
+				"deadpng": null,
+				"deadxml": null,
+				"crazyxml": null,
+				"crazypng": null,
+				"icons": null
+			};
+
+			assets.charpng = basePath + '/char.png';
+			if (FileSystem.exists(basePath + '/char.txt'))
+				assets.charxml = basePath + '/char.txt';
+			else
+				assets.charxml = basePath + '/char.xml';
+
+			if (FileSystem.exists(basePath + '/dead.png'))
+				assets.deadpng = basePath + '/dead.png';
+			if (FileSystem.exists(basePath + '/dead.xml'))
+				assets.deadxml = basePath + '/dead.xml';
+
+			if (FileSystem.exists(basePath + '/crazy.png'))
+				assets.crazypng = basePath + '/crazy.png';
+			if (FileSystem.exists(basePath + '/crazy.xml'))
+				assets.crazyxml = basePath + '/crazy.xml';
+
+			assets.icons = basePath + '/icons.png';
+
+			var likePath = null;
+
+			if (FileSystem.exists(basePath + '/like.hscript'))
+				likePath = basePath + '/like.hscript';
+
+			var charData:ModuleFunctions.CharImport = {
+				name: info.get('charname'),
+				like: info.get('like'),
+				likePath: likePath,
+				assets: assets,
+				iconNums: numArray,
+				colors: info.get('colors')
+			};
+
+			ModuleFunctions.importChar(charData);
+		} else {
+			var basePath = haxe.io.Path.join([assets, 'images/custom_chars/' + path]);
+
+			/*if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']))) {
+				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']), 'assets/songs/' + path + '/Inst.ogg');
+			*/
+		}
+		#end
 	}
 	function importStage(path:String, rename = null) {
 		

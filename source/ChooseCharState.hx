@@ -33,6 +33,7 @@ class ChooseCharState extends MusicBeatState
     var char:Character;
     var anim:String = PlayState.SONG.player1;
     var grpAlphabet:FlxTypedGroup<Alphabet>;
+    private var iconArray:Array<HealthIcon> = [];
 
     static var curSelected:Int = 0;
     var curChar:String = PlayState.SONG.player1;
@@ -79,6 +80,13 @@ class ChooseCharState extends MusicBeatState
             awesomeChar.isMenuItem = true;
             awesomeChar.targetY = character;
             grpAlphabet.add(awesomeChar);
+
+            trace(characters[character]);
+            var icon:HealthIcon = new HealthIcon(characters[character]);
+			icon.sprTracker = awesomeChar;
+			// icons won't be visible 
+			iconArray.push(icon);
+			add(icon);
         }
 
         add(grpAlphabet);
@@ -127,6 +135,12 @@ class ChooseCharState extends MusicBeatState
 
 
         var bullShit:Int = 0;
+        for (i in 0...iconArray.length)
+		{
+			iconArray[i].alpha = 0.6;
+		}
+
+		iconArray[curSelected].alpha = 1;
 
         for (item in grpAlphabet.members)
         {

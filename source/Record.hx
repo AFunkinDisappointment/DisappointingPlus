@@ -30,8 +30,9 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         super();
         reordering = true;
         parsedWeekJson = CoolUtil.parseJson(FNFAssets.getJson("assets/data/storySonglist"));
-        var weekName = parsedWeekJson.weeks[week].name;
+        var weekName = if (week != -1) parsedWeekJson.weeks[week].name; else 'null';
         var sussyRecordGraphic:BitmapData;
+        trace('new record');
         if (week == -1) {
             if (completion)
 				sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-gold.png');
@@ -40,21 +41,15 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
             sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png');
         } else {
             if (completion) {
-				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png'))
-				{
+				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png')) {
 					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-gold.png');
-				}
-				else
-				{
+				} else {
 					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-gold.png');
 				}
             } else {
-				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png'))
-				{
+				if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png')) {
 					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-record.png');
-				}
-				else
-				{
+				} else {
 					sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-record.png');
 				}
             }
@@ -65,6 +60,7 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
 				sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png');
             }
         }
+        trace('base loaded');
         completed = completion;
         curWeek = week;
         recordsprite = new FlxSprite().loadGraphic(sussyRecordGraphic);
@@ -88,6 +84,8 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         add(shiney);
         add(almostSticker);
         changeColor(colors);
+
+        trace('stuff added');
         
         x = X;
         y = Y;
@@ -100,11 +98,10 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         angle += 30 * elapsed;
     }
     public function changeColor(colors:Array<String>, ?character:String="bf", ?week:Int = -1, ?song:String, ?diff:Int) {
+        trace('changing record color');
         reordering = true;
-        var weekName = parsedWeekJson.weeks[week].name;
 		var sussyColors = [];
-		for (color in colors)
-		{
+		for (color in colors) {
 			var cooolor = FlxColor.fromString(color);
 			sussyColors.push(cooolor);
 		}
@@ -114,8 +111,7 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         var almostPng:BitmapData;
         var sussySmudge:BitmapData;
         var rating = Highscore.getFCLevel(song, diff, "best");
-        if (week == -1)
-        {
+        if (week == -1)  {
             if (rating >= Bad)
                 sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-gold.png');
             else
@@ -125,56 +121,40 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
             shineXml = FNFAssets.getText('assets/images/campaign-ui-week/default-shine.xml');
             almostPng = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-almost.png');
             // sussySmudge = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-smudge.png');
-        }
-        else
-        {
-            if (rating >= Bad)
-            {
-                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png'))
-                {
+        } else {
+            var weekName = parsedWeekJson.weeks[week].name;
+            if (rating >= Bad) {
+                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-gold.png')) {
                     sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-gold.png');
-                }
-                else
-                {
+                } else {
                     sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-gold.png');
                 }
-            }
-            else
-            {
-                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png'))
-                {
+            } else {
+                if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-record.png')) {
                     sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-record.png');
-                }
-                else
-                {
+                } else {
                     sussyRecordGraphic = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-record.png');
                 }
             }
             if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-shine.png')) {
 				sussyShine = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-shine.png');
-				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/' + weekName + '-shine.png');
+				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/' + weekName + '-shine.xml');
             } else {
 				sussyShine = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-shine.png');
 				shineXml = FNFAssets.getText('assets/images/campaign-ui-week/default-shine.xml');
             }
-            if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-center.png'))
-            {
+            if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-center.png')) {
                 sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-center.png', false);
-            }
-            else
-            {
+            } else {
                 sussyBackup = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-center.png', false);
             }
-			if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-almost.png'))
-			{
+			if (FNFAssets.exists('assets/images/campaign-ui-week/' + weekName + '-almost.png')) {
 				almostPng = FNFAssets.getBitmapData('assets/images/campaign-ui-week/' + weekName + '-almost.png');
-			}
-			else
-			{
+			} else {
 				almostPng = FNFAssets.getBitmapData('assets/images/campaign-ui-week/default-almost.png');
 			}
         }
-        
+        trace('record changed');
         remove(shiney);
         if (doubleShiney != null)
             remove(doubleShiney);
@@ -214,5 +194,6 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
 			semicircles[color].color = useColors[color];
 		} */
         reordering = false;
+        trace('everything good');
     }
 }

@@ -28,11 +28,10 @@ import Song.SwagSong;
 import tjson.TJSON;
 using StringTools;
 typedef StorySongsJson = {
-	var ?songs: Array<Array<String>>;
-	var ?weekNames: Array<String>;
-	var ?characters: Array<Array<String>>;
+	var ?songs:Array<Array<String>>;
+	var ?weekNames:Array<String>;
+	var ?characters:Array<Array<String>>;
 	var ?weeks:Array<WeekInfo>;
-	var ?version:Int;
 }
 typedef WeekInfo = {
 	var name : String;

@@ -23,6 +23,9 @@ import plugins.tools.MetroSprite;
 import hscript.InterpEx;
 import hscript.Interp;
 import flixel.FlxG;
+import lime.system.System;
+import sys.io.File;
+import sys.FileSystem;
 
 class PluginManager {
     public static var interp = new InterpEx();
@@ -59,9 +62,13 @@ class PluginManager {
 		interp.variables.set("FlxAngle", flixel.math.FlxAngle);
 		interp.variables.set("FlxMath", flixel.math.FlxMath);
 		interp.variables.set("TitleState", TitleState);
+        interp.variables.set("coolTextFile", CoolUtil.coolTextFile);
 		interp.variables.set("makeRangeArray", CoolUtil.numberArray);
 		interp.variables.set("FNFAssets", FNFAssets);
 		// : )
+        interp.variables.set("System", lime.system.System);
+        interp.variables.set("File", sys.io.File);
+        interp.variables.set("FileSystem", sys.FileSystem);
 		interp.variables.set("FlxG", HscriptGlobals);
 		interp.variables.set("FlxTimer", flixel.util.FlxTimer);
         interp.variables.set("FlxObject", flixel.FlxObject);
@@ -110,7 +117,7 @@ class HscriptGlobals {
     public static var maxElapsed(get, set):Float;
     public static var mouse = FlxG.mouse;
     // no plugins
-    public static var random= FlxG.random;
+    public static var random = FlxG.random;
     public static var renderBlit(get, never):Bool;
     public static var renderMethod(get, never):FlxRenderMethod;
     public static var renderTile(get, never):Bool;

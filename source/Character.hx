@@ -59,9 +59,6 @@ class Character extends FlxSprite
 	public var camOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
-	public static var charStorage:Map<String, FlxFramesCollection>;
-	public static var makeStorage:Bool = true;
-
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
 	public var altAnim:String = "";
@@ -81,6 +78,7 @@ class Character extends FlxSprite
 	public var isCustom:Bool = false;
 	public var holdTimer:Float = 0;
 	public var animationNotes:Array<Dynamic> = [];
+	public var singPriority:Array<String> = [];
 	public var like:String = "bf";
 	public var beNormal:Bool = true;
 	/**
@@ -152,10 +150,6 @@ class Character extends FlxSprite
 	{
 		animOffsets = new Map<String, Array<Dynamic>>();
 		camOffsets = new Map<String, Array<Dynamic>>();
-		if (makeStorage) {
-			charStorage = new Map<String, FlxFramesCollection>();
-			makeStorage = false;
-		}
 		super(x, y);
 
 		curCharacter = character;
@@ -226,28 +220,20 @@ class Character extends FlxSprite
 			if (animation.getByName(directName + missName) != null) {
 				missSupported = true;
 			}
-			if (alt > 0)
-			{
-				if (alt == 1 && animation.getByName(directName + missName + '-alt') != null)
-				{
+			if (alt > 0) {
+				if (alt == 1 && animation.getByName(directName + missName + '-alt') != null) {
 					missAltSupported = true;
-				}
-				else if (alt > 1 && animation.getByName(directName + missName +"-" + alt + "alt") != null)
-				{
+				} else if (alt > 1 && animation.getByName(directName + missName +"-" + alt + "alt") != null) {
 					missAltSupported = true;
 				}
 			}
 			if (missSupported && (alt == 0 || missAltSupported))
 				directName += missName;
 		} 
-		if (alt > 0 && (!miss || missAltSupported))
-		{
-			if (alt == 1 && animation.getByName(directName + '-alt') != null)
-			{
+		if (alt > 0 && (!miss || missAltSupported)) {
+			if (alt == 1 && animation.getByName(directName + '-alt') != null) {
 				directName += "-alt";
-			}
-			else if (alt > 1 && animation.getByName(directName + "-" + alt + "alt") != null)
-			{
+			} else if (alt > 1 && animation.getByName(directName + "-" + alt + "alt") != null) {
 				directName += "-" + alt + "alt";
 			}
 		}
@@ -257,9 +243,7 @@ class Character extends FlxSprite
 			// second, we don't want no animation to be played, which again is handled.
 			// third, we want character to turn purple, which is handled here.
 			color = 0xCFAFFF;
-		}
-		else if (color == 0xCFAFFF)
-		{
+		} else if (color == 0xCFAFFF) {
 			color = FlxColor.WHITE;
 		}
 		if (alt > 0) {
@@ -271,55 +255,39 @@ class Character extends FlxSprite
 		}
 		playAnim(directName, true);
 	}
-	public static function preloadCharacter(daChar:String) {
-		var charLoad = new Character(0, 0, daChar);
-		charStorage[daChar] = charLoad.frames;
-	}
-	override function update(elapsed:Float)
-	{
-
+	override function update(elapsed:Float) {
 		//curCharacter = curCharacter.trim();
 		//var charJson:Dynamic = Json.parse(Assets.getText('assets/images/custom_chars/custom_chars.json'));
 		//var animJson = File.getContent("assets/images/custom_chars/"+Reflect.field(charJson,curCharacter).like+".json");
-		if (beingControlled)
-		{
-			if (!debugMode)
-			{
-				if (animation.curAnim.name.startsWith('sing'))
-				{
+		if (beingControlled) {
+			if (!debugMode) {
+				if (animation.curAnim.name.startsWith('sing') || singPriority.contains(animation.curAnim.name)) {
 					holdTimer += elapsed;
-				}
-				else
+				} else
 					holdTimer = 0;
 
-				if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode && beNormal)
-				{
+				if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && beNormal) {
 					playAnim('idle', true, false, 10);
 					trace("idle after miss");
 				}
 
-				if (animation.curAnim.name == 'firstDeath' && animation.curAnim.finished)
-				{
+				if (animation.curAnim.name == 'firstDeath' && animation.curAnim.finished) {
 					playAnim('deathLoop');
 				}
 			}
 		}
 		//if (!StringTools.contains(animJson, "firstDeath") && like != "bf-pixel") //supposed to fix note anim shit for bfs with unique jsons, currently broken
-		if (!beingControlled)
-		{
-			if (animation.curAnim != null && animation.curAnim.name.startsWith('sing'))
-			{
+		if (!beingControlled) {
+			if (animation.curAnim != null && (animation.curAnim.name.startsWith('sing') || singPriority.contains(animation.curAnim.name))) {
 				holdTimer += elapsed;
 			}
 
 			var dadVar:Float = 4;
 	
-			if (interp != null)
-			{
+			if (interp != null) {
 				dadVar = interp.variables.get("dadVar");
 			}
-			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
-			{
+			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
 				dance();
 				holdTimer = 0;
 			}
@@ -337,12 +305,10 @@ class Character extends FlxSprite
 				
 			}
 			if (animation.curAnim != null && animation.curAnim.finished)
-			{
 				playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
-			}
 		} else {
 			if (0 < animationNotes.length && Conductor.songPosition > animationNotes[0][0]) {
-				sing(animationNotes[0][1]);
+				sing(Std.int(animationNotes[0][1] % 4));
 				animationNotes.shift();
 			}
 		}
@@ -358,16 +324,13 @@ class Character extends FlxSprite
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance()
-	{
-		if (!debugMode && beNormal)
-		{
+	public function dance() {
+		if (!debugMode && beNormal) {
 			if (interp != null)
 				callInterp("dance", [this]);
 			else
 				playAnim('idle');
-			if (color == 0xCFAFFF)
-			{
+			if (color == 0xCFAFFF) {
 				color = FlxColor.WHITE;
 			}
 		}
@@ -388,27 +351,20 @@ class Character extends FlxSprite
 			// kalm
 			animName = animation.curAnim.name;
 		}
-		if (animOffsets.exists(animName))
-		{
+		if (animOffsets.exists(animName)) {
 			var daOffset = animOffsets.get(animName);
 			offset.set(daOffset[0], daOffset[1]);
-		}
-		else
+		} else
 			offset.set(0, 0);
 		// should spooky be on this?
-		if (likeGf)
-		{
-			if (AnimName == 'singLEFT')
-			{
+		if (likeGf) {
+			if (AnimName == 'singLEFT') {
 				danced = true;
-			}
-			else if (AnimName == 'singRIGHT')
-			{
+			} else if (AnimName == 'singRIGHT') {
 				danced = false;
 			}
 
-			if (AnimName == 'singUP' || AnimName == 'singDOWN')
-			{
+			if (AnimName == 'singUP' || AnimName == 'singDOWN') {
 				danced = !danced;
 			}
 		}
@@ -425,10 +381,15 @@ class Character extends FlxSprite
 		else
 			mappedAnims = Song.loadFromJson(curCharacter, PlayState.SONG.song).notes;
 
+		var noteAmount = 4;
+		if (song.preferredNoteAmount != null)
+			noteAmount = song.preferredNoteAmount;
+
 		for (anim in mappedAnims) {
 			for (note in anim.sectionNotes) {
-				if ((char == 'bf' && ((note[1] <= 3 && anim.mustHitSection) || (note[1] > 3 && note[1] < 8 && !anim.mustHitSection))) 
-					|| (char == 'dad' && ((note[1] <= 3 && !anim.mustHitSection) || (note[1] > 3 && note[1] < 8 &&anim.mustHitSection)))
+				var rootNote = note[1] % (noteAmount*2);
+				if ((char == 'bf' && ((rootNote <= noteAmount-1 && anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && !anim.mustHitSection))) 
+					|| (char == 'dad' && ((rootNote <= noteAmount-1 && !anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && anim.mustHitSection)))
 					|| char == null) //dude what the funk is this
 				animationNotes.push(note);
 			}

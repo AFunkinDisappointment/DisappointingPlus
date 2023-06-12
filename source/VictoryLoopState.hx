@@ -77,14 +77,11 @@ class VictoryLoopState extends MusicBeatSubstate
 		super();
 
 		Conductor.songPosition = 0;
-
 		
 		if (PlayState.opponentPlayer)
-		{
 			bf = new Character(dadX, dadY, PlayState.SONG.player2);
-		} else {
+		else
 			bf = new Character(x, y, PlayState.SONG.player1, true);
-		}
 		dad = new Character(dadX, dadY, PlayState.SONG.player2);
 		if (!PlayState.duoMode) {
 			dad.visible = false;
@@ -176,16 +173,15 @@ class VictoryLoopState extends MusicBeatSubstate
 	override function beatHit()
 	{
 		super.beatHit();
-		if (curBeat == 3) {
-			scoreTxt.visible = true;
-		}
-		if (curBeat == 5) {
-			rating.visible = true;
-			accuracyTxt.visible = true;
-		}
-		if (curBeat == 8) {
-			retryTxt.visible = true;
-			continueTxt.visible = true;
+		switch(curBeat) {
+			case 3:
+				scoreTxt.visible = true;
+			case 5:
+				rating.visible = true;
+				accuracyTxt.visible = true;
+			case 8:
+				retryTxt.visible = true;
+				continueTxt.visible = true;
 		}
 		if (accuracy >= 0.65) {
 			gf.dance();

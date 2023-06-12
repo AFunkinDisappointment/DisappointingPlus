@@ -59,6 +59,9 @@ class ChartingState extends MusicBeatState
 {
 	//var _file:FileReference;
 
+	public var playClaps:Bool = false;
+	var claps:Array<EdtNote> = [];
+
 	var UI_box:FlxUITabMenu;
 
 	/**
@@ -117,6 +120,8 @@ class ChartingState extends MusicBeatState
 
 	override function create() {
 		curSection = lastSection;
+
+		PlayState.startingPosition = 0;
 
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
 		add(gridBG);
@@ -218,6 +223,8 @@ class ChartingState extends MusicBeatState
 		add(curRenderedNotes);
 		add(curRenderedSustains);
 
+		changeSection(curSection);
+
 		super.create();
 	}
 
@@ -269,6 +276,12 @@ class ChartingState extends MusicBeatState
 		stepperNotes.value = _song.preferredNoteAmount;
 		stepperNotes.name = 'song_notes';
 
+		var hitsounds = new FlxUICheckBox(10, 300, null, null, "Play hitsounds", 100); //stole this because charting is a pain without it lol
+		hitsounds.checked = false;
+		hitsounds.callback = function() {
+			playClaps = hitsounds.checked;
+		};
+
 		var isHeyCheck = new FlxUICheckBox(10, 150, null, null, "Is Hey", 100);
 		var isCheerCheck = new FlxUICheckBox(100, 150, null, null, "Is Cheer", 100);
 		var isMoodyCheck = new FlxUICheckBox(10, 170, null, null, "Is Moody", 100);
@@ -285,7 +298,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
-
+		
 		tab_group_song.add(check_voices);
 		tab_group_song.add(check_mute_inst);
 		tab_group_song.add(isMoodyCheck);
@@ -299,6 +312,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
 		tab_group_song.add(stepperNotes);
+		tab_group_song.add(hitsounds);
 
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();
@@ -510,7 +524,6 @@ class ChartingState extends MusicBeatState
 					var noteJson = CoolUtil.parseJson(FNFAssets.getText('assets/data/${_song.song.toLowerCase()}/noteInfo.json'));
 					if ((noteType - 4) - 1 < noteJson.length) {
 						var thingie = noteJson[(noteType - 4) - 1];
-						trace(thingie.noteName);
 						if (thingie.noteName != null) {
 							noteTypeText.text += thingie.noteName + ' (${noteType - 4})';
 							noteChecked = true;
@@ -676,6 +689,15 @@ class ChartingState extends MusicBeatState
 		return daPos;
 	}
 
+	/*function checkForBads() { // like spell check but for charts
+		_song.notes.forEach(function(note:EdtNote) {
+			_song.notes.forEach(function(checknote:EdtNote) {
+				if (note[0] == checknote[0] && note[1] == checknote[1])
+					_song.notes[curSection].sectionNotes.remove();
+			});
+		});
+	}*/
+
 	override function update(elapsed:Float) {
 		curStep = recalculateSteps();
 
@@ -689,6 +711,19 @@ class ChartingState extends MusicBeatState
 		_song.cutsceneType = cutsceneTextField.text;
 		_song.uiType = uiTextField.text;
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps));
+
+		if (playClaps) {
+			curRenderedNotes.forEach(function(note:EdtNote) {
+				if (FlxG.sound.music.playing) {
+					FlxG.overlap(strumLine, note, function(_, _) {
+						if(!claps.contains(note)) {
+							claps.push(note);
+							FlxG.sound.play('assets/sounds/hitSound.ogg');
+						}
+					});
+				}
+			});
+		}
 
 		if (curBeat % 4 == 0 && curStep >= 16 * (curSection + 1)) {
 			trace(curStep);
@@ -793,18 +828,14 @@ class ChartingState extends MusicBeatState
 				}
 			}
 			var shiftThing:Int = 1;
-			if (FlxG.keys.justPressed.SPACE)
-			{
-				if (FlxG.sound.music.playing)
-				{
+			if (FlxG.keys.justPressed.SPACE) {
+				if (FlxG.sound.music.playing) {
 					FlxG.sound.music.pause();
 					if (_song.needsVoices) {
 						vocals.pause();
 					}
-
-				}
-				else
-				{
+					claps.splice(0, claps.length);
+				} else {
 					if (_song.needsVoices) {
 						vocals.play();
 					}
@@ -812,8 +843,7 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-			if (FlxG.keys.justPressed.R)
-			{
+			if (FlxG.keys.justPressed.R) {
 				if (FlxG.keys.pressed.SHIFT)
 					resetSection(true);
 				else
@@ -950,8 +980,7 @@ class ChartingState extends MusicBeatState
 		return curStep;
 	}
 
-	function resetSection(songBeginning:Bool = false):Void
-	{
+	function resetSection(songBeginning:Bool = false):Void {
 		updateGrid();
 
 		FlxG.sound.music.pause();
@@ -959,12 +988,10 @@ class ChartingState extends MusicBeatState
 			vocals.pause();
 		}
 
-
 		// Basically old shit from changeSection???
 		FlxG.sound.music.time = sectionStartTime();
 
-		if (songBeginning)
-		{
+		if (songBeginning) {
 			FlxG.sound.music.time = 0;
 			curSection = 0;
 		}
@@ -978,18 +1005,13 @@ class ChartingState extends MusicBeatState
 		updateSectionUI();
 	}
 
-	function changeSection(sec:Int = 0, ?updateMusic:Bool = true):Void
-	{
+	function changeSection(sec:Int = 0, ?updateMusic:Bool = true):Void {
 		trace('changing section' + sec);
 
-		if (_song.notes[sec] != null)
-		{
+		if (_song.notes[sec] != null) {
 			curSection = sec;
 
-			updateGrid();
-
-			if (updateMusic)
-			{
+			if (updateMusic) {
 				FlxG.sound.music.pause();
 				if (_song.needsVoices) {
 					vocals.pause();
@@ -1011,6 +1033,10 @@ class ChartingState extends MusicBeatState
 
 				updateCurStep();
 			}
+
+			var pleasehelpme:Null<Int> = null; // I funking LOVE doing weird work arounds for ABSOLUTELY no reason (my favorite is currentKey and currrentKey in PlayState :)
+			if (_song.notes[curSection].lengthInSteps == pleasehelpme)
+				_song.notes[curSection].lengthInSteps = 16;
 
 			updateGrid();
 			updateSectionUI();

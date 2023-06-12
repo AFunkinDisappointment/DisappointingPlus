@@ -1,3 +1,6 @@
+// going back to when Modding Plus was just starting
+// pretty nostalgic
+
 var healthTxt;
 var accuracyTxt;
 function start(song) {

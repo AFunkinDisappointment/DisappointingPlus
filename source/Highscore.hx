@@ -93,7 +93,7 @@ class Highscore
 				if (!songFCLevels.exists(bestOfAll) || songFCLevels.get(bestOfAll) <= rating )
 					setFCLevel(bestOfAll, rating);
 			}
-		} else{
+		} else {
 			setScore(bestFC, score);
 			setAccuracy(bestFC, accuracy);
 			setFCLevel(bestFC, rating);
@@ -259,10 +259,8 @@ class Highscore
 
 	public static function load():Void
 	{
-		if (FlxG.save.data.songScores != null)
-		{
+		if (FlxG.save.data.songScores != null) {
 			songScores = FlxG.save.data.songScores;
-			
 		}
 		if (FlxG.save.data.songAccuracy != null) {
 			songAccuracy = FlxG.save.data.songAccuracy;

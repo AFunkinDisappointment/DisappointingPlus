@@ -59,6 +59,16 @@ typedef WeekImport = {
 }
 
 class ModuleFunctions {
+	static public function processInfo(daInfo:String) {
+		var info = CoolUtil.coolTextFile(daInfo);
+		var processedInfo:Map<String, Dynamic> = new Map<String, Dynamic>();
+		for (i in 0...info.length) {
+			var data:Array<String> = info[i].split(':');
+			processedInfo[data[0]] = data[1];
+		}
+		return processedInfo;
+	}
+
 	static public function importSong(songData:SongImport) {
 		if (!FileSystem.exists('assets/data/' + songData.name.toLowerCase()))
 			FileSystem.createDirectory('assets/data/' + songData.name.toLowerCase());
@@ -128,7 +138,10 @@ class ModuleFunctions {
 		if (!FileSystem.exists(exportPath))
 			FileSystem.createDirectory(exportPath);
 
-		if (FileSystem.exists(songPath + '/' + daSong + '_Inst.ogg'))
+		File.copy(CoolUtil.getSongFile(daSong, songPath), exportPath + '/Inst.ogg');
+		File.copy(CoolUtil.getSongFile(daSong, songPath, false), exportPath + '/Voices.ogg');
+
+		/*if (FileSystem.exists(songPath + '/' + daSong + '_Inst.ogg'))
 			File.copy(songPath + '/' + daSong + '_Inst.ogg', exportPath + '/Inst.ogg');
 		else if (FileSystem.exists(songPath + '/Inst.ogg'))
 			File.copy(songPath + '/Inst.ogg', exportPath + '/Inst.ogg');
@@ -140,7 +153,7 @@ class ModuleFunctions {
 		else if (FileSystem.exists(songPath + '/Voices.ogg'))
 			File.copy(songPath + '/Voices.ogg', exportPath + '/Voices.ogg');
 		else if (FileSystem.exists(musicPath + daSong + '_Voices.ogg'))
-			File.copy(musicPath + daSong + '_Voices.ogg', exportPath + '/Voices.ogg');
+			File.copy(musicPath + daSong + '_Voices.ogg', exportPath + '/Voices.ogg');*/
 
 		if (FileSystem.exists(dataPath + '/dialog.txt'))
 			File.copy(dataPath + '/dialog.txt', exportPath + '/dialog.txt');
@@ -166,32 +179,26 @@ class ModuleFunctions {
 		var coolSong:Dynamic = CoolUtil.parseJson(File.getContent(songInfo));
 		var coolSongSong:Dynamic = coolSong.song;
 		//var epicCategoryJs:Array<Dynamic> = CoolUtil.parseJson(FNFAssets.getText('assets/data/freeplaySongJson.jsonc'));
-		//how do I make this better???
-		daInfo.push("This song info was made using Disappointing Plus");
-		daInfo.push("I would recommend replacing the nulls before importing!");
-		daInfo.push("It won't import properly if there is nulls (except for char and display)");
-		daInfo.push("");
-		daInfo.push("songname:" + coolSongSong.song);
-		daInfo.push("player1:" + coolSongSong.player1);
-		daInfo.push("player2:" + coolSongSong.player2);
-		daInfo.push("gf:" + coolSongSong.gf);
-		daInfo.push("stage:" + coolSongSong.stage);
-		daInfo.push("uiType:" + coolSongSong.uiType);
-		daInfo.push("cutsceneType:" + coolSongSong.cutsceneType);
-		daInfo.push("isHey:" + coolSongSong.isHey);
-		daInfo.push("isCheer:" + coolSongSong.isCheer);
-		daInfo.push("isMoody:" + coolSongSong.isMoody);
-		daInfo.push("isSpooky:" + coolSongSong.isSpooky);
-		daInfo.push("category:null");
-		daInfo.push("stageID:" + coolSongSong.stageID);
-		daInfo.push("week:-1");
-		daInfo.push("char:null");
-		daInfo.push("display:null");
-		//haha among us funny
-		var sussyInfo = StringTools.replace(daInfo.toString(), ',', '\n');
-		sussyInfo = StringTools.replace(sussyInfo, '[', '');
-		sussyInfo = StringTools.replace(sussyInfo, ']', '');
-		trace(sussyInfo);
+		// this looks silly but better than it was before
+		var sussyInfo = "This song info was made using Disappointing Plus\n" +
+		"I would recommend replacing any nulls before importing!\n" +
+		"It won't import properly if there are nulls (except for char and display)\n\n" +
+		"songname:" + coolSongSong.song +
+		"player1:" + coolSongSong.player1 +
+		"player2:" + coolSongSong.player2 +
+		"gf:" + coolSongSong.gf +
+		"stage:" + coolSongSong.stage +
+		"uiType:" + coolSongSong.uiType +
+		"cutsceneType:" + coolSongSong.cutsceneType +
+		"isHey:" + coolSongSong.isHey +
+		"isCheer:" + coolSongSong.isCheer +
+		"isMoody:" + coolSongSong.isMoody +
+		"isSpooky:" + coolSongSong.isSpooky +
+		"category:" + "null" +
+		"stageID:" + coolSongSong.stageID +
+		"week:" + "-1" +
+		"char:" + "null" +
+		"display:" + "null";
 		File.saveContent(exportPath + '/info.txt', sussyInfo);
 
 		for (i in 0...diffJson.difficulties.length) {
@@ -273,6 +280,7 @@ class ModuleFunctions {
 		Reflect.setField(epicCharFile, charData.name,{like:charData.like,icons: [Std.int(charData.iconNums[0]),Std.int(charData.iconNums[1]),Std.int(charData.iconNums[2]),Std.int(charData.iconNums[3])], colors: commaSeperatedColors});
 
 		File.saveContent('assets/images/custom_chars/custom_chars.jsonc', CoolUtil.stringifyJson(epicCharFile));
+		CoolUtil.formatCustomChars();
 		#end
 	}
 

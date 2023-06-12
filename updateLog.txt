@@ -1,6 +1,41 @@
 Hey there, how's it going? I made this update log so people can actually know what I add when I update Disappointing Plus.
 Just a disclaimer, I only started making this after 1.3.0, so some of the updates before it may be wrong.
 
+1.3.1
+[Notice]
+	- Module State has been updated since last update but is still very much a work in progress!
+	- The song section is the most complete, and I would recommend only using that if you want to try it.
+	- It will continue to be updated in later versions.
+	- Also, I reformatted this update log to organize the information better. This will be the new format for later versions.
+
+[Additions]
+	- Added option to toggle character colors on health bar
+	- Fps cap now applies after exiting options
+	- You can now press TAB during a song to see your current keybinds
+		- Works for multi-key and duo mode
+	- Added Solo Mode to modifier state
+		- You play both sides at the same time
+		- Disables hold notes
+	- Note presets' "sing" now supports other animations
+	- Added 'singPriority' to custom characters
+		- Allows animations that don't start with 'sing' to act like them
+		- Example: char.singPriority.push('hey');
+	- Psych UI's song position works better
+	- Made mid song start (via charting state) reset after changing songs or re-entering charting state
+	- This updateLog now builds :flushed:
+
+[Bug Fixes]
+	- I accidentally broke duo mode last update so I fixed that (just don't try multi-key songs with it lol)
+	- Fixed misses not corresponding to the note presets
+	- Fixed freeplay not remembering what song you're on when leaving and coming back
+	- Fixed records so they don't crash game while using 'stylish' freeplay
+	- Charting state no longer blanks when lengthInSteps doesn't exist in a section
+		- This was fun to code :|
+	- Spamming enter while the game is starting no longer crashes
+
+[Other]
+	- Added an image to flex >:)
+
 1.3.0
 - Added Multi-key system
 	- Works for note amounts of 1-9
@@ -18,7 +53,7 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 - Fixed game crashing if there was no note splash asset in song's ui pack
 - Weeks now use their name when saving scores instead of using the week number
 - Added middlescroll (requested by a viewer)
-- Added "Sing Whenever" which plays the sing animation when ghost tapping (like in Roblox FNF games)
+- Added "Sing Whenever" setting which plays the sing animation when ghost tapping (like in Roblox FNF games)
 - Added universal variables which can be used between a song's modchart and other hscripts
 	- updateUV(${variableName}, ${variableValue});
 		- Adds or overwrites a universal variable
@@ -79,9 +114,11 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 	- scriptableCamera = ''
 		- 'false' is the normal camera
 		- 'static' just stays in one place
-		- ''
+		- 'char' has two positions depending on which character is focused
 	- scriptCamPos = [0, 0, 0, 0];
-		- First two variables are position of static camera and 
+		- First two variables are the position of static camera and char's bf camera
+		- Second two variables are char's dad camera
+		- Normal (or false) camera does not use this
 - Added option to make the camera move with the direction of strumed notes
 - Added options to remove timings and note splashes
 - Fixed animation debug

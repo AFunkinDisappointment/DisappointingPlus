@@ -333,8 +333,7 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.play('assets/music/titleShoot' + TitleState.soundExt, 0.7);
 		}
 
-		if (pressedEnter && !skippedIntro)
-		{
+		if (pressedEnter && !skippedIntro && curBeat > 0) {
 			skipIntro();
 		}
 

@@ -14,14 +14,19 @@ import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.ui.FlxButton;
 
-/**
-	*DEBUG MODE
- */
+typedef HScriptStorage = {
+	var type:String;
+	var line:Int;
+	var values:Array<Dynamic>;
+};
+
 class AnimationDebug extends FlxState
 {
 	var bf:Character;
+	var bfHScript = FNFAssets.getText('assets/images/custom_chars/bf/char.xml');
 	var bfText:FlxUIInputText;
 	var dad:Character;
+	var dadHScript = FNFAssets.getText('assets/images/custom_chars/dad/char.xml');
 	var dadText:FlxUIInputText;
 	var loadCharButton:FlxButton;
 	var char:Character;
@@ -42,11 +47,12 @@ class AnimationDebug extends FlxState
 	private var camBG:FlxCamera;
 	private var camHUD:FlxCamera;
 
-	public function new(daAnim:String = 'spooky', daOtherAnim:String = 'bf')
-	{
+	public function new(daAnim:String = 'spooky', daOtherAnim:String = 'bf') {
 		super();
 		this.daAnim = daAnim;
+		dadHScript = FNFAssets.getText('assets/images/custom_chars/' + daAnim + '/char.xml');
 		this.daOtherAnim = daOtherAnim;
+		bfHScript = FNFAssets.getText('assets/images/custom_chars/' + daOtherAnim + '/char.xml');
 	}
 
 	override function create()
@@ -167,6 +173,7 @@ class AnimationDebug extends FlxState
 		dad.x += dad.enemyOffsetX;
 		dad.y += dad.enemyOffsetY;
 		add(dad);
+		dadHScript = FNFAssets.getText('assets/images/custom_chars/' + daAnim + '/char.xml');
 
 		if (replace) remove(bf);
 		bf = new Character(770, 450, daOtherAnim, true);
@@ -174,6 +181,7 @@ class AnimationDebug extends FlxState
 		bf.x += bf.playerOffsetX;
 		bf.y += bf.playerOffsetY;
 		add(bf);
+		bfHScript = FNFAssets.getText('assets/images/custom_chars/' + daOtherAnim + '/char.xml');
 
 		char = dad;
 	}

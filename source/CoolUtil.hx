@@ -7,6 +7,15 @@ import lime.system.System;
 import tjson.TJSON;
 using StringTools;
 
+#if sys
+import sys.io.File;
+import haxe.io.Path;
+import openfl.utils.ByteArray;
+import lime.media.AudioBuffer;
+import sys.FileSystem;
+import flash.media.Sound;
+#end
+
 
 class CoolUtil
 {
@@ -14,6 +23,63 @@ class CoolUtil
 	// hxs, like kotlin's kts
 	public static final HSCRIPT_EXT:Array<String> = ['hscript', 'hxs'];
 	public static final JSON_EXT:Array<String> = ['json', 'jsonc'];
+	public static function formatCustomChars() {
+		var epicCharFile:Dynamic = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_chars/custom_chars'));
+		/*
+		this is what im basing off
+		"template": {
+			"like": "bf",
+			"icons": [0,1,2,3],
+			"colors": ["#149DFF"]
+		},
+		*/
+		var finalString = '{';
+
+		var components:Array<String> = [ // a pain to look at but I like it
+			'\n  "', 
+			'": {\n    "like": "', 
+			'",\n    "icons": ',
+			',\n    "colors": [',
+			']\n  },'
+		];
+
+		var daFields = Reflect.fields(epicCharFile);
+		for (i in 0...daFields.length) {
+			var char = daFields[i];
+			trace(char);
+			var like = Reflect.field(epicCharFile, char).like;
+			trace(like);
+			var icons = Reflect.field(epicCharFile, char).icons.toString();
+			trace(icons);
+			
+			var colors = Reflect.field(epicCharFile, char).colors;
+			trace(colors);
+			var fixedColors = '';
+			for(i in 0...colors.length) {
+				fixedColors += '"' + colors[i] + '"';
+				if (i != colors.length-1)
+					fixedColors += ',';
+			}
+			trace(fixedColors);
+
+			finalString += components[0] + char + components[1] + like + components[2] + icons + components[3] + fixedColors + components[4];
+		}
+		finalString += '\n}';
+		trace('done');
+		File.saveContent('assets/images/custom_chars/custom_chars.jsonc', finalString);
+	}
+	public static function getSongFile(song:String, path:String, inst:Bool = true) { // 'path' is the song folder path
+		var daSong = null;
+		var songType = if (inst) 'Inst'; else 'Voices';
+		if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + song + '_' + songType + TitleState.soundExt]))) {
+			daSong = haxe.io.Path.join([path, '/' + song + "_" + songType + TitleState.soundExt]);
+		} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + songType + TitleState.soundExt]))) {
+			daSong = haxe.io.Path.join([path, '/' + songType + TitleState.soundExt]);
+		} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '../../music/' + song + '_' + songType + TitleState.soundExt]))) {
+			daSong = haxe.io.Path.join([path, '../../music/' + song + '_' + songType + TitleState.soundExt]);
+		}
+		return daSong;
+	}
 	public static function coolTextFile(path:String):Array<String>
 	{
 		var daList:Array<String> = FNFAssets.getText(path).trim().split('\n');

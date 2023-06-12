@@ -70,7 +70,7 @@ class SaveDataState extends MusicBeatState
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuDesat.png');
 			optionList = [
 							{name: "Controls...", value: false, intName:'controls', desc:"Edit bindings!", ignore: true,},
-							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "What should the max fps be. (Requires restart to apply)", amount: 60, defAmount: 60, max: 240, min: 20, precision: 10,},
+							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "Changes the max fps (also changes update rate)", amount: 60, defAmount: 60, max: 240, min: 10, precision: 10,},
 							{name: "Scroll Speed", value: false, intName: "scrollSpeed", desc: "Sets the scroll speed (1 uses the song's scroll speed)", amount: 1.0, defAmount: 1.0, max: 10.0, min: 1.0, precision: 0.1,},
 							{name: "Downscroll", value: false, intName: "downscroll", desc: "Put da arrows on the bottom and have em scroll down"},
 							{name: "Middlescroll", value: false, intName: "midscroll", desc: "Become the main attraction. Your story will be told"},
@@ -105,6 +105,7 @@ class SaveDataState extends MusicBeatState
 							{name: "Show Combo Breaks", value: false, intName:"showComboBreaks", desc: "Whether to display any combo breaks by flashing the screen."},
 							{name: "Funny Songs", value: false, intName: "stressTankmen", desc: "funny songs"},
 							{name: "Use Kade Health", value: false, intName: "useKadeHealth", desc: "Use kade engines health numbers when healing and dealing damage"},
+							{name: "Healthbar Uses Chars' Colors", value: false, intName: "useCharColor", desc: "Makes the health bar use the characters' colors"},
 							{name: "Use Miss Stun", value: false, intName: "useMissStun", desc: "Prevent hitting notes for a short time after missing."},
 							{name: "Don't Use Vile Rating", value: false, intName: "ignoreVile", desc: "Don't use the \"Vile\" rating"},
 							{name: "Offset", value: false, intName: "offset", desc: "How much to offset notes when playing. Can fix some latency issues! Hold Control to scroll faster.", amount: 0, defAmount: 0, max: 1000, min: -1000, precision: 0.1,},
@@ -506,6 +507,8 @@ class SaveDataState extends MusicBeatState
 			}
 		}
 		OptionsHandler.options = noneditableoptions;
+		FlxG.updateFramerate = OptionsHandler.options.fpsCap;
+		FlxG.drawFramerate = OptionsHandler.options.fpsCap;
 	}
 	function toggleSelection() { 
 		switch (optionList[optionsSelected].name)

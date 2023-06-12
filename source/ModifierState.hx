@@ -286,6 +286,19 @@ class ModifierState extends MusicBeatState
 			desc: "Insta-replay the level after you die!"
 		},
 		{
+			name: "Solo Mode",
+			internName : "nos",
+			value: false,
+			conflicts: [
+				"oppnt",
+				"duo",
+				"demo"
+			],
+			multi : 0,
+			times: true,
+			desc: "You play all the notes. Every. Last. One. (No score for you)"
+		},
+		{
 			name: "Duo Mode",
 			internName: "duo",
 			value: false,

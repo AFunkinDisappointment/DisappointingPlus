@@ -71,6 +71,7 @@ class FreeplayState extends MusicBeatState
 	var infoPanel:SongInfoPanel;
 	override function create()
 	{
+		Highscore.load();
 		for (songSnippet in currentSongList) {
 			var songData = new SongMetadata(songSnippet.name, songSnippet.week, songSnippet.character, songSnippet.display);
 			if (songSnippet.flags == null || songSnippet.flags.length == 0)
@@ -130,8 +131,11 @@ class FreeplayState extends MusicBeatState
 					songs.push(songData);
 			}
 		}
-		if (curCategory != prevCategory)
+
+		if (prevCategory != curCategory) {
 			curSelected = 0;
+			prevCategory = curCategory;
+		}
 
 		curDifficulty = DifficultyIcons.getDefaultDiffFP();
 		/*
@@ -470,36 +474,27 @@ class FreeplayState extends MusicBeatState
 		}
 		// do it here for the sweet sweet gold record
 		infoPanel.changeSong(songs[curSelected].songName, curDifficulty);
-		if (OptionsHandler.options.style)
-		{
+		if (OptionsHandler.options.style && false) {
 			var coolors = ["black"];
-			if (Reflect.hasField(charJson, songs[curSelected].songCharacter))
-			{
+			if (Reflect.hasField(charJson, songs[curSelected].songCharacter)) {
 				coolors = Reflect.field(charJson, songs[curSelected].songCharacter).colors;
-			}
-			else
-			{
+			} else {
 				coolors = Reflect.field(iconJson, songs[curSelected].songCharacter).colors;
 			}
 			record.changeColor(coolors, songs[curSelected].songCharacter, songs[curSelected].week,
 				songs[curSelected].songName, curDifficulty);
 		}
 	}
-	override function stepHit()
-	{
+	override function stepHit() {
 		super.stepHit();
-		if (soundTest && soundTestSong != null && soundTestSong.needsVoices && curDifficulty == 0)
-		{
-			if (vocals.time > Conductor.songPosition + 20 || vocals.time < Conductor.songPosition - 20)
-			{
+		if (soundTest && soundTestSong != null && soundTestSong.needsVoices && curDifficulty == 0) {
+			if (vocals.time > Conductor.songPosition + 20 || vocals.time < Conductor.songPosition - 20) {
 				resyncVocals();
 			}
 		}
-
 	}
 
-	function resyncVocals():Void
-	{
+	function resyncVocals():Void {
 		vocals.pause();
 
 		FlxG.sound.music.play();
@@ -508,8 +503,8 @@ class FreeplayState extends MusicBeatState
 		vocals.time = Conductor.songPosition;
 		vocals.play();
 	}
-	function changeSelection(change:Int = 0)
-	{
+
+	function changeSelection(change:Int = 0) {
 
 		FlxG.sound.play('assets/sounds/custom_menu_sounds/'+CoolUtil.parseJson(FNFAssets.getText("assets/sounds/custom_menu_sounds/custom_menu_sounds.json")).customMenuScroll+'/scrollMenu' + TitleState.soundExt, 0.4);
 
@@ -572,12 +567,12 @@ class FreeplayState extends MusicBeatState
 			coolors = Reflect.field(iconJson, songs[curSelected].songCharacter).colors;
 		}
 		FlxTween.color(bg,0.5, bg.color, FlxColor.fromString(coolors[0]));
-		/*
+		
 		if (OptionsHandler.options.style) {
 			record.changeColor(coolors, songs[curSelected].songCharacter, songs[curSelected].week,
 				songs[curSelected].songName, curDifficulty);
 			
-		}*/
+		}
 		
 		infoPanel.changeSong(songs[curSelected].songName, curDifficulty);
 	}

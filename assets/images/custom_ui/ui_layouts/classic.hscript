@@ -1,3 +1,6 @@
+// The plain and simple FNF ui
+// Only the score is shown
+
 function start(song) {
     difficTxt.visible = false;
 

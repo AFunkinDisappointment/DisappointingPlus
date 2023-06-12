@@ -1,6 +1,7 @@
 // this ui layout is based off Psych Engine
 // all credit goes to the cool people who made it
 // highly recommend downloading it
+// way better than this engine 😅
 // https://gamebanana.com/mods/309789
 
 var songLength;
@@ -59,7 +60,7 @@ function start(song) {
 }
 
 function stepHit(step) {
-	if (step == 1)
+	if (songLength == null)
 	    songLength = FlxG.sound.music.length;
 }
 

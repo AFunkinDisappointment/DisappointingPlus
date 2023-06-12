@@ -772,7 +772,5 @@ class Note extends DynamicSprite
 				}
 			}
 		}
-		
-		
 	}
 }
