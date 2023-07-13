@@ -62,6 +62,7 @@ class PluginManager {
 		interp.variables.set("FlxAngle", flixel.math.FlxAngle);
 		interp.variables.set("FlxMath", flixel.math.FlxMath);
 		interp.variables.set("TitleState", TitleState);
+        interp.variables.set("CoolUtil", CoolUtil);
         interp.variables.set("coolTextFile", CoolUtil.coolTextFile);
 		interp.variables.set("makeRangeArray", CoolUtil.numberArray);
 		interp.variables.set("FNFAssets", FNFAssets);

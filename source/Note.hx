@@ -157,6 +157,7 @@ class Note extends DynamicSprite
 	public var prevNote:Note;
 	public var duoMode:Bool = false;
 	public var oppMode:Bool = false;
+	public var soloMode:Bool = false;
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
 	public var modifiedByLua:Bool = false;

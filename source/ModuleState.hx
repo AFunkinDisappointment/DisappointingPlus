@@ -249,8 +249,8 @@ class ModuleState extends MusicBeatState {
 				scrollNum[section] -= 10;
 				if (FlxG.keys.pressed.SHIFT)
 					scrollNum[section] -= 15;
-				if (scrollNum[section] < -180 * (currentBoxNum - 5) && currentBoxNum > 4)
-					scrollNum[section] = -180 * (currentBoxNum - 5);
+				if (scrollNum[section] < -150 * (currentBoxNum - 5) && currentBoxNum > 4)
+					scrollNum[section] = -150 * (currentBoxNum - 5);
 			} else if (FlxG.keys.pressed.UP || FlxG.keys.pressed.W) {
 				scrollNum[section] += 10;
 				if (FlxG.keys.pressed.SHIFT)
@@ -945,10 +945,10 @@ class ModuleState extends MusicBeatState {
 			if (!FileSystem.exists('assets/songs/' + path))
 				FileSystem.createDirectory('assets/songs/' + path);
 
-			File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/'])), 'assets/songs/' + path + '/Inst.ogg');
-			File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/']), false), 'assets/songs/' + path + '/Voices.ogg');
+			//File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/' + path + '/'])), 'assets/songs/' + path + '/Inst.ogg');
+			//File.copy(CoolUtil.getSongFile(path, haxe.io.Path.join([assets, 'songs/' + path + '/']), false), 'assets/songs/' + path + '/Voices.ogg');
 			
-			/*if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']))) {
+			if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']))) {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/Inst.ogg']), 'assets/songs/' + path + '/Inst.ogg');
 			} else if (FileSystem.exists(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Inst.ogg']))) {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Inst.ogg']), 'assets/songs/' + path + '/Inst.ogg');
@@ -962,7 +962,7 @@ class ModuleState extends MusicBeatState {
 				File.copy(haxe.io.Path.join([assets, 'songs/' + path + '/' + path + '_Voices.ogg']), 'assets/songs/' + path + '/Voices.ogg');
 			} else {
 				File.copy(haxe.io.Path.join([assets, 'music/' + path + '_Voices.ogg']), 'assets/songs/' + path + '/Voices.ogg');
-			}*/
+			}
 
 			if (!FileSystem.exists('assets/data/' + path))
 				FileSystem.createDirectory('assets/data/' + path);

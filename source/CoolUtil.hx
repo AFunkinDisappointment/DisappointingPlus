@@ -4,6 +4,7 @@ import openfl.display.BitmapData;
 import flixel.FlxSprite;
 import lime.utils.Assets;
 import lime.system.System;
+import flash.display.BlendMode;
 import tjson.TJSON;
 using StringTools;
 
@@ -71,14 +72,51 @@ class CoolUtil
 	public static function getSongFile(song:String, path:String, inst:Bool = true) { // 'path' is the song folder path
 		var daSong = null;
 		var songType = if (inst) 'Inst'; else 'Voices';
-		if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + song + '_' + songType + TitleState.soundExt]))) {
-			daSong = haxe.io.Path.join([path, '/' + song + "_" + songType + TitleState.soundExt]);
-		} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '/' + songType + TitleState.soundExt]))) {
-			daSong = haxe.io.Path.join([path, '/' + songType + TitleState.soundExt]);
+		if (sys.FileSystem.exists(haxe.io.Path.join([path, song + '_' + songType + TitleState.soundExt]))) {
+			daSong = haxe.io.Path.join([path, song + "_" + songType + TitleState.soundExt]);
+		} else if (sys.FileSystem.exists(haxe.io.Path.join([path, songType + TitleState.soundExt]))) {
+			daSong = haxe.io.Path.join([path, songType + TitleState.soundExt]);
 		} else if (sys.FileSystem.exists(haxe.io.Path.join([path, '../../music/' + song + '_' + songType + TitleState.soundExt]))) {
 			daSong = haxe.io.Path.join([path, '../../music/' + song + '_' + songType + TitleState.soundExt]);
 		}
 		return daSong;
+	}
+	public static function getBlendMode(blend:String) {
+		var daBlend = switch(blend) {
+			case "add":
+				BlendMode.ADD;
+			case "alpha":
+				BlendMode.ALPHA;
+			case "darken":
+				BlendMode.DARKEN;
+			case "difference":
+				BlendMode.DIFFERENCE;
+			case "erase":
+				BlendMode.ERASE;
+			case "hardlight":
+				BlendMode.HARDLIGHT;
+			case "invert":
+				BlendMode.INVERT;
+			case "layer":
+				BlendMode.LAYER;
+			case "lighten":
+				BlendMode.LIGHTEN;
+			case "multiply":
+				BlendMode.MULTIPLY;
+			case "normal":
+				BlendMode.NORMAL;
+			case "overlay":
+				BlendMode.OVERLAY;
+			case "screen":
+				BlendMode.SCREEN;
+			case "shader":
+				BlendMode.SHADER;
+			case "subtract":
+				BlendMode.SUBTRACT;
+			default:
+				null;
+		}
+		return daBlend;
 	}
 	public static function coolTextFile(path:String):Array<String>
 	{

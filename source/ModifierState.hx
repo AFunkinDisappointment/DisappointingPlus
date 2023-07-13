@@ -302,7 +302,7 @@ class ModifierState extends MusicBeatState
 			name: "Duo Mode",
 			internName: "duo",
 			value: false,
-			conflicts: ["mfc", "fc", "gfc", "healthloss", "regen", "degen", "poison", "oppnt", "demo"],
+			conflicts: ["mfc", "fc", "gfc", "healthloss", "regen", "degen", "poison", "oppnt", "demo", "nos"],
 			multi: 0,
 			times: true,
 			desc: "Boogie with a friend! (FRIEND NOT REQUIRED)"
@@ -311,7 +311,7 @@ class ModifierState extends MusicBeatState
 			name: "Oppnt. Play",
 			internName: "oppnt",
 			value: false,
-			conflicts: ["duo", "demo"],
+			conflicts: ["duo", "demo", "nos"],
 			multi: 0,
 			desc: "Play as the enemy that wanted to beat up Boyfriend!"
 		},
@@ -319,7 +319,7 @@ class ModifierState extends MusicBeatState
 			name: "Demo Mode",
 			internName: "demo",
 			value: false,
-			conflicts: ["mfc", "fc","gfc", "healthloss", "regen", "degen", "poison", "oppnt", "duo"],
+			conflicts: ["mfc", "fc","gfc", "healthloss", "regen", "degen", "poison", "oppnt", "duo", "nos"],
 			multi: 0,
 			times: true,
 			desc: "Let the game play itself!"
