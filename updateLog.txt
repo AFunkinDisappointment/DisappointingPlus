@@ -5,9 +5,9 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 [Additions]
 	- Solo mode now has the opponent sing their notes (idles broken though)
 		- Also forces middlescroll
-	- New CoolUtil Function "getBlendMode(blend:String);"
+	- CoolUtil can now be called from hscripts
+	- New CoolUtil Function "getBlendMode(blendmode);"
 		- BlendMode is funky so use this to get blends
-		- CoolUtil can now also be used by hscripts
 
 [Bug Fixes]
 	- Characters without left and right animations no longer crash when used as the player
