@@ -70,6 +70,9 @@ function update(elapsed) {
 	else
 	    scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + PlayState.misses + ' | Rating: ' + GenerateRank(accuracy) + ' (' + HelperFunctions.truncateFloat(accuracy, 2) + '%)' + getFC();
 
+	scoreTxt.scale.x = FlxMath.lerp(1, scoreTxt.scale.x, 0.8);
+	scoreTxt.scale.y = FlxMath.lerp(1, scoreTxt.scale.y, 0.8);
+
 	var curTime = FlxG.sound.music.time;
 	if (curTime < 0) curTime = 0;
 
@@ -78,7 +81,7 @@ function update(elapsed) {
 
 	var minutesRemaining = Math.floor(secondsTotal / 60);
 	var secondsRemaining = '' + secondsTotal % 60;
-	if (secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining; //Dunno how to make it display a zero first in Haxe lol
+	if (secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining;
 	songName.text = minutesRemaining + ':' + secondsRemaining;
 
 	if (demoMode) {
@@ -87,23 +90,14 @@ function update(elapsed) {
 	}
 }
 
-var scoreTxtTween = false;
-function playerOneSing() {
-	scoreTxtTween = false;
+function noteHit(player1, note, wasGoodHit) {
+    if (!note.isSustainNote) {
 	scoreTxt.scale.x = 1.1;
 	scoreTxt.scale.y = 1.1;
-	scoreTxtTween = true;
-	new FlxTimer().start(0.025, function(tmr) {
-		scoreTxt.scale.x -= 0.0125;
-		scoreTxt.scale.y -= 0.0125;
-
-		if (scoreTxt.scale.x > 1 && scoreTxtTween == true) {
-			tmr.reset(0.025);
-		} else {
-			scoreTxt.scale.x = 1;
-			scoreTxt.scale.y = 1;
-		}
-	});
+    } else {
+	scoreTxt.scale.x = 1.05;
+	scoreTxt.scale.y = 1.05;
+    }
 }
 
 function getFC() {

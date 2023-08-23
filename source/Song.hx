@@ -32,6 +32,7 @@ typedef SwagSong =
 	var isCheer:Null<Bool>;
 	var preferredNoteAmount:Null<Int>;
 	var forceJudgements:Null<Bool>;
+	var forceLayout:Null<String>;
 	var convertMineToNuke:Null<Bool>;
 	var mania:Null<Int>;
 	var stageID:Null<Int>;
@@ -54,28 +55,25 @@ class Song
 	public var cutsceneType:String = "none";
 	public var uiType:String = 'normal';
 	public var isHey:Null<Bool> = false;
-	public function new(song, notes, bpm)
-	{
+	public var isCheer:Null<Bool> = false;
+	public function new(song, notes, bpm) {
 		this.song = song;
 		this.notes = notes;
 		this.bpm = bpm;
 	}
 
-	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
-	{
+	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong {
 		var rawJson:String = "";
-		if (jsonInput != folder && FNFAssets.exists("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + ".json"))
-		{
+		if (jsonInput != folder && FNFAssets.exists("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + ".json")) {
 			// means this isn't normal difficulty
 			// raw json 
 
-			rawJson = FNFAssets.getText("assets/data/"+folder.toLowerCase()+"/"+folder.toLowerCase()+".json").trim();
+			rawJson = FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + ".json").trim();
 		} else {
 			rawJson = FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + jsonInput.toLowerCase() + '.json').trim();
 		}
 		
-		while (!rawJson.endsWith("}"))
-		{
+		while (!rawJson.endsWith("}")) {
 			rawJson = rawJson.substr(0, rawJson.length - 1);
 			// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 		}
@@ -159,6 +157,9 @@ class Song
 		if (parsedJson.forceJudgements == null) {
 			parsedJson.forceJudgements = false;
 		}
+		if (parsedJson.forceLayout == null) {
+			parsedJson.forceLayout = 'none';
+		}
 		if (parsedJson.cutsceneType == null) {
 			switch (parsedJson.song.toLowerCase()) {
 				case 'roses':
@@ -191,6 +192,28 @@ class Song
 		if (parsedJson.stageID == null) {
 			parsedJson.stageID == 0;
 		}
+		if (parsedJson.preferredNoteAmount == null) {
+				switch (parsedJson.mania) {
+					case 1:
+						parsedJson.preferredNoteAmount = 6;
+					case 2:
+						parsedJson.preferredNoteAmount = 9;
+					default:
+						parsedJson.preferredNoteAmount = 4;
+				}
+			}
+			if (parsedJson.mania == null) {
+				switch (parsedJson.preferredNoteAmount) {
+					case 4:
+						parsedJson.mania = 0;
+					case 6:
+						parsedJson.mania = 1;
+					case 9:
+						parsedJson.mania = 2;
+					default:
+						parsedJson.mania = 0;
+				}
+			}
 		if (parsedJson.player1 == "bf-pixel" && OptionsHandler.options.stressTankmen) {
 			parsedJson.player1 = "bulb-pixel";
 		}
@@ -211,8 +234,7 @@ class Song
 				daSections = songData.sections;
 				daBpm = songData.bpm;
 				daSectionLengths = songData.sectionLengths; */
-		if (jsonInput != folder)
-		{
+		if (jsonInput != folder) {
 			// means this isn't normal difficulty
 			// lets finally overwrite notes
 			var realJson = parseJSONshit(FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + jsonInput.toLowerCase() + '.json').trim());
@@ -248,8 +270,7 @@ class Song
 		return parsedJson;
 	}
 
-	public static function parseJSONshit(rawJson:String):SwagSong
-	{
+	public static function parseJSONshit(rawJson:String):SwagSong {
 		var swagShit:SwagSong = cast CoolUtil.parseJson(rawJson).song;
 		return swagShit;
 	}

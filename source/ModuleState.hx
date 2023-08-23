@@ -386,7 +386,7 @@ class ModuleState extends MusicBeatState {
 					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
 					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Song", function():Void {
 						if (moduleMode != 'Export')
-							checkFile(songName.toLowerCase(), 'song', song);
+							importSong(song);
 						else
 							ModuleFunctions.exportSong(songName);
 					});

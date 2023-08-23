@@ -200,7 +200,7 @@ class Character extends FlxSprite
 	public function sing(direction:Int, ?miss:Bool=false, ?alt:Int=0) {
 		var directName:String = "";
 		var missName:String = "";
-		switch (direction) {
+		switch (direction % 4) {
 			case 0:
 				directName = "singLEFT";
 			case 1:

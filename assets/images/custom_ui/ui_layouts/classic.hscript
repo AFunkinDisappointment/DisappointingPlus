@@ -12,6 +12,7 @@ function start(song) {
     scoreTxt.x = healthBarBG.x + healthBarBG.width - 190;
     //scoreTxt.setFormat("assets/fonts/vcr.ttf", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.NONE, FlxColor.TRANSPARENT);
     scoreTxt.size = 20;
+    scoreTxt.alignment = 'left';
     if (downscroll)
 	    scoreTxt.y = healthBarBG.y - 30;
     else

@@ -15,6 +15,7 @@ function start(song) {
 
     scoreTxt.x = healthBarBG.x + healthBarBG.width - 90;
     //scoreTxt.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE, RIGHT);
+    scoreTxt.alignment = 'left';
     scoreTxt.size = 20;
     if (downscroll)
 	    scoreTxt.y = healthBarBG.y - 30;
@@ -28,6 +29,7 @@ function start(song) {
     healthTxt.scrollFactor.set();
     healthTxt.cameras = [camHUD];
     addSprite(healthTxt);
+    scoreTxt.borderStyle = healthTxt.borderStyle;
 
     accuracyTxt = new FlxText(healthBarBG.x, scoreTxt.y, 0, "", 200);
     //accuracyTxt.setFormat("assets/fonts/vcr.ttf", 20, FlxColor.WHITE, RIGHT);

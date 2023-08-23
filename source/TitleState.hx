@@ -119,6 +119,9 @@ class TitleState extends MusicBeatState
 		PlayerSettings.init();
 		Highscore.load();
 
+		// volume stuff
+		FlxG.sound.volume = FlxG.save.data.volume;
+		//FlxG.sound.soundTrayEnabled = false;
 		FlxG.sound.volumeUpKeys = FlxG.save.data.keys.volUp;
 		FlxG.sound.volumeDownKeys = FlxG.save.data.keys.volDown;
 
