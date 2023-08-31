@@ -1,10 +1,6 @@
-THIS IS FOR YOU LITTLE CUNTS WHO KEEP SUGGESTING IT IN THE DISCORD
-FUCK YOU
-
-outsiders who haven't seen the chaos in the discord server deserve this more than you, and i'm writing this for 3 reasons
-1. bulby literally won't
-2. to shut the little cunts up
-3. to make it easier for people to actually use this shit
+THIS IS FOR ANYONE WHO DOESN'T KNOW HOW THE HECK TO USE MODDING PLUS.
+MAYBE THIS WILL HELP, I DUNNO.
+YOU CAN ALWAYS LOOK UP TUTORIALS ON YOUTUBE IF THAT'S EASIER FOR YOU.
 
 CUSTOM CHARACTERS:
 1. Go to the "custom_chars" folder in the images folder
@@ -170,3 +166,13 @@ IF YOU NEED ANY OTHER HELP JOIN THE FNF M+ DISCORD!!
 
 
 -DaPootisBird
+
+
+
+
+
+
+
+
+
+Hey, it's Smecko Geck. The M+ Discord is nonexistent. It used to be a thing, but an unfortunate event caused it to be deleted. Sorry. I had no involvement with it.
