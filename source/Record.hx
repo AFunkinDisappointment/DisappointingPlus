@@ -26,7 +26,7 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
     var almostSticker:FlxSprite;
     var parsedWeekJson:StoryMenuState.StorySongsJson;
     // var smudge:FlxSprite;
-    public function new(X:Float=0, Y:Float=0, colors:Array<String>, ?character:String="bf", ?week:Int = -1, ?completion:Bool) {
+    public function new(X:Float=0, Y:Float=0, colors:Array<FlxColor>, ?character:String="bf", ?week:Int = -1, ?completion:Bool) {
         super();
         reordering = true;
         parsedWeekJson = CoolUtil.parseJson(FNFAssets.getJson("assets/data/storySonglist"));
@@ -97,14 +97,10 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
             return;
         angle += 30 * elapsed;
     }
-    public function changeColor(colors:Array<String>, ?character:String="bf", ?week:Int = -1, ?song:String, ?diff:Int) {
+    public function changeColor(colors:Array<FlxColor>, ?character:String="bf", ?week:Int = -1, ?song:String, ?diff:Int) {
         trace('changing record color');
         reordering = true;
-		var sussyColors = [];
-		for (color in colors) {
-			var cooolor = FlxColor.fromString(color);
-			sussyColors.push(cooolor);
-		}
+
 		var sussyRecordGraphic:BitmapData;
         var sussyShine:BitmapData;
         var shineXml:String;
@@ -181,7 +177,7 @@ class Record extends FlxTypedSpriteGroup<FlxSprite> {
         almostSticker.visible = (rating == Sdcb);
 		curWeek = week;
 
-		var sussyGradientMap = FlxGradient.createGradientBitmapData(Std.int(centerPart.width), Std.int(centerPart.height), sussyColors);
+		var sussyGradientMap = FlxGradient.createGradientBitmapData(Std.int(centerPart.width), Std.int(centerPart.height), colors);
         sussyGradientMap.colorTransform(new Rectangle(0, 0, sussyGradientMap.width, sussyGradientMap.height), new ColorTransform(1, 1, 1, 0.8));
 		sussyBackup.copyPixels(sussyGradientMap, new Rectangle(0, 0, sussyGradientMap.width, sussyGradientMap.height), new Point(0, 0), sussyBackup,
 			new Point(0, 0), true);

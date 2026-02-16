@@ -1,5 +1,5 @@
 import flixel.system.FlxAssets.FlxSoundAsset;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 /**
  * FlxSound that automatically handles loading sound dynamically. 
  */

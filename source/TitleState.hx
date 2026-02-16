@@ -16,7 +16,7 @@ import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.system.ui.FlxSoundTray;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -44,7 +44,7 @@ typedef DiscordJson = {
 };
 class TitleState extends MusicBeatState
 {
-	static var initialized:Bool = false;
+	static public var initialized:Bool = false;
 	static public var soundExt:String = ".ogg";
 	static public var firstTime = false;
 	var blackScreen:FlxSprite;
@@ -82,22 +82,18 @@ class TitleState extends MusicBeatState
 
 	var customMenuConfirm: Array<Array<String>>;
 	var customMenuScroll: Array<Array<String>>;
-	override public function create():Void
-	{
+	override public function create():Void {
 
 		#if windows
 		DiscordClient.initialize();
 
-		Application.current.onExit.add(function(exitCode)
-		{
+		Application.current.onExit.add(function(exitCode) {
 			DiscordClient.shutdown();
 		});
 		// Updating Discord Rich Presence
 		var customPrecence = discordStuff.intro;
 		Discord.DiscordClient.changePresence(customPrecence, null);
 		#end
-		
-		
 		
 		PluginManager.init();
 		DifficultyManager.init();
@@ -120,18 +116,20 @@ class TitleState extends MusicBeatState
 		Highscore.load();
 
 		// volume stuff
-		FlxG.sound.volume = FlxG.save.data.volume;
-		//FlxG.sound.soundTrayEnabled = false;
-		FlxG.sound.volumeUpKeys = FlxG.save.data.keys.volUp;
-		FlxG.sound.volumeDownKeys = FlxG.save.data.keys.volDown;
+		if (Reflect.hasField(FlxG.save.data, 'volume')) {
+			FlxG.sound.volume = FlxG.save.data.volume;
+			FlxG.sound.muted = FlxG.save.data.mute;
+			FlxG.sound.volumeUpKeys = FlxG.save.data.keys.volUp;
+			FlxG.sound.volumeDownKeys = FlxG.save.data.keys.volDown;
+		}
+		FlxG.sound.soundTrayEnabled = false;
 
 		#if FREEPLAY
 		LoadingState.loadAndSwitchState(new CategoryState());
 		#elseif CHARTING
 		LoadingState.loadAndSwitchState(new ChartingState());
 		#else
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
 			startIntro();
 		});
 		#end
@@ -142,10 +140,8 @@ class TitleState extends MusicBeatState
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var titleBg:FlxSprite;
-	function startIntro()
-	{
-		if (!initialized)
-		{
+	function startIntro() {
+		if (!initialized) {
 			var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
 			diamond.persist = true;
 			diamond.destroyOnNoUse = false;
@@ -261,8 +257,6 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-		
-
 		if (initialized)
 			skipIntro();
 		else
@@ -271,15 +265,13 @@ class TitleState extends MusicBeatState
 		// credGroup.add(credTextShit);
 	}
 
-	function getIntroTextShit():Array<Array<String>>
-	{
+	function getIntroTextShit():Array<Array<String>> {
 		var fullText:String = Assets.getText('assets/data/introText.txt');
 
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
-		for (i in firstArray)
-		{
+		for (i in firstArray) {
 			swagGoodArray.push(i.split('--'));
 		}
 
@@ -287,24 +279,32 @@ class TitleState extends MusicBeatState
 	}
 
 	var transitioning:Bool = false;
+	var idleStart = -1;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		if (FlxG.keys.justPressed.F)
-		{
+		if (FlxG.keys.justPressed.F) {
 			FlxG.fullscreen = !FlxG.fullscreen;
+		}
+
+		if (curBeat >= 60 || idleStart > 0) {
+			if (idleStart == -1)
+				idleStart = FlxG.game.ticks;
+			var idleSeconds = Math.floor((FlxG.game.ticks - idleStart)/1000);
+			var minutesRemaining = Math.floor(idleSeconds / 60);
+			var secondsRemaining = '' + idleSeconds % 60;
+			if (secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining;
+			Discord.DiscordClient.changePresence('Currently AFK on Title Screen', 'Time Idle: ' + minutesRemaining + ':' + secondsRemaining, 'gf');
 		}
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
-		{
+		if (gamepad != null) {
 			if (gamepad.justPressed.START)
 				pressedEnter = true;
 
@@ -314,9 +314,7 @@ class TitleState extends MusicBeatState
 			#end
 		}
 
-		if (pressedEnter && !transitioning && skippedIntro)
-		{
-
+		if (pressedEnter && !transitioning && skippedIntro) {
 			titleText.animation.play('press');
 			titleBg.animation.addByPrefix('selected', bgTitle.curName + " selected", bgTitle.curFPS, false);
 			titleBg.animation.play('selected');
@@ -328,10 +326,10 @@ class TitleState extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
-			{
+			new FlxTimer().start(2, function(tmr:FlxTimer) {
 				// Check if version is outdated
 				LoadingState.loadAndSwitchState(new MainMenuState());
+				// LoadingState.loadAndSwitchState(new RobloxMenuState());
 			});
 			// FlxG.sound.play('assets/music/titleShoot' + TitleState.soundExt, 0.7);
 		}
@@ -343,10 +341,8 @@ class TitleState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	function createCoolText(textArray:Array<String>)
-	{
-		for (i in 0...textArray.length)
-		{
+	function createCoolText(textArray:Array<String>) {
+		for (i in 0...textArray.length) {
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
 			money.screenCenter(X);
 			money.y += (i * 60) + 200;
@@ -355,8 +351,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	function addMoreText(text:String)
-	{
+	function addMoreText(text:String) {
 		var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
 		coolText.screenCenter(X);
 		coolText.y += (textGroup.length * 60) + 200;
@@ -364,42 +359,36 @@ class TitleState extends MusicBeatState
 		textGroup.add(coolText);
 	}
 
-	function deleteCoolText()
-	{
-		while (textGroup.members.length > 0)
-		{
+	function deleteCoolText() {
+		while (textGroup.members.length > 0) {
 			credGroup.remove(textGroup.members[0], true);
 			textGroup.remove(textGroup.members[0], true);
 		}
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		logoBl.animation.play('bump');
 		danceLeft = !danceLeft;
 
-		if (gfTitle.animationType == "gfIdle"){
-			if (danceLeft){
+		if (gfTitle.animationType == "gfIdle") {
+			if (danceLeft)
 				gfDance.animation.play('danceRight');
-			}
-			else{
+			else
 				gfDance.animation.play('danceLeft');
-			}
 		}
-		if (gfTitle.animationType == "bfIdle"){
+		if (gfTitle.animationType == "bfIdle") {
 			gfDance.animation.play('dance');
 		}
-		if (gfTitle.animationType == "loopIdle"){
+		if (gfTitle.animationType == "loopIdle") {
 			gfDance.animation.play('loopyFunny');
 		}
 
 		FlxG.log.add(curBeat);
 
 		if (curBeat < 9) {
-			switch (curBeat)
-			{
+			switch (curBeat) {
 				case 1:
 					createCoolText(coolDudes);
 				// credTextShit.visible = true;
@@ -478,10 +467,8 @@ class TitleState extends MusicBeatState
 
 	var skippedIntro:Bool = false;
 
-	function skipIntro():Void
-	{
-		if (!skippedIntro)
-		{
+	function skipIntro():Void {
+		if (!skippedIntro) {
 			remove(ngSpr);
 
 			FlxG.camera.flash(FlxColor.WHITE, 1);

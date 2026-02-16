@@ -90,7 +90,7 @@ typedef NoteInfo = {
 	 */
 	var ?dontCountNote:Null<Bool>;
 	/**
-	 * Unused. 
+	 * Whether or not you should strum it, for mine/nuke type notes, lowers their priority
 	 */
 	var ?dontStrum:Null<Bool>;
 	/**
@@ -122,6 +122,11 @@ typedef NoteInfo = {
 	 * Custom note path for if your note isn't in the selected note path
 	 */
 	var ?customNotePath:Null<String>;
+	/**
+	 * Same as customNotePath but for the sustain parts
+	 * Leave null (or just not include it) to use standard sustains
+	 */
+	var ?customSustainPath:Null<String>;
 }
 /**
  * Used to make opponent sing.
@@ -141,16 +146,17 @@ typedef SingInfo = {
 	var ?miss:Null<Bool>;
 }
 // sinful dynamic sprite
-class Note extends DynamicSprite
-{
+class Note extends DynamicSprite {
 	public var strumTime:Float = 0;
 	public static var getFrames:Bool = true;
-	public static var gotFrames:FlxAtlasFrames = null;
+	static var framesKey:Array<String> = [];
+	public static var gotFrames:Array<FlxAtlasFrames> = [];
 	public static var getSpecialFrames:Bool = true;
 	static var specialFramesKey:Array<String> = [];
-	static var gotSpecialFrames:Array<FlxAtlasFrames> = [];
+	public static var gotSpecialFrames:Array<FlxAtlasFrames> = [];
 	public var mustPress:Bool = false;
 	public var noteData:Int = 0;
+	public var trueNoteData:Int = 0;
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
@@ -167,10 +173,6 @@ class Note extends DynamicSprite
 	public var altNum:Int = 0;
 	public var isPixel:Bool = false;
 	public static var swagWidth:Float = 160 * 0.7;
-	public static var PURP_NOTE:Int = 0;
-	public static var GREEN_NOTE:Int = 2;
-	public static var BLUE_NOTE:Int = 1;
-	public static var RED_NOTE:Int = 3;
 	public static var NOTE_AMOUNT:Int = 4;
 	public static var specialNoteJson:Null<Array<NoteInfo>>;
 	public var damageAmount:Null<Float> = null;
@@ -205,10 +207,11 @@ class Note extends DynamicSprite
 	public var coolId:Null<String> = null;
 	public var oppntSing:Null<SingInfo>;
 	public var customNotePath:Null<String> = null;
+	public var customSustainPath:Null<String> = null;
 	var currentKey = null; // I tried pulling this from Playstate but it was being weird...
 	// altNote can be int or bool. int just determines what alt is played
 	// format: [strumTime:Float, noteDirection:Int, sustainLength:Float, altNote:Union<Bool, Int>, isLiftNote:Bool, healMultiplier:Float, damageMultipler:Float, consistentHealth:Bool, timingMultiplier:Float, shouldBeSung:Bool, ignoreHealthMods:Bool, animSuffix:Union<String, Int>]
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?customImage:Null<BitmapData>, ?customXml:Null<String>, ?customEnds:Null<BitmapData>, ?LiftNote:Bool=false, ?animSuffix:String, ?numSuffix:Int)
+	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?customImage:Null<BitmapData>, ?customXml:Null<String>, ?customEnds:Null<BitmapData>, ?animSuffix:String, ?numSuffix:Int)
 	{
 		super(42);
 		// uh oh notedata sussy :flushed:
@@ -217,7 +220,6 @@ class Note extends DynamicSprite
 
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
-		isLiftNote = LiftNote;
 
 		var curUiType:TUI = Reflect.field(Judgement.uiJson, PlayState.SONG.uiType);
 		var notePresets;
@@ -232,6 +234,7 @@ class Note extends DynamicSprite
 		y -= 2000;
 		this.strumTime = strumTime;
 
+		trueNoteData = noteData;
 		this.noteData = noteData % NOTE_AMOUNT;
 		// overloading : )
 		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4) {
@@ -313,6 +316,9 @@ class Note extends DynamicSprite
 			if (thingie.customNotePath != null) {
 				customNotePath = thingie.customNotePath;
 			}
+			if (thingie.customSustainPath != null) {
+				customSustainPath = thingie.customSustainPath;
+			}
 			specialNoteInfo = thingie;
 			ignoreHealthMods = cast thingie.ignoreHealthMods;
 		}
@@ -324,6 +330,11 @@ class Note extends DynamicSprite
 		if (isLiftNote) {
 			shouldBeSung = false;
 			// dontStrum = true;
+		}
+
+		if (prevNote != null && isSustainNote) {
+			customNotePath = prevNote.customSustainPath;
+			customSustainPath = prevNote.customSustainPath;
 		}
 
 		if (!curUiType.isPixel) {	
@@ -344,35 +355,54 @@ class Note extends DynamicSprite
 			} else {
 				if (getFrames) {
 					getFrames = false;
-					gotFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+					framesKey = [];
+					gotFrames = [];
+				}
+				var funnyNum = framesKey.indexOf(PlayState.SONG.uiType);
+				if (funnyNum == -1) {
+					var daFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
 						+ curUiType.uses
 						+ "/NOTE_assets.png",
 						'assets/images/custom_ui/ui_packs/'
 						+ curUiType.uses
 						+ "/NOTE_assets.xml");
+					framesKey.push(PlayState.SONG.uiType);
+					gotFrames.push(daFrames);
+					funnyNum = framesKey.length - 1;
 				}
-				frames = gotFrames;
+				frames = gotFrames[funnyNum];
 			}
-			if (animSuffix == null) {
+			if (animSuffix == null)
 				animSuffix = '';
-			} else {
+			else
 				animSuffix = ' ' + animSuffix;
-			}
 
-			var noteName = currentKey[noteData % NOTE_AMOUNT].note;
+			var flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData % NOTE_AMOUNT+1) : noteData % NOTE_AMOUNT;
+			var noteName = currentKey[flipNoteVar].note;
 			if (isLiftNote)
-				animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}');
+				animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}0');
 			else if (nukeNote)
-				animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}');
+				animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}0');
 			else if (mineNote)
-				animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}');
+				animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}0');
 			else if (dontEdit)
-				animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT]);
+				animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + '0');
 			else
 				animation.addByPrefix('Scroll', noteName + '${animSuffix}0');
 
-			animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
-			animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
+			if (prevNote.nukeNote) {
+				animation.addByPrefix('holdend', noteName + ' nuke hold end${animSuffix}');
+				animation.addByPrefix('hold', noteName + ' nuke hold piece${animSuffix}');
+			} else if (prevNote.mineNote) {
+				animation.addByPrefix('holdend', noteName + ' mine hold end${animSuffix}');
+				animation.addByPrefix('hold', noteName + ' mine hold piece${animSuffix}');
+			} else if (prevNote.dontEdit && customSustainPath != null) {
+				animation.addByPrefix('holdend', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + ' hold end${animSuffix}');
+				animation.addByPrefix('hold', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + ' hold piece${animSuffix}');
+			} else {
+				animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
+				animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
+			}
 
 			setGraphicSize(Std.int(width * 0.7));
 			updateHitbox();
@@ -398,14 +428,22 @@ class Note extends DynamicSprite
 				} else {
 					if (getFrames) {
 						getFrames = false;
-						gotFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+						framesKey = [];
+						gotFrames = [];
+					}
+					var funnyNum = framesKey.indexOf(PlayState.SONG.uiType);
+					if (funnyNum == -1) {
+						var daFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
 							+ curUiType.uses
 							+ "/arrows-pixels.png",
 							'assets/images/custom_ui/ui_packs/'
 							+ curUiType.uses
 							+ "/arrows-pixels.xml");
+						framesKey.push(PlayState.SONG.uiType);
+						gotFrames.push(daFrames);
+						funnyNum = framesKey.length - 1;
 					}
-					frames = gotFrames;
+					frames = gotFrames[funnyNum];
 				}
 
 				if (animSuffix == null) {
@@ -414,15 +452,16 @@ class Note extends DynamicSprite
 					animSuffix = ' ' + animSuffix;
 				}
 
-				var noteName = currentKey[noteData % NOTE_AMOUNT].note;
+				var flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData % NOTE_AMOUNT+1)  : noteData % NOTE_AMOUNT;
+				var noteName = currentKey[flipNoteVar].note;
 				if (isLiftNote)
 					animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}');
 				else if (nukeNote)
-					animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}');
+					animation.addByPrefix('Scroll', noteName + ' nuke${animSuffix}0');
 				else if (mineNote)
-					animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}');
+					animation.addByPrefix('Scroll', noteName + ' mine${animSuffix}0');
 				else if (dontEdit)
-					animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT]);
+					animation.addByPrefix('Scroll', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + '0');
 				else
 					animation.addByPrefix('Scroll', noteName + '${animSuffix}0');
 
@@ -434,8 +473,19 @@ class Note extends DynamicSprite
 							+ curUiType.uses
 							+ "/arrowEnds.xml");
 
-					animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
-					animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
+					if (prevNote.nukeNote) {
+						animation.addByPrefix('holdend', noteName + ' nuke hold end${animSuffix}');
+						animation.addByPrefix('hold', noteName + ' nuke hold piece${animSuffix}');
+					} else if (prevNote.mineNote) {
+						animation.addByPrefix('holdend', noteName + ' mine hold end${animSuffix}');
+						animation.addByPrefix('hold', noteName + ' mine hold piece${animSuffix}');
+					} else if (prevNote.dontEdit) {
+						animation.addByPrefix('holdend', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + ' hold end${animSuffix}');
+						animation.addByPrefix('hold', specialNoteInfo.animNames[noteData % NOTE_AMOUNT] + ' hold piece${animSuffix}');
+					} else {
+						animation.addByPrefix('holdend', noteName + ' hold end${animSuffix}');
+						animation.addByPrefix('hold', noteName + ' hold piece${animSuffix}');
+					}
 				}
 			} else {
 				if (customNotePath != null)
@@ -524,12 +574,32 @@ class Note extends DynamicSprite
 			noteScore * 0.2;
 			alpha = 0.6;
 
+			// sustain notes are notes too #equalrightsforsustains
 			altNote = prevNote.altNote;
 			altNum = prevNote.altNum;
 
+			nukeNote = prevNote.nukeNote;
+			mineNote = prevNote.mineNote;
+			drainNote = prevNote.drainNote;
+			dontCountNote = prevNote.dontCountNote;
+			dontStrum = prevNote.dontStrum;
+
+			dontEdit = prevNote.dontEdit;
+			if (dontEdit) {
+				shouldBeSung = prevNote.shouldBeSung;
+				healAmount = prevNote.healAmount;
+				healMultiplier = prevNote.healMultiplier;
+				damageAmount = prevNote.damageAmount;
+				damageMultiplier = prevNote.damageMultiplier;
+				noteHit = prevNote.noteHit;
+				noteMiss = prevNote.noteMiss;
+				classes = prevNote.classes;
+				coolId = prevNote.coolId;
+			}
+
 			x += width / 2;
 
-			animation.play('holdend');
+			animation.play('holdend');			
 
 			updateHitbox();
 
@@ -545,6 +615,210 @@ class Note extends DynamicSprite
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.daScrollSpeed;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
+			}
+		}
+	}
+
+	public function switchType(uiType:String) {
+		var newType = Reflect.field(Judgement.uiJson, uiType);
+		if (!newType.isPixel) {
+			isPixel = false;
+			if (customNotePath != null) {
+				if (getSpecialFrames) {
+					getSpecialFrames = false;
+					specialFramesKey = [];
+					gotSpecialFrames = [];
+				}
+				var funnyNum = specialFramesKey.indexOf(customNotePath);
+				if (funnyNum == -1) {
+					var daFrames = DynamicAtlasFrames.fromSparrow(customNotePath + '.png', customNotePath + '.xml');
+					specialFramesKey.push(customNotePath);
+					gotSpecialFrames.push(daFrames);
+					funnyNum = specialFramesKey.length - 1;
+				}
+				frames = gotSpecialFrames[funnyNum];
+			} else {
+				if (getFrames) {
+					getFrames = false;
+					framesKey = [];
+					gotFrames = [];
+				}
+				var funnyNum = framesKey.indexOf(uiType);
+				if (funnyNum == -1) {
+					var daFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+						+ newType.uses
+						+ "/NOTE_assets.png",
+						'assets/images/custom_ui/ui_packs/'
+						+ newType.uses
+						+ "/NOTE_assets.xml");
+					framesKey.push(uiType);
+					gotFrames.push(daFrames);
+					funnyNum = framesKey.length - 1;
+				}
+				frames = gotFrames[funnyNum];
+			}
+
+			var flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (trueNoteData % NOTE_AMOUNT+1) : trueNoteData % NOTE_AMOUNT;
+			var noteName = currentKey[flipNoteVar].note;
+			if (isLiftNote)
+				animation.addByPrefix('Scroll', noteName + ' lift0');
+			else if (nukeNote)
+				animation.addByPrefix('Scroll', noteName + ' nuke0');
+			else if (mineNote)
+				animation.addByPrefix('Scroll', noteName + ' mine0');
+			else if (dontEdit)
+				animation.addByPrefix('Scroll', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + '0');
+			else
+				animation.addByPrefix('Scroll', noteName + '0');
+
+			if (prevNote.nukeNote) {
+				animation.addByPrefix('holdend', noteName + ' nuke hold end');
+				animation.addByPrefix('hold', noteName + ' nuke hold piece');
+			} else if (prevNote.mineNote) {
+				animation.addByPrefix('holdend', noteName + ' mine hold end');
+				animation.addByPrefix('hold', noteName + ' mine hold piece');
+			} else if (prevNote.dontEdit && customSustainPath != null) {
+				animation.addByPrefix('holdend', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + ' hold end');
+				animation.addByPrefix('hold', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + ' hold piece');
+			} else {
+				animation.addByPrefix('holdend', noteName + ' hold end');
+				animation.addByPrefix('hold', noteName + ' hold piece');
+			}
+		} else {
+			isPixel = true;
+			if (FNFAssets.exists('assets/images/custom_ui/ui_packs/' + newType.uses + "/arrows-pixels.xml")) {
+				if (customNotePath != null) {
+					if (getSpecialFrames) {
+						getSpecialFrames = false;
+						specialFramesKey = [];
+						gotSpecialFrames = [];
+					}
+					var funnyNum = specialFramesKey.indexOf(customNotePath);
+					if (funnyNum == -1) {
+						var daFrames = DynamicAtlasFrames.fromSparrow(customNotePath + '.png', customNotePath + '.xml');
+						specialFramesKey.push(customNotePath);
+						gotSpecialFrames.push(daFrames);
+						funnyNum = specialFramesKey.length - 1;
+					}
+					frames = gotSpecialFrames[funnyNum];
+				} else {
+					if (getFrames) {
+						getFrames = false;
+						framesKey = [];
+						gotFrames = [];
+					}
+					var funnyNum = framesKey.indexOf(uiType);
+					if (funnyNum == -1) {
+						var daFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+							+ newType.uses
+							+ "/arrows-pixels.png",
+							'assets/images/custom_ui/ui_packs/'
+							+ newType.uses
+							+ "/arrows-pixels.xml");
+						framesKey.push(uiType);
+						gotFrames.push(daFrames);
+						funnyNum = framesKey.length - 1;
+					}
+					frames = gotFrames[funnyNum];
+				}
+
+				var flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (trueNoteData % NOTE_AMOUNT+1)  : trueNoteData % NOTE_AMOUNT;
+				var noteName = currentKey[flipNoteVar].note;
+				if (isLiftNote)
+					animation.addByPrefix('Scroll', noteName + ' lift');
+				else if (nukeNote)
+					animation.addByPrefix('Scroll', noteName + ' nuke0');
+				else if (mineNote)
+					animation.addByPrefix('Scroll', noteName + ' mine0');
+				else if (dontEdit)
+					animation.addByPrefix('Scroll', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + '0');
+				else
+					animation.addByPrefix('Scroll', noteName + '0');
+
+				if (isSustainNote) {
+					frames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/'
+							+ newType.uses
+							+ "/arrowEnds.png",
+							'assets/images/custom_ui/ui_packs/'
+							+ newType.uses
+							+ "/arrowEnds.xml");
+
+					if (prevNote.nukeNote) {
+						animation.addByPrefix('holdend', noteName + ' nuke hold end');
+						animation.addByPrefix('hold', noteName + ' nuke hold piece');
+					} else if (prevNote.mineNote) {
+						animation.addByPrefix('holdend', noteName + ' mine hold end');
+						animation.addByPrefix('hold', noteName + ' mine hold piece');
+					} else if (prevNote.dontEdit) {
+						animation.addByPrefix('holdend', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + ' hold end');
+						animation.addByPrefix('hold', specialNoteInfo.animNames[trueNoteData % NOTE_AMOUNT] + ' hold piece');
+					} else {
+						animation.addByPrefix('holdend', noteName + ' hold end');
+						animation.addByPrefix('hold', noteName + ' hold piece');
+					}
+				}
+			} else {
+				if (customNotePath != null)
+					loadGraphic(customNotePath + '.png', true, 17, 17);
+				else
+					loadGraphic('assets/images/custom_ui/ui_packs/' + newType.uses + "/arrows-pixels.png", true, 17, 17);
+
+				animation.add('greenScroll', [6]);
+				animation.add('redScroll', [7]);
+				animation.add('blueScroll', [5]);
+				animation.add('purpleScroll', [4]);
+
+				if (isSustainNote) {
+					loadGraphic('assets/images/custom_ui/ui_packs/' + newType.uses + "/arrowEnds.png", true, 7, 6);
+
+					animation.add('purpleholdend', [4]);
+					animation.add('greenholdend', [6]);
+					animation.add('redholdend', [7]);
+					animation.add('blueholdend', [5]);
+
+					animation.add('purplehold', [0]);
+					animation.add('greenhold', [2]);
+					animation.add('redhold', [3]);
+					animation.add('bluehold', [1]);
+				}
+				if (isLiftNote) {
+					animation.add('greenScroll', [22]);
+					animation.add('redScroll', [23]);
+					animation.add('blueScroll', [21]);
+					animation.add('purpleScroll', [20]);
+				}
+				if (mineNote) {
+					animation.add('greenScroll', [26]);
+					animation.add('redScroll', [27]);
+					animation.add('blueScroll', [25]);
+					animation.add('purpleScroll', [24]);
+				}
+				if (nukeNote) {
+					animation.add('greenScroll', [30]);
+					animation.add('redScroll', [31]);
+					animation.add('blueScroll', [29]);
+					animation.add('purpleScroll', [28]);
+				}
+			}
+			if (dontEdit) {
+				animation.add('greenScroll', [specialNoteInfo.animInt[2]]);
+				animation.add('redScroll', [specialNoteInfo.animInt[3]]);
+				animation.add('purpleScroll', [specialNoteInfo.animInt[0]]);
+				animation.add('blueScroll', [specialNoteInfo.animInt[1]]);
+			}
+		}
+
+		animation.play('Scroll');
+
+		if (isSustainNote && prevNote != null) {
+			animation.play('holdend');
+
+			updateHitbox();
+
+			if (prevNote.isSustainNote) {
+				prevNote.animation.play('hold');
+
+				prevNote.updateHitbox();
 			}
 		}
 	}
@@ -615,11 +889,9 @@ class Note extends DynamicSprite
 			else
 				return 0;
 		}
-		if (consistentHealth)
-		{
+		if (consistentHealth) {
 			var ouchie = false;
-			switch (healCutoff)
-			{
+			switch (healCutoff) {
 				case 'shit':
 					ouchie = rating == 'shit' || rating == 'wayoff' || rating == 'miss';
 				case 'wayoff':
@@ -635,25 +907,16 @@ class Note extends DynamicSprite
 				case 'none':
 					ouchie = false;
 			}
-			if (ouchie)
-			{
-				if (damageAmount != null)
-				{
+			if (ouchie) {
+				if (damageAmount != null) {
 					return damageAmount * (ignoreHealthMods ? 1 : PlayState.healthLossMultiplier);
-				}
-				else
-				{
+				} else {
 					return damageMultiplier * -0.04 * (ignoreHealthMods ? 1 : PlayState.healthLossMultiplier);
 				}
-			}
-			else
-			{
-				if (healAmount != null)
-				{
+			} else {
+				if (healAmount != null) {
 					return healAmount * (ignoreHealthMods ? 1 : PlayState.healthGainMultiplier);
-				}
-				else
-				{
+				} else {
 					return healMultiplier * (ignoreHealthMods ? 1 : PlayState.healthGainMultiplier) * 0.04;
 				}
 			}
@@ -680,8 +943,7 @@ class Note extends DynamicSprite
 							healies = sickHeal;
 					}
 				case "bad" | null: 
-					switch (rating)
-					{
+					switch (rating) {
 						case "shit" | 'wayoff':
 							healies = -shitHeal;
 						case "bad":
@@ -694,8 +956,7 @@ class Note extends DynamicSprite
 							healies = sickHeal;
 					}
 				case "good": 
-					switch (rating)
-					{
+					switch (rating) {
 						case "shit" | 'wayoff':
 							healies = -shitHeal;
 						case "bad":
@@ -708,8 +969,7 @@ class Note extends DynamicSprite
 							healies = sickHeal;
 					}
 				case "wayoff":
-					switch (rating)
-					{
+					switch (rating) {
 						case "shit":
 							healies = shitHeal;
 						case 'wayoff': 
@@ -724,8 +984,7 @@ class Note extends DynamicSprite
 							healies = sickHeal;
 					}
 				case "miss":
-					switch (rating)
-					{
+					switch (rating) {
 						case "shit" | 'wayoff':
 							healies = shitHeal;
 						case "bad":
@@ -739,8 +998,7 @@ class Note extends DynamicSprite
 					}
 
 				case "sick":
-					switch (rating)
-					{
+					switch (rating) {
 						case "shit" | 'wayoff':
 							healies = -shitHeal;
 						case "bad":
@@ -759,16 +1017,12 @@ class Note extends DynamicSprite
 					return healAmount * (ignoreHealthMods ? 1 : PlayState.healthGainMultiplier);
 				} else {
 					return healMultiplier * healies * (ignoreHealthMods ? 1 : PlayState.healthGainMultiplier);
-
 				}
 
 			} else {
-				if (damageAmount != null)
-				{
+				if (damageAmount != null) {
 					return damageAmount * (ignoreHealthMods ? 1 : PlayState.healthLossMultiplier);
-				}
-				else
-				{
+				} else {
 					return damageMultiplier * healies * (ignoreHealthMods ? 1 : PlayState.healthLossMultiplier);
 				}
 			}

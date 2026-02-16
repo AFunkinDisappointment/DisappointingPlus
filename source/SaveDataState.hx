@@ -58,8 +58,7 @@ class SaveDataState extends MusicBeatState
 	var description:FlxText;
 	var forbiddenIndexes:Array<Int> = [];
 	public static var prevPath:String = 'title';
-	override function create()
-	{
+	override function create() {
 		FlxG.sound.music.stop();
 		var goodSound = FNFAssets.getSound('assets/music/custom_menu_music/'
 			+ musicJson.Options
@@ -99,7 +98,7 @@ class SaveDataState extends MusicBeatState
 								value: false,
 								intName: "newJudgementPos",
 								desc: "Put judgements in a more convenient place."
-							},						
+							},
 							{name: "Overwrite Judgement", value: false, intName: "preferJudgement", desc: "What judgement to display other than default, if any.", defAmount: 0, amount: 0, max: CoolUtil.coolTextFile('assets/data/judgements.txt').length - 1},
 							{name: "Emulate Osu Lifts", value: false, intName: "emuOsuLifts", desc: "Whether to add lift notes at the end of sustains to force releasing buttons."},
 							{name: "Show Combo Breaks", value: false, intName:"showComboBreaks", desc: "Whether to display any combo breaks by flashing the screen."},
@@ -120,6 +119,7 @@ class SaveDataState extends MusicBeatState
 							{name: "Toggle Title Background", value: true, intName:'titleToggle', desc:"Turn on/off the title screen background.", ignore: true,},
 							//{name: "UI Layout...", value: false, intName:'newui', desc: "Change the layout of the UI in-game!", ignore: true,},
 							{name:"Module...", value:false, intName:'module', desc: "Make new stuff!", ignore: true,},
+							{name:"newModule...", value:false, intName:'newmodule', desc: "Make newnew stuff!", ignore: true,},
 							//{name:"New Character...", value: false, intName:'newchar', desc: "Make a new character!", ignore: true,},
 							//{name:"New Stage...", value:false, intName:'newstage', desc: "Make a new stage!", ignore: true,},
 							//{name: "New Song...", value: false, intName:'newsong', desc: "Make a new song!", ignore: true,},
@@ -346,6 +346,10 @@ class SaveDataState extends MusicBeatState
 						saveOptions();
 
 						LoadingState.loadAndSwitchState(new ModuleState());
+					case "newModule...":
+						saveOptions();
+
+						LoadingState.loadAndSwitchState(new NewModule());
 					case "New Week...":
 						saveOptions();
 						NewWeekState.sorted = false;

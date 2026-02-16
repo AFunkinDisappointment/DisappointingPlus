@@ -1,0 +1,9 @@
+function dance(icon) {
+    icon.setGraphicSize(Std.int(icon.width + 30));
+    icon.updateHitbox();
+}
+
+function update(elapsed, icon) {
+    icon.setGraphicSize(Std.int(FlxMath.lerp(150, icon.width, 0.8)));
+    icon.updateHitbox();
+}

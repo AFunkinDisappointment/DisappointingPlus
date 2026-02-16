@@ -238,12 +238,15 @@ class FileParser {
             splitData = dialog.split("?");
             advancedInfo.textShadowColor = FlxColor.fromString(splitData[1]);
 			dialog = dialog.substr(splitData[1].length + 2).trim();
+
             splitData = dialog.split(".");
             advancedInfo.portraitColor = FlxColor.fromString(splitData[1]);
 			dialog = dialog.substr(splitData[1].length + 2).trim();
+
             splitData = dialog.split("~");
             advancedInfo.skipAfter = Std.parseInt(splitData[1]);
 			dialog = dialog.substr(splitData[1].length + 2).trim();
+
             trace(dialog);
             //sussy workaround
             //dialog = dialog.replace("~~","").trim();

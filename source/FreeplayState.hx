@@ -2,6 +2,7 @@ package;
 
 import Controls.Action;
 import flixel.input.keyboard.FlxKey;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxGradient;
 import Section.SwagSection;
@@ -10,7 +11,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -22,7 +23,6 @@ import sys.io.File;
 import haxe.io.Path;
 import openfl.utils.ByteArray;
 import lime.media.AudioBuffer;
-import flixel.system.FlxSound;
 import sys.FileSystem;
 import flash.media.Sound;
 #end
@@ -30,8 +30,7 @@ import haxe.Json;
 import tjson.TJSON;
 using StringTools;
 
-class FreeplayState extends MusicBeatState
-{
+class FreeplayState extends MusicBeatState {
 	public static var currentSongList:Array<JsonMetadata> = [];
 	public static var soundTest:Bool = false;
 	var vocals:FlxSound;
@@ -57,6 +56,7 @@ class FreeplayState extends MusicBeatState
 	var categoryBG:Array<String> = [];
 	var categoriesNames:Array<String> = [];
 	private var iconArray:Array<HealthIcon> = [];
+	private var starArray:Array<Array<Array<Dynamic>>> = [];
 	var isPixelIcon:Array<Bool> = [];
 	var usingCategoryScreen:Bool = false;
 	var nightcoreMode:Bool = false;
@@ -69,8 +69,7 @@ class FreeplayState extends MusicBeatState
 	var recordPixel:Record;
 	var curOverlay:FlxSprite;
 	var infoPanel:SongInfoPanel;
-	override function create()
-	{
+	override function create() {
 		Highscore.load();
 		for (songSnippet in currentSongList) {
 			var songData = new SongMetadata(songSnippet.name, songSnippet.week, songSnippet.character, songSnippet.display);
@@ -137,6 +136,9 @@ class FreeplayState extends MusicBeatState
 			prevCategory = curCategory;
 		}
 
+		if (curSelected > songs.length - 1)
+			curSelected = 0;
+
 		curDifficulty = DifficultyIcons.getDefaultDiffFP();
 		/*
 			if (FlxG.sound.music != null)
@@ -177,8 +179,8 @@ class FreeplayState extends MusicBeatState
 		if (FNFAssets.exists('assets/images/Custom_Menu_BGs/Default/menuDesat.png')) {
 			bg.loadGraphic('assets/images/Custom_Menu_BGs/Default/menuDesat.png');
  		} else {
-			 bg.loadGraphic('assets/images/menuDesat.png');
-		 }
+			bg.loadGraphic('assets/images/menuDesat.png');
+		}
 		add(bg);
 		// no fancy :)
 		//curOverlay = FlxGradient.createGradientFlxSprite(FlxG.width, FlxG.height, [FlxColor.WHITE]);
@@ -205,19 +207,16 @@ class FreeplayState extends MusicBeatState
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
-			var starCount:Int = 0;
-			for (diff in 0...3) { //make it detect the other difficulties
-				if (Highscore.getFCLevel(songs[i].songName, diff, 'best-accuracy') != 0) {
-					var rankStar:RankStar = new RankStar(songs[i].songName, diff);
-					rankStar.sprTracker = icon;
-					rankStar.starNum = starCount;
-					rankStar.visible = !OptionsHandler.options.style;
-					add(rankStar);
-					starCount += 1;
-				} else {
-					var rankStar:FlxSprite = new FlxSprite();
-				}
+			var starCount:Array<Array<Dynamic>> = [];
+			for (diff in DifficultyManager.supportedDiff.get(songs[i].songName.toLowerCase())) {
+				var rankStar:RankStar = new RankStar(songs[i].songName, diff);
+				rankStar.sprTracker = icon;
+				rankStar.starNum = starCount.length;
+				rankStar.visible = !OptionsHandler.options.style;
+				add(rankStar);
+				starCount.push([rankStar, diff]);
 			}
+			starArray.push(starCount);
 		}
 
 		
@@ -292,12 +291,10 @@ class FreeplayState extends MusicBeatState
 		super.create();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 		// :grief: what
-		if (FlxG.sound.music.volume < 0.7 && (!soundTest || curDifficulty != 2))
-		{
+		if (FlxG.sound.music.volume < 0.7 && (!soundTest || curDifficulty != 2)) {
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 		// why the fuck does this exist
@@ -309,6 +306,7 @@ class FreeplayState extends MusicBeatState
 			scoreText.text = "PERSONAL BEST:" + lerpScore + ", " + lerpAccuracy + "%";
 		else
 			scoreText.text = "Sound Test";
+
 		var upP = controls.UP_MENU;
 		var downP = controls.DOWN_MENU;
 		var accepted = controls.ACCEPT;
@@ -317,17 +315,13 @@ class FreeplayState extends MusicBeatState
 			Highscore.saveScore('Tutorial', 0, 1, 0, Sick);
 		}
 		#end
-		if (soundTest && soundTestSong != null) {
+		if (soundTest && soundTestSong != null)
 			Conductor.songPosition += FlxG.elapsed * 1000;
-		}
+
 		if (upP)
-		{
 			changeSelection(-1);
-		}
 		if (downP)
-		{
 			changeSelection(1);
-		}
 		if (controls.LEFT_MENU)
 			changeDiff(-1);
 		if (controls.RIGHT_MENU)
@@ -337,8 +331,7 @@ class FreeplayState extends MusicBeatState
 			infoPanel.changeDisplay(-1);
 		else if (controls.RIGHT_TAB)
 			infoPanel.changeDisplay(1);
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			// main menu or else we are cursed
 			FlxG.autoPause = true;
 			if (soundTest)
@@ -346,19 +339,16 @@ class FreeplayState extends MusicBeatState
 			else {
 				var epicCategoryJs:Array<Dynamic> = CoolUtil.parseJson(FNFAssets.getJson('assets/data/freeplaySongJson'));
 				if (epicCategoryJs.length > 1)
-				{
 					LoadingState.loadAndSwitchState(new CategoryState());
-				} else
+				else
 					LoadingState.loadAndSwitchState(new MainMenuState());
 			}
 				
 		}
 
-		if (accepted)
-		{
+		if (accepted) {
 			// im shortening this for my mind to be at rest
-			if (soundTest)
-			{
+			if (soundTest) {
 				// play both the vocals and inst
 				// bad music >:(
 				var suffix = "";
@@ -372,8 +362,7 @@ class FreeplayState extends MusicBeatState
 				if (vocals != null && vocals.playing)
 					vocals.stop();
 				soundTestSong = Song.loadFromJson(songs[curSelected].songName.toLowerCase(), songs[curSelected].songName.toLowerCase());
-				if (soundTestSong.needsVoices)
-				{
+				if (soundTestSong.needsVoices) {
 					if (OptionsHandler.options.stressTankmen
 						&& FNFAssets.exists("assets/music/" + soundTestSong.song + "Shit" + suffix + "_Voices" + TitleState.soundExt))
 						shit = "Shit";
@@ -430,18 +419,16 @@ class FreeplayState extends MusicBeatState
 				PlayState.storyDifficulty = curDifficulty;
 				if (!OptionsHandler.options.skipModifierMenu)
 					LoadingState.loadAndSwitchState(new ModifierState());
-				else
-				{
+				else {
 					if (FlxG.sound.music != null)
 						FlxG.sound.music.stop();
-					LoadingState.loadAndSwitchState(new PlayState(), true);
+					LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
 		}
 	}
 
-	function changeDiff(change:Int = 0)
-	{
+	function changeDiff(change:Int = 0) {
 		if (!soundTest) {
 			// get valid one : )
 			// also forces
@@ -452,6 +439,14 @@ class FreeplayState extends MusicBeatState
 			intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 			intendedAccuracy = Highscore.getAccuracy(songs[curSelected].songName, curDifficulty);
 			#end
+
+			for (star in starArray[curSelected]) {
+				var offset = star[1] == curDifficulty ? 25 : 0;
+
+				FlxTween.num(star[0].selectoffset, offset, 0.2, {ease: FlxEase.expoOut}, function(num) {
+					star[0].selectoffset = num;
+				});
+			}
 
 			diffText.text = difficultyObject.text;
 		} else {
@@ -475,12 +470,7 @@ class FreeplayState extends MusicBeatState
 		// do it here for the sweet sweet gold record
 		infoPanel.changeSong(songs[curSelected].songName, curDifficulty);
 		if (OptionsHandler.options.style && false) {
-			var coolors = ["black"];
-			if (Reflect.hasField(charJson, songs[curSelected].songCharacter)) {
-				coolors = Reflect.field(charJson, songs[curSelected].songCharacter).colors;
-			} else {
-				coolors = Reflect.field(iconJson, songs[curSelected].songCharacter).colors;
-			}
+			var coolors = iconArray[curSelected].healthColors;
 			record.changeColor(coolors, songs[curSelected].songCharacter, songs[curSelected].week,
 				songs[curSelected].songName, curDifficulty);
 		}
@@ -508,6 +498,12 @@ class FreeplayState extends MusicBeatState
 
 		FlxG.sound.play('assets/sounds/custom_menu_sounds/'+CoolUtil.parseJson(FNFAssets.getText("assets/sounds/custom_menu_sounds/custom_menu_sounds.json")).customMenuScroll+'/scrollMenu' + TitleState.soundExt, 0.4);
 
+		for (star in starArray[curSelected]) {
+			FlxTween.num(star[0].selectoffset, 0, 0.2, {ease: FlxEase.expoOut}, function(num) {
+				star[0].selectoffset = num;
+			});
+		}
+
 		curSelected += change;
 
 		if (curSelected < 0)
@@ -526,22 +522,19 @@ class FreeplayState extends MusicBeatState
 		// if (!soundTest)
 		//	FlxG.sound.playMusic(FNFAssets.getSound("assets/music/"+songs[curSelected].songName+"_Inst"+TitleState.soundExt), 0);
 		var bullShit:Int = 0;
-		for (i in 0...iconArray.length)
-		{
-			iconArray[i].alpha = 0.6;
+		for (icon in iconArray) {
+			icon.alpha = 0.6;
 		}
-
 		iconArray[curSelected].alpha = 1;
-		for (item in grpSongs.members)
-		{
+		
+		for (item in grpSongs.members) {
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
-			{
+			if (item.targetY == 0) {
 				item.alpha = 1;
 				// item.setGraphicSize(Std.int(item.width));
 			}
@@ -560,13 +553,8 @@ class FreeplayState extends MusicBeatState
 		changeDiff();
 		// trace(Highscore.getComplete(songs[0].songName, curDifficulty));
 		
-		var coolors = ["black"];
-		if (Reflect.hasField(charJson, songs[curSelected].songCharacter)) {
-			coolors = Reflect.field(charJson, songs[curSelected].songCharacter).colors;
-		} else {
-			coolors = Reflect.field(iconJson, songs[curSelected].songCharacter).colors;
-		}
-		FlxTween.color(bg,0.5, bg.color, FlxColor.fromString(coolors[0]));
+		var coolors = iconArray[curSelected].healthColors;
+		FlxTween.color(bg, 0.5, bg.color, coolors[0]);
 		
 		if (OptionsHandler.options.style) {
 			record.changeColor(coolors, songs[curSelected].songCharacter, songs[curSelected].week,
@@ -577,20 +565,17 @@ class FreeplayState extends MusicBeatState
 		infoPanel.changeSong(songs[curSelected].songName, curDifficulty);
 	}
 }
-class SongMetadata
-{
+class SongMetadata {
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
 	public var display:String = "";
 
-	public function new(song:String, week:Int, songCharacter:String, ?display:String)
-	{
+	public function new(song:String, week:Int, songCharacter:String, ?display:String) {
 		this.songName = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
-		if (display == null) display = song;
-		this.display = display;
+		this.display = display != null ? display : song;
 	}
 }
 typedef JsonMetadata = {

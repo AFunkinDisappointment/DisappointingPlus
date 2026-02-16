@@ -7,13 +7,12 @@ import openfl.display.Sprite;
 import plugins.ExamplePlugin;
 import plugins.ExamplePlugin.ExampleCharPlugin;
 #end
-class Main extends Sprite
-{
+class Main extends Sprite {
 	#if sys
 	public static var cwd:String;
 	#end
-	public function new()
-	{
+	public static var distray:DisSoundTray;
+	public function new() {
 		#if typebuild
 			// god is dead
 			ExamplePlugin;
@@ -23,7 +22,10 @@ class Main extends Sprite
 		#if sys
 		cwd = Sys.getCwd();
 		#end
-		addChild(new FlxGame(0, 0, TitleState, 1, OptionsHandler.options.fpsCap, OptionsHandler.options.fpsCap, true));
+		addChild(new FlxGame(0, 0, TitleState, OptionsHandler.options.fpsCap, OptionsHandler.options.fpsCap, true));
+
+		distray = new DisSoundTray();
+		addChild(distray);
 		#if !mobile
 		addChild(new FPS(10, 3, 0xFFFFFF));
 		//addChild(new MemoryCounter(10, 3, 0xFFFFFF));

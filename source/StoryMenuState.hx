@@ -50,8 +50,7 @@ typedef DifficultysJson = {
 	var difficulties:Array<Dynamic>;
 	var defaultDiff:Int;
 }
-class StoryMenuState extends MusicBeatState
-{
+class StoryMenuState extends MusicBeatState {
 	var scoreText:FlxText;
 
 	var weekData:Array<Dynamic> = [];
@@ -66,6 +65,7 @@ class StoryMenuState extends MusicBeatState
 	var coolors:Array<FlxColor> = [];
 	var weekTitles:Array<String> = [];
 	var curWeek:Int = 0;
+	var curWeekName:String = 'Tutorial';
 	var txtWeekTitle:FlxText;
 	var txtTracklist:FlxText;
 	var weekCharactersArray:FlxTypedGroup<FlxTypedGroup<MenuCharacter>>;
@@ -78,8 +78,7 @@ class StoryMenuState extends MusicBeatState
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 	var yellowBG:FlxSprite;
-	override function create()
-	{
+	override function create() {
 		trace(DifficultyIcons.getDefaultDiffFP());
 		curDifficulty = DifficultyIcons.getDefaultDiffFP();
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -99,7 +98,8 @@ class StoryMenuState extends MusicBeatState
 		var colorsParsed:Array<FlxColor> = [];
 		var useWeek = 0;
 		for (weekInfo in storySongJson.weeks) {
-			var songArray = [":flushed:"];
+			//var songArray = [":flushed:"];
+			namesParsed.push(weekInfo.name);
 			if (weekInfo.visibleFlags != null && !OptionsHandler.options.ignoreUnlocks) {
 				var canUse = true;
 				var reg = ~/week(\d+)/g;
@@ -118,7 +118,7 @@ class StoryMenuState extends MusicBeatState
 							var difficultiesFP:Array<Dynamic> = diffJson.difficulties;
 							var existsWeek = false;
 							for (diff in 0...difficultiesFP.length) {
-								if (Highscore.getWeekScore('$week', diff) != 0) {
+								if (Highscore.getWeekScore(namesParsed[week], diff) != 0) {
 									existsWeek = true;
 									break;
 								}
@@ -138,8 +138,7 @@ class StoryMenuState extends MusicBeatState
 					continue;
 				}
 			}
-			songsParsed.push(songArray.concat(weekInfo.songs));
-			namesParsed.push(weekInfo.name);
+			songsParsed.push(/*songArray.concat(*/weekInfo.songs/*)*/);
 			titlesParsed.push(weekInfo.desc);
 			var charArray = [];
 			charArray.push(weekInfo.dad == null ? "dad" : weekInfo.dad);
@@ -152,31 +151,25 @@ class StoryMenuState extends MusicBeatState
 			weekNums.push(useWeek);
 			useWeek++;
 		}
-		for (storySongList in songsParsed)
-		{
+		for (weekName in namesParsed) {
+			weekNames.push(weekName);
+		}
+		for (storySongList in songsParsed) {
 			var weekSongs = [];
-			for (song in storySongList)
-			{
-				if (storySongList[0] == song)
-				{
-					weekNames.push(song);
-				}
-				else
-				{
+			for (song in storySongList) {
+				/*if (storySongList[0] == song)
+					weekTitles.push(song);
+				else*/
 					weekSongs.push(song);
-				}
 			}
 			weekData.push(weekSongs);
 		}
-		for (weekTitle in titlesParsed)
-		{
+		for (weekTitle in titlesParsed) {
 			weekTitles.push(weekTitle);
 		}
-		for (storyCharList in charsParsed)
-		{
+		for (storyCharList in charsParsed) {
 			var weekChars = [];
-			for (char in storyCharList)
-			{
+			for (char in storyCharList) {
 				weekChars.push(char);
 			}
 			weekCharacters.push(weekChars);
@@ -200,20 +193,15 @@ class StoryMenuState extends MusicBeatState
 							var diffJson = CoolUtil.parseJson(Assets.getText("assets/images/custom_difficulties/difficulties.json"));
 							var difficultiesFP:Array<Dynamic> = diffJson.difficulties;
 							var existsWeek = false;
-							for (diff in 0...difficultiesFP.length)
-							{
-								if (Highscore.getWeekScore('$week', diff) != 0)
-								{
+							for (diff in 0...difficultiesFP.length) {
+								if (Highscore.getWeekScore(weekNames[week], diff) != 0) {
 									existsWeek = true;
 									break;
 								}
 							}
-							if (existsWeek)
-							{
+							if (existsWeek) {
 								continue;
-							}
-							else
-							{
+							} else {
 								canUse = false;
 								break;
 							}
@@ -373,8 +361,7 @@ class StoryMenuState extends MusicBeatState
 		super.create();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		// scoreText.setFormat('VCR OSD Mono', 32);
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
 
@@ -386,24 +373,17 @@ class StoryMenuState extends MusicBeatState
 		// FlxG.watch.addQuick('font', scoreText.font);
 		difficultySelectors.visible = weekUnlocked[curWeek];
 		grpLocks.members[curWeek].visible = !weekUnlocked[curWeek];
-		grpLocks.forEach(function(lock:FlxSprite)
-		{
+		grpLocks.forEach(function(lock:FlxSprite) {
 			lock.y = grpWeekText.members[lock.ID].y;
 		});
 
-		if (!movedBack)
-		{
-			if (!selectedWeek)
-			{
+		if (!movedBack) {
+			if (!selectedWeek) {
 				if (controls.UP_MENU)
-				{
 					changeWeek(-1);
-				}
 
 				if (controls.DOWN_MENU)
-				{
 					changeWeek(1);
-				}
 
 				if (controls.RIGHT_MENU_H)
 					rightArrow.animation.play('press')
@@ -422,13 +402,10 @@ class StoryMenuState extends MusicBeatState
 			}
 
 			if (controls.ACCEPT)
-			{
 				selectWeek();
-			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek)
-		{
+		if (controls.BACK && !movedBack && !selectedWeek) {
 			FlxG.sound.play('assets/sounds/cancelMenu' + TitleState.soundExt);
 			movedBack = true;
 			LoadingState.loadAndSwitchState(new MainMenuState());
@@ -441,12 +418,10 @@ class StoryMenuState extends MusicBeatState
 	var selectedWeek:Bool = false;
 	var stopspamming:Bool = false;
 
-	function selectWeek()
-	{
+	function selectWeek() {
 			if (!weekUnlocked[curWeek])
 				return;
-			if (stopspamming == false)
-			{
+			if (stopspamming == false) {
 				FlxG.sound.play('assets/sounds/confirmMenu' + TitleState.soundExt);
 
 				weekCharactersArray.members[curWeek].members[0].animation.play('dadConfirm');
@@ -467,7 +442,7 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyDifficulty = curDifficulty;
 			for (peckUpAblePath in PlayState.storyPlaylist) {
-				if (!FNFAssets.exists('assets/data/'+peckUpAblePath.toLowerCase()+'/'+peckUpAblePath.toLowerCase() + diffic+'.json')) {
+				if (!FNFAssets.exists('assets/data/' + peckUpAblePath.toLowerCase() + '/' + peckUpAblePath.toLowerCase() + diffic + '.json')) {
 					// probably messed up difficulty
 					trace("UH OH DIFFICULTY DOESN'T EXIST FOR A SONG");
 					trace("CHANGING TO DEFAULT DIFFICULTY");
@@ -476,12 +451,11 @@ class StoryMenuState extends MusicBeatState
 				}
 			}
 			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
-			//PlayState.storyWeek = curWeek;
+			PlayState.storyWeek = weekNames[curWeek];
 			PlayState.storyWeekNum = curWeek;
 			PlayState.campaignScore = 0;
 			PlayState.campaignAccuracy = 0;
-			new FlxTimer().start(1, function(tmr:FlxTimer)
-			{
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				if (!OptionsHandler.options.skipModifierMenu)
 				 	LoadingState.loadAndSwitchState(new ModifierState());
 				else {
@@ -492,19 +466,15 @@ class StoryMenuState extends MusicBeatState
 			});
 	}
 
-	function changeDifficulty(change:Int = 0):Void
-	{
+	function changeDifficulty(change:Int = 0):Void {
 		grpDifficulty.changeDifficulty(change, curWeek);
 		curDifficulty = grpDifficulty.difficulty;
-
-
 
 		grpDifficulty.activeDiff.alpha = 0;
 		grpDifficulty.activeDiff.y = leftArrow.y - 15;
 		rightArrow.setPosition(grpDifficulty.activeDiff.x + grpDifficulty.activeDiff.width + 50, leftArrow.y);
-		intendedScore = Highscore.getWeekScore('$curWeek', curDifficulty);
-		intendedAccuracy = Highscore.getWeekAccuracy('$curWeek', curDifficulty);
-
+		intendedScore = Highscore.getWeekScore(weekNames[curWeek], curDifficulty);
+		intendedAccuracy = Highscore.getWeekAccuracy(weekNames[curWeek], curDifficulty);
 
 		FlxTween.tween(grpDifficulty.activeDiff, {y: leftArrow.y + 15, alpha: 1}, 0.07);
 	}
@@ -513,16 +483,14 @@ class StoryMenuState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedAccuracy:Float = 0;
 	var lerpAccuracy:Int = 0;
-	function changeWeek(change:Int = 0):Void
-	{
+	function changeWeek(change:Int = 0):Void {
 		lastWeek = curWeek;
 		curWeek += change;
 
 		curWeek = FlxMath.wrap(curWeek, 0, weekData.length - 1);
 		var bullShit:Int = 0;
 
-		for (item in grpWeekText.members)
-		{
+		for (item in grpWeekText.members) {
 			item.targetY = bullShit - curWeek;
 			bullShit++;
 		}
@@ -531,15 +499,12 @@ class StoryMenuState extends MusicBeatState
 		updateText();
 	}
 
-	function updateText()
-	{
-
+	function updateText() {
 		weekCharactersArray.members[lastWeek].kill();
 		weekCharactersArray.members[curWeek].revive();
 		txtTracklist.text = "Tracks";
 
-		switch (weekCharactersArray.members[curWeek].members[0].like)
-		{
+		switch (weekCharactersArray.members[curWeek].members[0].like) {
 			case 'parents-christmas':
 				weekCharactersArray.members[curWeek].members[0].offset.set(200, 200);
 				weekCharactersArray.members[curWeek].members[0].setGraphicSize(Std.int(weekCharactersArray.members[curWeek].members[0].width * 0.99));
@@ -564,11 +529,10 @@ class StoryMenuState extends MusicBeatState
 		yellowBG.color = coolors[curWeek];
 		var stringThing:Array<String> = weekData[curWeek];
 
-		for (i in stringThing)
-		{
+		for (i in stringThing) {
 			txtTracklist.text += "\n" + i;
 		}
-		txtTracklist.text += "\n shitty workaround but ok";
+		//txtTracklist.text += "\n shitty workaround but ok";
 		trace(txtTracklist.text);
 		txtTracklist.text = StringTools.replace(txtTracklist.text.toUpperCase(), "-", " ");
 		trace(txtTracklist.text);
@@ -576,8 +540,8 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.x -= FlxG.width * 0.35;
 
 		#if !switch
-		intendedScore = Highscore.getWeekScore('$curWeek', curDifficulty);
-		intendedAccuracy = Highscore.getWeekScore('$curWeek', curDifficulty);
+		intendedScore = Highscore.getWeekScore(weekNames[curWeek], curDifficulty);
+		intendedAccuracy = Highscore.getWeekScore(weekNames[curWeek], curDifficulty);
 		#end
 	}
 }

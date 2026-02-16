@@ -2,6 +2,7 @@
   "template": {
     "like": "bf",
     "icons": [0,1,24],
+    "iconbop": "test",
     "colors": ["#149DFF"]
   },
   "bf": {

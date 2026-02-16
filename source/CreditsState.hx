@@ -6,16 +6,13 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import DifficultyIcons;
 import lime.system.System;
-#if sys
-import flixel.system.FlxSound;
-#end
 using StringTools;
 
 class CreditsState extends MusicBeatState

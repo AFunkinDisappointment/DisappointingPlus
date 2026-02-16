@@ -24,8 +24,6 @@ class GameOverSubstate extends MusicBeatSubstate
 	var bf:Character;
 	var camFollow:FlxObject;
 
-	var musicSuffix:String = "";
-
 	public function new(x:Float, y:Float, player:Character) {
 		var daBf:String = player.curCharacter + '-dead';
 		trace(player.curCharacter);
@@ -39,9 +37,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);
-		if (bf.isPixel)
-			musicSuffix = "-pixel";
-		FlxG.sound.play('assets/sounds/fnf_loss_sfx' + musicSuffix + TitleState.soundExt);
+		if (bf.isPixel && bf.deathSound == 'fnf_loss_sfx.ogg')
+			bf.deathSound = 'fnf_loss_sfx-pixel.ogg';
+		FlxG.sound.play(FNFAssets.getSound('assets/sounds/' + bf.deathSound));
 		Conductor.changeBPM(100);
 
 		// FlxG.camera.followLerp = 1;
@@ -55,9 +53,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.ACCEPT) {
+		if (controls.ACCEPT)
 			endBullshit();
-		}
 
 		if (controls.BACK) {
 			FlxG.sound.music.stop();
@@ -73,12 +70,13 @@ class GameOverSubstate extends MusicBeatSubstate
 		}
 
 		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished) {
-			FlxG.sound.playMusic('assets/music/gameOver' + musicSuffix + '.ogg');
+			if (bf.isPixel && bf.gameoverMusic == 'gameOver.ogg')
+				bf.gameoverMusic = 'gameOver-pixel.ogg';
+			FlxG.sound.playMusic(FNFAssets.getSound('assets/music/' + bf.gameoverMusic));
 		}
 
-		if (FlxG.sound.music.playing) {
+		if (FlxG.sound.music.playing)
 			Conductor.songPosition = FlxG.sound.music.time;
-		}
 	}
 
 	override function beatHit() {
@@ -93,8 +91,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (!isEnding) {
 			isEnding = true;
 			bf.playAnim('deathConfirm', true);
+
 			FlxG.sound.music.stop();
-			FlxG.sound.play('assets/music/gameOverEnd' + musicSuffix + TitleState.soundExt);
+			if (bf.isPixel && bf.gameoverMusicEnd == 'gameOverEnd.ogg')
+				bf.gameoverMusicEnd = 'gameOverEnd-pixel.ogg';
+			FlxG.sound.play(FNFAssets.getSound('assets/music/' + bf.gameoverMusicEnd));
+
 			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
 					LoadingState.loadAndSwitchState(new PlayState());

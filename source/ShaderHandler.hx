@@ -6,9 +6,7 @@ import hscript.Interp;
 import hscript.ParserEx;
 import hscript.InterpEx;
 
-
-class ShaderHandler
-{
+class ShaderHandler {
 	// stuff
 	var hscriptStates:Map<String, Interp> = [];
 	var exInterp:InterpEx = new InterpEx();
@@ -59,14 +57,12 @@ class ShaderHandler
 	}
 
 
-	public function new(shader:String):Void
-	{
+	public function new(shader:String):Void {
 		makeHaxeState("shader", "assets/shaders/" + shader + "/", "shader");
-		callAllHScript("create", []);
+		callAllHScript("new", []);
 	}
 
-	public function update(elapsed:Float):Void
-	{
+	public function update(elapsed:Float):Void {
 		callAllHScript("update", [elapsed]);
 	}
 

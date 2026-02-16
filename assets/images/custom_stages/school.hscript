@@ -8,10 +8,8 @@ function start(song) {
     getHaxeActor('bf').followCamX -= 100;
 
     // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    swapOffsets[0] += 50;
-    swapOffsets[1] += 60;
-    swapOffsets[2] += 100;
-    swapOffsets[3] += 10;
+    setSwapOffsets('bf', [50, 60]);
+    setSwapOffsets('gf', [-100, 10]);
 
     var bg = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebSky.png');
     bg.scrollFactor.set(0.1,0.1);
@@ -73,17 +71,16 @@ function start(song) {
     bruh.alpha = 0.8;
     bruh.antialiasing = true;
     bruh.cameras = [camHUD];
+    bruh.visible = false;
     addSprite(bruh, BEHIND_NONE);
 }
 
 var danceDir = false;
-function beatHit(beat)
-{
+function beatHit(beat) {
     gorls.dance();
 }
 
-function update(elapsed)
-{
+function update(elapsed) {
     if (FlxG.keys.justPressed.SPACE)
 	bruh.visible = !bruh.visible;
 }

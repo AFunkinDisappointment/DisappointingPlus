@@ -18,7 +18,7 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;
 import flixel.ui.FlxSpriteButton;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import openfl.media.Sound;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.FlxCamera;
@@ -42,17 +42,6 @@ using StringTools;
 import NewSongState.TDifficulty;
 import NewSongState.TDifficulties;
 import Song.SwagSong;
-
-typedef ExistBox = {
-	var background:FlxSprite;
-	var nameText:FlxText;
-	var replaceButton:FlxUIButton;
-	var renameButton:FlxUIButton;
-	var cancelButton:FlxUIButton;
-	var nameRename:FlxUIInputText;
-	var acceptRename:FlxUIButton;
-	var cancelRename:FlxUIButton;
-}
 
 typedef ImportBox = {
 	var background:FlxSprite;
@@ -110,7 +99,7 @@ class ModuleState extends MusicBeatState {
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
 
-		FlxCamera.defaultCameras = [camHUD];
+		//FlxCamera.defaultCameras = [camHUD];
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuBGBlue.png');
 		bg.scrollFactor.set();
@@ -246,11 +235,13 @@ class ModuleState extends MusicBeatState {
 
 		if (songsLoaded) {
 			if (FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S) {
-				scrollNum[section] -= 10;
-				if (FlxG.keys.pressed.SHIFT)
-					scrollNum[section] -= 15;
-				if (scrollNum[section] < -150 * (currentBoxNum - 5) && currentBoxNum > 4)
-					scrollNum[section] = -150 * (currentBoxNum - 5);
+				if (currentBoxNum > 4) {
+					scrollNum[section] -= 10;
+					if (FlxG.keys.pressed.SHIFT)
+						scrollNum[section] -= 15;
+					if (scrollNum[section] < -150 * (currentBoxNum - 5) - 60)
+						scrollNum[section] = -150 * (currentBoxNum - 5) - 60;
+				}
 			} else if (FlxG.keys.pressed.UP || FlxG.keys.pressed.W) {
 				scrollNum[section] += 10;
 				if (FlxG.keys.pressed.SHIFT)
@@ -335,6 +326,48 @@ class ModuleState extends MusicBeatState {
 
 		super.update(elapsed);
 	}
+	/*function generateSection(sectionNum:Int = 0) {
+		// 0 = songs, 1 = chars, 2 = stages, 3 = weeks, 4 = misc
+		var daName;
+		var daIcon = 'dad';
+		var daBox:ImportBox = {
+			background: null,
+			icon: null,
+			nameText: null,
+			importButton: null,
+			miscButton: null
+		}; 
+		daBox.background = new FlxSprite(650, 10 + (180 * songs.indexOf(path))).loadGraphic('assets/images/plainbox.png');
+		daBox.icon = new HealthIcon(daIcon);
+		daBox.icon.x = daBox.background.x + 5;
+		daBox.icon.scrollFactor.set(1, 1);
+		daBox.nameText = new FlxText(daBox.background.x + 180, daBox.background.y, daBox.background.width - 240, daName);
+		daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
+		daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Song", function():Void {
+			if (moduleMode != 'Export')
+				importSong(song);
+			else
+				ModuleFunctions.exportSong(songName);
+		});
+		daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Listen", function():Void {
+			switch(sectionNum) {
+				case 0:
+					if (songPlaying != song)
+						listenSong(path, song);
+					else
+						endSong();
+				case 1:
+					
+			}
+		});
+		add(daBox);
+		//add(daBox.background);
+		//add(daBox.icon);
+		//add(daBox.nameText);
+		//add(daBox.importButton);
+		//add(daBox.miscButton);
+		songBoxes.push(daBox);
+	}*/
 	function generateSongs() {
 		var daFolding:String = '';
 		switch(moduleMode) {
@@ -517,8 +550,7 @@ class ModuleState extends MusicBeatState {
 						if (moduleMode != 'Export')
 							importChar(char);
 						else {
-							//make later
-							//ModuleFunctions.exportChar(charName);
+							ModuleFunctions.exportChar(charName);
 						}
 					});
 					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Load Character", function():Void {
@@ -605,8 +637,7 @@ class ModuleState extends MusicBeatState {
 						if (moduleMode != 'Export')
 							importStage(stage);
 						else {
-							//make later
-							//ModuleFunctions.exportStage(stageName);
+							ModuleFunctions.exportStage(stageName);
 						}
 					});
 					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Nothing", function():Void {
@@ -655,77 +686,6 @@ class ModuleState extends MusicBeatState {
 		remove(box.importButton);
 		remove(box.miscButton);
 	}
-	var fileNum = 0;
-	function fileExists(daName:String, pathType:String) {
-		var daBox:ExistBox = {
-			background: null,
-			nameText: null,
-			replaceButton: null,
-			renameButton: null,
-			cancelButton: null,
-			nameRename: null,
-			acceptRename: null,
-			cancelRename: null
-		};
-		//daBox.background = new FlxSprite(500, 10 + (130 * fileNum)).loadGraphic();
-		daBox.nameText = new FlxText(500, 10 + (130 * fileNum), 70, daName + ' already exists! Select an option.');
-		fileNum += 1;
-		daBox.replaceButton = new FlxUIButton(daBox.nameText.x, daBox.nameText.y + 50, "Replace", function():Void {
-			switch(pathType) {
-				case 'song':
-					importSong(daName);
-				case 'char':
-					importChar(daName);
-			}
-			remove(daBox.nameText);
-			remove(daBox.replaceButton);
-			remove(daBox.renameButton);
-			remove(daBox.cancelButton);
-			fileNum -= 1;
-		});
-		daBox.renameButton = new FlxUIButton(daBox.nameText.x, daBox.nameText.y + 80, "Rename", function():Void {
-			remove(daBox.nameText);
-			remove(daBox.replaceButton);
-			remove(daBox.renameButton);
-			remove(daBox.cancelButton);
-			add(daBox.nameRename);
-			add(daBox.acceptRename);
-			add(daBox.cancelRename);
-		});
-		daBox.cancelButton = new FlxUIButton(daBox.nameText.x, daBox.nameText.y + 110, "Cancel", function():Void {
-			remove(daBox.nameText);
-			remove(daBox.replaceButton);
-			remove(daBox.renameButton);
-			remove(daBox.cancelButton);
-			fileNum -= 1;
-		});
-		daBox.nameRename = new FlxUIInputText(daBox.nameText.x, daBox.nameText.y, 70, daName);
-		daBox.acceptRename = new FlxUIButton(daBox.nameText.x, daBox.nameText.y + 30, "Accept", function():Void {
-			switch(pathType) {
-				case 'song':
-					importSong(daName, daBox.nameRename.text);
-				case 'char':
-					importChar(daName, daBox.nameRename.text);
-			}
-			remove(daBox.nameRename);
-			remove(daBox.acceptRename);
-			remove(daBox.cancelRename);
-			fileNum -= 1;
-		});
-		daBox.cancelRename = new FlxUIButton(daBox.nameText.x, daBox.nameText.y + 60, "Cancel", function():Void {
-			remove(daBox.nameRename);
-			remove(daBox.acceptRename);
-			remove(daBox.cancelRename);
-			add(daBox.nameText);
-			add(daBox.replaceButton);
-			add(daBox.renameButton);
-			add(daBox.cancelButton);
-		});
-		add(daBox.nameText);
-		add(daBox.replaceButton);
-		add(daBox.renameButton);
-		add(daBox.cancelButton);
-	}
 	function checkFile(daName:String, pathType:String, path:String) {
 		switch(pathType) {
 			case 'song':
@@ -743,14 +703,14 @@ class ModuleState extends MusicBeatState {
 										daSongName = data[1];
 								}
 							}
-							fileExists(daName, 'song');
+							
 						} else {
 							importSong(path);
 						}
 					}
 				} else {
 					if (FileSystem.exists(songPath + daName) || FileSystem.exists(dataPath + daName)) {
-						fileExists(daName, 'song');
+						
 					} else {
 						importSong(daName, null, path);
 					}
@@ -771,7 +731,7 @@ class ModuleState extends MusicBeatState {
 								daCharName = data[1];
 						}
 					}
-					fileExists(daName, 'char');
+					
 				} else {
 					importChar(daName);
 				}

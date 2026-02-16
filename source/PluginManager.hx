@@ -3,9 +3,9 @@ package;
 import flixel.system.frontEnds.CameraFrontEnd;
 import flixel.system.frontEnds.BitmapFrontEnd;
 import flixel.system.FlxAssets.FlxSoundAsset;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxSoundGroup;
+import flixel.sound.FlxSoundGroup;
 import flixel.system.frontEnds.SoundFrontEnd;
 import openfl.display.DisplayObject;
 import flixel.input.keyboard.FlxKeyboard;
@@ -13,10 +13,12 @@ import flixel.system.frontEnds.InputFrontEnd;
 import flixel.math.FlxRect;
 import flixel.FlxState;
 import openfl.display.Stage;
+import flixel.math.FlxPoint;
 import flixel.FlxGame;
 import flixel.input.gamepad.FlxGamepadManager;
 import flixel.FlxCamera;
 import flixel.util.FlxColor;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxTrail;
 import plugins.tools.MetroSprite;
@@ -31,6 +33,7 @@ class PluginManager {
     public static var interp = new InterpEx();
     public static var hscriptClasses:Array<String> = [];
 	@:access(hscript.InterpEx)
+    private var flxPointWorkaround = {};
     public static function init() {
         var filelist = hscriptClasses = CoolUtil.coolTextFile("assets/scripts/plugin_classes/classes.txt");
 		interp = addVarsToInterp(interp);
@@ -40,7 +43,10 @@ class PluginManager {
 				interp.addModule(FNFAssets.getText("assets/scripts/plugin_classes/" + file + '.hx'));
             }
         }
-        trace(InterpEx._scriptClassDescriptors);
+        //trace(InterpEx._scriptClassDescriptors);
+
+        //for (thingy in Reflect.fields(FlxPoint))
+            //Reflect.setProperty(flxPointWorkaround, thingy);
     }
     /**
      * Create a simple interp, that already added all the needed shit
@@ -53,9 +59,11 @@ class PluginManager {
         reterp = addVarsToInterp(reterp);
         return reterp;
     }
+    
     public static function addVarsToInterp<T:Interp>(interp:T):T {
 		interp.variables.set("Conductor", Conductor);
 		interp.variables.set("FlxSprite", DynamicSprite);
+        interp.variables.set("getFlxPoint", function(x, y) {return FlxPoint.get(x, y);});
 		interp.variables.set("FlxSound", DynamicSound);
 		interp.variables.set("FlxAtlasFrames", DynamicSprite.DynamicAtlasFrames);
 		interp.variables.set("FlxGroup", flixel.group.FlxGroup);
@@ -76,6 +84,9 @@ class PluginManager {
 		interp.variables.set("FlxTween", flixel.tweens.FlxTween);
         interp.variables.set("FlxCamera", flixel.FlxCamera);
         interp.variables.set("FlxText", flixel.text.FlxText);
+        interp.variables.set("SHADOW", FlxTextBorderStyle.SHADOW);
+        interp.variables.set("OUTLINE", FlxTextBorderStyle.OUTLINE);
+        interp.variables.set("OUTLINE_FAST", FlxTextBorderStyle.OUTLINE_FAST);
         interp.variables.set("FlxBar", flixel.ui.FlxBar);
 		interp.variables.set("Std", Std);
 		interp.variables.set("StringTools", StringTools);
@@ -85,6 +96,7 @@ class PluginManager {
 		interp.variables.set("Reflect", Reflect);
 		interp.variables.set("Character", Character);
 		interp.variables.set("OptionsHandler", OptionsHandler);
+        interp.variables.set("DifficultyManager", DifficultyManager);
 		#if debug
 		interp.variables.set("debug", true);
 		#else
@@ -111,7 +123,7 @@ class HscriptGlobals {
     public static var height(get, never):Int;
     public static var initialHeight(get, never):Int;
     public static var initialWidth(get, never):Int;
-    public static var initialZoom(get, never):Float;
+    //public static var initialZoom(get, never):Float;
     public static var inputs(get, never):InputFrontEnd;
     public static var keys(get, never):FlxKeyboard;
     // no log
@@ -201,9 +213,9 @@ class HscriptGlobals {
     static function get_initialWidth():Int {
         return FlxG.initialWidth;
     }
-    static function get_initialZoom():Float {
+    /*static function get_initialZoom():Float {
         return FlxG.initialZoom;
-    }
+    }*/
     static function get_inputs() {
         return FlxG.inputs;
     }
@@ -252,8 +264,7 @@ class HscriptGlobals {
     static function get_worldDivisions() {
         return FlxG.worldDivisions;
     }
-	static function set_worldDivisions(s)
-	{
+	static function set_worldDivisions(s) {
 		return FlxG.worldDivisions = s;
 	}
 
@@ -261,7 +272,7 @@ class HscriptGlobals {
         return FlxG.addChildBelowMouse(Child, IndexModifier);
     }
     public static function addPostProcess(postProcess) {
-        return FlxG.addPostProcess(postProcess);
+        return null; //FlxG.addPostProcess(postProcess);
     }
     public static function collide(?ObjectOrGroup1, ?ObjectOrGroup2, ?NotifyCallback) {
         return FlxG.collide(ObjectOrGroup1, ObjectOrGroup2, NotifyCallback);
@@ -279,7 +290,7 @@ class HscriptGlobals {
         return FlxG.removeChild(Child);
     }
     public static function removePostProcess(postProcess) {
-        FlxG.removePostProcess(postProcess);
+        return null; //FlxG.removePostProcess(postProcess);
     }
     // no reset game or reset state because i don't trust you guys
     public static function resizeGame(Width, Height) {

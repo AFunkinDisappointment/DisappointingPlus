@@ -10,12 +10,12 @@ function init(char) {
 
     char.addOffset('idle');
     if (char.isPlayer) {
-	    char.addOffset('singUP', -50, 91);
+	char.addOffset('singUP', -50, 91);
         char.addOffset('singRIGHT', 20);
         char.addOffset('singLEFT', -61, 20);
     	char.addOffset('singDOWN', 2, -94);
     } else {
-	    char.addOffset('singUP', -20, 84);
+	char.addOffset('singUP', -20, 84);
         char.addOffset('singLEFT', -30);
         char.addOffset('singRIGHT', -51, 0);
         char.addOffset('singDOWN', -38, -94);
@@ -44,6 +44,9 @@ function init(char) {
 portraitOffset = [0, 0];
 dadVar = 4.0;
 isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
 function update(elapsed, char) {
     // do nothing...
 }

@@ -19,7 +19,6 @@ function init(char) {
         char.animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
         char.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
-
         char.addOffset('idle', -5);
         char.addOffset('singUP', -29, 27);
         char.addOffset('singRIGHT', -38, -7);
@@ -44,7 +43,6 @@ function init(char) {
         char.addOffset('deathConfirm', 37, 69);
     }
     
-
     char.flipX = true;
     char.like = "bf";
     char.likeBf = true;
@@ -62,6 +60,9 @@ function init(char) {
 portraitOffset = [0, 0];
 dadVar = 4.0;
 isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
 function update(elapsed, char) {
     // do nothing...
 }

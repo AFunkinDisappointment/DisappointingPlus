@@ -71,8 +71,7 @@ class EdtNote extends FlxSprite
 
 	// altNote can be int or bool. int just determines what alt is played
 	// format: [strumTime:Float, noteDirection:Int, sustainLength:Float, altNote:Union<Bool, Int>, isLiftNote:Bool, healMultiplier:Float, damageMultipler:Float, consistentHealth:Bool, timingMultiplier:Float, shouldBeSung:Bool, ignoreHealthMods:Bool, animSuffix:Union<String, Int>]
-	public function new(strumTime:Float, noteData:Int, ?LiftNote:Bool = false)
-	{
+	public function new(strumTime:Float, noteData:Int, ?LiftNote:Bool = false) {
 		super();
 		// uh oh notedata sussy :flushed:
 		isLiftNote = LiftNote;
@@ -115,11 +114,11 @@ class EdtNote extends FlxSprite
 
 		var noteName = currentKey[noteData % NOTE_AMOUNT].note;
 		if (isLiftNote)
-			animation.addByPrefix('Scroll', noteName + ' lift');
+			animation.addByPrefix('Scroll', noteName + ' lift0');
 		else if (nukeNote)
-			animation.addByPrefix('Scroll', noteName + ' nuke');
+			animation.addByPrefix('Scroll', noteName + ' nuke0');
 		else if (mineNote)
-			animation.addByPrefix('Scroll', noteName + ' mine');
+			animation.addByPrefix('Scroll', noteName + ' mine0');
 		else
 			animation.addByPrefix('Scroll', noteName + '0');
 

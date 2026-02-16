@@ -32,12 +32,9 @@ typedef VersionJson = {
 	var name_1: String;
 	var name_2: String;
 	var name_3: String;
-
 }
-
 	
-class MainMenuState extends MusicBeatState
-{
+class MainMenuState extends MusicBeatState {
 	static var curSelected:Int = 0;
 	var customMenuConfirm: Array<Array<String>>;
 	var customMenuScroll: Array<Array<String>>;
@@ -53,8 +50,7 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	public static var version:String = "";
-	override function create()
-	{
+	override function create() {
 		#if windows
 		// Updating Discord Rich Presence
 		var customPrecence = TitleState.discordStuff.mainmenu;
@@ -72,8 +68,7 @@ class MainMenuState extends MusicBeatState
 			optionShit.remove("donate");
 		if (!OptionsHandler.options.useSaveDataMenu && !OptionsHandler.options.allowEditOptions) 
 			optionShit.remove("options");
-		if (!FlxG.sound.music.playing)
-		{
+		if (!FlxG.sound.music.playing) {
 			FlxG.sound.playMusic(FNFAssets.getSound('assets/music/custom_menu_music/'
 				+ CoolUtil.parseJson(FNFAssets.getText("assets/music/custom_menu_music/custom_menu_music.json")).Menu+'/freakyMenu' + TitleState.soundExt));
 		}
@@ -87,7 +82,6 @@ class MainMenuState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = true;
 		add(bg);
-		
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -109,8 +103,7 @@ class MainMenuState extends MusicBeatState
 
 		var tex = FlxAtlasFrames.fromSparrow('assets/images/FNF_main_menu_assets.png', 'assets/images/FNF_main_menu_assets.xml');
 
-		for (i in 0...optionShit.length)
-		{
+		for (i in 0...optionShit.length) {
 			var menuItem:FlxSprite = new FlxSprite(0, 100 + (i * 160));
 			menuItem.frames = tex;
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
@@ -142,27 +135,29 @@ class MainMenuState extends MusicBeatState
 		if (OptionsHandler.options.useSaveDataMenu)
 			add(usingSave);
 		// NG.core.calls.event.logEvent('swag').send();
-		switch (FlxG.save.name) {
+		usingSave.text = switch (FlxG.save.name) {
 			case "save0":
-				usingSave.text = "bf";
+				 "bf";
 			case "save1":
-				usingSave.text = "classic";
+				"classic";
 			case "save2":
-				usingSave.text = "bf-pixel";
+				"bf-pixel";
 			case "save3":
-				usingSave.text = "spooky";
+				"spooky";
 			case "save4":
-				usingSave.text = "dad";
+				"dad";
 			case "save5":
-				usingSave.text = "pico";
+				"pico";
 			case "save6":
-				usingSave.text = "mom";
+				"mom";
 			case "save7":
-				usingSave.text = "gf";
+				"gf";
 			case "save8":
-				usingSave.text = "lemon";
+				"lemon";
 			case "save9":
-				usingSave.text = "senpai";
+				"senpai";
+			default:
+				"null";
 		}
 
 		changeItem();
@@ -172,72 +167,55 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	override function update(elapsed:Float)
-	{
-		if (FlxG.sound.music.volume < 0.8)
-		{
+	override function update(elapsed:Float) {
+		if (FlxG.sound.music.volume < 0.8) {
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		if (!selectedSomethin)
-		{
-			if (controls.UP_MENU)
-			{
+		if (!selectedSomethin) {
+			if (controls.UP_MENU) {
 				FlxG.sound.play('assets/sounds/custom_menu_sounds/'
 				+ menuSoundJson.customMenuScroll +'/scrollMenu' + TitleState.soundExt);
 				changeItem(-1);
 			}
 
-			if (controls.DOWN_MENU)
-			{
+			if (controls.DOWN_MENU) {
 				FlxG.sound.play('assets/sounds/custom_menu_sounds/'
 				+ menuSoundJson.customMenuScroll +'/scrollMenu' + TitleState.soundExt);
 				changeItem(1);
 			}
 
-			if (controls.BACK)
-			{
+			if (controls.BACK) {
 				LoadingState.loadAndSwitchState(new TitleState());
 			}
 
-			if (controls.ACCEPT)
-			{
-				if (optionShit[curSelected] == 'donate')
-				{
+			if (controls.ACCEPT) {
+				if (optionShit[curSelected] == 'donate') {
 					#if linux
 					Sys.command('/usr/bin/xdg-open', [FNFAssets.getText("assets/data/donate_button_link.txt"), "&"]);
 					#else
 					FlxG.openURL(FNFAssets.getText("assets/data/donate_button_link.txt"));
 					#end
-				}
-				else
-				{
+				} else {
 					selectedSomethin = true;
 					FlxG.sound.play('assets/sounds/custom_menu_sounds/'
 					+ menuSoundJson.customMenuConfirm+'/confirmMenu' + TitleState.soundExt);
 
 					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
-					menuItems.forEach(function(spr:FlxSprite)
-					{
-						if (curSelected != spr.ID)
-						{
+					menuItems.forEach(function(spr:FlxSprite) {
+						if (curSelected != spr.ID) {
 							FlxTween.tween(spr, {alpha: 0}, 0.4, {
 								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
+								onComplete: function(twn:FlxTween) {
 									spr.kill();
 								}
 							});
-						}
-						else
-						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
+						} else {
+							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker) {
 								var daChoice:String = optionShit[curSelected];
 
-								switch (daChoice)
-								{
+								switch (daChoice) {
 									case 'story mode':
 										LoadingState.loadAndSwitchState(new StoryMenuState());
 										trace("Story Menu Selected");
@@ -245,8 +223,7 @@ class MainMenuState extends MusicBeatState
 										CategoryState.choosingFor = "freeplay";
 										var epicCategoryJs:Array<Dynamic> = CoolUtil.parseJson(FNFAssets.getJson('assets/data/freeplaySongJson'));
 										FreeplayState.soundTest = false;
-										if (epicCategoryJs.length > 1)
-										{
+										if (epicCategoryJs.length > 1) {
 											LoadingState.loadAndSwitchState(new CategoryState());
 										}  else {
 											FreeplayState.currentSongList = epicCategoryJs[0].songs;
@@ -266,14 +243,12 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
+		menuItems.forEach(function(spr:FlxSprite) {
 			spr.screenCenter(X);
 		});
 	}
 
-	function changeItem(huh:Int = 0)
-	{
+	function changeItem(huh:Int = 0) {
 		curSelected += huh;
 
 		if (curSelected >= menuItems.length)
@@ -281,12 +256,10 @@ class MainMenuState extends MusicBeatState
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
+		menuItems.forEach(function(spr:FlxSprite) {
 			spr.animation.play('idle');
 
-			if (spr.ID == curSelected)
-			{
+			if (spr.ID == curSelected) {
 				spr.animation.play('selected');
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
 			}

@@ -16,8 +16,7 @@ typedef BPMChangeEvent =
 /**
  * Class that handles song position and timing. 
  */
-class Conductor
-{
+class Conductor {
 	/**
 	 *  Current song bpm.
 	 */
@@ -57,24 +56,20 @@ class Conductor
 	 */
 	public static var bpmChangeMap:Array<BPMChangeEvent> = [];
 
-	public function new()
-	{
+	public function new() {
 	}
 	/**
 	 * Map BPM changes of song.
 	 * @param song Song to map. 
 	 */
-	public static function mapBPMChanges(song:SwagSong)
-	{
+	public static function mapBPMChanges(song:SwagSong) {
 		bpmChangeMap = [];
 
 		var curBPM:Float = song.bpm;
 		var totalSteps:Int = 0;
 		var totalPos:Float = 0;
-		for (i in 0...song.notes.length)
-		{
-			if(song.notes[i].changeBPM && song.notes[i].bpm != curBPM)
-			{
+		for (i in 0...song.notes.length) {
+			if(song.notes[i].changeBPM && song.notes[i].bpm != curBPM) {
 				curBPM = song.notes[i].bpm;
 				var event:BPMChangeEvent = {
 					stepTime: totalSteps,
@@ -94,11 +89,41 @@ class Conductor
 	 * Change bpm. also updated crochet. 
 	 * @param newBpm New bpm.
 	 */
-	public static function changeBPM(newBpm:Float)
-	{
+	public static function changeBPM(newBpm:Float) {
 		bpm = newBpm;
 
 		crochet = ((60 / bpm) * 1000);
 		stepCrochet = crochet / 4;
+	}
+
+	public static function beatsToTime(beats:Float, ?daBPM:Float):Float {
+		if (daBPM == null) daBPM = bpm;
+		var dacrochet = ((60 / daBPM) * 1000);
+
+		return dacrochet*beats;
+	}
+	public static function stepsToTime(steps:Float, ?daBPM:Float):Float {
+		if (daBPM == null) daBPM = bpm;
+		var dacrochet = ((60 / daBPM) * 250);
+
+		return dacrochet*steps;
+	}
+	public static function timeToBeats(time:Float, round:Bool = true, ?daBPM:Float):Float {
+		if (daBPM == null) daBPM = bpm;
+		var dacrochet = ((60 / daBPM) * 1000);
+
+		var joesph = time/dacrochet;
+		if (round) joesph = Math.round(joesph);
+
+		return joesph;
+	}
+	public static function timeToSteps(time:Float, round:Bool = true, ?daBPM:Float):Float {
+		if (daBPM == null) daBPM = bpm;
+		var dacrochet = ((60 / daBPM) * 250);
+
+		var stephanie = time/dacrochet;
+		if (round) stephanie = Math.round(stephanie);
+
+		return stephanie;
 	}
 }

@@ -1,0 +1,33 @@
+var danced = false;
+function dance(icon) {
+    switch(icon.iconState) {
+	case 0: //Normal
+	    icon.setGraphicSize(Std.int(icon.width + 30));
+    	    icon.updateHitbox();
+	case 1: //Dying
+
+	case 2: //Poisoned
+
+	case 3: //Winning
+	    if (danced)
+		icon.angle = 35;
+	    else
+		icon.angle = -35;
+	    danced = !danced;
+    }
+}
+
+function update(elapsed, icon) {
+    icon.setGraphicSize(Std.int(FlxMath.lerp(150, icon.width, 0.8)));
+    icon.updateHitbox();
+
+    if (icon.iconState == 1)
+	icon.offset.set(FlxG.random.int(-5, 5), 0);
+    else
+	icon.offset.set(0, 0);
+
+    if (icon.iconState == 2)
+	icon.angle += 2;
+    else
+	icon.angle = FlxMath.lerp(0, icon.angle, 0.9);
+}

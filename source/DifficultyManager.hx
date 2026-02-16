@@ -12,6 +12,7 @@ class DifficultyManager {
     static var diffJson:Dynamic;
     public static var supportedDiff:Map<String,Array<Int>> = [];
     public static var weeksSupported:Map<Int, Array<Int>> = [];
+
     public static function init() {
         diffJson = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_difficulties/difficulties"));
         var fpJson:Array<CoolCategory> = CoolUtil.parseJson(FNFAssets.getJson("assets/data/freeplaySongJson"));
@@ -33,7 +34,8 @@ class DifficultyManager {
 			var supThingies:Array<Int> = [];
 			var thingsInWeek:Array<Int> = [];
 			for (i in 0...weekSongs.length) {
-				thingsInWeek = thingsInWeek.concat(supportedDiff.get(weekSongs[i].toLowerCase()));
+                if (supportedDiff.get(weekSongs[i].toLowerCase()) != null)
+				    thingsInWeek = thingsInWeek.concat(supportedDiff.get(weekSongs[i].toLowerCase()));
 			}
 			for (diff in 0...diffJson.difficulties.length) {
 				var count = 0;
@@ -52,12 +54,14 @@ class DifficultyManager {
 			weeksSupported.set(week++, supThingies);
         }
     }
+
     public static function changeDifficulty(diff:Int, ?change:Int=0):DiffInfo {
         // we can do it directly because Ints are saved by value : )
         diff += change;
         diff = FlxMath.wrap(diff, 0, Std.int(diffJson.difficulties.length - 1));
         return {difficulty: diff, text: diffJson.difficulties[diff].name.toUpperCase()};
     }
+
     // sans : ) meaning without, this omits any bad difficulties
     public static function changeDifficultySans(diff:Int, ?change:Int=0, ?song:String="tutorial"):DiffInfo {
         var foundSomething = false;
@@ -67,19 +71,18 @@ class DifficultyManager {
         if (change == 0)
             change = 1;
         while (giveUpNum < diffJson.difficulties.length && !foundSomething) {
-            if (supportedDiff.get(song.toLowerCase()).contains(diff) && ignoreIfExists) {
+            if (supportedDiff.get(song.toLowerCase()).contains(diff) && ignoreIfExists)
                 return giveUpResult;
-            }
             var sus = changeDifficulty(diff, change);
             diff = sus.difficulty;
             
-            if (supportedDiff.get(song.toLowerCase()).contains(diff)) {
+            if (supportedDiff.get(song.toLowerCase()).contains(diff))
                 return sus;
-            }
             giveUpNum++;
         }
         return giveUpResult;
     }
+
     public static function changeDiffStorySans(diff:Int, ?change:Int = 0, ?week:Int=0) {
 		var foundSomething = false;
 		var giveUpNum = 0;
@@ -88,47 +91,65 @@ class DifficultyManager {
 		if (change == 0)
 			change = 1;
 		var daSupport = weeksSupported.get(week);
-		while (giveUpNum < diffJson.difficulties.length && !foundSomething)
-		{
+		while (giveUpNum < diffJson.difficulties.length && !foundSomething) {
 			if (daSupport.contains(diff) && ignoreIfExists)
-			{
 				return giveUpResult;
-			}
 			var sus = changeDifficulty(diff, change);
 			diff = sus.difficulty;
 
 			if (daSupport.contains(diff))
-			{
 				return sus;
-			}
 			giveUpNum++;
 		}
 		return giveUpResult;
     }
+
     public static function getDiffName(diff:Int) {
 		return diffJson.difficulties[diff].name.toUpperCase();
     }
+
+    public static function getDiffNum(diffName:String):Int {
+        for (diff in 0...diffJson.difficulties.length) {
+            if (diffJson.difficulties[diff].name.toLowerCase() == diffName.toLowerCase())
+                return diff;
+        }
+        return 0;
+    }
+
+    public static function getDefaultForDiff(diff:Int):String {
+        var daDefault;
+        if (diffJson.difficulties[diff].defaults != null)
+            daDefault = diffJson.difficulties[diff].defaults;
+        else
+            daDefault = '';
+        return daDefault;
+    }
+
+    public static function getDefaultFromName(diffName:String) {
+        var diff = getDiffNum(diffName);
+        return getDefaultForDiff(diff);
+    }
+
     public static function getDiffEnding(diff:Int):String {
         var ending = "";
-        if (diff != diffJson.defaultDiff) {
+        if (diff != diffJson.defaultDiff)
             ending = "-" + diffJson.difficulties[diff].name;
-        
-        }
-         return ending;
+        return ending;
     }
+
     // get a valid difficulty
     public static function getValidDiff(diff:Int, song:String):Int {
 		var daThing = supportedDiff.get(song.toLowerCase());
         // if the diff is there, no problem
-        if (daThing.contains(diff)) {
+        if (daThing.contains(diff))
             return diff;
-        }
         // otherwise if the default diff is there prefer that
         if (daThing.contains(diffJson.defaultDiff))
             return diffJson.defaultDiff;
         // otherwise prefer the hardest difficulty : )
 		return daThing[daThing.length - 1];
     }
+
     public static function getDefaultDiff():Int {
         return diffJson.defaultDiff;
     }

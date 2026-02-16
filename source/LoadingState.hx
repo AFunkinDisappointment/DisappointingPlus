@@ -4,7 +4,7 @@ import flixel.FlxG;
 // lol
 // doesn't actually load anything except fixing menus
 class LoadingState extends FlxState {
-    public static function loadAndSwitchState(target:FlxState, ?allowDjkf:Bool) {
+    public static function loadAndSwitchState(target:FlxState) {
 
 		PlayerSettings.player1.controls.setKeyboardScheme(Solo(4));
         if ((target is ChartingState)) {

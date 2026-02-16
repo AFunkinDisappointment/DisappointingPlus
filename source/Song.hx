@@ -12,8 +12,7 @@ import haxe.io.Path;
 #end
 using StringTools;
 
-typedef SwagSong =
-{
+typedef SwagSong = {
 	var song:String;
 	var notes:Array<SwagSection>;
 	var bpm:Float;
@@ -38,8 +37,7 @@ typedef SwagSong =
 	var stageID:Null<Int>;
 }
 
-class Song
-{
+class Song {
 	public var song:String;
 	public var notes:Array<SwagSection>;
 	public var bpm:Int;
@@ -64,11 +62,14 @@ class Song
 
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong {
 		var rawJson:String = "";
-		if (jsonInput != folder && FNFAssets.exists("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + ".json")) {
+		var diffSplit = jsonInput.split('-');
+		var diffName = diffSplit[diffSplit.length - 1];
+		var daDefault = '-' + DifficultyManager.getDefaultFromName(diffName);
+		if (jsonInput != folder + daDefault && FNFAssets.exists("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + daDefault + ".json")) {
 			// means this isn't normal difficulty
 			// raw json 
 
-			rawJson = FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + ".json").trim();
+			rawJson = FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + folder.toLowerCase() + daDefault + ".json").trim();
 		} else {
 			rawJson = FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + jsonInput.toLowerCase() + '.json').trim();
 		}
@@ -83,7 +84,7 @@ class Song
 			parsedJson.stage = switch (parsedJson.song.toLowerCase()) {
 				case 'spookeez' | 'monster' | 'south':
 					'spooky';
-				case 'philly' | 'pico' | 'blammed':
+				case 'philly-nice' | 'pico' | 'blammed':
 					'philly';
 				case 'milf' | 'high' | 'satin-panties':
 					'limo';
@@ -97,9 +98,10 @@ class Song
 					'schoolEvil';
 				case 'ugh' | 'stress' | 'guns':
 					'tank';
+				case 'darnell' | 'lit-up' | '2hot':
+					'philly-streets';
 				default:
 					'stage';
-			
 			}
 		}
 		if (parsedJson.isHey == null) {
@@ -109,69 +111,61 @@ class Song
 		}
 		if (parsedJson.isCheer = null) {
 			parsedJson.isCheer = false;
-			if (parsedJson.song.toLowerCase() == "tutorial") {
+			if (parsedJson.song.toLowerCase() == "tutorial")
 				parsedJson.isCheer = true;
-			}
 		}
-		trace(parsedJson.stage);
+
 		if (parsedJson.gf == null) {
-			// are you kidding me did i really do song to lowercase
 			switch (parsedJson.stage) {
 				case 'limo':
 					parsedJson.gf = 'gf-car';
-				case 'mall':
+				case 'mall' | 'mallEvil':
 					parsedJson.gf = 'gf-christmas';
-				case 'mallEvil':
-					parsedJson.gf = 'gf-christmas';
-				case 'school' 
-				| 'schoolEvil':
+				case 'school' | 'schoolEvil':
 					parsedJson.gf = 'gf-pixel';
 				case 'tank':
 					parsedJson.gf = 'gf-tankmen';
-					if (parsedJson.song.toLowerCase() == "stress") {
+					if (parsedJson.song.toLowerCase() == "stress")
 						parsedJson.gf = "pico-speaker";
-					}
 				default:
 					parsedJson.gf = 'gf';
 			}
 
 		}
 		if (parsedJson.isMoody == null) {
-			if (parsedJson.song.toLowerCase() == 'roses') {
+			if (parsedJson.song.toLowerCase() == 'roses')
 				parsedJson.isMoody = true;
-			} else {
+			else
 				parsedJson.isMoody = false;
-			}
 		}
 		// is spooky means trails on spirit
 		if (parsedJson.isSpooky == null) {
-			if (parsedJson.stage.toLowerCase() == 'mallEvil') {
+			if (parsedJson.stage.toLowerCase() == 'schoolEvil')
 				parsedJson.isSpooky = true;
-			} else {
+			else
 				parsedJson.isSpooky = false;
-			}
 		}
-		if (parsedJson.song.toLowerCase() == 'winter-horrorland') {
+		if (parsedJson.song.toLowerCase() == 'winter-horrorland')
 			parsedJson.cutsceneType = "monster";
-		}
-		if (parsedJson.forceJudgements == null) {
+
+		if (parsedJson.forceJudgements == null)
 			parsedJson.forceJudgements = false;
-		}
-		if (parsedJson.forceLayout == null) {
+
+		if (parsedJson.forceLayout == null)
 			parsedJson.forceLayout = 'none';
-		}
+
 		if (parsedJson.cutsceneType == null) {
-			switch (parsedJson.song.toLowerCase()) {
+			parsedJson.cutsceneType = switch (parsedJson.song.toLowerCase()) {
 				case 'roses':
-					parsedJson.cutsceneType = "angry-senpai";
+					"angry-senpai";
 				case 'senpai':
-					parsedJson.cutsceneType = "senpai";
+					"senpai";
 				case 'thorns':
-					parsedJson.cutsceneType = 'spirit';
+					'spirit';
 				case 'winter-horrorland':
-					parsedJson.cutsceneType = 'monster';
+					'monster';
 				default:
-					parsedJson.cutsceneType = 'none';
+					'none';
 			}
 		}
 		if (parsedJson.convertMineToNuke == null) {
@@ -181,7 +175,6 @@ class Song
 				parsedJson.convertMineToNuke = false;
 		}
 		if (parsedJson.uiType == null) {
-
 			parsedJson.uiType = switch (parsedJson.song.toLowerCase()) {
 				case 'roses' | 'senpai' | 'thorns':
 					'pixel';
@@ -190,30 +183,34 @@ class Song
 			}
 		}
 		if (parsedJson.stageID == null) {
-			parsedJson.stageID == 0;
+			parsedJson.stageID = switch(diffName.toLowerCase()) {
+				case 'erect' | 'nightmare' | 'pico':
+					1;
+				default:
+					0;
+			}
+			
 		}
 		if (parsedJson.preferredNoteAmount == null) {
-				switch (parsedJson.mania) {
-					case 1:
-						parsedJson.preferredNoteAmount = 6;
-					case 2:
-						parsedJson.preferredNoteAmount = 9;
-					default:
-						parsedJson.preferredNoteAmount = 4;
-				}
+			parsedJson.preferredNoteAmount =  switch (parsedJson.mania) {
+				case 1:
+					6;
+				case 2:
+					9;
+				default:
+					4;
 			}
-			if (parsedJson.mania == null) {
-				switch (parsedJson.preferredNoteAmount) {
-					case 4:
-						parsedJson.mania = 0;
-					case 6:
-						parsedJson.mania = 1;
-					case 9:
-						parsedJson.mania = 2;
-					default:
-						parsedJson.mania = 0;
-				}
+		}
+		if (parsedJson.mania == null) {
+			parsedJson.mania = switch (parsedJson.preferredNoteAmount) {
+				case 6:
+					1;
+				case 9:
+					2;
+				default:
+					0;
 			}
+		}
 		if (parsedJson.player1 == "bf-pixel" && OptionsHandler.options.stressTankmen) {
 			parsedJson.player1 = "bulb-pixel";
 		}
@@ -234,10 +231,11 @@ class Song
 				daSections = songData.sections;
 				daBpm = songData.bpm;
 				daSectionLengths = songData.sectionLengths; */
-		if (jsonInput != folder) {
-			// means this isn't normal difficulty
+		if (jsonInput != folder + daDefault) {
+			// means this isn't (daDefault) difficulty
 			// lets finally overwrite notes
 			var realJson = parseJSONshit(FNFAssets.getText("assets/data/" + folder.toLowerCase() + "/" + jsonInput.toLowerCase() + '.json').trim());
+			parsedJson.song = realJson.song;
 			parsedJson.notes = realJson.notes;
 			parsedJson.bpm = realJson.bpm;
 			parsedJson.needsVoices = realJson.needsVoices;
@@ -245,25 +243,23 @@ class Song
 			parsedJson.mania = realJson.mania;
 			parsedJson.preferredNoteAmount = realJson.preferredNoteAmount;
 			if (parsedJson.preferredNoteAmount == null) {
-				switch (parsedJson.mania) {
+				parsedJson.preferredNoteAmount = switch (parsedJson.mania) {
 					case 1:
-						parsedJson.preferredNoteAmount = 6;
+						6;
 					case 2:
-						parsedJson.preferredNoteAmount = 9;
+						9;
 					default:
-						parsedJson.preferredNoteAmount = 4;
+						4;
 				}
 			}
 			if (parsedJson.mania == null) {
-				switch (parsedJson.preferredNoteAmount) {
-					case 4:
-						parsedJson.mania = 0;
+				parsedJson.mania = switch (parsedJson.preferredNoteAmount) {
 					case 6:
-						parsedJson.mania = 1;
+						1;
 					case 9:
-						parsedJson.mania = 2;
+						2;
 					default:
-						parsedJson.mania = 0;
+						0;
 				}
 			}
 		}

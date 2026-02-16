@@ -41,6 +41,9 @@ function init(char) {
 portraitOffset = [0, 0];
 dadVar = 6.1;
 isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
 function update(elapsed, char) {
     // do nothing...
 }

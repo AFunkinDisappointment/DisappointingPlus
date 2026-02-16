@@ -23,6 +23,8 @@ function init(char) {
     char.addOffset('singUP-alt', -15, -7);
     char.addOffset('singDOWN-alt', 0, 15);
     char.playAnim('idle');
+    char.addCamOffset('singUP-alt');
+    char.addCamOffset('singDOWN-alt');
 
     char.flipX = true;
 
@@ -32,6 +34,9 @@ function init(char) {
 portraitOffset = [0, 0];
 dadVar = 4.0;
 isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
 function update(elapsed, char) {
     // do nothing...
 }

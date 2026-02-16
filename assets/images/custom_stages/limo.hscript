@@ -10,9 +10,7 @@ function start(song) {
     getHaxeActor("bf").y -= 220;
     getHaxeActor("bf").followCamX -= 200;
 
-    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    swapOffsets[0] += 260;
-    swapOffsets[1] -= 220;
+    setSwapOffsets('bf', [260, -220]);
 
     bg = new FlxSprite(-120, -50).loadGraphic(hscriptPath + 'limoSunset.png');
     bg.scrollFactor.set(0.1, 0.1);

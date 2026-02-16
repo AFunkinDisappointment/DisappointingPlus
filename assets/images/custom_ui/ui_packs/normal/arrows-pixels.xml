@@ -41,4 +41,9 @@
 	<SubTexture name="blue nuke0000" x="17" y="119" width="17" height="17"/>
 	<SubTexture name="green nuke0000" x="34" y="119" width="17" height="17"/>
 	<SubTexture name="red nuke0000" x="51" y="119" width="17" height="17"/>
+
+	<SubTexture name="purple star0000" x="0" y="136" width="17" height="17"/>
+	<SubTexture name="blue star0000" x="17" y="136" width="17" height="17"/>
+	<SubTexture name="green star0000" x="34" y="136" width="17" height="17"/>
+	<SubTexture name="red star0000" x="51" y="136" width="17" height="17"/>
 </TextureAtlas>

@@ -7,20 +7,17 @@ var goingRightJohn = [];
 var strumTimeJohn = [];
 var endingOffsetJohn = [];
 function start(song) {
-	setDefaultZoom(0.9);
+    setDefaultZoom(0.9);
 
-	getHaxeActor("gf").y += 10;
-	getHaxeActor("gf").x -= 30;
-	getHaxeActor("boyfriend").x += 40;
-	getHaxeActor("dad").y += 60;
-	getHaxeActor("dad").x -= 80;
+    getHaxeActor("boyfriend").x += 40;
+    getHaxeActor("gf").x -= 30;
+    getHaxeActor("gf").y += 10;
+    getHaxeActor("dad").x -= 80;
+    getHaxeActor("dad").y += 60;
 
-    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    swapOffsets[0] += 40;
-    swapOffsets[2] -= 30;
-    swapOffsets[3] += 10;
-    swapOffsets[4] -= 80;
-    swapOffsets[5] += 60;
+    setSwapOffsets('bf', [40, 0]);
+    setSwapOffsets('gf', [-30, 10]);
+    setSwapOffsets('dad', [-80, 60]);
 
     var bg = new FlxSprite(-400, -400).loadGraphic(hscriptPath + 'tankSky.png');
     bg.scrollFactor.set();
@@ -28,8 +25,8 @@ function start(song) {
     addSprite(bg, BEHIND_ALL);
 
     var clouds = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20)).loadGraphic(hscriptPath + 'tankClouds.png');
-	clouds.antialiasing = true;
-	clouds.scrollFactor.set(0.1, 0.1);
+    clouds.antialiasing = true;
+    clouds.scrollFactor.set(0.1, 0.1);
     clouds.velocity.x = FlxG.random.float(5,15);
     addSprite(clouds, BEHIND_ALL);
 

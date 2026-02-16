@@ -1,6 +1,113 @@
 Hey there, how's it going? I made this update log so people can actually know what I add when I update Disappointing Plus.
 Just a disclaimer, I only started making this after 1.3.0, so some of the updates before it may be wrong.
 
+1.4.0
+I updated my haxe/haxeflixel/etc this update so things may break
+[Additions]
+	- Added all (if you dont see this message) the songs from the Playable Pico Update
+		- Erect, nightmare, and pico mix songs, as well as weekend 1
+	- Characters can now call updateUV/getUV (universal variables)
+	- Added custom icon bop (found at 'assets/images/custom_chars/iconbops/', path may be changed later)
+		- Add "iconBop": "$name" to your custom chars
+			- Example:
+				"bf": {
+					"like": "bf",
+					"icons": [0,1,2,3],
+					"iconbop": "test",
+					"colors": ["#149DFF"]
+				},
+		- or use icon.changeIconBop('$name'); in a hscript
+	- Icons now has the variable "healthColors" which contains its icon colors from the custom_chars.jsonc
+	- Icon only chars now use "icons" instead of "frames" for consistency
+	- New (bool) variable 'currentPlayState.showRatings' can be changed to whether the rating/combo should be shown after hitting a note
+	- Added the camera events from the latest FNF
+		- FocusCamera(x, y, char, duration, ease);
+		- ZoomCamera(zoom, duration, ease, mode);
+		- SetCameraBop(rate, intensity);
+		- They all work (mostly) like their original counterparts
+	- Added 'camSpeed' variable to modcharts and such
+		- Controls how fast the camera moves (duh)
+		- Default value is 0.08 (higher the number, fast the camera moves)
+	- Added 'tweenScrollSpeed(speed, duration, ease)' function
+	- New function 'skipCountdown()' can be called to cancel the countdown before the song starts
+	- Added 'songStart(song)' function
+		- Called when the song starts playing
+	- Added 'onPause()' and 'onResume()' functions
+		- Called when pausing and resuming a song respectively
+	- Added 'noteLoaded(note)' hscript function
+		- Called when a note is loaded aka about to appear on screen
+		- Could be used to modify certain notes depending on its strum time
+	- The countdown popups can now be called via 'PlayState.countdownPopup($stage, $image)'
+		- $stage (int) is which image it defaults to if the image chosen doesn't exist
+			- 0 for ready, 1 for set, 2 for go, anything else shows restart cuz why not
+		- $image (assetPath) is what the countdown shows
+			- Can be any image you want
+			- Leave blank if you just want to use the defaults
+	- New 'sing' function for character hscripts
+	- Combo is now in camHUD when using 'new judgement layout'
+	- Charting State can now be accessed from the pause menu
+	- A song's difficulty can be changed from the pause menu
+	- Added character browser to Charting State
+		- Also works with stages
+		- Will probably also do the same for the other things
+	- New CoolUtil Function 'CoolUtil.getFilter(filtername, customcolormatrix);'
+		- Used to get/make filters via ColorMatrixFilter
+			- https://api.openfl.org/openfl/filters/ColorMatrixFilter.html
+		- 'Grayscale', 'Invert', 'Deuteranopia', 'Protanopia', 'Tritanopia' are premade from the flixel demo
+		- 'Blank' is, well, a blank filter (or normal, default, etc)
+		- 'Custom' can be used for your own when provided with a color matrix
+	- Added 'pauseTweensOf(obj)' and 'resumeTweensOf(obj)' from base FNF to CoolUtil
+	- Note sustains now can have mine/nuke/custom variants
+		- For instance, if you're note was 'blue nuke', 'blue nuke hold piece' and 'blue nuke hold end' would be the names for the sustains
+		- Added nuke and mine variants for both normal and pixel notes
+		- For custom notes, add 'customSustainPath: $path' to the noteinfo for the sustains to change
+	- Added a custom sound tray, mainly because the og lagged
+		- Also shows "MUTED" in the corner if the game is muted
+	- Swap offsets can now be set via 'setSwapOffsets(char:Character, [x, y], additive:Bool);'
+		- 'char' determines which character's offsets to change
+		- [x, y] is the amount to add to the offset by default (make 'additive' false to set the offsets to that amount)
+	- Insts, voices, and modcharts with the suffix "-$difficulty" will be played when on that difficulty
+		- Example: 'Inst-erect' will be played when on 'erect' difficulty
+	- 'defaults' has been added to custom difficulties
+		- This determines which difficulty the song takes it's default assets (characters, stage, ui, etc)
+		- Normal difficulty (represented by '') is used unless specified in custom difficulties
+		- This also effects the difficulty used in the previous addition ONLY if a default is specified
+	- Rank Stars have been improved vastly
+		- Now works for all difficulties
+		- A star is shown for difficulties not yet completed
+		- The star of the current difficulty selected is raised
+		- Variants based on difficulty can be added (like records)
+			- Uses the defaults from above
+			- See erect stars
+	- New game icons
+	- Game over sounds/music can be modified via a character's hscript
+		- char.deathSound is for the death sound (Default: 'fnf_loss_sfx.ogg') (Uses the 'assets/sounds/' folder)
+		- char.gameoverMusic is for, well, the game over music (Default: 'gameOver.ogg') (Uses the 'assets/music/' folder)
+		- char.gameoverMusicEnd is for when you retry from the game over (Default: 'gameOverEnd.ogg') (Uses the 'assets/music/' folder)
+			- The pixel sounds/music are automatically used when char.isPixel = true
+
+[Bug Fixes]
+	- Fixed flipped notes
+	- Fixed multiple noteInfo issues
+		- ShouldSing now actually works (at least I think)
+		- Sustain notes now inherit their root note's attributes
+	- Fixed songs lagging right before the song starts
+	- The opponent will hold notes longer while using solo modifier (still a bit janky tho)
+	- Fixed mapped animations (i keep breaking things xd)
+	- Game no longer fails to launch when a song is in a week but not in freeplay
+	- Fixed a crash when re-entering freeplay with less songs than previously
+	- Fixed a crash when using TAB to show keybinds before the note strums are loaded
+
+[Changes]
+	- If a note shouldn't be sung, it won't change the hold timer of the singer
+	- CoolUtil.getBlendMode now converts to lowercase
+	- Tweaked Psych Engine UI Layout
+	- scriptCamPos is now formated [[0,0], [0,0]] instead of [0,0,0,0]
+		- BoyfriendCamX = scriptCamPos[0][0]
+		- BoyfriendCamY = scriptCamPos[0][1]
+		- DadCamX = scriptCamPos[1][0]
+		- DadCamY = scriptCamPos[1][1]
+
 1.3.3
 [Additions]
 	- Started to revamp Charting State

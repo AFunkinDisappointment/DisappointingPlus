@@ -23,8 +23,7 @@ import flash.media.Sound;
 import haxe.Json;
 import tjson.TJSON;
 using StringTools;
-class VictoryLoopState extends MusicBeatSubstate
-{
+class VictoryLoopState extends MusicBeatSubstate {
 	var bf:Character;
 	var camFollow:FlxObject;
 	var gf:Character;
@@ -40,8 +39,7 @@ class VictoryLoopState extends MusicBeatSubstate
 	var accuracy:Float;
 	var accuracyTxt:FlxText;
 	var camHUD:FlxCamera;
-	public function new(x:Float, y:Float, gfX:Float, gfY:Float, accuracy:Float, score:Int, dadX:Float, dadY:Float)
-	{
+	public function new(x:Float, y:Float, gfX:Float, gfY:Float, accuracy:Float, score:Int, dadX:Float, dadY:Float) {
 		//var background:FlxSprite = new FlxSprite(0,0).makeGraphic(FlxG.width, FlxG.height, FlxColor.PINK);
 		//add(background);
 		var daStage = PlayState.curStage;
@@ -136,12 +134,10 @@ class VictoryLoopState extends MusicBeatSubstate
 		bf.playAnim('idle');
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.ACCEPT)
-		{
+		if (controls.ACCEPT) {
 			if (selectingRetry && !PlayState.isStoryMode) {
 				endBullshit();
 			} else {
@@ -165,13 +161,10 @@ class VictoryLoopState extends MusicBeatSubstate
 			}
 		}
 		if (FlxG.sound.music.playing)
-		{
 			Conductor.songPosition = FlxG.sound.music.time;
-		}
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 		switch(curBeat) {
 			case 3:
@@ -226,10 +219,8 @@ class VictoryLoopState extends MusicBeatSubstate
 
 	var isEnding:Bool = false;
 
-	function endBullshit():Void
-	{
-		if (!isEnding)
-		{
+	function endBullshit():Void {
+		if (!isEnding) {
 			isEnding = true;
 			FlxG.sound.music.stop();
 			FlxG.sound.play('assets/music/gameOverEnd' + stageSuffix + TitleState.soundExt);
@@ -251,10 +242,8 @@ class VictoryLoopState extends MusicBeatSubstate
 				PlayState.campaignScore = 0;
 				PlayState.campaignAccuracy = 0;
 			}
-			new FlxTimer().start(0.7, function(tmr:FlxTimer)
-			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
+			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+				FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
 					LoadingState.loadAndSwitchState(new PlayState());
 				});
 			});

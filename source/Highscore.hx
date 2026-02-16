@@ -27,8 +27,7 @@ class Highscore
 	public static var songOptionsUsed:Map<String, OptionsHandler.TOptions> = new Map();
 	public static var songModifiersUsed:Map<String, Dynamic> = new Map();
 
-	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?rating:FCLevel, ?judge:Jury):Void
-	{
+	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?rating:FCLevel, ?judge:Jury):Void {
 		// we don't need the current options or modifiers as we can assume they haven't changed
 		var daSong:String = formatSong(song, diff, "best-score");
 		var recentSong:String = formatSong(song, diff, "recent");
@@ -104,32 +103,26 @@ class Highscore
 				setFCLevel(bestOfAll, rating);
 		}
 	}
-	public static function saveWeekScore(week:String = 'Tutorial', score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?saving:String = "best"):Void
-	{
+	public static function saveWeekScore(week:String = 'Tutorial', score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?saving:String = "best"):Void {
 		var daWeek:String = formatSong('week-' + week, diff, saving);
 
-		if (songScores.exists(daWeek))
-		{
+		if (songScores.exists(daWeek)) {
 			if (songScores.get(daWeek) < score) {
 				setScore(daWeek, score);
 				setAccuracy(daWeek, accuracy);
-			} 
-				
-		}
-		else {
+			} 	
+		} else {
 			setScore(daWeek, score);
 			setAccuracy(daWeek, accuracy);
 		}
 	}
 
-	public static function deleteSongScore(song:String = 'Tutorial', ?diff:Int = 0):Void
-	{
+	public static function deleteSongScore(song:String = 'Tutorial', ?diff:Int = 0):Void {
 		var daSong:String = formatSong(song, diff, 'best');
 		setScore(daSong, 0);
 		setAccuracy(daSong, 0);
 	}
-	public static function deleteWeekScore(week:String = 'Tutorial', ?diff:Int = 0):Void
-	{
+	public static function deleteWeekScore(week:String = 'Tutorial', ?diff:Int = 0):Void {
 		var daWeek:String = formatSong('week-' + week, diff, 'best');
 		setScore(daWeek, 0);
 		setAccuracy(daWeek, 0);
@@ -138,8 +131,7 @@ class Highscore
 	/**
 	 * YOU SHOULD FORMAT SONG WITH formatSong() BEFORE TOSSING IN SONG VARIABLE
 	 */
-	static function setScore(song:String, score:Int):Void
-	{
+	static function setScore(song:String, score:Int):Void {
 		// Reminder that I don't need to format this song, it should come formatted!
 		songScores.set(song, score);
 		FlxG.save.data.songScores = songScores;
@@ -160,26 +152,22 @@ class Highscore
 		FlxG.save.data.songFCLevels = songFCLevels;
 		FlxG.save.flush();
 	}
-	static function setJudge(song:String, judge:Int):Void
-	{
+	static function setJudge(song:String, judge:Int):Void {
 		songJudge.set(song, judge);
 		FlxG.save.data.songJudge = songJudge;
 		FlxG.save.flush();
 	}
-	static function setOptionsUsed(song:String, options:TOptions):Void
-	{
+	static function setOptionsUsed(song:String, options:TOptions):Void {
 		songOptionsUsed.set(song, options);
 		FlxG.save.data.songOptionsUsed = songOptionsUsed;
 		FlxG.save.flush();
 	}
-	static function setModifiersUsed(song:String, modifiers:Dynamic):Void
-	{
+	static function setModifiersUsed(song:String, modifiers:Dynamic):Void {
 		songModifiersUsed.set(song, modifiers);
 		FlxG.save.data.songModifiersUsed = songModifiersUsed;
 		FlxG.save.flush();
 	}
-	public static function formatSong(song:String, diff:Int, saving:String):String
-	{
+	public static function formatSong(song:String, diff:Int, saving:String):String {
 		// saving is just an extra thing
 		// so like "recent"
 		// "best-score"
@@ -191,29 +179,25 @@ class Highscore
 		return daSong;
 	}
 
-	public static function getScore(song:String, diff:Int, useFor:String = "best"):Int
-	{
+	public static function getScore(song:String, diff:Int, useFor:String = "best"):Int {
 		if (!songScores.exists(formatSong(song, diff, useFor)))
 			setScore(formatSong(song, diff, useFor), 0);
 
 		return songScores.get(formatSong(song, diff, useFor));
 	}
-	public static function getOptionsUsed(song:String, diff:Int, useFor:String = "best"):TOptions
-	{
+	public static function getOptionsUsed(song:String, diff:Int, useFor:String = "best"):TOptions {
 		if (!songOptionsUsed.exists(formatSong(song, diff, useFor)))
 			setOptionsUsed(formatSong(song, diff, useFor), OptionsHandler.options);
 
 		return songOptionsUsed.get(formatSong(song, diff, useFor));
 	}
-	public static function getModifiersUsed(song:String, diff:Int, useFor:String = "best"):Dynamic
-	{
+	public static function getModifiersUsed(song:String, diff:Int, useFor:String = "best"):Dynamic {
 		if (!songModifiersUsed.exists(formatSong(song, diff, useFor)))
 			setModifiersUsed(formatSong(song, diff, useFor), ModifierState.namedModifiers);
 
 		return songModifiersUsed.get(formatSong(song, diff, useFor));
 	}
-	public static function getAccuracy(song:String, diff:Int, useFor:String = "best"):Float
-	{
+	public static function getAccuracy(song:String, diff:Int, useFor:String = "best"):Float {
 		if (!songAccuracy.exists(formatSong(song, diff, useFor)))
 			setAccuracy(formatSong(song, diff, useFor), 0);
 
@@ -229,8 +213,7 @@ class Highscore
 			setFCLevel(formatSong(song, diff, useFor), cast None);
 		return songFCLevels.get(formatSong(song, diff, useFor));
 	}
-	public static function getJudge(song:String, diff:Int, useFor:String):Int
-	{
+	public static function getJudge(song:String, diff:Int, useFor:String):Int {
 		if (!songJudge.exists(formatSong(song, diff, useFor)))
 			setJudge(formatSong(song, diff, useFor), cast Classic);
 		return songJudge.get(formatSong(song, diff, useFor));
@@ -243,8 +226,7 @@ class Highscore
 		}
 		return totalScore;
 	}
-	public static function getWeekScore(week:String, diff:Int, useFor:String = "best"):Int
-	{
+	public static function getWeekScore(week:String, diff:Int, useFor:String = "best"):Int {
 		if (!songScores.exists(formatSong('week-' + week, diff, useFor)))
 			setScore(formatSong('week-' + week, diff, useFor), 0);
 
@@ -257,11 +239,10 @@ class Highscore
 		return songAccuracy.get(formatSong('week-' + week, diff, useFor));
 	}
 
-	public static function load():Void
-	{
-		if (FlxG.save.data.songScores != null) {
+	public static function load():Void {
+		if (FlxG.save.data.songScores != null)
 			songScores = FlxG.save.data.songScores;
-		}
+
 		if (FlxG.save.data.songAccuracy != null) {
 			songAccuracy = FlxG.save.data.songAccuracy;
 		} else {
@@ -269,21 +250,21 @@ class Highscore
 			FlxG.save.data.songAccuracy = songAccuracy;
 		}
 
-		if (FlxG.save.data.songFCLevels != null) {
+		if (FlxG.save.data.songFCLevels != null)
 			songFCLevels = FlxG.save.data.songFCLevels;
-		} else {
+		else
 			songFCLevels = [];
-		}
-		if (FlxG.save.data.songJudge != null) {
+
+		if (FlxG.save.data.songJudge != null)
 			songJudge = FlxG.save.data.songJudge;
-		} else {
+		else
 			songJudge = [];
-		}
-		if (FlxG.save.data.songModifiersUsed != null) {
+
+		if (FlxG.save.data.songModifiersUsed != null)
 			songModifiersUsed = FlxG.save.data.songModifiersUsed;
-		} else {
+		else
 			songModifiersUsed = [];
-		}
+
 		if (FlxG.save.data.songOptionsUsed != null)
 			songOptionsUsed = FlxG.save.data.songOptionsUsed;
 		else

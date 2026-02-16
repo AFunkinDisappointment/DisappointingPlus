@@ -5,10 +5,8 @@ import discord_rpc.DiscordRpc;
 #end
 using StringTools;
 
-class DiscordClient
-{
-	public function new()
-	{
+class DiscordClient {
+	public function new() {
         #if cpp
 		trace("Discord Client starting...");
 		DiscordRpc.start({
@@ -19,8 +17,7 @@ class DiscordClient
 		});
 		trace("Discord Client started.");
 
-		while (true)
-		{
+		while (true) {
 			DiscordRpc.process();
 			sleep(2);
 			// trace("Discord Client Update");
@@ -30,40 +27,34 @@ class DiscordClient
         #end
 	}
 
-	public static function shutdown()
-	{
+	public static function shutdown() {
         #if cpp
 		DiscordRpc.shutdown();
         #end
 	}
 
-	static function onReady()
-	{
+	static function onReady() {
         #if cpp
 		DiscordRpc.presence({
 			details: "In the Menus",
 			state: null,
 			largeImageKey: 'icon',
-			largeImageText: "Friday Night Funkin' Modding Plus"
+			largeImageText: "Friday Night Funkin' Disappointing Plus"
 		});
         #end
 	}
 
-	static function onError(_code:Int, _message:String)
-	{
+	static function onError(_code:Int, _message:String) {
 		trace('Error! $_code : $_message');
 	}
 
-	static function onDisconnected(_code:Int, _message:String)
-	{
+	static function onDisconnected(_code:Int, _message:String) {
 		trace('Disconnected! $_code : $_message');
 	}
 
-	public static function initialize()
-	{
+	public static function initialize() {
         #if cpp
-		var DiscordDaemon = sys.thread.Thread.create(() ->
-		{
+		var DiscordDaemon = sys.thread.Thread.create(() -> {
 			new DiscordClient();
 		});
         #end
@@ -71,21 +62,19 @@ class DiscordClient
 	}
 
 	public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float,
-			?smallImageString:String)
-	{
+			?smallImageString:String) {
         #if cpp
 		var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
 
 		if (endTimestamp > 0)
-		{
 			endTimestamp = startTimestamp + endTimestamp;
-		}
-		if (smallImageKey == null) {
+
+		if (smallImageKey == null)
 			smallImageKey = "icon";
-		}
-		if (smallImageString == null) {
-			smallImageString = "Friday Night Funkin' Modding Plus";
-		}
+
+		if (smallImageString == null)
+			smallImageString = "Friday Night Funkin' Disappointing Plus";
+
 		DiscordRpc.presence({
 			details: details,
 			state: state,

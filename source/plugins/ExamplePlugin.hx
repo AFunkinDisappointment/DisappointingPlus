@@ -2,7 +2,7 @@ package plugins;
 
 import Character.EpicLevel;
 import lime.ui.Window;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.group.FlxGroup.FlxTypedGroup;

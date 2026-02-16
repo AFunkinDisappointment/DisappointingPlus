@@ -6,8 +6,7 @@ function start(song) {
 
     getHaxeActor("bf").x += 200;
 
-    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    swapOffsets[0] += 200;
+    setSwapOffsets('bf', [200, 0]);
 
     var bg = new FlxSprite(-1000, -500).loadGraphic(hscriptPath + 'bgWalls.png');
     bg.scrollFactor.set(0.2, 0.2);

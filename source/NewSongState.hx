@@ -92,14 +92,16 @@ class NewSongState extends MusicBeatState
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
-	override function create()
-	{
+	override function create() {
 		addCharUi = new FlxUI();
 		FlxG.mouse.visible = true;
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuBGBlue.png');
 		add(bg);
+
 		diffButtons = new FlxTypedSpriteGroup<FlxUIButton>(0,0);
 		var diffJson:TDifficulties = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_difficulties/difficulties"));
+
 		nameText = new FlxUIInputText(100,10,70,"bopeebo");
 		p1Text = new FlxUIInputText(100, 50, 70,"bf");
 		p2Text = new FlxUIInputText(100,90,70,"dad");

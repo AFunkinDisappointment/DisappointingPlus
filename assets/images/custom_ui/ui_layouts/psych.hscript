@@ -60,18 +60,22 @@ function start(song) {
 }
 
 function stepHit(step) {
-	if (songLength == null)
+	if (songLength == null) {
 	    songLength = FlxG.sound.music.length;
+	    updateUV('songLength', songLength);
+	}
 }
 
 function update(elapsed) {
+	songLength = getUV('songLength');
+	songPosition = Conductor.songPosition / songLength;
         if (demoMode)
 	    scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + PlayState.misses + ' | Rating: ' + GenerateRank(accuracy);
 	else
 	    scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + PlayState.misses + ' | Rating: ' + GenerateRank(accuracy) + ' (' + HelperFunctions.truncateFloat(accuracy, 2) + '%)' + getFC();
 
-	scoreTxt.scale.x = FlxMath.lerp(1, scoreTxt.scale.x, 0.8);
-	scoreTxt.scale.y = FlxMath.lerp(1, scoreTxt.scale.y, 0.8);
+	scoreTxt.scale.x = FlxMath.lerp(1, scoreTxt.scale.x, 0.9);
+	scoreTxt.scale.y = FlxMath.lerp(1, scoreTxt.scale.y, 0.9);
 
 	var curTime = FlxG.sound.music.time;
 	if (curTime < 0) curTime = 0;
@@ -95,8 +99,8 @@ function noteHit(player1, note, wasGoodHit) {
 	scoreTxt.scale.x = 1.1;
 	scoreTxt.scale.y = 1.1;
     } else {
-	scoreTxt.scale.x = 1.05;
-	scoreTxt.scale.y = 1.05;
+	//scoreTxt.scale.x = 1.05;
+	//scoreTxt.scale.y = 1.05;
     }
 }
 
@@ -132,13 +136,10 @@ function GenerateRank(accuracy) {
 		accuracy >= 0, // You Suck!
 	];
 
-	for (i in 0...psychConditions.length)
-	{
+	for (i in 0...psychConditions.length) {
 		var b = psychConditions[i];
-		if (b)
-		{
-			switch (i)
-			{
+		if (b) {
+			switch (i) {
 				case 0:
 					ranking += "Perfect!!";
 				case 1:

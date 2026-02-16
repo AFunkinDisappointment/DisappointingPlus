@@ -21,7 +21,7 @@ import lime.utils.Assets;
 import flixel.FlxG;
 import lime.system.System;
 import lime.app.Application;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import openfl.utils.AssetType;
 import Song.SwagSong;
 #if sys
@@ -58,6 +58,10 @@ class Character extends FlxSprite
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var camOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
+
+	public var deathSound = 'fnf_loss_sfx.ogg';
+	public var gameoverMusic = 'gameOver.ogg';
+	public var gameoverMusicEnd = 'gameOverEnd.ogg';
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
@@ -136,18 +140,18 @@ class Character extends FlxSprite
 		if (interp == null) return;
 		if (!interp.variables.exists(func_name)) return;
 		var method = interp.variables.get(func_name);
-		switch (args.length)
-		{
+		switch (args.length) {
 			case 0:
 				method();
 			case 1:
 				method(args[0]);
 			case 2:
 				method(args[0], args[1]);
+			case 4:
+				method(args[0], args[1], args[2], args[3]);
 		}
 	}
-	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
-	{
+	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		animOffsets = new Map<String, Array<Dynamic>>();
 		camOffsets = new Map<String, Array<Dynamic>>();
 		super(x, y);
@@ -161,8 +165,7 @@ class Character extends FlxSprite
 		curCharacter = curCharacter.trim();
 		trace(curCharacter);
 		isCustom = true;
-		if (StringTools.endsWith(curCharacter, "-dead"))
-		{
+		if (StringTools.endsWith(curCharacter, "-dead")) {
 			isDie = true;
 			curCharacter = curCharacter.substr(0, curCharacter.length - 5);
 		}
@@ -250,6 +253,7 @@ class Character extends FlxSprite
 				directName += "-" + alt + "alt";
 			}
 		}
+		callInterp("sing", [direction, miss, alt, this]);
 		playAnim(directName, true);
 	}
 	override function update(elapsed:Float) {
@@ -299,7 +303,6 @@ class Character extends FlxSprite
 				idkWhatThisISLol += FlxG.random.int(0, 1);
 				playAnim("shoot" + idkWhatThisISLol, true);
 				animationNotes.shift();
-				
 			}
 			if (animation.curAnim != null && animation.curAnim.finished)
 				playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
@@ -311,6 +314,9 @@ class Character extends FlxSprite
 		}
 		if (animation.curAnim != null && animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
 			playAnim('danceRight');
+
+		if (animation.curAnim != null && animation.exists(animation.curAnim.name + '-hold') && animation.curAnim.finished)
+			playAnim(animation.curAnim.name + '-hold');
 		
 		callInterp("update", [elapsed, this]);
 		super.update(elapsed);
@@ -333,8 +339,7 @@ class Character extends FlxSprite
 		}
 	}
 
-	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
-	{
+	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
 		animation.play(AnimName, Force, Reversed, Frame);
 		var animName = "";
 		if (animation.curAnim == null) {
@@ -378,21 +383,25 @@ class Character extends FlxSprite
 		else
 			mappedAnims = Song.loadFromJson(curCharacter, PlayState.SONG.song).notes;
 
-		var noteAmount = 4;
-		if (song.preferredNoteAmount != null)
-			noteAmount = song.preferredNoteAmount;
+		if (mappedAnims != null) {
+			var noteAmount = 4;
+			if (song != null && song.preferredNoteAmount != null)
+				noteAmount = song.preferredNoteAmount;
 
-		for (anim in mappedAnims) {
-			for (note in anim.sectionNotes) {
-				var rootNote = note[1] % (noteAmount*2);
-				if ((char == 'bf' && ((rootNote <= noteAmount-1 && anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && !anim.mustHitSection))) 
-					|| (char == 'dad' && ((rootNote <= noteAmount-1 && !anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && anim.mustHitSection)))
-					|| char == null) //dude what the funk is this
-				animationNotes.push(note);
-			}
-		} 
-		animationNotes.sort(sortAnims);
-		trace('mapped anims');
+			for (anim in mappedAnims) {
+				for (note in anim.sectionNotes) {
+					var rootNote = note[1] % (noteAmount*2);
+					if ((char == 'bf' && ((rootNote <= noteAmount-1 && anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && !anim.mustHitSection))) 
+						|| (char == 'dad' && ((rootNote <= noteAmount-1 && !anim.mustHitSection) || (rootNote > noteAmount-1 && rootNote <= noteAmount*2-1 && anim.mustHitSection)))
+						|| char == null) //dude what the funk is this
+					animationNotes.push(note);
+				}
+			} 
+			animationNotes.sort(sortAnims);
+			trace('mapped anims');
+		} else {
+			trace('mapped anims failed to load');
+		}
 	}
 	function sortAnims(a, b) {
 		var aThing = a[0];
@@ -419,6 +428,17 @@ class Character extends FlxSprite
 		else
 			interp.variables.set("charJson", {});
 		interp.variables.set("hscriptPath", 'assets/images/custom_chars/' + char + '/');
+		interp.variables.set("PlayState", PlayState);
+		interp.variables.set("getUV", function(variabull:String) {
+			if (PlayState.universalVar.exists(variabull))
+				return PlayState.universalVar.get(variabull);
+			else
+				return null;
+		});
+
+		interp.variables.set("updateUV", function(variabull:String, veryable:Dynamic) {
+			PlayState.universalVar[variabull] = veryable;
+		});
 		interp.variables.set("charName", char);
 		interp.variables.set("Level_NotAHoe", Level_NotAHoe);
 		interp.variables.set("Level_Boogie", Level_Boogie);
