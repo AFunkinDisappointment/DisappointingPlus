@@ -3,9 +3,10 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 
 1.4.0
 I updated my haxe/haxeflixel/etc this update so things may break
+[Note]
+ - I'm working on updating the songs to their latest versions (erect, pico mixes, weekend 1, etc)
+ - A lot of mechanics needed for those songs are already here though
 [Additions]
-	- Added all (if you dont see this message) the songs from the Playable Pico Update
-		- Erect, nightmare, and pico mix songs, as well as weekend 1
 	- Characters can now call updateUV/getUV (universal variables)
 	- Added custom icon bop (found at 'assets/images/custom_chars/iconbops/', path may be changed later)
 		- Add "iconBop": "$name" to your custom chars
@@ -97,6 +98,7 @@ I updated my haxe/haxeflixel/etc this update so things may break
 	- Game no longer fails to launch when a song is in a week but not in freeplay
 	- Fixed a crash when re-entering freeplay with less songs than previously
 	- Fixed a crash when using TAB to show keybinds before the note strums are loaded
+	- Fixed up the story mode menu
 
 [Changes]
 	- If a note shouldn't be sung, it won't change the hold timer of the singer
