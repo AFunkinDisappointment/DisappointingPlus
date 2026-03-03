@@ -37,9 +37,7 @@ typedef TOption = {
 	var ?max:Float;
 	var ?min:Float;
 }
-class SaveDataState extends MusicBeatState
-{
-
+class SaveDataState extends MusicBeatState {
 	var saves:FlxTypedSpriteGroup<SaveFile>;
 	var options:FlxTypedSpriteGroup<Alphabet>;
 	var optionMenu:FlxTypedSpriteGroup<FlxSprite>;
@@ -180,8 +178,7 @@ class SaveDataState extends MusicBeatState
 		trace("hmmm");
 		var curNum = 0;
 		for (j in 0...optionList.length) {
-			if (Reflect.field(optionMask, optionList[j].intName) != null && !Reflect.field(optionMask, optionList[j].intName))
-			{
+			if (Reflect.field(optionMask, optionList[j].intName) != null && !Reflect.field(optionMask, optionList[j].intName)) {
 				// skip display if it is masked out
 				continue;
 			}
@@ -198,8 +195,7 @@ class SaveDataState extends MusicBeatState
 			numDisplay.value = optionList[j].amount;
 			coolCheckmark.visible = optionList[j].value;
 			if (optionList[j].intName == "judge") {
-				switch (cast(Std.int(optionList[j].amount) : Judge.Jury))
-				{
+				switch (cast(Std.int(optionList[j].amount) : Judge.Jury)) {
 					case Judge.Jury.Classic:
 						numDisplay.text = "Classic";
 					case Judge.Jury.Hard:
@@ -256,13 +252,11 @@ class SaveDataState extends MusicBeatState
 			}
 		}
 		if (inOptionsMenu || !saves.members[curSelected].askingToConfirm) {
-			if (controls.UP_MENU)
-			{
+			if (controls.UP_MENU) {
 				if (inOptionsMenu||!saves.members[curSelected].beingSelected)
 					changeSelection(-1);
 			}
-			if (controls.DOWN_MENU)
-			{
+			if (controls.DOWN_MENU) {
 				if (inOptionsMenu||!saves.members[curSelected].beingSelected)
 					changeSelection(1);
 			}
@@ -282,8 +276,7 @@ class SaveDataState extends MusicBeatState
 		}
 		// holding control makes changing things go WEEEEEEEEEEE
 		if (FlxG.keys.pressed.CONTROL && (controls.RIGHT_MENU_H || controls.LEFT_MENU_H)) {
-			if (inOptionsMenu && optionList[optionsSelected].amount != null)
-			{
+			if (inOptionsMenu && optionList[optionsSelected].amount != null) {
 				changeAmount(controls.RIGHT_MENU_H);
 			}
 		}
@@ -387,7 +380,7 @@ class SaveDataState extends MusicBeatState
 		}
 
 	}
-	function changeAmount(increase:Bool=false) {
+	function changeAmount(increase:Bool = false) {
 		if (!numberDisplays[optionsSelected].visible)
 			return;
 		numberDisplays[optionsSelected].changeAmount(increase);
@@ -425,8 +418,7 @@ class SaveDataState extends MusicBeatState
 			}
 		}
 	}
-	function changeSelection(change:Int = 0)
-	{
+	function changeSelection(change:Int = 0) {
 		if (!inOptionsMenu) {
 			FlxG.sound.play('assets/sounds/custom_menu_sounds/'
 				+ CoolUtil.parseJson(FNFAssets.getText("assets/sounds/custom_menu_sounds/custom_menu_sounds.json")).customMenuScroll+'/scrollMenu' + TitleState.soundExt, 0.4);
@@ -441,16 +433,14 @@ class SaveDataState extends MusicBeatState
 
 			var bullShit:Int = 0;
 
-			for (item in saves.members)
-			{
+			for (item in saves.members) {
 				item.targetY = bullShit - curSelected;
 				bullShit++;
 
 				item.color = 0xFF828282;
 				// item.setGraphicSize(Std.int(item.width * 0.8));
 
-				if (item.targetY == 0)
-				{
+				if (item.targetY == 0) {
 					item.color = 0xFFFFFFFF;
 					// item.setGraphicSize(Std.int(item.width));
 				}
@@ -469,16 +459,14 @@ class SaveDataState extends MusicBeatState
 
 			var bullShit:Int = 0;
 
-			for (item in options.members)
-			{
+			for (item in options.members) {
 				item.targetY = bullShit - optionsSelected;
 				bullShit++;
 
 				item.alpha = 0.6;
 				// item.setGraphicSize(Std.int(item.width * 0.8));
 
-				if (item.targetY == 0)
-				{
+				if (item.targetY == 0) {
 					item.alpha = 1;
 					// item.setGraphicSize(Std.int(item.width));
 				}
@@ -515,8 +503,7 @@ class SaveDataState extends MusicBeatState
 		FlxG.drawFramerate = OptionsHandler.options.fpsCap;
 	}
 	function toggleSelection() { 
-		switch (optionList[optionsSelected].name)
-		{
+		switch (optionList[optionsSelected].name) {
 			case "New Character...":
 				// our current save saves this
 				// we are gonna have to do some shenanagins to save our preffered save
@@ -551,8 +538,7 @@ class SaveDataState extends MusicBeatState
 				saveOptions();
 				LoadingState.loadAndSwitchState(new CreditsState());
 			default:
-				if (OptionsHandler.options.allowEditOptions)
-				{
+				if (OptionsHandler.options.allowEditOptions) {
 					checkmarks.members[optionsSelected].visible = !checkmarks.members[optionsSelected].visible;
 					optionList[optionsSelected].value = checkmarks.members[optionsSelected].visible;
 				}

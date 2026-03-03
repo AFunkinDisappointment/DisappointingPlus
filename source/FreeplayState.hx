@@ -56,7 +56,7 @@ class FreeplayState extends MusicBeatState {
 	var categoryBG:Array<String> = [];
 	var categoriesNames:Array<String> = [];
 	private var iconArray:Array<HealthIcon> = [];
-	private var starArray:Array<Array<Array<Dynamic>>> = [];
+	private var starArray:Array<Array<RankStar>> = [];
 	var isPixelIcon:Array<Bool> = [];
 	var usingCategoryScreen:Bool = false;
 	var nightcoreMode:Bool = false;
@@ -207,18 +207,17 @@ class FreeplayState extends MusicBeatState {
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
-			var starCount:Array<Array<Dynamic>> = [];
+			var starCount:Array<RankStar> = [];
 			for (diff in DifficultyManager.supportedDiff.get(songs[i].songName.toLowerCase())) {
 				var rankStar:RankStar = new RankStar(songs[i].songName, diff);
 				rankStar.sprTracker = icon;
 				rankStar.starNum = starCount.length;
 				rankStar.visible = !OptionsHandler.options.style;
 				add(rankStar);
-				starCount.push([rankStar, diff]);
+				starCount.push(rankStar);
 			}
 			starArray.push(starCount);
 		}
-
 		
 		scoreText = new FlxText(FlxG.width * 0.62, 5, 0, "", 32);
 		// scoreText.autoSize = false;
@@ -253,11 +252,12 @@ class FreeplayState extends MusicBeatState {
 		qtooltip.y = FlxG.height - qtooltip.height;
 		var etooltip = new Tooltip(10, qtooltip.y, Action.RIGHT_TAB, "info forwards", Keyboard, true);
 		etooltip.x = qtooltip.x + qtooltip.width + 10;
-		add(etooltip);
-		add(qtooltip);
 		infoPanel = new SongInfoPanel(FlxG.width - 500, 100, songs[0].songName, curDifficulty);
-		if (!soundTest && OptionsHandler.options.style)
+		if (!soundTest && OptionsHandler.options.style) {
+			add(etooltip);
+			add(qtooltip);
 			add(infoPanel);
+		}
 		changeSelection();
 		changeDiff();
 
@@ -326,6 +326,13 @@ class FreeplayState extends MusicBeatState {
 			changeDiff(-1);
 		if (controls.RIGHT_MENU)
 			changeDiff(1);
+
+		if (FlxG.keys.justPressed.DELETE) {
+			Highscore.deleteSongScore(songs[curSelected].songName, curDifficulty);
+			for (star in starArray[curSelected]) {
+				star.checkStar();
+			}
+		}
 		
 		if (controls.LEFT_TAB)
 			infoPanel.changeDisplay(-1);
@@ -387,6 +394,7 @@ class FreeplayState extends MusicBeatState {
 				}
 			} else {
 			    var poop:String;
+				var daSelection:Int = curSelected;
 			    if (songs[curSelected].songName.toLowerCase() == 'random-song') {
 					var randomValue:Int = FlxG.random.int(1, songs.length);
 					switch(songs[randomValue].songName.toLowerCase()) {
@@ -396,24 +404,17 @@ class FreeplayState extends MusicBeatState {
 							if (curDifficulty == 2)
 								curDifficulty = 1;
 					}
-					poop = songs[randomValue].songName.toLowerCase() + DifficultyIcons.getEndingFP(curDifficulty);
-					if (!FNFAssets.exists('assets/data/' + songs[randomValue].songName.toLowerCase() + '/' + poop.toLowerCase() + '.json')) {
-						// assume we pecked up the difficulty, return to default difficulty
-						trace("UH OH RANDOM SONG IN SPECIFIED DIFFICULTY DOESN'T EXIST\nUSING DEFAULT DIFFICULTY");
-						poop = songs[randomValue].songName;
-						curDifficulty = DifficultyIcons.getDefaultDiffFP();
-					}
-					PlayState.SONG = Song.loadFromJson(poop, songs[randomValue].songName.toLowerCase());
-				} else {
-					poop = songs[curSelected].songName.toLowerCase() + DifficultyIcons.getEndingFP(curDifficulty);
-					if (!FNFAssets.exists('assets/data/' + songs[curSelected].songName.toLowerCase() + '/' + poop.toLowerCase() + '.json')) {
-						// assume we pecked up the difficulty, return to default difficulty
-						trace("UH OH SONG IN SPECIFIED DIFFICULTY DOESN'T EXIST\nUSING DEFAULT DIFFICULTY");
-						poop = songs[curSelected].songName;
-						curDifficulty = DifficultyIcons.getDefaultDiffFP();
-					}
-					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+					daSelection = randomValue;
 				}
+				poop = songs[daSelection].songName.toLowerCase() + DifficultyIcons.getEndingFP(curDifficulty);
+				if (!FNFAssets.exists('assets/data/' + songs[daSelection].songName.toLowerCase() + '/' + poop.toLowerCase() + '.json')) {
+					// assume we pecked up the difficulty, return to default difficulty
+					trace("UH OH SONG IN SPECIFIED DIFFICULTY DOESN'T EXIST\nUSING DEFAULT DIFFICULTY");
+					poop = songs[daSelection].songName;
+					curDifficulty = DifficultyIcons.getDefaultDiffFP();
+				}
+				PlayState.SONG = Song.loadFromJson(poop, songs[daSelection].songName.toLowerCase());
+
 				PlayState.isStoryMode = false;
 				ModifierState.isStoryMode = false;
 				PlayState.storyDifficulty = curDifficulty;
@@ -441,10 +442,10 @@ class FreeplayState extends MusicBeatState {
 			#end
 
 			for (star in starArray[curSelected]) {
-				var offset = star[1] == curDifficulty ? 25 : 0;
+				var offset = star.diff == curDifficulty ? 25 : 0;
 
-				FlxTween.num(star[0].selectoffset, offset, 0.2, {ease: FlxEase.expoOut}, function(num) {
-					star[0].selectoffset = num;
+				FlxTween.num(star.selectoffset, offset, 0.2, {ease: FlxEase.expoOut}, function(num) {
+					star.selectoffset = num;
 				});
 			}
 
@@ -495,12 +496,11 @@ class FreeplayState extends MusicBeatState {
 	}
 
 	function changeSelection(change:Int = 0) {
-
 		FlxG.sound.play('assets/sounds/custom_menu_sounds/'+CoolUtil.parseJson(FNFAssets.getText("assets/sounds/custom_menu_sounds/custom_menu_sounds.json")).customMenuScroll+'/scrollMenu' + TitleState.soundExt, 0.4);
 
 		for (star in starArray[curSelected]) {
-			FlxTween.num(star[0].selectoffset, 0, 0.2, {ease: FlxEase.expoOut}, function(num) {
-				star[0].selectoffset = num;
+			FlxTween.num(star.selectoffset, 0, 0.2, {ease: FlxEase.expoOut}, function(num) {
+				star.selectoffset = num;
 			});
 		}
 

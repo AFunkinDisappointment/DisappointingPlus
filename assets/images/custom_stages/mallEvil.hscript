@@ -1,10 +1,10 @@
 
 function start(song) {
     getHaxeActor("bf").x += 320;
-    getHaxeActor("dad").y -= 80;
+    getHaxeActor("dad").y -= 30;
 
     setSwapOffsets('bf', [320, 0]);
-    setSwapOffsets('dad', [0, -80]);
+    setSwapOffsets('dad', [0, -30]);
 
     var bg = new FlxSprite(-400, -500).loadGraphic(hscriptPath + 'evilBG.png');
     bg.scrollFactor.set(0.2, 0.2);

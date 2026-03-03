@@ -5,6 +5,8 @@
 // https://gamebanana.com/mods/309789
 
 var songLength;
+var timeBarBG;
+var timeBar;
 var botplayTxt;
 var botplaySine = 0;
 function start(song) {
@@ -25,17 +27,20 @@ function start(song) {
 	songName.size = 32;
 	songName.borderSize = 2;
 	if (downscroll) songName.y = FlxG.height - 45;
+	songName.alpha = 0;
 
-	var timeBarBG = new FlxSprite(songName.x, songName.y + (songName.height / 4));
+	timeBarBG = new FlxSprite(songName.x, songName.y + (songName.height / 4));
 	timeBarBG.loadGraphic(hscriptPath + 'timeBar.png');
 	timeBarBG.scrollFactor.set();
 	timeBarBG.cameras = [camHUD];
 	timeBarBG.color = 0xFF000000; //FlxColor.BLACK
+	timeBarBG.alpha = 0;
 
-	var timeBar = NewBar(timeBarBG.x + 4, timeBarBG.y + 4, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), 0, 1, false);
+	timeBar = NewBar(timeBarBG.x + 4, timeBarBG.y + 4, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), 0, 1, false);
 	timeBar.scrollFactor.set();
 	timeBar.numDivisions = 800;
 	timeBar.cameras = [camHUD];
+	timeBar.alpha = 0;
 
 	songPosBG.visible = false;
 	songPosBar.visible = false;
@@ -59,13 +64,6 @@ function start(song) {
 	addSprite(botplayTxt);
 }
 
-function stepHit(step) {
-	if (songLength == null) {
-	    songLength = FlxG.sound.music.length;
-	    updateUV('songLength', songLength);
-	}
-}
-
 function update(elapsed) {
 	songLength = getUV('songLength');
 	songPosition = Conductor.songPosition / songLength;
@@ -87,6 +85,12 @@ function update(elapsed) {
 	var secondsRemaining = '' + secondsTotal % 60;
 	if (secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining;
 	songName.text = minutesRemaining + ':' + secondsRemaining;
+
+	if (songLength > 0 && timeBarBG.alpha < 1) {
+	    timeBarBG.alpha = FlxMath.lerp(1, timeBarBG.alpha, 0.8);
+	    timeBar.alpha = FlxMath.lerp(1, timeBarBG.alpha, 0.8);
+	    songName.alpha = FlxMath.lerp(1, timeBarBG.alpha, 0.8);
+	}
 
 	if (demoMode) {
 		botplaySine += 180 * elapsed;

@@ -10,15 +10,15 @@ function init(char) {
 
     char.addOffset('idle');
     if (char.isPlayer) {
-	char.addOffset('singUP', -20, 84);
-	char.addOffset('singRIGHT', 40);
-	char.addOffset('singLEFT', -51, 0);
+	char.addOffset('singUP', -38, 58);
+	char.addOffset('singRIGHT', 27, 13);
+	char.addOffset('singLEFT', -51, 10);
 	char.addOffset('singDOWN', 2, -94);
     } else {
-	char.addOffset('singUP', -20, 85);
-	char.addOffset('singRIGHT', -51, 0);
-	char.addOffset('singLEFT', -30);
-	char.addOffset('singDOWN', -30, -94);
+	char.addOffset('singUP', -25, 58);
+	char.addOffset('singRIGHT', -51, 10);
+	char.addOffset('singLEFT', -35, 10);
+	char.addOffset('singDOWN', -50, -94);
     }
     char.addCamOffset('singRIGHT', -25);
     char.addCamOffset('singLEFT', 25);

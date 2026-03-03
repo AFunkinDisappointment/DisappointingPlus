@@ -20,7 +20,7 @@ class DynamicSprite extends FlxSprite {
 /**
  * A replacement for FlxAtlasFrames that dynamically handles loading assets.
  * Passed to hscripts by default.
- * Because of how this works only "fromSparrow" and "fromSpriteSheetPAcker is supported."
+ * Because of how this works only "fromSparrow" and "fromSpriteSheetPacker is supported."
  */
 class DynamicAtlasFrames {
     public static function fromSparrow(png:FlxGraphicAsset, xml:String) {
@@ -34,12 +34,10 @@ class DynamicAtlasFrames {
         return FlxAtlasFrames.fromSparrow(png, xml);
     }
     public static function fromSpriteSheetPacker(png:FlxGraphicAsset, txt:String) {
-		if (FNFAssets.exists(txt))
-		{
+		if (FNFAssets.exists(txt)) {
 			txt = FNFAssets.getText(txt);
 		}
-		if ((png is String))
-		{
+		if ((png is String)) {
 			// show time again
 			png = FNFAssets.getBitmapData(png);
 		}

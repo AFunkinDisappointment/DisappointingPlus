@@ -44,11 +44,12 @@ function start(song) {
             FlxG.sound.play(senpaiSound, 1, false, null, true, function() {
                 remove(senpaiEvil);
                 remove(red);
+		FlxG.camera.fade(0xFFFFFFFF, 1, true);
                 // having a camera fade breaks shit so no camera fade : )
                 add(currentPlayState.doof);
             });
             new FlxTimer().start(3.2, function(_) {
-                FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
+                FlxG.camera.fade(0xFFFFFFFF, 1.6, false);
             });
         }
     });

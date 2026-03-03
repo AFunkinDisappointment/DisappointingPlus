@@ -84,7 +84,7 @@ class Song {
 			parsedJson.stage = switch (parsedJson.song.toLowerCase()) {
 				case 'spookeez' | 'monster' | 'south':
 					'spooky';
-				case 'philly-nice' | 'pico' | 'blammed':
+				case 'philly' | 'pico' | 'blammed':
 					'philly';
 				case 'milf' | 'high' | 'satin-panties':
 					'limo';

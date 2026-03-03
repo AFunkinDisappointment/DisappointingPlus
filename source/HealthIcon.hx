@@ -38,22 +38,35 @@ class HealthIcon extends FlxSprite {
 	public var iconState(default, set):IconState = Normal;
 	private var interp:Interp;
 	function set_iconState(x:IconState):IconState {
-		switch (x) {
-			case Normal:
-				animation.curAnim.curFrame = 0;
-			case Dying:
-				// if we set it out of bounds it doesn't realy matter as it goes to normal anyway
-				animation.curAnim.curFrame = 1;
-			case Poisoned:
-				// same deal it will go to dying which is good enough
-				animation.curAnim.curFrame = 2;
-			case Winning:
-				// we DO do it here here we want to make sure it isn't silly
-				if (animation.curAnim.frames.length >= 4) {
-					animation.curAnim.curFrame = 3;
-				} else {
+		if (isAnimated) {
+			switch (x) {
+				case Normal:
+					animation.play('icon');
+				case Dying:
+					animation.play('dying');
+				case Poisoned:
+					animation.play('poisoned');
+				case Winning:
+					animation.play('winning');
+			}
+		} else {
+			switch (x) {
+				case Normal:
 					animation.curAnim.curFrame = 0;
-				}
+				case Dying:
+					// if we set it out of bounds it doesn't realy matter as it goes to normal anyway
+					animation.curAnim.curFrame = 1;
+				case Poisoned:
+					// same deal it will go to dying which is good enough
+					animation.curAnim.curFrame = 2;
+				case Winning:
+					// we DO do it here here we want to make sure it isn't silly
+					if (animation.curAnim.frames.length >= 4) {
+						animation.curAnim.curFrame = 3;
+					} else {
+						animation.curAnim.curFrame = 0;
+					}
+			}
 		}
 		return iconState = x;
 	}
@@ -92,14 +105,17 @@ class HealthIcon extends FlxSprite {
 			if (isNormal)
 				interp = HealthIcon.iconBop('default');
 		}
-		var charPath = 'assets/images/custom_chars/' + char;
-		if (FNFAssets.exists(charPath + "/icons.png")) {
-			if (FNFAssets.exists(charPath + '/icons.xml')) { // not finished dont try animated icons yet
+		var charPath = 'assets/images/custom_chars/' + char + '/';
+		if (FNFAssets.exists(charPath + "icons.png")) {
+			if (FNFAssets.exists(charPath + 'icons.xml')) { // i guess it works :thumbsup:
 				isAnimated = true;
-				frames = FlxAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
-				//animation.add();
+				frames = DynamicSprite.DynamicAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
+				animation.addByPrefix('icon', 'normal', 24, true);
+				animation.addByPrefix('dying', 'dying', 24, true);
+				animation.addByPrefix('winning', 'winning', 24, true);
+				animation.addByPrefix('poisoned', 'poisoned', 24, true);
 			} else {
-				var rawPic:BitmapData = FNFAssets.getBitmapData(charPath + "/icons.png");
+				var rawPic:BitmapData = FNFAssets.getBitmapData(charPath + "icons.png");
 				loadGraphic(rawPic, true, 150, 150);
 				animation.add('icon', iconFrames, false, player);
 			}
@@ -108,9 +124,11 @@ class HealthIcon extends FlxSprite {
 			animation.add('icon', iconFrames, false, player);
 		}
 		animation.play('icon');
-		animation.pause();
+		if (!isAnimated)
+			animation.pause();
 
 		var daColors:Array<String> = daJson.colors;
+		healthColors = [];
 		for (color in daColors) {
 			healthColors.push(FlxColor.fromString(color));
 		}
@@ -172,21 +190,21 @@ class HealthIcon extends FlxSprite {
 		var program:Expr;
 		if (FNFAssets.exists('assets/images/custom_chars/iconbops/' + bopIcon, Hscript)) {
 			program = parser.parseString(FNFAssets.getHscript('assets/images/custom_chars/iconbops/' + bopIcon));
-		interp.variables.set("hscriptPath", 'assets/images/custom_chars/iconbops/' + bopIcon + '/');
-		interp.variables.set("PlayState", PlayState);
-		interp.variables.set("dance", function(icon) {});
-		interp.variables.set("update", function(elapsed, icon) {});
-		interp.variables.set("getUV", function(variabull:String) {
-			if (PlayState.universalVar.exists(variabull))
-				return PlayState.universalVar.get(variabull);
-			else
-				return null;
-		});
+			interp.variables.set("hscriptPath", 'assets/images/custom_chars/iconbops/' + bopIcon + '/');
+			interp.variables.set("PlayState", PlayState);
+			interp.variables.set("dance", function(icon) {});
+			interp.variables.set("update", function(elapsed, icon) {});
+			interp.variables.set("getUV", function(variabull:String) {
+				if (PlayState.universalVar.exists(variabull))
+					return PlayState.universalVar.get(variabull);
+				else
+					return null;
+			});
 
-		interp.variables.set("updateUV", function(variabull:String, veryable:Dynamic) {
-			PlayState.universalVar[variabull] = veryable;
-		});
-		interp.execute(program);
+			interp.variables.set("updateUV", function(variabull:String, veryable:Dynamic) {
+				PlayState.universalVar[variabull] = veryable;
+			});
+			interp.execute(program);
 		}
 		trace(interp);
 		return interp;

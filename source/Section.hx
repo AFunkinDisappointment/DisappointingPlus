@@ -1,9 +1,8 @@
 package;
 
-typedef SwagSection =
-{
+typedef SwagSection = {
 	var sectionNotes:Array<Dynamic>;
-	var lengthInSteps:Int;
+	@:default(16) var lengthInSteps:Int;
 	var typeOfSection:Int;
 	var mustHitSection:Bool;
 	var bpm:Float;
@@ -12,8 +11,7 @@ typedef SwagSection =
 	var altAnimNum:Null<Int>;
 }
 
-class Section
-{
+class Section {
 	public var sectionNotes:Array<Dynamic> = [];
 
 	public var lengthInSteps:Int = 16;
@@ -25,8 +23,7 @@ class Section
 	 */
 	public static var COPYCAT:Int = 0;
 
-	public function new(lengthInSteps:Int = 16)
-	{
+	public function new(lengthInSteps:Int = 16) {
 		this.lengthInSteps = lengthInSteps;
 	}
 }

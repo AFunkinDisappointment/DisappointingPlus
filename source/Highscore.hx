@@ -17,8 +17,7 @@ enum abstract FCLevel(Int) from Int to Int {
 	@:op(A <= B) static function _(_, _):Bool;
 	@:op(A == B) static function _(_, _):Bool;
 }
-class Highscore
-{
+class Highscore {
 	public static var songScores:Map<String, Int> = new Map();
 	public static var songAccuracy:Map<String, Float> = new Map();
 	public static var songCompletions:Map<String, Bool> = new Map();
@@ -27,13 +26,15 @@ class Highscore
 	public static var songOptionsUsed:Map<String, OptionsHandler.TOptions> = new Map();
 	public static var songModifiersUsed:Map<String, Dynamic> = new Map();
 
+	static var saveCategories = ['best-score', 'recent', 'best-accuracy', 'best-fullcombo', 'best'];
+
 	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?rating:FCLevel, ?judge:Jury):Void {
 		// we don't need the current options or modifiers as we can assume they haven't changed
 		var daSong:String = formatSong(song, diff, "best-score");
 		var recentSong:String = formatSong(song, diff, "recent");
 		var bestAccuracy:String = formatSong(song, diff, "best-accuracy");
 		var bestFC:String = formatSong(song, diff, "best-fullcombo");
-		var bestOfAll:String = formatSong(song,diff,"best");
+		var bestOfAll:String = formatSong(song, diff, "best");
 		var curOptions = OptionsHandler.options;
 		var modifierDynamic = ModifierState.namedModifiers;
 		setScore(recentSong, score);
@@ -118,9 +119,17 @@ class Highscore
 	}
 
 	public static function deleteSongScore(song:String = 'Tutorial', ?diff:Int = 0):Void {
-		var daSong:String = formatSong(song, diff, 'best');
-		setScore(daSong, 0);
-		setAccuracy(daSong, 0);
+		for (saveCode in saveCategories) {
+			var daSong:String = formatSong(song, diff, saveCode);
+			songScores.remove(daSong);
+			songAccuracy.remove(daSong);
+			songCompletions.remove(daSong);
+			songFCLevels.remove(daSong);
+			songJudge.remove(daSong);
+			songOptionsUsed.remove(daSong);
+			songModifiersUsed.remove(daSong);
+			songFlush(daSong);
+		}
 	}
 	public static function deleteWeekScore(week:String = 'Tutorial', ?diff:Int = 0):Void {
 		var daWeek:String = formatSong('week-' + week, diff, 'best');
@@ -167,6 +176,16 @@ class Highscore
 		FlxG.save.data.songModifiersUsed = songModifiersUsed;
 		FlxG.save.flush();
 	}
+	static function songFlush(song:String):Void {
+		FlxG.save.data.songScores = songScores;
+		FlxG.save.data.songCompletions = songCompletions;
+		FlxG.save.data.songAccuracy = songAccuracy;
+		FlxG.save.data.songFCLevels = songFCLevels;
+		FlxG.save.data.songJudge = songJudge;
+		FlxG.save.data.songOptionsUsed = songOptionsUsed;
+		FlxG.save.data.songModifiersUsed = songModifiersUsed;
+		FlxG.save.flush();
+	}
 	public static function formatSong(song:String, diff:Int, saving:String):String {
 		// saving is just an extra thing
 		// so like "recent"
@@ -180,43 +199,53 @@ class Highscore
 	}
 
 	public static function getScore(song:String, diff:Int, useFor:String = "best"):Int {
-		if (!songScores.exists(formatSong(song, diff, useFor)))
-			setScore(formatSong(song, diff, useFor), 0);
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songScores.exists(daSong))
+			setScore(daSong, 0);
 
-		return songScores.get(formatSong(song, diff, useFor));
+		return songScores.get(daSong);
 	}
 	public static function getOptionsUsed(song:String, diff:Int, useFor:String = "best"):TOptions {
-		if (!songOptionsUsed.exists(formatSong(song, diff, useFor)))
-			setOptionsUsed(formatSong(song, diff, useFor), OptionsHandler.options);
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songOptionsUsed.exists(daSong))
+			setOptionsUsed(daSong, OptionsHandler.options);
 
-		return songOptionsUsed.get(formatSong(song, diff, useFor));
+		return songOptionsUsed.get(daSong);
 	}
 	public static function getModifiersUsed(song:String, diff:Int, useFor:String = "best"):Dynamic {
-		if (!songModifiersUsed.exists(formatSong(song, diff, useFor)))
-			setModifiersUsed(formatSong(song, diff, useFor), ModifierState.namedModifiers);
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songModifiersUsed.exists(daSong))
+			setModifiersUsed(daSong, ModifierState.namedModifiers);
 
-		return songModifiersUsed.get(formatSong(song, diff, useFor));
+		return songModifiersUsed.get(daSong);
 	}
 	public static function getAccuracy(song:String, diff:Int, useFor:String = "best"):Float {
-		if (!songAccuracy.exists(formatSong(song, diff, useFor)))
-			setAccuracy(formatSong(song, diff, useFor), 0);
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songAccuracy.exists(daSong))
+			setAccuracy(daSong, 0);
 
-		return songAccuracy.get(formatSong(song, diff, useFor));
+		return songAccuracy.get(daSong);
 	}
 	public static function getComplete(song:String, diff:Int, useFor:String = "best"):Bool {
-		if (!songCompletions.exists(formatSong(song, diff, useFor)))
-			setComplete(formatSong(song,diff, useFor), false);
-		return songCompletions.get(formatSong(song,diff, useFor));
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songCompletions.exists(daSong))
+			setComplete(daSong, false);
+
+		return songCompletions.get(daSong);
 	}
-	public static function getFCLevel(song:String, diff:Int, useFor:String):Int {
-		if (!songFCLevels.exists(formatSong(song, diff, useFor)))
-			setFCLevel(formatSong(song, diff, useFor), cast None);
-		return songFCLevels.get(formatSong(song, diff, useFor));
+	public static function getFCLevel(song:String, diff:Int, useFor:String = "best"):Int {
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songFCLevels.exists(daSong))
+			setFCLevel(daSong, cast None);
+
+		return songFCLevels.get(daSong);
 	}
-	public static function getJudge(song:String, diff:Int, useFor:String):Int {
-		if (!songJudge.exists(formatSong(song, diff, useFor)))
-			setJudge(formatSong(song, diff, useFor), cast Classic);
-		return songJudge.get(formatSong(song, diff, useFor));
+	public static function getJudge(song:String, diff:Int, useFor:String = "best"):Int {
+		var daSong:String = formatSong(song, diff, useFor);
+		if (!songJudge.exists(daSong))
+			setJudge(daSong, cast Classic);
+
+		return songJudge.get(daSong);
 	}
 
 	public static function getTotalScore():Int {

@@ -222,6 +222,8 @@ class PlayState extends MusicBeatState {
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	public static var daPixelZoom:Float = 6;
+	// for note sustains on bpm changes
+	var initialStepCrochet:Float;
 
 	var bfoffset = [0.0, 0.0];
 	var gfoffset = [0.0, 0.0];
@@ -825,6 +827,7 @@ class PlayState extends MusicBeatState {
 		grpNoteSplashes.add(sploosh);
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
+		initialStepCrochet = Conductor.stepCrochet;
 		var dialogSuffix = "";
 		if (OptionsHandler.options.stressTankmen) {
 			dialogSuffix = "-shit";
@@ -1470,6 +1473,8 @@ class PlayState extends MusicBeatState {
 		vocals.play();
 
 		callAllHScript('songStart', [SONG.song]);
+		callAllHScript("stepHit", [curStep]);
+		callAllHScript('beatHit', [curBeat]);
 
 		vocals.pause();
 		FlxG.sound.music.pause();
@@ -2425,9 +2430,9 @@ class PlayState extends MusicBeatState {
 					daNote.scale.x = strumLineNotes.members[noteData].scale.x;
 					if (daNote.prevNote.alive && daNote.prevNote.isSustainNote) {
 						if (daNote.prevNote.isPixel)
-							daNote.prevNote.scale.y = daPixelZoom * (Conductor.stepCrochet / 100 * 1.5 * daScrollSpeed);
+							daNote.prevNote.scale.y = daPixelZoom * (initialStepCrochet / 100 * 1.5 * daScrollSpeed);
 						else
-							daNote.prevNote.scale.y = 0.7 * (Conductor.stepCrochet / 100 * 1.5 * daScrollSpeed);
+							daNote.prevNote.scale.y = 0.7 * (initialStepCrochet / 100 * 1.5 * daScrollSpeed);
 					}
 					daNote.updateHitbox();
 					daNote.x += defaultNoteWidth / 2 - daNote.width / 2;
@@ -2706,8 +2711,8 @@ class PlayState extends MusicBeatState {
 
 		if (endingSong)
 			return;
-		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null) {
-			setAllHaxeVar("mustHit", PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
+		if (generatedMusic && PlayState.SONG.notes[curSection] != null) {
+			setAllHaxeVar("mustHit", PlayState.SONG.notes[curSection].mustHitSection);
 			switch(scriptableCamera) {
 				case 'static':
 					camFollow.setPosition(scriptCamPos[0][0], scriptCamPos[0][1]);
@@ -2718,12 +2723,12 @@ class PlayState extends MusicBeatState {
 				case 'gf':
 					camFollow.setPosition(gf.getMidpoint().x + gf.followCamX + scriptCamPos[0][0], gf.getMidpoint().y + gf.followCamY + scriptCamPos[0][1]);
 				default:
-					if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)
+					if (PlayState.SONG.notes[curSection].mustHitSection)
 						camFollow.setPosition(boyfriend.getMidpoint().x + bfCamOffset[0] + boyfriend.followCamX + bfcam[0], boyfriend.getMidpoint().y + bfCamOffset[1] + boyfriend.followCamY + bfcam[1]);
 					else
 						camFollow.setPosition(dad.getMidpoint().x + dadCamOffset[0] + dad.followCamX + dadcam[0], dad.getMidpoint().y + dadCamOffset[1] + dad.followCamY + dadcam[1]);
 			}
-			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection) {
+			if (PlayState.SONG.notes[curSection].mustHitSection) {
 				callAllHScript("playerOneTurn", []);
 			} else {
 				callAllHScript("playerTwoTurn", []);
@@ -2939,13 +2944,13 @@ class PlayState extends MusicBeatState {
 						dad.altNum = 1;
 					}
 					dad.altNum = daNote.altNum;
-					if (SONG.notes[Math.floor(curStep / 16)] != null) {
-						if ((SONG.notes[Math.floor(curStep / 16)].altAnimNum > 0 && SONG.notes[Math.floor(curStep / 16)].altAnimNum != null) || SONG.notes[Math.floor(curStep / 16)].altAnim)
+					if (SONG.notes[curSection] != null) {
+						if ((SONG.notes[curSection].altAnimNum > 0 && SONG.notes[curSection].altAnimNum != null) || SONG.notes[curSection].altAnim)
 							// backwards compatibility shit
-							if (SONG.notes[Math.floor(curStep / 16)].altAnimNum == 1 || SONG.notes[Math.floor(curStep / 16)].altAnim || daNote.altNote)
+							if (SONG.notes[curSection].altAnimNum == 1 || SONG.notes[curSection].altAnim || daNote.altNote)
 								dad.altNum = 1;
-							else if (SONG.notes[Math.floor(curStep / 16)].altAnimNum != 0)
-								dad.altNum = SONG.notes[Math.floor(curStep / 16)].altAnimNum;
+							else if (SONG.notes[curSection].altAnimNum != 0)
+								dad.altNum = SONG.notes[curSection].altAnimNum;
 					}
 					
 					if (dad.altNum == 1) {
@@ -3702,7 +3707,6 @@ class PlayState extends MusicBeatState {
 			startDelay: Conductor.crochet * 0.001
 		});
 
-		curSection += 1;
 		if (daNote.nukeNote && daRating != 'miss') {
 			if (!playerOne)
 				health = 69;
@@ -3745,6 +3749,7 @@ class PlayState extends MusicBeatState {
 			}
 		}
 		healthBar.createFilledBar(leftSideFill, rightSideFill);
+		healthBar.updateBar();
 	}
 	public function getKeyNames(duo:Bool = false, ?first:Bool = true) {
 		var coolControls = controls;
@@ -4243,15 +4248,15 @@ class PlayState extends MusicBeatState {
 			actingOn.altAnim = "";
 			actingOn.altNum = 0;
 			
-			if (SONG.notes[Math.floor(curStep / 16)] != null) {
-				if (( SONG.notes[Math.floor(curStep / 16)].altAnimNum != null && SONG.notes[Math.floor(curStep / 16)].altAnimNum > 0)
-					|| SONG.notes[Math.floor(curStep / 16)].altAnim)
+			if (SONG.notes[curSection] != null) {
+				if (( SONG.notes[curSection].altAnimNum != null && SONG.notes[curSection].altAnimNum > 0)
+					|| SONG.notes[curSection].altAnim)
 					// backwards compatibility shit
-					if (SONG.notes[Math.floor(curStep / 16)].altAnimNum == 1
-						|| SONG.notes[Math.floor(curStep / 16)].altAnim)
+					if (SONG.notes[curSection].altAnimNum == 1
+						|| SONG.notes[curSection].altAnim)
 						actingOn.altNum = 1;
-					else if (SONG.notes[Math.floor(curStep / 16)].altAnimNum > 1)
-						actingOn.altNum = SONG.notes[Math.floor(curStep / 16)].altAnimNum;
+					else if (SONG.notes[curSection].altAnimNum > 1)
+						actingOn.altNum = SONG.notes[curSection].altAnimNum;
 			}
 			if (note.altNote)
 				actingOn.altNum = 1;
@@ -4343,7 +4348,7 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-
+	var sectionSteps:Int = 0;
 	override function stepHit() {
 		super.stepHit();
 		if (SONG.needsVoices) {
@@ -4354,6 +4359,15 @@ class PlayState extends MusicBeatState {
 
 		setAllHaxeVar("curStep", curStep);
 		callAllHScript("stepHit", [curStep]);
+
+		// this works but prone to breaking
+		/*sectionSteps += 1;
+		if (sectionSteps >= PlayState.SONG.notes[curSection].lengthInSteps) {
+			curSection += 1;
+			sectionSteps = 0;
+		}*/
+		// but i think this may cause lag :shrug:
+		curSection = getSection();
 
 		songLength = FlxG.sound.music.length;
 
@@ -4423,9 +4437,9 @@ class PlayState extends MusicBeatState {
 			notes.sort(FlxSort.byY, downscroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		if (SONG.notes[Math.floor(curStep / 16)] != null) {
-			if (SONG.notes[Math.floor(curStep / 16)].changeBPM) {
-				Conductor.changeBPM(SONG.notes[Math.floor(curStep / 16)].bpm);
+		if (SONG.notes[curSection] != null) {
+			if (SONG.notes[curSection].changeBPM) {
+				Conductor.changeBPM(SONG.notes[curSection].bpm);
 				FlxG.log.add('CHANGED BPM!');
 			}
 			// else
@@ -4437,7 +4451,7 @@ class PlayState extends MusicBeatState {
 			if ((!boyfriend.animation.curAnim.name.startsWith("sing") && !boyfriend.singPriority.contains(boyfriend.animation.curAnim.name)) && (opponentPlayer || demoMode))
 				boyfriend.dance();
 		}
-		// FlxG.log.add('change bpm' + SONG.notes[Std.int(curStep / 16)].changeBPM);
+		// FlxG.log.add('change bpm' + SONG.notes[curSection].changeBPM);
 		
 		if (!endingSong && camZooming && FlxG.camera.zoom < 1.35 && camZoomRate > 0 && curBeat % camZoomRate == 0) {
 			FlxG.camera.zoom += 0.015 * camZoomIntensity;
@@ -4496,4 +4510,16 @@ class PlayState extends MusicBeatState {
 		#end
 	}
 
+	function getSection() {
+		var daSteps = -1; // dont ask me why i need this offset, only tell me how i could make this zero or go away >:(
+		for (i in 0...PlayState.SONG.notes.length) {
+			var section = PlayState.SONG.notes[i];
+			var heyguesswhatthisisnull:Null<Int> = null; // im going to go insane
+			if (section.lengthInSteps <= 0 || section.lengthInSteps == heyguesswhatthisisnull) section.lengthInSteps = 16;
+			daSteps += section.lengthInSteps;
+			if (daSteps >= curStep)
+				return i;
+		}
+		return 0;
+	}
 }
