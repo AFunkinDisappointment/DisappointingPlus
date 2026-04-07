@@ -30,6 +30,11 @@
     "icons": [0,1,2],
     "colors": ["#149DFF"]
   },
+  "bf-holding-gf": {
+    "like": "bf-holding-gf",
+    "icons": [0,1,2,3],
+    "colors": ["#149DFF","#EE19D9"]
+  },
   "bulb-pixel": {
     "like": "bf-pixel",
     "icons": [0,1,2],
@@ -62,6 +67,11 @@
   },
   "gf-pixel": {
     "like": "gf-pixel",
+    "icons": "gf",
+    "colors": ["#EE19D9"]
+  },
+  "gf-tankmen": {
+    "like": "gf-tankmen",
     "icons": "gf",
     "colors": ["#EE19D9"]
   },
@@ -114,6 +124,11 @@
     "like": "pico-holding-nene",
     "icons": "pico",
     "colors": ["#88FF58"]
+  },
+  "pico-speaker": {
+    "like": "pico-speaker",
+    "icons": "pico",
+    "colors": ["#99FF7D"]
   },
   "darnell": {
     "like": "darnell",

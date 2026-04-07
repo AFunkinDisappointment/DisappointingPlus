@@ -12,40 +12,31 @@ function noteLoaded(note) {
 	    note.noteMiss = 'picoMiss';
 	}
     }
-
-    /*if (note.altNum > 0) {
-	if ((note.noteData % 8 < 4 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection) || (note.noteData % 8 >= 4 && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)) {
-	    note.noteHit = 'darnellNote';
-	} else {
-	    note.noteHit = 'picoNote';
-	    note.noteMiss = 'picoMiss';
-	}
-    }*/
 }
 
 function darnellNote(note) {
     switch(note.altNum) {
 	case 1:
-	    dad.playAnim('lightCan');
+	    getHaxeActor('dad').playAnim('lightCan');
 	case 2:
-	    dad.playAnim('kickCan');
+	    getHaxeActor('dad').playAnim('kickCan');
 	case 3:
-	    dad.playAnim('kneeCan');
+	    getHaxeActor('dad').playAnim('kneeCan');
     }
 }
 
 function picoNote(note) {
     switch(note.altNum) {
 	case 1:
-	    boyfriend.playAnim('cock');
+	    getHaxeActor('bf').playAnim('cock');
 	    
 	    FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'Gun_Prep.ogg'));
 	    gunCocked = true;
-	    new FlxTimer().start(1.0, function() {
+	    new FlxTimer().start(1, function() {
 		gunCocked = false;
 	    });
 	case 2:
-	    boyfriend.playAnim('shoot');
+	    getHaxeActor('bf').playAnim('shoot');
 
 	    FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'shot' + FlxG.random.int(1, 4) + '.ogg'));
 	    if (gunCocked)
@@ -55,14 +46,18 @@ function picoNote(note) {
     }
 }
 
+function picoMiss(note) {
+    getHaxeActor('bf').playAnim('shootMISS');
+}
+
 function darkenStageProps() {
-    for (object in getUV('daStage')) {
+    for (object in stage.elements) {
 	object.color = 0xFF111111;
     }
     gf.color = 0xFF111111;
     dad.color = 0xFF111111;
     new FlxTimer().start(1/24, function() {
-	for (object in getUV('daStage')) {
+	for (object in stage.elements) {
 	    object.color = 0xFF222222;
 	    FlxTween.color(object, 1.4, 0xFF222222, 0xFFFFFFFF);
     	}
@@ -74,13 +69,13 @@ function darkenStageProps() {
 }
 
 function blackenStageProps() {
-    for (object in getUV('daStage')) {
+    for (object in stage.elements) {
 	object.color = 0xFF000000;
     }
     gf.color = 0xFF000000;
     dad.color = 0xFF000000;
     new FlxTimer().start(1, function() {
-	for (object in getUV('daStage')) {
+	for (object in stage.elements) {
 	    object.color = 0xFFFFFFFF;
     	}
 	gf.color = 0xFFFFFFFF;
@@ -92,10 +87,6 @@ function shootNextCan() {
     // shoot can (when i actually add can)
 
     darkenStageProps();
-}
-
-function picoMiss(note) {
-    boyfriend.playAnim('shootMISS');
 }
 
 function stepHit(step) {
@@ -200,35 +191,4 @@ function stepHit(step) {
 	case 1440:
 		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
     }
-}
-
-function beatHit(beat) {
-}
-
-function playerTwoTurn() {
-    
-}
-
-function playerTwoMiss() {
-
-}
-
-function playerTwoSing() {
-
-}
-
-function playerOneTurn() {
-
-}
-
-function playerOneMiss() {
-
-}
-
-function playerOneSing() {
-
-}
-
-function noteHit(player1, note, wasGoodHit) {
-
 }

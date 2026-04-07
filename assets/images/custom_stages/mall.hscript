@@ -71,7 +71,7 @@ function normal(erect) {
     bum.antialiasing = true;
     bum.scrollFactor.set(0.9, 0.9);
     addSprite(bum, BEHIND_ALL);
-    stage.addElement('bum' bum);
+    stage.addElement('bum', bum);
 
     var undersnow = new FlxSprite(-1200, 800).makeGraphic(5400, 3000, 0xFFF3F4F5);
     addSprite(undersnow, BEHIND_ALL);

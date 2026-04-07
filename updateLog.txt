@@ -49,6 +49,7 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 
 [Bug Fixes]
 	- Using 'SetCameraBop()' on a beat now sets zoom factors before the beat's zoom
+	- Note Miss function for noteInfos now provide the note missed
 	- Characters using 'loadMappedAnims()' no longer crash when there is no mapped anims
 		- Hopefully now, I can stop fighting with them :crying:
 	- 'singLEFT-hold' and 'singRIGHT-hold' now swap when a character is a player
@@ -65,6 +66,7 @@ Just a disclaimer, I only started making this after 1.3.0, so some of the update
 	- Swapped the FC and GFC rank stars for erect songs
 	- Non-Styled Freeplay menu now shows songs' percentages to two decimals instead of rounding up to an int
 	- The character hscripts of 'monster' and 'newmonster' have been renamed to 'monster-old' and 'monster', respectively
+	- The character hscript of 'spooky' has been updated, moving the old spooky hscript to 'spooky-old'
 	- Moved the hard-coded animation loop for characters with hasGun to pico-speaker
 	- Character alt animations higher than one now use animation suffixes of '-alt#' instead of '-#alt' (# = number)
 

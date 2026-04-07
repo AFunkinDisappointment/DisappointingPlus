@@ -11,14 +11,14 @@ function init(char) {
     }
     char.animation.addByPrefix('singUP', 'GF Up Note', 24, false);
     char.animation.addByPrefix('singDOWN', 'GF Down Note', 24, false);
-    char.animation.addByIndices('sad', 'gf sad', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "", 24, false);
+    char.animation.addByIndices('sad', 'gf sad', makeRangeArray(12), "", 24, false);
     char.animation.addByIndices('danceLeft', 'GF Dancing Beat', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-    char.animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-    char.animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
-    char.animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
+    char.animation.addByIndices('danceRight', 'GF Dancing Beat', makeRangeArray(29, 15), "", 24, false);
+    char.animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", makeRangeArray(3), "", 24);
+    char.animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", makeRangeArray(11), "", 24, false);
     char.animation.addByPrefix('scared', 'GF FEAR', 24);
 
-    char.addOffset('cheer',0);
+    char.addOffset('cheer');
     char.addOffset('sad', -2, -21);
     char.addOffset('danceLeft', 0, -9);
     char.addOffset('danceRight', 0, -9);
@@ -35,6 +35,9 @@ function init(char) {
     if (char.isPlayer) {
 	char.flipX = true;
 	char.followCamY = 150;
+    } else {
+	char.followCamX = 0;
+	char.followCamY = 0;
     }
 
     char.playAnim('danceRight');

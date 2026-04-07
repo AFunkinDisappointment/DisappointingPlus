@@ -4118,7 +4118,7 @@ class PlayState extends MusicBeatState {
 			misses += 1;
 			setAllHaxeVar("misses", misses);
 			if (note != null && note.noteMiss != null) {
-				callHscript(note.noteMiss, [], "modchart");
+				callHscript(note.noteMiss, [note], "modchart");
 			}
 			var healthBonus = -0.04 * healthLossMultiplier;
 			if (note != null) {

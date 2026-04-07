@@ -4,10 +4,11 @@ function init(char) {
     char.animation.addByPrefix('idle', 'Pico Idle Dance', 24, false);
     char.animation.addByPrefix('singUP', 'pico Up note0', 24, false);
     char.animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
-    char.animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS', 24, false);
-    char.animation.addByPrefix('singUPmiss', 'pico Up note miss', 24, false);
     char.animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
     char.animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
+
+    char.animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS', 24, false);
+    char.animation.addByPrefix('singUPmiss', 'pico Up note miss', 24, false);
     char.animation.addByPrefix('singLEFTmiss', 'Pico Note Right Miss', 24, false);
     char.animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss', 24,false);
 
@@ -16,25 +17,16 @@ function init(char) {
     char.animation.addByPrefix('shit', 'shit', 24, false);
 
     char.addOffset('idle');
-    if (char.isPlayer) {
-        char.addOffset('singUP', 14, 27);
-        char.addOffset('singLEFT', 81, -19);
-        char.addOffset('singRIGHT', -48, 0);
-	char.addOffset('singDOWN', 90, -80);
-        char.addOffset('singDOWNmiss', 87, -38);
-        char.addOffset('singUPmiss', 20, 66);
-        char.addOffset('singRIGHTmiss', -40, 53);
-        char.addOffset('singLEFTmiss', 72, 24);
-    } else {
-        char.addOffset('singUP', -29, 27);
-        char.addOffset('singLEFT', 65, 9);
-        char.addOffset('singRIGHT', -68, -7);
-        char.addOffset('singDOWN', 200, -70);
-        char.addOffset('singDOWNmiss', 210, -28);
-        char.addOffset('singUPmiss', -19, 67);
-        char.addOffset('singRIGHTmiss', -60, 41);
-        char.addOffset('singLEFTmiss', 62, 64);
-    }
+    char.addOffset('singUP', -29, 27, 14);
+    char.addOffset('singLEFT', 65, 9, 81, -19);
+    char.addOffset('singRIGHT', -68, -7, -48, 0);
+    char.addOffset('singDOWN', 200, -70, 90, -80);
+
+    char.addOffset('singDOWNmiss', 210, -28, 87, -38);
+    char.addOffset('singUPmiss', -19, 67, 20, 66);
+    char.addOffset('singRIGHTmiss', -60, 41, -40, 53);
+    char.addOffset('singLEFTmiss', 62, 64, 72, 24);
+
     char.addOffset('burpShit', 33, -3);
     char.addOffset('burpSmile', 33, -3);
     char.addOffset('shit', 0, -3);
@@ -43,21 +35,15 @@ function init(char) {
 
     char.flipX = true;
 
-    char.enemyOffsetX = 0;
     char.enemyOffsetY = 300;
-    char.playerOffsetX = -50;
     char.playerOffsetY = -50;
     if (char.isPlayer) {
         char.followCamX = -200;
         char.followCamY = 50;
-        char.camOffsetX = -100;
     } else {
         char.followCamX = 150;
         char.followCamY = -50;
-        char.camOffsetX = 100;
     }
-    char.midpointX = 0;
-    char.midpointY = 0;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;
@@ -68,7 +54,8 @@ function sing(direction, miss, alt, char) {
 function update(elapsed, char) {
     // do nothing...
 }
-var danced = false;
+var noDanceAnims = ['burpShit', 'burpSmile', 'shit'];
 function dance(char) {
-    char.playAnim('idle');
+    if (!noDanceAnims.contains(char.animation.curAnim.name) || char.animation.curAnim.finished)
+	char.playAnim('idle');
 }

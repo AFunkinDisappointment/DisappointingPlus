@@ -1,13 +1,13 @@
 function init(char) {
-    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
-    char.frames = tex;
-    char.animation.addByIndices('danceLeft', 'spooky dance idle', [0,2,6], "", 12, false);
-    char.animation.addByIndices('danceRight', 'spooky dance idle', [8,10,12,14], "", 12, false);
-    char.animation.addByPrefix('singUP', 'spooky UP NOTE', 24, false);
-    char.animation.addByPrefix('singLEFT','note sing left', 24, false);
-    char.animation.addByPrefix('singRIGHT', 'spooky sing right', 24, false);
-    char.animation.addByPrefix('singDOWN', 'spooky DOWN note', 24, false);
+    char.animation.addByIndices('danceLeft', 'Idle', makeRangeArray(7), "", 24, false);
+    char.animation.addByIndices('danceRight', 'Idle', makeRangeArray(15, 8), "", 24, false);
+    char.animation.addByPrefix('singUP', 'SingUP', 24, false);
+    char.animation.addByPrefix('singLEFT','SingLEFT', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'SingRIGHT', 24, false);
+    char.animation.addByPrefix('singDOWN', 'SingDOWN', 24, false);
+    char.animation.addByPrefix('cheer', 'Cheer', 24, false);
 
     char.addOffset('danceLeft');
     char.addOffset('danceRight');
@@ -32,8 +32,8 @@ function init(char) {
     char.enemyOffsetX = 0;
     char.enemyOffsetY = 200;
     if (char.isPlayer) {
-        char.followCamX = 0;
-        char.followCamY = 50;
+        char.followCamX = -200;
+        char.followCamY = 0;
     }
 }
 portraitOffset = [0, 0];

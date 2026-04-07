@@ -93,7 +93,7 @@ function init(char) {
         char.followCamX = -200;
         char.followCamY = 50;
     } else {
-        char.followCamX = 150;
+        char.followCamX = 50;
         char.followCamY = -50;
     }
 }

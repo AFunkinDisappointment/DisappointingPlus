@@ -242,15 +242,17 @@ function makeJohns() {
 	    if (FlxG.random.float(0, 100) < 16) {
                 var jahn = john.clone();
 		jahn.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
-		var rim = new DropShadowShader();
-		rim.setAdjustColor(-46, -38, -25, -20);
-		rim.angle = 135;
-		rim.color = 0xFFDFEF3C;
-		rim.threshold = 0.4;
-		jahn.shader = rim;
-		jahn.animation.callback = function() {
-		    rim.updateFrameInfo(jahn.frame);
-		};
+		if (songData.stageID == 1) {
+		    var rim = new DropShadowShader();
+		    rim.setAdjustColor(-46, -38, -25, -20);
+		    rim.angle = 135;
+		    rim.color = 0xFFDFEF3C;
+		    rim.threshold = 0.4;
+		    jahn.shader = rim;
+		    jahn.animation.callback = function() {
+			rim.updateFrameInfo(jahn.frame);
+		    };
+		}
 
                 tankSpeedJohn.push(0.7);
                 goingRightJohn.push(false);

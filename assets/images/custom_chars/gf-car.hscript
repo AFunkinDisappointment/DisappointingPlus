@@ -1,14 +1,17 @@
 function init(char) {
-    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
-    char.frames = tex;
     char.animation.addByIndices('danceLeft', 'GF Dancing Beat Hair blowing CAR', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-    char.animation.addByIndices('danceRight', 'GF Dancing Beat Hair blowing CAR', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+    char.animation.addByIndices('danceRight', 'GF Dancing Beat Hair blowing CAR', makeRangeArray(29, 15), "", 24, false);
 
     char.addOffset('danceLeft');
     char.addOffset('danceRight');
 
     char.playAnim('danceRight');
+
+    char.followCamX = 50;
+    char.followCamY = -200;
+
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;

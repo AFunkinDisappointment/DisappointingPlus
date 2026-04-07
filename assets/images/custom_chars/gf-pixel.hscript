@@ -13,9 +13,12 @@ function init(char) {
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;
     char.setGraphicSize(Std.int(char.width * 6));
+    char.updateHitbox();
+
     char.gfOffsetX = 280;
     char.gfOffsetY = 290;
-    char.updateHitbox();
+    char.followCamX = -300;
+    char.followCamY = -250;
     char.antialiasing = false;
 }
 portraitOffset = [0, 0];

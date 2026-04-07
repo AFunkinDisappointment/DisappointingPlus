@@ -23,10 +23,10 @@ function init(char) {
 
     char.flipX = false;
 
-    char.enemyOffsetX = -150;
-    char.enemyOffsetY = 100;
-    char.playerOffsetX = 50;
-    char.playerOffsetY = -300;
+    char.enemyOffsetX = -50;
+    char.enemyOffsetY = 0;
+    char.playerOffsetX = -50;
+    char.playerOffsetY = -350;
     if (char.isPlayer) {
         char.followCamX = -200;
         char.followCamY = 70;

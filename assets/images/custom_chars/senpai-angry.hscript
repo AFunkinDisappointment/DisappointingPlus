@@ -9,26 +9,26 @@ function init(char) {
     char.animation.addByPrefix('singDOWN', 'Angry Senpai DOWN NOTE', 24, false);
     
     char.addOffset('idle');
-    char.addOffset('singUP', 5, 37);
+    char.addOffset('singUP', 0, 36);
     char.addOffset('singRIGHT');
-    char.addOffset('singLEFT', 40);
-    char.addOffset('singDOWN', 14);
+    char.addOffset('singLEFT', 24, 6);
+    char.addOffset('singDOWN', 6, 6);
 
     char.playAnim('idle');
 
     char.flipX = false;
 
     char.enemyOffsetX = 150;
-    char.enemyOffsetY = 360;
+    char.enemyOffsetY = 300;
     char.playerOffsetX = 270;
     char.playerOffsetY = -30;
     if (char.isPlayer) {
         char.followCamX = -450;
         char.followCamY = -410;
     } else {
-        char.camOffsetX = 370;
-        char.camOffsetY = 300;
-        char.followCamX = -93;
+	//char.camOffsetX = -300;
+        //char.camOffsetY = -420;
+        char.followCamX = -150;
         char.followCamY = -430;
     }
 
