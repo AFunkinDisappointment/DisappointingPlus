@@ -67,7 +67,7 @@ class ModuleState extends MusicBeatState {
 	var stages:Array<String> = [];
 	var weeks:Array<String> = [];
 
-	var songBoxes:Array<ImportBox> = [];
+	var songBoxes:Array<ModuleBox> = [];
 	var charBoxes:Array<ImportBox> = [];
 	var stageBoxes:Array<ImportBox> = [];
 	var weekBoxes:Array<ImportBox> = [];
@@ -98,6 +98,7 @@ class ModuleState extends MusicBeatState {
 		camHUD.bgColor.alpha = 0;
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
+		FlxG.cameras.setDefaultDrawTarget(camGame, false);
 
 		//FlxCamera.defaultCameras = [camHUD];
 
@@ -269,8 +270,12 @@ class ModuleState extends MusicBeatState {
 		} else {
 			gameFollow.setPosition(FlxG.width / 2, FlxG.height / 2);
 		}
+
+		for (i in 0...songBoxes.length) {
+			songBoxes[i].y = 60 + (180 * i) + scrollNum[0];
+		}
 		
-		for (ibox in 0...3) {
+		/*for (ibox in 0...3) {
 			var curBox = switch(ibox) {
 				case 0:
 					songBoxes;
@@ -322,7 +327,7 @@ class ModuleState extends MusicBeatState {
 					}
 				}
 			}
-		}
+		}*/
 
 		super.update(elapsed);
 	}
@@ -389,7 +394,7 @@ class ModuleState extends MusicBeatState {
 					if (moduleMode == 'Import') {
 						var info = ModuleFunctions.processInfo(haxe.io.Path.join([path, '/info.txt']));
 						songName = info.get('songname');
-						iconP2 = info.get('iconP2');
+						iconP2 = info.get('player2');
 					} else {
 						var data = null;
 						if (FileSystem.exists(haxe.io.Path.join([path, '../../data/' + song + '/' + song + '-hard.json']))) {
@@ -404,36 +409,20 @@ class ModuleState extends MusicBeatState {
 							iconP2 = data.player2;
 						}
 					}
-					var daBox:ImportBox = {
-						background: null,
-						icon: null,
-						nameText: null,
-						importButton: null,
-						miscButton: null
-					}; 
-					daBox.background = new FlxSprite(650, 10 + (180 * songs.indexOf(path))).loadGraphic('assets/images/plainbox.png');
-					daBox.icon = new HealthIcon(iconP2);
-					daBox.icon.x = daBox.background.x + 5;
-					daBox.icon.scrollFactor.set(1, 1);
-					daBox.nameText = new FlxText(daBox.background.x + 180, daBox.background.y, daBox.background.width - 240, songName);
-					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
-					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Song", function():Void {
+					var daBox:ModuleBox = new ModuleBox(650, 10 + (180 * songs.indexOf(path)), 'song', songName, iconP2);
+					daBox.MainButton(moduleMode + " Song", function():Void {
 						if (moduleMode != 'Export')
 							importSong(song);
 						else
 							ModuleFunctions.exportSong(songName);
 					});
-					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Listen", function():Void {
+					daBox.SecondaryButton("Listen", function():Void {
 						if (songPlaying != song)
 							listenSong(path, song);
 						else
 							endSong();
 					});
-					add(daBox.background);
-					add(daBox.icon);
-					add(daBox.nameText);
-					add(daBox.importButton);
-					add(daBox.miscButton);
+					add(daBox);
 					songBoxes.push(daBox);
 				}
 			}
@@ -453,36 +442,21 @@ class ModuleState extends MusicBeatState {
 					}
 					var songName = data.song;
 					var iconP2 = data.player2;
-					var daBox:ImportBox = {
-						background: null,
-						icon: null,
-						nameText: null,
-						importButton: null,
-						miscButton: null
-					}; 
-					daBox.background = new FlxSprite(650, 10 + (180 * songs.indexOf(path))).loadGraphic('assets/images/plainbox.png');
-					daBox.icon = new HealthIcon(iconP2);
-					daBox.icon.x = daBox.background.x + 5;
-					daBox.icon.scrollFactor.set(1, 1);
-					daBox.nameText = new FlxText(daBox.background.x + 180, daBox.background.y, daBox.background.width - 240, songName);
-					daBox.nameText.setFormat('assets/fonts/vcr.otf', 40, 0xFFFFFFFF, 'left');
-					daBox.importButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 20, moduleMode + " Song", function():Void {
+
+					var daBox:ModuleBox = new ModuleBox(650, 10 + (180 * songs.indexOf(path)), 'song', songName, iconP2);
+					daBox.MainButton(moduleMode + " Song", function():Void {
 						if (moduleMode != 'Export')
 							checkFile(songName.toLowerCase(), 'song', daFolding);
 						else
 							ModuleFunctions.exportSong(songName);
 					});
-					daBox.miscButton = new FlxUIButton(daBox.background.x + daBox.background.width - 120, daBox.background.y + 60, "Listen", function():Void {
+					daBox.SecondaryButton("Listen", function():Void {
 						if (songPlaying != song)
 							listenSong(path, song);
 						else
 							endSong();
 					});
-					add(daBox.background);
-					add(daBox.icon);
-					add(daBox.nameText);
-					add(daBox.importButton);
-					add(daBox.miscButton);
+					add(daBox);
 					songBoxes.push(daBox);
 				}
 			}
@@ -737,6 +711,7 @@ class ModuleState extends MusicBeatState {
 				}
 		}
 	}
+
 	var songPlaying = null;
 	function listenSong(path:String, song:String) {
 		songPlaying = song;

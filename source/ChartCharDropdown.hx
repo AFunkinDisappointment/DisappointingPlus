@@ -44,6 +44,9 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 	var charButtons:Array<Dynamic> = [];
 	var stageButtons:Array<Dynamic> = [];
 
+	var buttonHeight = 3;
+	var buttonWidth = 3;
+
 	public function new(daX:Int, daY:Int, charTypee:String = 'bf') {
 		super(daX, daY);
 
@@ -165,8 +168,8 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 		}
 		for (button in shownButtons) {
 			if (button.getLabel().text.indexOf(searchBox.text) != -1) {
-				button.x = searchBox.x + 55 * ((totalButtons[0] - 1) % 3);
-				if (totalButtons[0] - 1 >= 3) {
+				button.x = searchBox.x + 55 * ((totalButtons[0] - 1) % buttonWidth);
+				if (totalButtons[0] - 1 >= buttonWidth) {
 					totalButtons[0] = 1;
 					totalButtons[1] += 1;
 				}
@@ -177,9 +180,9 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 			} else
 				button.y = -2500;
 		}
-		if (scroll > (totalButtons[1] - 3) * 55 && totalButtons[1] > 3)
-			scroll = (totalButtons[1] - 3) * 55;
-		else if (totalButtons[1] <= 3)
+		if (scroll > (totalButtons[1] - buttonHeight) * 55 && totalButtons[1] > buttonHeight)
+			scroll = (totalButtons[1] - buttonHeight) * 55;
+		else if (totalButtons[1] <= buttonHeight)
 			scroll = 0;
 	}
 }

@@ -12,12 +12,11 @@
   {
     "name": "Base Game",
     "songs": [
-      // we use tjson so we can do comments and do some incorrect things
-      // the reason we use tjson is because json is hard
-      // The category screen won't show up unless there are more than 1 categories
-      {"name":"Tutorial",
-      "character":"gf",
-      "week": 0},
+      {
+	"name":"Tutorial",
+	"character":"gf",
+	"week": 0
+      },
       {
         "name": "Bopeebo",
         "character": "dad",
@@ -110,6 +109,21 @@
         "name": "Test",
         "character": "face",
         "week": 6,
+      },
+      {
+        "name": "Darnell",
+        "character": "darnell",
+        "week": 0,
+      },
+      {
+        "name": "Lit-Up",
+        "character": "darnell",
+        "week": 0,
+      },
+      {
+        "name": "2hot",
+        "character": "darnell",
+        "week": 0,
       }
     ]
   }

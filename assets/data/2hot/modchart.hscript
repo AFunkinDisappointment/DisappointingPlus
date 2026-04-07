@@ -1,0 +1,234 @@
+var gunCocked = false;
+function start(song) {
+    FocusCamera({char: 1});
+}
+
+function noteLoaded(note) {
+    if (note.altNum > 0) {
+	if (!note.mustPress) {
+	    note.noteHit = 'darnellNote';
+	} else {
+	    note.noteHit = 'picoNote';
+	    note.noteMiss = 'picoMiss';
+	}
+    }
+
+    /*if (note.altNum > 0) {
+	if ((note.noteData % 8 < 4 && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection) || (note.noteData % 8 >= 4 && PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection)) {
+	    note.noteHit = 'darnellNote';
+	} else {
+	    note.noteHit = 'picoNote';
+	    note.noteMiss = 'picoMiss';
+	}
+    }*/
+}
+
+function darnellNote(note) {
+    switch(note.altNum) {
+	case 1:
+	    dad.playAnim('lightCan');
+	case 2:
+	    dad.playAnim('kickCan');
+	case 3:
+	    dad.playAnim('kneeCan');
+    }
+}
+
+function picoNote(note) {
+    switch(note.altNum) {
+	case 1:
+	    boyfriend.playAnim('cock');
+	    
+	    FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'Gun_Prep.ogg'));
+	    gunCocked = true;
+	    new FlxTimer().start(1.0, function() {
+		gunCocked = false;
+	    });
+	case 2:
+	    boyfriend.playAnim('shoot');
+
+	    FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'shot' + FlxG.random.int(1, 4) + '.ogg'));
+	    if (gunCocked)
+		shootNextCan();
+	    else
+		picoMiss(note);
+    }
+}
+
+function darkenStageProps() {
+    for (object in getUV('daStage')) {
+	object.color = 0xFF111111;
+    }
+    gf.color = 0xFF111111;
+    dad.color = 0xFF111111;
+    new FlxTimer().start(1/24, function() {
+	for (object in getUV('daStage')) {
+	    object.color = 0xFF222222;
+	    FlxTween.color(object, 1.4, 0xFF222222, 0xFFFFFFFF);
+    	}
+	gf.color = 0xFF222222;
+	dad.color = 0xFF222222;
+	FlxTween.color(gf, 1.4, 0xFF222222, 0xFFFFFFFF);
+	FlxTween.color(dad, 1.4, 0xFF222222, 0xFFFFFFFF);
+    });
+}
+
+function blackenStageProps() {
+    for (object in getUV('daStage')) {
+	object.color = 0xFF000000;
+    }
+    gf.color = 0xFF000000;
+    dad.color = 0xFF000000;
+    new FlxTimer().start(1, function() {
+	for (object in getUV('daStage')) {
+	    object.color = 0xFFFFFFFF;
+    	}
+	gf.color = 0xFFFFFFFF;
+	dad.color = 0xFFFFFFFF;
+    });
+}
+
+function shootNextCan() {
+    // shoot can (when i actually add can)
+
+    darkenStageProps();
+}
+
+function picoMiss(note) {
+    boyfriend.playAnim('shootMISS');
+}
+
+function stepHit(step) {
+    switch(step) {
+	case 48:
+		FocusCamera({char: 0});
+	case 108:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 128:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+		FocusCamera({char: 1});
+	case 192:
+		FocusCamera({char: 0});
+	case 256:
+		FocusCamera({char: 1});
+	case 320:
+		FocusCamera({char: 0});
+	case 384:
+		FocusCamera({char: 1});
+	case 448:
+		FocusCamera({char: 0});
+	case 492:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 512:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+		FocusCamera({char: 1});
+	case 528:
+		FocusCamera({char: 0});
+	case 544:
+		FocusCamera({char: 1});
+	case 560:
+		FocusCamera({char: 0});
+	case 620:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 640:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+		FocusCamera({char: 1});
+	case 672:
+		FocusCamera({char: 0});
+	case 736:
+		FocusCamera({char: 1});
+	case 768:
+		FocusCamera({char: 0});
+	case 800:
+		FocusCamera({char: 1});
+	case 816:
+		FocusCamera({char: 0});
+	case 832:
+		FocusCamera({char: 1});
+	case 848:
+		FocusCamera({char: 0});
+	case 864:
+		FocusCamera({char: 1});
+	case 880:
+		FocusCamera({char: 0});
+	case 896:
+		FocusCamera({char: 1});
+	case 912:
+		FocusCamera({char: 0});
+	case 972:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 992:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+		FocusCamera({char: 1});
+	case 1024:
+		FocusCamera({char: 0});
+	case 1036:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 1056:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+		FocusCamera({char: 1});
+	case 1072:
+		FocusCamera({char: 0});
+	case 1088:
+		FocusCamera({char: 1});
+	case 1104:
+		FocusCamera({char: 0});
+	case 1120:
+		FocusCamera({char: 1});
+	case 1136:
+		FocusCamera({char: 0});
+	case 1152:
+		FocusCamera({char: 1});
+	case 1168:
+		FocusCamera({char: 0});
+	case 1184:
+		FocusCamera({char: 1});
+	case 1232:
+		FocusCamera({char: 0});
+	case 1376:
+		FocusCamera({char: 1});
+	case 1392:
+		FocusCamera({char: 0});
+	case 1420:
+		ZoomCamera({zoom: 0.65, ease: 'elasticInOut', mode: 'direct'});
+		FocusCamera({char: 2, x: 100, y: 105});
+	case 1440:
+		ZoomCamera({zoom: 0.77, ease: 'INSTANT', mode: 'direct'});
+    }
+}
+
+function beatHit(beat) {
+}
+
+function playerTwoTurn() {
+    
+}
+
+function playerTwoMiss() {
+
+}
+
+function playerTwoSing() {
+
+}
+
+function playerOneTurn() {
+
+}
+
+function playerOneMiss() {
+
+}
+
+function playerOneSing() {
+
+}
+
+function noteHit(player1, note, wasGoodHit) {
+
+}

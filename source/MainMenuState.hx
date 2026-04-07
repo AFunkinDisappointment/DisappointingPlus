@@ -122,7 +122,7 @@ class MainMenuState extends MusicBeatState {
 		}
 		// ok, if you can't fucking code then don't edit the fucking code
 		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v"+ Application.current.meta.get("version") + infoJson.version, 12);
-		#if !final
+		#if false
 		versionShit.text += "-" + FNFAssets.getText('VERSION');
 		#end
 		version = versionShit.text;

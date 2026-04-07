@@ -1,6 +1,73 @@
 Hey there, how's it going? I made this update log so people can actually know what I add when I update Disappointing Plus.
 Just a disclaimer, I only started making this after 1.3.0, so some of the updates before that may be wrong.
 
+1.5.0
+[Additions]
+	- Added (most of) the songs up to 0.6.2 (Weekend 1, Pico Mixes, Erect Songs)
+		- Not fully complete yet, but should work fine
+		- Also no Blazin yet
+	- Added my 'monster-dark'
+	- Added StageHelper
+		- Contains stage elements and functions of the current stage
+		- Can be called from HScripts as 'stage'
+			- stage.addElement(name, element); adds a stage element
+			- stage.getElement(name); returns stage element of that name
+			- stage.removeElement(name, destroy); removes a stage element (destroys on default)
+			- stage.addFunction(name, function); adds a function to the stage
+			- stage.getFunction(name); gets the function of that name to be later used
+			- stage.doFunction(name); uses the function of that name
+				- Only works for functions with ZERO input variables (use getFunction instead)
+		- Using 'setDefaultZoom();' in a stage hscript will set the stage's default zoom
+			- Used for 'ZoomCamera({mode: "stage"});'
+		- Will eventually have Z-Index capabilities
+	- Added FlxRuntimeShader to PluginManager for HScript use
+		- the input in 'new FlxRuntimeShader("adjustColor")', for example, pulls a .frag file of the same name from "assets/shaders/"
+		- A path like "assets/images/custom_stages/spooky/sillyShader" also works
+		- Currently doesn't have the helper functions, hopefully will be added via HScripts
+		- (temporarily, probably) Added DropShadowShader class from modern FNF
+			- I'm hoping for a less hard-coded way of implimenting this
+			- It has all the helper functions though
+	- Added FlxTiledSprite and FlxBackdrop to PluginManager for HScript use
+		- Automatically uses FNFAssets to get provided sprite path
+	- Added 'onCharacterAdded(char:Character, type:String)' to HScripts
+		- Called when a new character is added
+		- Currently only works with 'addCharacter' and 'switchCharacter' functions
+			- Meaning the pre-generated characters don't automatically call this function
+		- The types are 'dad', 'bf', and 'gf'
+	- Can now put another character's name for "icons" in 'custom_chars.jsonc' to use their icons instead
+	- Added two new variables to the character hscript function 'char.addOffset(name, oppX, oppY, plrX, plrY);'
+		- A quality of life made to add offsets to both the player and opponent sides, seperately, in the same function
+	- The selected note's array can be viewed in the Note section of ChartingState
+	- Added a button to round a note's strum time in the Note section of ChartingState
+	- Using arrow keys in AnimationDebug can now modify char offsets
+	- Follow cam can now be edited in AnimationDebug
+		- 'Force Follow Cam' automatically moves the camera to the character's follow cam
+	- Added animationDebugControls to 'assets/data'
+		- Will be shown in AnimationDebug eventually
+	- Added an option to toggle whether the memory counter shows
+	- New Module now outputs any 'picospeaker' charts
+
+[Bug Fixes]
+	- Using 'SetCameraBop()' on a beat now sets zoom factors before the beat's zoom
+	- Characters using 'loadMappedAnims()' no longer crash when there is no mapped anims
+		- Hopefully now, I can stop fighting with them :crying:
+	- 'singLEFT-hold' and 'singRIGHT-hold' now swap when a character is a player
+	- Fixed normal icons breaking after switching from an animated icon
+	- Freeplay no longer loads song scores before changing difficulty when going to a song that doesn't have the current difficulty selected
+	- Charting State now correctly loads songs when a difficulty's default is different from its name
+	- Alt Anim and Alt Anim Number now reflect eachother in ChartingState
+	- Adding a note to charts in ChartingState no longer adds the deprecated ', false, false' to the end
+		- Also doesn't add note length if it's zero, like in modern FNF
+	- New Module is more consistent with adding alt animations from new fnf charts
+
+[Changes]
+	- Using setCameraBop() will turn camZooming on automatically unless rate or intensity is 0
+	- Swapped the FC and GFC rank stars for erect songs
+	- Non-Styled Freeplay menu now shows songs' percentages to two decimals instead of rounding up to an int
+	- The character hscripts of 'monster' and 'newmonster' have been renamed to 'monster-old' and 'monster', respectively
+	- Moved the hard-coded animation loop for characters with hasGun to pico-speaker
+	- Character alt animations higher than one now use animation suffixes of '-alt#' instead of '-#alt' (# = number)
+
 1.4.1
 [Additions]
 	- Songs now properly support 'lengthInSteps'

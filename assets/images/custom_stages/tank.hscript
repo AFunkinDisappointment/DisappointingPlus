@@ -6,29 +6,42 @@ var tankSpeedJohn = [];
 var goingRightJohn = [];
 var strumTimeJohn = [];
 var endingOffsetJohn = [];
+
+var sniper;
+var guy;
+var colorShader;
 function start(song) {
+    if (songData.stageID == 1)
+	erectStage();
+    else
+	normalStage();
+}
+
+function normalStage() {
     setDefaultZoom(0.9);
 
     getHaxeActor("boyfriend").x += 40;
-    getHaxeActor("gf").x -= 30;
-    getHaxeActor("gf").y += 10;
+    getHaxeActor("gf").x -= 90;
+    getHaxeActor("gf").y -= 65;
     getHaxeActor("dad").x -= 80;
     getHaxeActor("dad").y += 60;
 
     setSwapOffsets('bf', [40, 0]);
-    setSwapOffsets('gf', [-30, 10]);
+    setSwapOffsets('gf', [-90, -65]);
     setSwapOffsets('dad', [-80, 60]);
 
-    var bg = new FlxSprite(-400, -400).loadGraphic(hscriptPath + 'tankSky.png');
-    bg.scrollFactor.set();
-    bg.antialiasing = true;
-    addSprite(bg, BEHIND_ALL);
+    var sky = new FlxSprite(-400, -400).loadGraphic(hscriptPath + 'tankSky.png');
+    sky.scrollFactor.set();
+    sky.antialiasing = true;
+    addSprite(sky, BEHIND_ALL);
+    stage.addElement('sky', sky);
 
     var clouds = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20)).loadGraphic(hscriptPath + 'tankClouds.png');
     clouds.antialiasing = true;
     clouds.scrollFactor.set(0.1, 0.1);
     clouds.velocity.x = FlxG.random.float(5,15);
     addSprite(clouds, BEHIND_ALL);
+    stage.addElement('clouds', clouds);
 
     var mountains = new FlxSprite(-300, -20).loadGraphic(hscriptPath + 'tankMountains.png');
     mountains.antialiasing = true;
@@ -36,6 +49,7 @@ function start(song) {
     mountains.updateHitbox();
     mountains.scrollFactor.set(0.2, 0.2);
     addSprite(mountains, BEHIND_ALL);
+    stage.addElement('mountains', mountains);
 
     var building = new FlxSprite(-200).loadGraphic(hscriptPath + 'tankBuildings.png');
     building.setGraphicSize(Std.int(building.width * 1.1));
@@ -43,6 +57,7 @@ function start(song) {
     building.updateHitbox();
     building.scrollFactor.set(0.3, 0.3);
     addSprite(building, BEHIND_ALL);
+    stage.addElement('building', building);
 
     var ruins = new FlxSprite(-200).loadGraphic(hscriptPath + 'tankRuins.png');
     ruins.scrollFactor.set(0.35, 0.35);
@@ -50,6 +65,7 @@ function start(song) {
     ruins.updateHitbox();
     ruins.antialiasing = true;
     addSprite(ruins, BEHIND_ALL);
+    stage.addElement('ruins', ruins);
 
     var smokeLeft = new FlxSprite(-200 , -100);
     smokeLeft.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'smokeLeft.png', hscriptPath + 'smokeLeft.xml');
@@ -58,23 +74,26 @@ function start(song) {
     smokeLeft.scrollFactor.set(0.4, 0.4);
     smokeLeft.antialiasing = true;
     addSprite(smokeLeft, BEHIND_ALL);
+    stage.addElement('smokeLeft', smokeLeft);
 
-	var smokeRight = new FlxSprite(1100, -100);
-	smokeRight.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'smokeRight.png', hscriptPath + 'smokeRight.xml');
-	smokeRight.animation.addByPrefix('idle', 'SmokeRight', 24, true);
-	smokeRight.animation.play('idle', true);
-	smokeRight.scrollFactor.set(0.4, 0.4);
+    var smokeRight = new FlxSprite(1100, -100);
+    smokeRight.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'smokeRight.png', hscriptPath + 'smokeRight.xml');
+    smokeRight.animation.addByPrefix('idle', 'SmokeRight', 24, true);
+    smokeRight.animation.play('idle', true);
+    smokeRight.scrollFactor.set(0.4, 0.4);
     smokeRight.antialiasing = true;
-	addSprite(smokeRight, BEHIND_ALL);
+    addSprite(smokeRight, BEHIND_ALL);
+    stage.addElement('smokeRight', smokeRight);
 
-	tower = new MetroSprite(100, 50, true);
-	tower.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankWatchtower.png', hscriptPath + 'tankWatchtower.xml');
-	tower.animation.addByPrefix('idle', 'watchtower gradient color', 24, false);
-	tower.animation.play('idle', true);
-	tower.scrollFactor.set(0.5, 0.5);
-	tower.updateHitbox();
-	tower.antialiasing = true;
-	addSprite(tower, BEHIND_ALL);
+    tower = new MetroSprite(100, 50, true);
+    tower.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankWatchtower.png', hscriptPath + 'tankWatchtower.xml');
+    tower.animation.addByPrefix('idle', 'watchtower gradient color', 24, false);
+    tower.animation.play('idle', true);
+    tower.scrollFactor.set(0.5, 0.5);
+    tower.updateHitbox();
+    tower.antialiasing = true;
+    addSprite(tower, BEHIND_ALL);
+    stage.addElement('tower', tower);
 
     steve = new FlxSprite(300, 300);
     steve.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankRolling.png', hscriptPath + 'tankRolling.xml');
@@ -83,16 +102,16 @@ function start(song) {
     steve.antialiasing = true;
     steve.scrollFactor.set(0.5, 0.5);
     addSprite(steve, BEHIND_ALL);
+    stage.addElement('steve', steve);
 
-    // note to gamers, type classes don't work
-    johns = new FlxGroup();
-    addSprite(johns, BEHIND_ALL);
+    makeJohns();
 
     var ground = new FlxSprite(-420, -150).loadGraphic(hscriptPath + 'tankGround.png');
     ground.setGraphicSize(Std.int(1.15 * ground.width));
     ground.updateHitbox();
     ground.antialiasing = true;
     addSprite(ground, BEHIND_ALL);
+    stage.addElement('ground', ground);
 
     losers = new FlxGroup();
     
@@ -104,103 +123,215 @@ function start(song) {
     tank0.animation.play("idle");
     losers.add(tank0);
 
-	var tank1 = new MetroSprite(-300, 750, true);
-	tank1.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank1.png', hscriptPath + 'tank1.xml');
-	tank1.antialiasing = true;
-	tank1.animation.addByPrefix("idle", "fg", 24, false);
-	tank1.scrollFactor.set(2, 0.2);
-	tank1.animation.play("idle");
-	losers.add(tank1);
+    var tank1 = new MetroSprite(-300, 750, true);
+    tank1.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank1.png', hscriptPath + 'tank1.xml');
+    tank1.antialiasing = true;
+    tank1.animation.addByPrefix("idle", "fg", 24, false);
+    tank1.scrollFactor.set(2, 0.2);
+    tank1.animation.play("idle");
+    losers.add(tank1);
 
-	var tank2 = new MetroSprite(450, 940, true);
-	tank2.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank2.png', hscriptPath + 'tank2.xml');
-	tank2.antialiasing = true;
-	tank2.animation.addByPrefix("idle", "foreground", 24, false);
-	tank2.scrollFactor.set(1.5, 1.5);
-	tank2.animation.play("idle");
-	losers.add(tank2);
+    var tank2 = new MetroSprite(450, 940, true);
+    tank2.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank2.png', hscriptPath + 'tank2.xml');
+    tank2.antialiasing = true;
+    tank2.animation.addByPrefix("idle", "foreground", 24, false);
+    tank2.scrollFactor.set(1.5, 1.5);
+    tank2.animation.play("idle");
+    losers.add(tank2);
 
-	var tank4 = new MetroSprite(1300, 900, true);
-	tank4.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank4.png', hscriptPath + 'tank4.xml');
-	tank4.antialiasing = true;
-	tank4.animation.addByPrefix("idle", "fg", 24, false);
-	tank4.scrollFactor.set(1.5, 1.5);
-	tank4.animation.play("idle");
-	losers.add(tank4);
+    var tank4 = new MetroSprite(1300, 900, true);
+    tank4.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank4.png', hscriptPath + 'tank4.xml');
+    tank4.antialiasing = true;
+    tank4.animation.addByPrefix("idle", "fg", 24, false);
+    tank4.scrollFactor.set(1.5, 1.5);
+    tank4.animation.play("idle");
+    losers.add(tank4);
 
-	var tank5 = new MetroSprite(1620, 700, true);
-	tank5.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank5.png', hscriptPath + 'tank5.xml');
-	tank5.antialiasing = true;
-	tank5.animation.addByPrefix("idle", "fg", 24, false);
-	tank5.scrollFactor.set(1.5, 1.5);
-	tank5.animation.play("idle");
-	losers.add(tank5);
+    var tank5 = new MetroSprite(1620, 700, true);
+    tank5.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank5.png', hscriptPath + 'tank5.xml');
+    tank5.antialiasing = true;
+    tank5.animation.addByPrefix("idle", "fg", 24, false);
+    tank5.scrollFactor.set(1.5, 1.5);
+    tank5.animation.play("idle");
+    losers.add(tank5);
 
-	var tank3 = new MetroSprite(1300, 1200, true);
-	tank3.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank3.png', hscriptPath + 'tank3.xml');
-	tank3.antialiasing = true;
-	tank3.animation.addByPrefix("idle", "fg", 24, false);
-	tank3.scrollFactor.set(3.5, 2.5);
-	tank3.animation.play("idle");
-	losers.add(tank3);
+    var tank3 = new MetroSprite(1300, 1200, true);
+    tank3.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tank3.png', hscriptPath + 'tank3.xml');
+    tank3.antialiasing = true;
+    tank3.animation.addByPrefix("idle", "fg", 24, false);
+    tank3.scrollFactor.set(3.5, 2.5);
+    tank3.animation.play("idle");
+    losers.add(tank3);
     addSprite(losers, BEHIND_NONE);
+    stage.addElement('tankmen', losers);
+}
 
-	if (!getHaxeActor("gf").hasGun) {
-        getHaxeActor("gf").x -= 170;
-		getHaxeActor("gf").y -= 75;
-    } else {
-		getHaxeActor("gf").y -= 200;
-		getHaxeActor("gf").x -= 50;
+function erectStage() {
+    setDefaultZoom(0.7);
 
-		var john = new FlxSprite(FlxG.width + 1000, 500);
+    getHaxeActor("boyfriend").x += 360;
+    getHaxeActor("boyfriend").y += 25;
+    getHaxeActor("gf").x += 50;
+    getHaxeActor("gf").scrollFactor.set(1, 1);
+    getHaxeActor("dad").x -= 80;
+    getHaxeActor("dad").y += 40;
+    getHaxeActor("dad").followCamX += 50;
+
+    setSwapOffsets('bf', [360, 25]);
+    setSwapOffsets('gf', [50, 0]);
+    setSwapOffsets('dad', [-80, 40]);
+
+    makeRimShader(getHaxeActor("boyfriend"), 'bf');
+    makeRimShader(getHaxeActor("gf"), 'gf');
+    makeRimShader(getHaxeActor("dad"), 'dad');
+
+    var bg = new FlxSprite(-985, -805).loadGraphic(hscriptPath + 'erect/bg.png');
+    bg.scale.set(1.15, 1.15);
+    bg.updateHitbox();
+    bg.antialiasing = true;
+    addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
+
+    sniper = new MetroSprite(-127, 349, true);
+    sniper.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'erect/sniper.png', hscriptPath + 'erect/sniper.xml');
+    sniper.scale.set(1.15, 1.15);
+    sniper.updateHitbox();
+    sniper.antialiasing = true;
+    sniper.animation.addByPrefix("idle", "Tankmanidle", 24, false);
+    sniper.animation.addByPrefix("sip", "tanksipping", 24, false);
+    sniper.animation.play("idle");
+    addSprite(sniper, BEHIND_ALL);
+    stage.addElement('sniper', sniper);
+
+    guy = new MetroSprite(1398, 407, true);
+    guy.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'erect/guy.png', hscriptPath + 'erect/guy.xml');
+    guy.scale.set(1.15, 1.15);
+    guy.updateHitbox();
+    guy.antialiasing = true;
+    guy.animation.addByPrefix("idle", "BLTank2", 24, false);
+    guy.animation.play("idle");
+    addSprite(guy, BEHIND_ALL);
+    stage.addElement('guy', guy);
+
+    makeJohns();
+}
+
+function makeJohns() {
+    // note to gamers, type classes don't work
+    johns = new FlxGroup();
+    addSprite(johns, BEHIND_ALL);
+    stage.addElement('johns', johns);
+
+    if (getHaxeActor("gf").hasGun && gf.animationNotes.length > 0) {
+	var john = new FlxSprite(FlxG.width + 1000, 500);
         john.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankmanKilled1.png', hscriptPath + 'tankmanKilled1.xml');
         john.antialiasing = true;
         john.animation.addByPrefix("run", "tankman running", 24, true);
-        john.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
         john.setGraphicSize(Std.int(0.8 * john.width));
         john.updateHitbox();
         john.animation.play("run");
         tankSpeedJohn.push(0.7);
         goingRightJohn.push(false);
 
-		strumTimeJohn.push(gf.animationNotes[0][0]);
-        endingOffsetJohn.push(FlxG.random.float(0.6, 1));
-		resetJohn(FlxG.width * 1.5, 600, true, john, 0);
-        johns.add(john);
+	//strumTimeJohn.push(gf.animationNotes[0][0]);
+        //endingOffsetJohn.push(FlxG.random.float(0.6, 1));
+	//resetJohn(FlxG.width * 1.5, 600, true, john, 0);
+        //johns.add(john);
         var i = 0;
-		for (c in 1...gf.animationNotes.length)
-		{
-			if (FlxG.random.float(0, 100) < 16)
-			{
+	for (c in 1...gf.animationNotes.length) {
+	    if (FlxG.random.float(0, 100) < 16) {
                 var jahn = john.clone();
-                /*
-                jahn.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'tankmanKilled1.png', hscriptPath + 'tankmanKilled1.xml');
-                jahn.antialiasing = true;
-                jahn.animation.addByPrefix("run", "tankman running", 24, true);
-                jahn.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
-                jahn.setGraphicSize(Std.int(0.8 * john.width));
-                jahn.updateHitbox();
-                jahn.animation.play("run");
-                */
+		jahn.animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
+		var rim = new DropShadowShader();
+		rim.setAdjustColor(-46, -38, -25, -20);
+		rim.angle = 135;
+		rim.color = 0xFFDFEF3C;
+		rim.threshold = 0.4;
+		jahn.shader = rim;
+		jahn.animation.callback = function() {
+		    rim.updateFrameInfo(jahn.frame);
+		};
+
                 tankSpeedJohn.push(0.7);
                 goingRightJohn.push(false);
 
                 strumTimeJohn.push(gf.animationNotes[c][0]);
                 endingOffsetJohn.push(FlxG.random.float(0.6, 1));
                 johns.add(jahn);
-                resetJohn(FlxG.width * 1.5, 200 + FlxG.random.int(50, 100),  2 > gf.animationNotes[c][1], jahn,i);
+                resetJohn(FlxG.width * 1.5, 200 + FlxG.random.int(50, 100), 2 > gf.animationNotes[c][1], jahn, i);
                 i++;
-				trace("make johgf");
-			}
-		}
+	    }
+	}
     }
 }
 
+var shaderBlacklist = []; // add characters here that shouldn't get the rim shader
+function onCharacterAdded(char, type) {
+    if (!shaderBlacklist.contains(char))
+	makeRimShader(char, type);
+}
+
+function makeRimShader(char, type) {
+    var rim = new DropShadowShader();
+    rim.setAdjustColor(-46, -38, -25, -20);
+    rim.color = 0xFFDFEF3C;
+    char.shader = rim;
+    rim.attachedSprite = char;
+
+    rim.angle = 90;
+
+    if (type != 'none') {
+	if (char.isPixel) { // pixel character support
+	    rim.antialiasAmt = 0;
+	    rim.distance = 5;
+	}
+	switch(char.curCharacter) {
+	    case 'monster', 'monster-christmas':
+		rim.threshold = 0.3;
+	    case 'parents-christmas':
+		rim.threshold = 0.17;
+	}
+	if (StringTools.startsWith(char.curCharacter, 'tankman')) {
+	    rim.angle = 135;
+	    rim.threshold = 0.3;
+	}
+
+	if (FileSystem.exists(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png')) {
+	    rim.loadAltMask(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png');
+	    rim.useAltMask = true;
+	    switch(char.curCharacter) {
+		case 'gf-tankmen':
+		    rim.maskThreshold = 0.4;
+		default:
+		    rim.maskThreshold = 1;
+	    }
+	}
+    
+	char.animation.callback = function() {
+	    rim.updateFrameInfo(char.frame);
+	};
+    } else { // for non-character objects (edit to your liking)
+	rim.threshold = 0.2;
+	rim.distance = 22;
+    }
+}
+stage.addFunction('makeRimShader', makeRimShader);
+
 function beatHit(beat) {
-    losers.forEach(function (spr) {
-        spr.dance();
-    });
-    tower.dance();
+    if (songData.stageID == 1) {
+	if (beat % 2 == 0) {
+	    if (FlxG.random.bool(2))
+	        sniper.animation.play('sip', true);
+	    else
+	        sniper.dance();
+	    guy.dance();
+	}
+    } else {
+	losers.forEach(function (spr) {
+            spr.dance();
+	});
+	tower.dance();
+    }
 }
 var tankAngle = FlxG.random.int(-90, 45);
 var tankSpeed = FlxG.random.float(5, 7);
@@ -220,66 +351,38 @@ function resetJohn(x, y, goingRight, spr, johnNum) {
     goingRightJohn[johnNum] = goingRight;
     endingOffsetJohn[johnNum] = FlxG.random.float(50, 200);
     tankSpeedJohn[johnNum] = FlxG.random.float(0.6, 1);
-     spr.flipX = if (goingRight) true else false;
+    spr.flipX = goingRight;
 }
 function update(elapsed) {
-    moveTank();
+    if (steve != null)
+    	moveTank();
     var i = 0;
     for (spr in johns.members) {
-        if (spr.x >= 1.2 * FlxG.width || spr.x <= -0.5 * FlxG.width)
-            spr.visible = false;
-        else
-            spr.visible = true;
-        if (spr.animation.curAnim.name == "run") {
-            var fuck = 0.74 * FlxG.width + endingOffsetJohn[i];
-            if (goingRightJohn[i]) {
-                fuck = 0.02 * FlxG.width - endingOffsetJohn[i];
-                spr.x = fuck + (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
-                spr.flipX = true;
-            } else {
-                spr.x = fuck - (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
-                spr.flipX = false;
-            }
-        }
-        if (Conductor.songPosition > strumTimeJohn[i]) {
-            spr.animation.play("shot");
-            if (goingRightJohn[i]) {
-                spr.offset.y = 200;
-                spr.offset.x = 300;
-            }
-        }
-        if (spr.animation.curAnim.name == "shot" && spr.animation.curAnim.curFrame >= spr.animation.curAnim.frames.length - 1) {
-            spr.kill();
-        }
-        i++;
+	if (spr.x >= 1.6 * FlxG.width || spr.x <= -0.7 * FlxG.width) {
+	    spr.visible = false;
+	    spr.active = false;
+	} else {
+	    spr.visible = true;
+	    spr.active = true;
+	}
+	if (spr.animation.curAnim.name == "run") {
+	    var fuck = 0.74 * FlxG.width + endingOffsetJohn[i];
+	    if (goingRightJohn[i]) {
+		fuck = 0.02 * FlxG.width - endingOffsetJohn[i];
+		spr.x = fuck + (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
+		spr.flipX = true;
+	    } else {
+		spr.x = fuck - (Conductor.songPosition - strumTimeJohn[i]) * tankSpeedJohn[i];
+		spr.flipX = false;
+	    }
+	}
+	if (Conductor.songPosition > strumTimeJohn[i]) {
+	    spr.animation.play("shot");
+	    spr.offset.y = 200;
+	    spr.offset.x = 300;
+	}
+	if (spr.animation.curAnim.name == "shot" && spr.animation.curAnim.curFrame >= spr.animation.curAnim.frames.length - 1)
+	    spr.kill();
+	i++;
     }
 }
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
-}
-

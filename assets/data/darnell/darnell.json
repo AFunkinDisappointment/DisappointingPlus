@@ -1,0 +1,1311 @@
+{
+     "song" : {
+         "speed" : 2
+        ,"stage" : "philly-streets"
+        ,"player1" : "pico"
+        ,"player2" : "darnell"
+        ,"notes" : [
+             {
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [0,4,290]
+                    ,[387,5]
+                    ,[774,6]
+                    ,[967,7]
+                    ,[1161,4]
+                    ,[1354,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [1548,7]
+                    ,[1935,7]
+                    ,[2322,7]
+                    ,[2709,5]
+                    ,[2903,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [3096,0,290]
+                    ,[3483,1]
+                    ,[3870,2]
+                    ,[4064,3]
+                    ,[4258,0]
+                    ,[4451,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [4645,3]
+                    ,[5032,3]
+                    ,[5419,1]
+                    ,[5612,0]
+                    ,[5806,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [6193,6,290]
+                    ,[6580,5]
+                    ,[6967,6]
+                    ,[7161,7]
+                    ,[7354,4]
+                    ,[7548,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [7741,4]
+                    ,[7935,5]
+                    ,[8129,7]
+                    ,[8322,5]
+                    ,[8516,4]
+                    ,[8903,7]
+                    ,[9096,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [9290,2,290]
+                    ,[9677,3]
+                    ,[10064,2]
+                    ,[10258,3]
+                    ,[10451,0]
+                    ,[10645,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [10838,0]
+                    ,[11225,3]
+                    ,[11419,1]
+                    ,[11612,3]
+                    ,[11806,2]
+                    ,[12000,3]
+                    ,[12193,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [12387,4]
+                    ,[12580,5]
+                    ,[12774,7]
+                    ,[12967,5]
+                    ,[13161,6]
+                    ,[13548,4]
+                    ,[13741,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [13935,7]
+                    ,[14129,6]
+                    ,[14322,4]
+                    ,[14516,6]
+                    ,[14709,5]
+                    ,[15096,4]
+                    ,[15290,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [15483,6]
+                    ,[15677,5]
+                    ,[15870,7]
+                    ,[16064,5]
+                    ,[16258,7]
+                    ,[16451,4]
+                    ,[16645,6]
+                    ,[16838,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [17032,5]
+                    ,[17225,6]
+                    ,[17419,4]
+                    ,[17612,7]
+                    ,[17806,4]
+                    ,[18000,7]
+                    ,[18193,6]
+                    ,[18387,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [18580,0]
+                    ,[18774,1]
+                    ,[18967,3]
+                    ,[19161,1]
+                    ,[19354,2]
+                    ,[19741,0]
+                    ,[19935,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [20129,0]
+                    ,[20322,2]
+                    ,[20516,1]
+                    ,[20709,0]
+                    ,[20903,3,193]
+                    ,[21290,0]
+                    ,[21483,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [21677,2]
+                    ,[21870,1]
+                    ,[22064,2]
+                    ,[22258,0]
+                    ,[22451,3]
+                    ,[22645,0]
+                    ,[22838,2]
+                    ,[23032,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [23225,0]
+                    ,[23419,0]
+                    ,[23612,2]
+                    ,[23806,1,96]
+                    ,[24000,3]
+                    ,[24193,3]
+                    ,[24387,2]
+                    ,[24580,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [24774,4]
+                    ,[24967,6]
+                    ,[25161,5]
+                    ,[25354,6]
+                    ,[25548,7]
+                    ,[25741,4]
+                    ,[25935,7]
+                    ,[26129,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [26322,6]
+                    ,[26516,4]
+                    ,[26709,5]
+                    ,[26903,4]
+                    ,[27096,6,96]
+                    ,[27290,4]
+                    ,[27483,6]
+                    ,[27677,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [27870,7]
+                    ,[28258,7]
+                    ,[28451,6]
+                    ,[28645,7]
+                    ,[28838,4]
+                    ,[29032,7]
+                    ,[29225,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [29419,4]
+                    ,[29612,5]
+                    ,[29806,7]
+                    ,[30000,6]
+                    ,[30193,7]
+                    ,[30387,5,96]
+                    ,[30580,4]
+                    ,[30774,6]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [30967,0]
+                    ,[31161,1]
+                    ,[31354,3]
+                    ,[31548,0]
+                    ,[31741,2]
+                    ,[31935,0,290]
+                    ,[32322,2]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [32516,1]
+                    ,[32709,3]
+                    ,[32903,2]
+                    ,[33096,0]
+                    ,[33290,1,96]
+                    ,[33483,3,290]
+                    ,[33870,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [34064,3,290]
+                    ,[34451,0]
+                    ,[34645,0]
+                    ,[34838,2]
+                    ,[35032,1]
+                    ,[35225,2]
+                    ,[35419,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [35612,1]
+                    ,[35806,0]
+                    ,[36000,2]
+                    ,[36193,3]
+                    ,[36387,0]
+                    ,[36580,0]
+                    ,[36774,1]
+                    ,[36967,1,193]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [37161,4,193]
+                    ,[37548,7]
+                    ,[37741,5]
+                    ,[37935,4]
+                    ,[38129,6]
+                    ,[38322,5]
+                    ,[38516,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [38709,4]
+                    ,[38903,5]
+                    ,[39096,4]
+                    ,[39290,6]
+                    ,[39483,7]
+                    ,[39677,6]
+                    ,[39870,4,145]
+                    ,[40064,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [40258,4]
+                    ,[40645,4]
+                    ,[40838,6]
+                    ,[41032,4]
+                    ,[41225,6]
+                    ,[41419,7]
+                    ,[41612,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [41806,6]
+                    ,[42000,5]
+                    ,[42193,4]
+                    ,[42387,7]
+                    ,[42580,4]
+                    ,[42774,5,96]
+                    ,[42967,6,96]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [43354,0]
+                    ,[43548,0]
+                    ,[43741,3]
+                    ,[43935,1]
+                    ,[44129,2]
+                    ,[44322,0]
+                    ,[44516,1]
+                    ,[44709,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [44903,3]
+                    ,[45096,3]
+                    ,[45290,2]
+                    ,[45483,0]
+                    ,[45677,1]
+                    ,[45870,3]
+                    ,[46064,0]
+                    ,[46258,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [46451,1]
+                    ,[46838,0]
+                    ,[47032,3]
+                    ,[47225,2]
+                    ,[47419,0]
+                    ,[47612,1]
+                    ,[47806,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [48000,2]
+                    ,[48193,3]
+                    ,[48387,0]
+                    ,[48580,3]
+                    ,[48774,1]
+                    ,[48967,3]
+                    ,[49161,2]
+                    ,[49354,2,193]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [49548,6]
+                    ,[49741,5]
+                    ,[49935,7]
+                    ,[50129,5]
+                    ,[50322,6]
+                    ,[50516,4]
+                    ,[50709,5,96]
+                    ,[50903,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [51096,6]
+                    ,[51290,4]
+                    ,[51483,6]
+                    ,[51677,4]
+                    ,[51870,5]
+                    ,[52258,5]
+                    ,[52451,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [52645,2]
+                    ,[52838,1]
+                    ,[53032,3]
+                    ,[53225,1]
+                    ,[53419,1]
+                    ,[53612,0]
+                    ,[53806,1,96]
+                    ,[54000,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [54193,2]
+                    ,[54387,0]
+                    ,[54580,2]
+                    ,[54774,0]
+                    ,[54967,1,193]
+                    ,[55354,3]
+                    ,[55548,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [55741,6,290]
+                    ,[56129,5]
+                    ,[56516,6]
+                    ,[56709,7]
+                    ,[56903,4]
+                    ,[57096,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [57290,6]
+                    ,[57483,4]
+                    ,[57677,6]
+                    ,[57870,4]
+                    ,[58064,7]
+                    ,[58451,6]
+                    ,[58645,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [58838,2,290]
+                    ,[59225,3,193]
+                    ,[59612,2,96]
+                    ,[59806,0]
+                    ,[60000,1]
+                    ,[60193,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [60387,1]
+                    ,[60580,3]
+                    ,[60774,1]
+                    ,[60967,3]
+                    ,[61161,2,193]
+                    ,[61548,1]
+                    ,[61741,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [61935,5]
+                    ,[62128,4]
+                    ,[62225,6]
+                    ,[62322,7]
+                    ,[62515,4]
+                    ,[62709,5]
+                    ,[62903,4]
+                    ,[62999,5]
+                    ,[63096,7]
+                    ,[63290,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [63483,5]
+                    ,[63677,7]
+                    ,[63773,4]
+                    ,[63870,6]
+                    ,[64064,4]
+                    ,[64257,7]
+                    ,[64451,4]
+                    ,[64548,5]
+                    ,[64645,6]
+                    ,[64838,4]
+                    ,[64935,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [65032,1]
+                    ,[65225,0]
+                    ,[65322,2]
+                    ,[65419,3]
+                    ,[65612,0]
+                    ,[65806,1]
+                    ,[66000,0]
+                    ,[66096,1]
+                    ,[66193,3]
+                    ,[66387,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [66580,1]
+                    ,[66774,3]
+                    ,[66870,0]
+                    ,[66967,2]
+                    ,[67161,0]
+                    ,[67354,3]
+                    ,[67548,0]
+                    ,[67645,1]
+                    ,[67741,2]
+                    ,[67935,0]
+                    ,[68032,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [68129,5]
+                    ,[68322,4]
+                    ,[68419,6]
+                    ,[68516,7]
+                    ,[68709,4]
+                    ,[68903,5]
+                    ,[69097,4]
+                    ,[69193,5]
+                    ,[69290,7]
+                    ,[69484,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [69677,5]
+                    ,[69871,7]
+                    ,[69967,4]
+                    ,[70064,6]
+                    ,[70258,4]
+                    ,[70451,7]
+                    ,[70645,4]
+                    ,[70742,5]
+                    ,[70838,6]
+                    ,[71032,4]
+                    ,[71129,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [71225,1]
+                    ,[71418,0]
+                    ,[71515,2]
+                    ,[71612,3]
+                    ,[71805,0]
+                    ,[71999,1]
+                    ,[72193,0]
+                    ,[72289,1]
+                    ,[72387,3]
+                    ,[72580,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [72773,1]
+                    ,[72967,3]
+                    ,[73063,0]
+                    ,[73160,2]
+                    ,[73354,0]
+                    ,[73547,3]
+                    ,[73741,0]
+                    ,[73838,1]
+                    ,[73935,2]
+                    ,[74128,0]
+                    ,[74225,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [74322,4]
+                    ,[74516,6]
+                    ,[74710,5]
+                    ,[74903,6]
+                    ,[75097,7]
+                    ,[75289,4]
+                    ,[75484,7]
+                    ,[75677,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [75870,6]
+                    ,[76064,4]
+                    ,[76258,5]
+                    ,[76451,4]
+                    ,[76644,6,96]
+                    ,[76838,4]
+                    ,[77031,6]
+                    ,[77226,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [77418,7]
+                    ,[77806,7]
+                    ,[78000,6]
+                    ,[78193,7]
+                    ,[78386,4]
+                    ,[78580,7]
+                    ,[78773,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [78967,4]
+                    ,[79160,5]
+                    ,[79354,7]
+                    ,[79548,6]
+                    ,[79741,7]
+                    ,[79935,5,96]
+                    ,[80129,4]
+                    ,[80323,6]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [80515,0]
+                    ,[80709,1]
+                    ,[80903,3]
+                    ,[81097,0]
+                    ,[81289,2]
+                    ,[81483,0,290]
+                    ,[81871,2]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [82065,1]
+                    ,[82258,3]
+                    ,[82452,2]
+                    ,[82644,0]
+                    ,[82839,1,145]
+                    ,[83032,3,290]
+                    ,[83419,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [83612,3,290]
+                    ,[84000,0]
+                    ,[84194,0]
+                    ,[84386,2]
+                    ,[84581,1]
+                    ,[84774,2]
+                    ,[84968,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [85161,1]
+                    ,[85355,0]
+                    ,[85548,2]
+                    ,[85742,3]
+                    ,[85936,0]
+                    ,[86129,0]
+                    ,[86323,1]
+                    ,[86516,1,193]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [86709,4,193]
+                    ,[87096,7]
+                    ,[87290,5]
+                    ,[87484,4]
+                    ,[87678,6]
+                    ,[87870,5]
+                    ,[88064,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [88258,4]
+                    ,[88452,5]
+                    ,[88645,6]
+                    ,[88838,4]
+                    ,[89032,7]
+                    ,[89226,6]
+                    ,[89419,4,145]
+                    ,[89613,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [89806,4]
+                    ,[90193,4]
+                    ,[90387,6]
+                    ,[90581,4]
+                    ,[90773,6]
+                    ,[90967,7]
+                    ,[91160,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [91354,6]
+                    ,[91548,5]
+                    ,[91741,4]
+                    ,[91936,7]
+                    ,[92128,4]
+                    ,[92322,5,96]
+                    ,[92515,6,96]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [92902,0]
+                    ,[93096,0]
+                    ,[93289,3]
+                    ,[93483,1]
+                    ,[93678,2]
+                    ,[93870,0]
+                    ,[94064,1]
+                    ,[94257,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [94452,3]
+                    ,[94645,3]
+                    ,[94839,2]
+                    ,[95032,0]
+                    ,[95226,1]
+                    ,[95418,3]
+                    ,[95613,0]
+                    ,[95806,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [96000,1,193]
+                    ,[96386,0]
+                    ,[96580,3]
+                    ,[96774,2]
+                    ,[96968,1]
+                    ,[97161,0]
+                    ,[97355,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [97548,2]
+                    ,[97742,3]
+                    ,[97935,0]
+                    ,[98129,3]
+                    ,[98322,1]
+                    ,[98516,3]
+                    ,[98709,2]
+                    ,[98903,2,193]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [99096,4,290]
+                    ,[99483,5]
+                    ,[99870,6]
+                    ,[100063,7]
+                    ,[100258,4]
+                    ,[100450,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [100644,7]
+                    ,[101031,7]
+                    ,[101418,7]
+                    ,[101805,5]
+                    ,[101999,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [102192,0,290]
+                    ,[102579,1]
+                    ,[102966,2]
+                    ,[103160,3]
+                    ,[103354,0]
+                    ,[103547,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [103741,3]
+                    ,[104128,3]
+                    ,[104515,1]
+                    ,[104708,0]
+                    ,[104902,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [105289,6,290]
+                    ,[105676,5]
+                    ,[106063,6]
+                    ,[106257,7]
+                    ,[106451,4]
+                    ,[106644,5]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [106837,4]
+                    ,[107031,5]
+                    ,[107225,7]
+                    ,[107418,5]
+                    ,[107612,4]
+                    ,[107999,7]
+                    ,[108192,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [108386,2,290]
+                    ,[108773,3]
+                    ,[109160,2]
+                    ,[109354,3]
+                    ,[109547,0]
+                    ,[109741,1]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [109934,0]
+                    ,[110321,3]
+                    ,[110515,1]
+                    ,[110708,3]
+                    ,[110902,2]
+                    ,[111096,3]
+                    ,[111289,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [111483,5]
+                    ,[111677,4]
+                    ,[111774,6]
+                    ,[111870,7]
+                    ,[112064,4]
+                    ,[112258,5]
+                    ,[112452,4]
+                    ,[112548,5]
+                    ,[112645,7]
+                    ,[112839,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [113032,5]
+                    ,[113226,7]
+                    ,[113322,4]
+                    ,[113419,6]
+                    ,[113613,4]
+                    ,[113806,7]
+                    ,[114000,4]
+                    ,[114097,5]
+                    ,[114193,6]
+                    ,[114387,4]
+                    ,[114484,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [114581,1]
+                    ,[114774,0]
+                    ,[114871,2]
+                    ,[114967,3]
+                    ,[115161,0]
+                    ,[115355,1]
+                    ,[115549,0]
+                    ,[115645,1]
+                    ,[115741,3]
+                    ,[115936,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [116129,1]
+                    ,[116323,3]
+                    ,[116419,0]
+                    ,[116516,2]
+                    ,[116710,0]
+                    ,[116903,3]
+                    ,[117097,0]
+                    ,[117194,1]
+                    ,[117290,2]
+                    ,[117484,0]
+                    ,[117581,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [117678,5]
+                    ,[117871,4]
+                    ,[117968,6]
+                    ,[118064,7]
+                    ,[118258,4]
+                    ,[118452,5]
+                    ,[118646,4]
+                    ,[118742,5]
+                    ,[118838,7]
+                    ,[119033,4]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [119226,5]
+                    ,[119420,7]
+                    ,[119516,4]
+                    ,[119613,6]
+                    ,[119807,4]
+                    ,[120000,7]
+                    ,[120194,4]
+                    ,[120291,5]
+                    ,[120387,6]
+                    ,[120581,4]
+                    ,[120678,7]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [120774,1]
+                    ,[120967,0]
+                    ,[121064,2]
+                    ,[121161,3]
+                    ,[121354,0]
+                    ,[121548,1]
+                    ,[121742,0]
+                    ,[121838,1]
+                    ,[121935,3]
+                    ,[122129,0]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [122322,1]
+                    ,[122516,3]
+                    ,[122612,0]
+                    ,[122709,2]
+                    ,[122903,0]
+                    ,[123096,3]
+                    ,[123290,0]
+                    ,[123387,1]
+                    ,[123483,2]
+                    ,[123677,0]
+                    ,[123774,3]
+                ]
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : []
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : []
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : []
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : []
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : []
+                ,"bpm" : 155
+                ,"changeBPM" : false
+                ,"mustHitSection" : true
+            }
+        ]
+        ,"gf" : "gf"
+        ,"bpm" : 155
+        ,"needsVoices" : true
+        ,"cutsceneType" : "none"
+        ,"song" : "Darnell"
+        ,"uiType" : "normal"
+    }
+}

@@ -1,64 +1,54 @@
-var bruh;
+var wiggle;
 function start(song) {
-    getHaxeActor("bf").x += 50;
-    getHaxeActor("bf").y += 60;
-    getHaxeActor('gf').x -= 100;
-    getHaxeActor('gf').y += 10;
-    getHaxeActor('bf').followCamX -= 100;
+    getHaxeActor('bf').x += 160;
+    getHaxeActor('bf').y += 50;
+    getHaxeActor('bf').followCamX -= 175;
+    getHaxeActor('gf').x += 100;
+    getHaxeActor('gf').y -= 30;
+    getHaxeActor('dad').y += 150;
 
-    setSwapOffsets('bf', [50, 60]);
-    setSwapOffsets('gf', [100, 10]);
+    setSwapOffsets('bf', [160, 50]);
+    setSwapOffsets('gf', [100, -30]);
+    setSwapOffsets('dad', [0, 150]);
 
-    var bg = new FlxSprite(400, 200);
-    bg.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'animatedEvilSchool.png', hscriptPath + 'animatedEvilSchool.xml');
-    bg.animation.addByPrefix("idle", "background 2", 24, true);    
-    bg.animation.play("idle", true);
-    bg.scrollFactor.set(0.8, 0.9);
-    bg.scale.set(6, 6);
-    addSprite(bg, BEHIND_ALL);
+    wiggle = new FlxRuntimeShader('wiggle');
+    wiggle.setFloat('uSpeed', 2);
+    wiggle.setFloat('uFrequency', 4);
+    wiggle.setFloat('uWaveAmplitude', 0.017);
+    wiggle.setInt('effectType', 0);
 
-    bruh = new FlxSprite().loadGraphic(hscriptPath + 'Scanlines.png');
-    bruh.alpha = 0.8;
-    bruh.antialiasing = true;
-    bruh.cameras = [camHUD];
-    bruh.visible = false;
-    addSprite(bruh, BEHIND_NONE);
+    if (songData.stageID == 1) {
+	var bg = new FlxSprite(-200, 18).loadGraphic(hscriptPath + 'erect/evilSchoolBG.png');
+	bg.scale.set(6, 6);
+	bg.updateHitbox();
+	bg.shader = wiggle;
+	addSprite(bg, BEHIND_ALL);
+	stage.addElement('bg', bg);
+    } else {
+	getHaxeActor('gf').scrollFactor.set(1, 1);
+
+	var bg = new FlxSprite(-200, 0).loadGraphic(hscriptPath + 'evilSchoolBG.png');
+	bg.scrollFactor.set(0.6, 0.9);
+	bg.scale.set(6, 6);
+	bg.updateHitbox();
+	bg.shader = wiggle;
+	addSprite(bg, BEHIND_ALL);
+	stage.addElement('bg', bg);
+
+	var fg = new FlxSprite(-200, 0).loadGraphic(hscriptPath + 'evilSchoolFG.png');
+	fg.scrollFactor.set(0.95, 0.95);
+	fg.scale.set(6, 6);
+	fg.updateHitbox();
+	fg.shader = wiggle;
+	addSprite(fg, BEHIND_ALL);
+	stage.addElement('fg', fg);
+    }
 }
 
-function beatHit(beat)
-{
-}
-
+var wiggleTime = 0;
 function update(elapsed) {
-    if (FlxG.keys.justPressed.SPACE)
-	bruh.visible = !bruh.visible;
+    if (wiggle != null) {
+	wiggleTime += elapsed;
+	wiggle.setFloat('uTime', wiggleTime);
+    }
 }
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
-}
-

@@ -1,11 +1,12 @@
 {
+    "stage": "stage",
+    "spooky": "spooky",
+    "philly": "philly",
     "limo": "limo",
     "mall": "mall",
     "mallEvil": "mallEvil",
-    "philly": "philly",
     "school": "school",
     "schoolEvil": "schoolEvil",
-    "spooky": "spooky",
-    "stage": "stage",
-    "tank": "tank"
+    "tank": "tank",
+    "philly-streets": "philly-streets"
 }

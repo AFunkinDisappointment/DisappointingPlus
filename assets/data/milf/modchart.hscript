@@ -1,48 +1,13 @@
-
 function start(song) {
-
+    SetCameraBop({});
 }
 
-
-function beatHit(beat)
-{
-    if (beat >= 168 && beat < 200 && camZooming && FlxG.camera.zoom < 1.35) {
-        trace("BJEUNG");
-        FlxG.camera.zoom += 0.015;
-        camHUD.zoom += 0.03;
+function beatHit(beat) {
+    switch(beat) {
+	case 168:
+	    SetCameraBop({rate: 1, intensity: 2.5});
+	case 200:
+	    SetCameraBop({});
     }
-}
-
-function update(elapsed)
-{
-}
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
 }
 trace("finish <3");

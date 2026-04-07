@@ -1,5 +1,23 @@
 var bg;
+var erectness = false;
+var statichscriptPath;
+
+var lightbg;
+var lightstairs;
+var darkbf;
+var darkgf;
+var darkdad;
 function start(song) {
+    statichscriptPath = hscriptPath;
+
+    if (songData.stageID == 1) {
+	erectness = true;
+	erectStage();
+    } else
+	normalStage();
+}
+
+function normalStage() {
     bg = new FlxSprite(-200, -100);
     bg.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'halloween_bg.png', hscriptPath + 'halloween_bg.xml');
     bg.animation.addByPrefix("idle", "halloweem bg0", 24, true);
@@ -7,50 +25,135 @@ function start(song) {
     bg.animation.play("idle");
     bg.antialiasing = true;
     addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
+}
+
+function erectStage() {
+    hscriptPath += 'erect/';
+
+    var bgtrees = new FlxSprite(200, 50);
+    bgtrees.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgtrees.png', hscriptPath + 'bgtrees.xml');
+    bgtrees.animation.addByPrefix('idle', 'bgtrees', 5, true);
+    bgtrees.animation.play('idle');
+    bgtrees.scrollFactor.set(0.8, 0.8);
+    bgtrees.antialiasing = true;
+    addSprite(bgtrees, BEHIND_ALL);
+    stage.addElement('bgtrees', bgtrees);
+
+    var darkbg = new FlxSprite(-360, -220).loadGraphic(hscriptPath + 'bgDark.png');
+    addSprite(darkbg, BEHIND_ALL);
+    stage.addElement('darkbg', darkbg);
+
+    lightbg = new FlxSprite(-360, -220).loadGraphic(hscriptPath + 'bgLight.png');
+    lightbg.alpha = 0;
+    addSprite(lightbg, BEHIND_ALL);
+    stage.addElement('lightbg', lightbg);
+
+    var darkstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsDark.png');
+    addSprite(darkstairs, BEHIND_ALL);
+    stage.addElement('darkstairs', darkstairs);
+
+    lightstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsLight.png');
+    lightstairs.alpha = 0;
+    addSprite(lightstairs, BEHIND_ALL);
+    stage.addElement('lightstairs', lightstairs);
+
+    if (gf.characterExists(getHaxeActor("gf").curCharacter + '-dark'))
+    	darkgf = addCharacter(getHaxeActor("gf").curCharacter + '-dark', 'gf');
+    else { // no dark mode
+	darkgf = addCharacter(getHaxeActor("gf").curCharacter, 'gf');
+	darkgf.color = 0xFF191919;
+    }
+    darkgf.beNormal = false;
+    addSprite(darkgf, BEHIND_ALL);
+    stage.addElement('darkgf', darkgf);
+
+    if (gf.characterExists(getHaxeActor("bf").curCharacter + '-dark'))
+	darkbf = addCharacter(getHaxeActor("bf").curCharacter + '-dark', 'bf');
+    else { // no dark mode
+	darkbf = addCharacter(getHaxeActor("bf").curCharacter, 'bf');
+	darkbf.color = 0xFF191919;
+    }
+    darkbf.beNormal = false;
+    addSprite(darkbf, BEHIND_BF);
+    stage.addElement('darkbf', darkbf);
+
+    if (gf.characterExists(getHaxeActor("dad").curCharacter + '-dark'))
+	darkdad = addCharacter(getHaxeActor("dad").curCharacter + '-dark', 'dad');
+    else { // no dark mode
+	darkdad = addCharacter(getHaxeActor("dad").curCharacter, 'dad');
+	darkdad.color = 0xFF191919;
+    }
+    darkdad.beNormal = false;
+    addSprite(darkdad, BEHIND_DAD);
+    stage.addElement('darkdad', darkdad);
+
+    getHaxeActor("gf").alpha = 0;
+    getHaxeActor("boyfriend").alpha = 0;
+    getHaxeActor("dad").alpha = 0;
 }
 
 var lightningBeat = 0;
 var lightningOffset = 8;
 function beatHit(beat) {
     if (FlxG.random.bool(10) && beat > lightningBeat + lightningOffset) {
-        FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'lightning.ogg'));
-        bg.animation.play("lightning");
+        FlxG.sound.play(FNFAssets.getSound(statichscriptPath + 'lightning.ogg'));
+	if (erectness) {
+	    getHaxeActor("boyfriend").alpha = 1;
+	    getHaxeActor("gf").alpha = 1;
+	    getHaxeActor("dad").alpha = 1;
+	    lightbg.alpha = 1;
+	    lightstairs.alpha = 1;
+	    new FlxTimer().start(0.06, function() {
+	        getHaxeActor("boyfriend").alpha = 0;
+	        getHaxeActor("gf").alpha = 0;
+	        getHaxeActor("dad").alpha = 0;
+	        lightbg.alpha = 0;
+	        lightstairs.alpha = 0;
+	    });
+	    new FlxTimer().start(0.12, function() {
+	        getHaxeActor("boyfriend").alpha = 1;
+	        getHaxeActor("gf").alpha = 1;
+	        getHaxeActor("dad").alpha = 1;
+	        lightbg.alpha = 1;
+	        lightstairs.alpha = 1;
+		FlxTween.tween(getHaxeActor("boyfriend"), {alpha: 0}, 1.5);
+		FlxTween.tween(getHaxeActor("gf"), {alpha: 0}, 1.5);
+		FlxTween.tween(getHaxeActor("dad"), {alpha: 0}, 1.5);
+		FlxTween.tween(lightbg, {alpha: 0}, 1.5);
+		FlxTween.tween(lightstairs, {alpha: 0}, 1.5);
+	    });
+	} else
+	    bg.animation.play("lightning");
         lightningBeat = beat;
-        lightningOffset = FlxG.random.int(8,24);
+        lightningOffset = FlxG.random.int(8, 24);
         getHaxeActor("boyfriend").playAnim("scared", true);
         getHaxeActor("gf").playAnim("scared", true);
     }
 }
 
-function update(elapsed)
-{
-}
+// currently recursively adds characters if a character has no -dark
+/*function characterAdded(char, type) {
+    if (StringTools.endsWith(char, '-dark')) return;
+    var darkchar;
+    if (gf.characterExists(char + '-dark'))
+	darkchar = addCharacter(char.curCharacter + '-dark', type);
+    else {
+	darkchar = addCharacter(char.curCharacter, type);
+	darkchar.color = 0xFF191919;
+    }
+    switch(type) {
+	case 'bf':
+	    darkbf = darkchar;
+	case 'gf':
+	    darkgf = darkchar;
+	case 'dad':
+	    darkdad = darkchar;
+    }
+}*/
 
-function stepHit(step)
-{
+function update(elapsed) {
+    darkbf.playAnim(getHaxeActor("boyfriend").animation.curAnim.name, true, false, getHaxeActor("boyfriend").animation.curAnim.curFrame);
+    darkgf.playAnim(getHaxeActor("gf").animation.curAnim.name, true, false, getHaxeActor("gf").animation.curAnim.curFrame);
+    darkdad.playAnim(getHaxeActor("dad").animation.curAnim.name, true, false, getHaxeActor("dad").animation.curAnim.curFrame);
 }
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
-}
-

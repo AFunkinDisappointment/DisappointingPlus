@@ -1,0 +1,176 @@
+function start(song) {
+    FocusCamera({char: 1});
+}
+
+function stepHit(step) {
+    switch(step) {
+	case 32:
+		FocusCamera({char: 0});
+	case 64:
+		FocusCamera({char: 1});
+	case 96:
+		ZoomCamera({zoom: 0.8, duration: 64, ease: 'quadInOut', mode: 'stage'});
+		FocusCamera({char: 0});
+	case 127:
+		SetCameraBop({rate: 2, intensity: 1.4});
+	case 128:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 8, ease: 'expoOut', mode: 'stage'});
+	case 192:
+		FocusCamera({char: 0});
+	case 232:
+		ZoomCamera({zoom: 1.05, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 256:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 288:
+		FocusCamera({char: 1, x: 80});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 320:
+		FocusCamera({char: 0});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 338:
+		ZoomCamera({zoom: 1.1, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 352:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 383:
+		SetCameraBop({rate: 1, intensity: 0.4});
+	case 384:
+		FocusCamera({char: 1});
+	case 448:
+		FocusCamera({char: 0});
+	case 464:
+		ZoomCamera({zoom: 1.04, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 479:
+		SetCameraBop({rate: 1, intensity: 0.5});
+	case 480:
+		ZoomCamera({zoom: 1.08, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 487:
+		SetCameraBop({rate: 1, intensity: 0.6});
+	case 488:
+		ZoomCamera({zoom: 1.12, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 495:
+		SetCameraBop({rate: 1, intensity: 0.7});
+	case 496:
+		ZoomCamera({zoom: 1.16, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 503:
+		SetCameraBop({rate: 1, intensity: 0});
+	case 504:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 511:
+		SetCameraBop({rate: 2, intensity: 1.4});
+	case 512:
+		FocusCamera({char: 1});
+	case 527:
+		SetCameraBop({rate: 2, intensity: 0});
+	case 543:
+		SetCameraBop({rate: 2, intensity: 2.5});
+	case 544:
+		FocusCamera({char: 1, x: 80});
+	case 545:
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 575:
+		SetCameraBop({rate: 2, intensity: 1.8});
+	case 576:
+		FocusCamera({char: 0});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 592:
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 608:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 632:
+		ZoomCamera({zoom: 1.04, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 636:
+		ZoomCamera({zoom: 1.08, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 639:
+		SetCameraBop({rate: 2, intensity: 2});
+	case 640:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 655:
+		SetCameraBop({rate: 2, intensity: 0});
+	case 671:
+		SetCameraBop({rate: 2, intensity: 2.5});
+	case 672:
+		FocusCamera({char: 1, x: 80});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 703:
+		SetCameraBop({rate: 2, intensity: 1.8});
+	case 704:
+		FocusCamera({char: 0});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 720:
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 736:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 751:
+		SetCameraBop({rate: 2, intensity: 0});
+	case 752:
+		ZoomCamera({zoom: 1.05, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 767:
+		SetCameraBop({rate: 1, intensity: 0.4});
+	case 768:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 832:
+		FocusCamera({char: 0});
+	case 848:
+		ZoomCamera({zoom: 1.04, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 863:
+		SetCameraBop({rate: 1, intensity: 0.5});
+	case 864:
+		ZoomCamera({zoom: 1.08, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 871:
+		SetCameraBop({rate: 1, intensity: 0.6});
+	case 872:
+		ZoomCamera({zoom: 1.12, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 879:
+		SetCameraBop({rate: 1, intensity: 0.7});
+	case 880:
+		ZoomCamera({zoom: 1.16, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 887:
+		SetCameraBop({rate: 1, intensity: 0});
+	case 888:
+		ZoomCamera({zoom: 1.2, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 892:
+		ZoomCamera({zoom: 1.1, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 895:
+		SetCameraBop({rate: 2, intensity: 2});
+	case 896:
+		FocusCamera({char: 1});
+	case 897:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 934:
+		FocusCamera({char: 1, x: 80});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 960:
+		FocusCamera({char: 0});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 976:
+		ZoomCamera({zoom: 1.05, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 992:
+		FocusCamera({char: 1, x: 80});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1024:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1058:
+		FocusCamera({char: 1, x: 80});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1088:
+		FocusCamera({char: 0});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1112:
+		ZoomCamera({zoom: 1.05, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1120:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1135:
+		SetCameraBop({rate: 1});
+	case 1136:
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1144:
+		ZoomCamera({zoom: 0.9, duration: 16, ease: 'expoOut', mode: 'stage'});
+	case 1151:
+		SetCameraBop({rate: 1, intensity: 0});
+    }
+}

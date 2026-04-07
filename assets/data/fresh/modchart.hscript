@@ -1,14 +1,10 @@
-
 function start(song) {
 
 }
 
-
-function beatHit(beat)
-{
+function beatHit(beat) {
     switch (beat) {
         case 16:
-            camZooming = true;
             gfSpeed = 2;
         case 48:
             gfSpeed = 1;

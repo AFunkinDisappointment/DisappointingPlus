@@ -9,10 +9,18 @@ var timeBarBG;
 var timeBar;
 var botplayTxt;
 var botplaySine = 0;
+var deDifficTxt;
 function start(song) {
 	disableScoreChange(true);
 
-	difficTxt.text = 'Psych Replica UI';
+	deDifficTxt = new FlxText(difficTxt.x, difficTxt.y - difficTxt.height, 0, 'Psych UI Replica');
+	deDifficTxt.font = difficTxt.font;
+	deDifficTxt.size = difficTxt.size;
+	deDifficTxt.borderStyle = difficTxt.borderStyle;
+	deDifficTxt.borderColor = difficTxt.borderColor;
+	deDifficTxt.alignment = 'left';
+	deDifficTxt.cameras = [camHUD];
+	addSprite(deDifficTxt);
 
         scoreTxt.x = 0;
         scoreTxt.fieldWidth = FlxG.width;

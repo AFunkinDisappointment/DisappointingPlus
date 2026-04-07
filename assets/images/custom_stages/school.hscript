@@ -1,115 +1,131 @@
 var gorls;
-var bruh;
 function start(song) {
-    getHaxeActor("bf").x += 50;
-    getHaxeActor("bf").y += 60;
-    getHaxeActor('gf').x -= 100;
-    getHaxeActor('gf').y += 10;
-    getHaxeActor('bf').followCamX -= 100;
+    setDefaultZoom(1);
+
+    getHaxeActor("bf").x += 250;
+    getHaxeActor('bf').followCamX -= 200;
+    getHaxeActor('gf').x += 75;
+    getHaxeActor('gf').y += 25;
+    getHaxeActor('gf').scrollFactor.set(1, 1);
+    getHaxeActor("dad").x += 100;
 
     // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    setSwapOffsets('bf', [50, 60]);
-    setSwapOffsets('gf', [-100, 10]);
+    setSwapOffsets('bf', [250, 0]);
+    setSwapOffsets('gf', [75, 25]);
+    setSwapOffsets('dad', [100, 0]);
 
-    var bg = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebSky.png');
-    bg.scrollFactor.set(0.1,0.1);
-    var widShit = Std.int(bg.width * 6);
-    bg.setGraphicSize(Std.int(6*bg.width));
+    if (songData.stageID == 1) {
+	hscriptPath += 'erect/';
+
+	makeRimShader(getHaxeActor("bf"), 'bf');
+	makeRimShader(getHaxeActor("gf"), 'gf');
+	makeRimShader(getHaxeActor("dad"), 'dad');
+    }
+
+    var bg = new FlxSprite(-164, -78).loadGraphic(hscriptPath + 'weebSky.png');
+    bg.scrollFactor.set(0.2, 0.2);
+    bg.scale.set(6, 6);
     bg.updateHitbox();
     addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
 
-    var school = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebSchool.png');
-    school.setGraphicSize(widShit);
+    var backtrees = new FlxSprite(-242, -80).loadGraphic(hscriptPath + 'weebBackTrees.png');
+    backtrees.scrollFactor.set(0.5, 0.5);
+    backtrees.scale.set(6, 6);
+    backtrees.updateHitbox();
+    addSprite(backtrees, BEHIND_ALL);
+    stage.addElement('backtrees', backtrees);
+
+    var school = new FlxSprite(-216, -38).loadGraphic(hscriptPath + 'weebSchool.png');
+    school.scale.set(6, 6);
     school.updateHitbox();
-    school.scrollFactor.set(0.6, 0.9);
+    school.scrollFactor.set(0.75, 0.75);
     addSprite(school, BEHIND_ALL);
+    stage.addElement('school', school);
 
-    var street = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebStreet.png');
-    street.scrollFactor.set(0.95, 0.95);
-    street.setGraphicSize(widShit);
+    var street = new FlxSprite(-200, 6).loadGraphic(hscriptPath + 'weebStreet.png');
+    street.scale.set(6, 6);
     street.updateHitbox();
     addSprite(street, BEHIND_ALL);
+    stage.addElement('street', street);
 
-    var treesBack = new FlxSprite(-30, 130).loadGraphic(hscriptPath + 'weebTreesBack.png');
-    treesBack.setGraphicSize(Std.int(widShit * 0.8));
+    var treesBack = new FlxSprite(-200, 6).loadGraphic(hscriptPath + 'weebTreesBack.png');
+    treesBack.scale.set(6, 6);
     treesBack.updateHitbox();
-    treesBack.scrollFactor.set(0.9, 0.9);
     addSprite(treesBack, BEHIND_ALL);
+    stage.addElement('treesBack', treesBack);
 
-    var trees = new FlxSprite(-580, -800);
+    var trees = new FlxSprite(-806, -1050);
     trees.frames = FlxAtlasFrames.fromSpriteSheetPacker(hscriptPath + 'weebTrees.png', hscriptPath + 'weebTrees.txt');
-    trees.animation.add("treeLoop", makeRangeArray(0, 18), 12, true);
+    trees.animation.add("treeLoop", makeRangeArray(18), 12, true);
     trees.animation.play("treeLoop");
-    trees.setGraphicSize(Std.int(widShit * 1.4));
+    trees.scale.set(6, 6);
     trees.updateHitbox();
-    trees.scrollFactor.set(0.85, 0.85);
     addSprite(trees, BEHIND_ALL);
+    stage.addElement('trees', trees);
 
-    var petals = new FlxSprite(-200, -40);
+    var petals = new FlxSprite(-20, -40);
     petals.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'petals.png', hscriptPath + 'petals.xml');
     petals.animation.addByPrefix("leaves", "PETALS ALL", 24, true);
     petals.animation.play("leaves");
-    petals.setGraphicSize(Std.int(widShit * 1.4));
+    petals.scale.set(6, 6);
+    petals.updateHitbox();
     petals.scrollFactor.set(0.85, 0.85);
     addSprite(petals, BEHIND_ALL);
+    stage.addElement('petals', petals);
 
-    gorls = new MetroSprite(-100, 190, false);
-    gorls.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgFreaks.png', hscriptPath + 'bgFreaks.xml');
-    gorls.animation.addByIndices("danceLeft", "BG girls group", makeRangeArray(14), "", 24, false);
-    gorls.animation.addByIndices("danceRight", "BG girls group", makeRangeArray(30, 15), "", 24, false);
-    if (songData.isMoody) {
-        gorls.animation.addByIndices("danceLeft", "BG fangirls dissuaded", makeRangeArray(14),"",24,false);
-	gorls.animation.addByIndices("danceRight", "BG fangirls dissuaded", makeRangeArray(30, 15), "", 24, false);
+    if (songData.stageID != 1) {
+	gorls = new MetroSprite(-646, 222, false);
+	gorls.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgFreaks.png', hscriptPath + 'bgFreaks.xml');
+	if (songData.isMoody) {
+            gorls.animation.addByIndices("danceLeft", "BG fangirls dissuaded", makeRangeArray(14),"",24,false);
+	    gorls.animation.addByIndices("danceRight", "BG fangirls dissuaded", makeRangeArray(30, 15), "", 24, false);
+	} else {
+	    gorls.animation.addByIndices("danceLeft", "BG girls group", makeRangeArray(14), "", 24, false);
+	    gorls.animation.addByIndices("danceRight", "BG girls group", makeRangeArray(30, 15), "", 24, false);
+        }
+	gorls.scale.set(6, 6);
+	gorls.animation.play("danceLeft", true);
+	gorls.antialiasing = false;
+	addSprite(gorls, BEHIND_ALL);
+	stage.addElement('girls', gorls);
     }
-    gorls.setGraphicSize(Std.int(6 * gorls.width));
-    gorls.updateHitbox();
-    gorls.animation.play("danceLeft", true);
-    gorls.antialiasing = false;
-    addSprite(gorls, BEHIND_ALL);
-
-    bruh = new FlxSprite().loadGraphic(hscriptPath + 'Scanlines.png');
-    bruh.alpha = 0.8;
-    bruh.antialiasing = true;
-    bruh.cameras = [camHUD];
-    bruh.visible = false;
-    addSprite(bruh, BEHIND_NONE);
 }
 
-var danceDir = false;
+function onCharacterAdded(char, type) {
+    makeRimShader(char, type);
+}
+
+function makeRimShader(char, type) {
+    var rim = new DropShadowShader();
+    rim.setAdjustColor(-66, -10, 24, -23);
+    rim.color = 0xFF52351d;
+    if (char.isPixel) {
+	rim.antialiasAmt = 0;
+	rim.distance = 5;
+    }
+    char.shader = rim;
+    rim.attachedSprite = char;
+
+    rim.angle = 90;
+
+    switch(type) {
+	case 'gf':
+	    rim.setAdjustColor(-42, -10, 5, -25);
+	    rim.distance = 3;
+	    rim.threshold = 0.3;
+    }
+    if (FileSystem.exists(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png')) {
+	rim.loadAltMask(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png');
+	rim.useAltMask = true;
+	rim.maskThreshold = 1;
+    }
+    char.animation.callback = function() {
+	rim.updateFrameInfo(char.frame);
+    };
+}
+stage.addFunction('makeRimShader', makeRimShader);
+
 function beatHit(beat) {
     gorls.dance();
 }
-
-function update(elapsed) {
-    if (FlxG.keys.justPressed.SPACE)
-	bruh.visible = !bruh.visible;
-}
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
-}
-

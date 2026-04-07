@@ -1,0 +1,404 @@
+var lightsStop = false;
+var lastChange = 0;
+var changeInterval = 8;
+
+var carWaiting = false;
+var carInterruptable = true;
+var car2Interruptable = true;
+
+var scrollingSky;
+var traffic;
+var carA;
+var carB;
+var statichscriptPath;
+
+var mists = [];
+var mist0;
+var mist1;
+var mist2;
+var mist3;
+var mist4;
+var mist5;
+function start(song) {
+    setDefaultZoom(0.77);
+
+    getHaxeActor('bf').x += 1200;
+    getHaxeActor('bf').y += 350;
+    getHaxeActor('bf').followCamX -= 300;
+    getHaxeActor('gf').x += 750;
+    getHaxeActor('gf').y += 275;
+    getHaxeActor('dad').x += 525;
+    getHaxeActor('dad').y += 350;
+    getHaxeActor('dad').followCamX += 150;
+
+    setSwapOffsets('bf', [1200, 350]);
+    setSwapOffsets('gf', [750, 275]);
+    setSwapOffsets('dad', [525, 350]);
+
+    statichscriptPath = hscriptPath;
+
+    switch(songData.stageID) {
+	case 1:
+	    erectStage();
+	default:
+	    normalStage(false);
+    }
+
+    resetCar(true, true);
+}
+
+function normalStage(erect) {
+    scrollingSky = new FlxTiledSprite(hscriptPath + 'phillySkybox.png', 2922, 718, true, false);
+    scrollingSky.setPosition(-650, -375);
+    scrollingSky.scrollFactor.set(0.1, 0.1);
+    scrollingSky.scale.set(0.65, 0.65);
+    addSprite(scrollingSky, BEHIND_ALL);
+    stage.addElement('sky', scrollingSky);
+
+    var skyline = new FlxSprite(-545, -273).loadGraphic(hscriptPath + 'phillySkyline.png');
+    skyline.scrollFactor.set(0.2, 0.2);
+    skyline.antialiasing = true;
+    addSprite(skyline, BEHIND_ALL);
+    stage.addElement('skyline', skyline);
+
+    var foregroundcity = new FlxSprite(625, 94).loadGraphic(hscriptPath + 'phillyForegroundCity.png');
+    foregroundcity.scrollFactor.set(0.3, 0.3);
+    foregroundcity.antialiasing = true;
+    addSprite(foregroundcity, BEHIND_ALL);
+    stage.addElement('foregroundcity', foregroundcity);
+
+    if (erect)
+	addSprite(mist5, BEHIND_ALL);
+
+    var construction = new FlxSprite(1800, 364).loadGraphic(hscriptPath + 'phillyConstruction.png');
+    construction.scrollFactor.set(0.7, 1);
+    construction.antialiasing = true;
+    addSprite(construction, BEHIND_ALL);
+    stage.addElement('construction', construction);
+
+    var highwaylights = new FlxSprite(284, 305).loadGraphic(hscriptPath + 'phillyHighwayLights.png');
+    highwaylights.antialiasing = true;
+    addSprite(highwaylights, BEHIND_ALL);
+    stage.addElement('highwaylights', highwaylights);
+
+    var highwaylightmap = new FlxSprite(284, 305).loadGraphic(statichscriptPath + 'phillyHighwayLights_lightmap.png');
+    highwaylightmap.antialiasing = true;
+    highwaylightmap.blend = 0;
+    highwaylightmap.alpha = 0.6;
+    addSprite(highwaylightmap, BEHIND_ALL);
+    stage.addElement('highwaylightmap', highwaylightmap);
+
+    var highway = new FlxSprite(139, 209).loadGraphic(hscriptPath + 'phillyHighway.png');
+    highway.antialiasing = true;
+    addSprite(highway, BEHIND_ALL);
+    stage.addElement('highway', highway);
+
+    var smog = new FlxSprite(139, 209).loadGraphic(hscriptPath + 'phillySmog.png');
+    smog.scrollFactor.set(0.8, 1);
+    smog.antialiasing = true;
+    if (!erect) {
+	addSprite(smog, BEHIND_ALL);
+	stage.addElement('smog', smog);
+    }
+
+    carA = new FlxSprite(1748, 818);
+    carA.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'phillyCars.png', hscriptPath + 'phillyCars.xml');
+    carA.animation.addByPrefix("car1", "car1", 24, false);
+    carA.animation.addByPrefix("car2", "car2", 24, false);
+    carA.animation.addByPrefix("car3", "car3", 24, false);
+    carA.animation.addByPrefix("car4", "car4", 24, false);
+    carA.animation.play("car1");
+    carA.scrollFactor.set(0.9, 1);
+    carA.antialiasing = true;
+    addSprite(carA, BEHIND_ALL);
+    stage.addElement('carA', carA);
+
+    carB = carA.clone();
+    carB.flipX = true;
+    addSprite(carB, BEHIND_ALL);
+    stage.addElement('carB', carB);
+
+    if (erect)
+	addSprite(mist4, BEHIND_ALL);
+
+    traffic = new FlxSprite(1840, 608);
+    traffic.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'phillyTraffic.png', hscriptPath + 'phillyTraffic.xml');
+    traffic.animation.addByPrefix("togreen", "redtogreen", 24, false);
+    traffic.animation.addByPrefix("tored", "greentored", 24, false);
+    traffic.animation.play("togreen");
+    traffic.scrollFactor.set(0.9, 1);
+    traffic.antialiasing = true;
+    addSprite(traffic, BEHIND_ALL);
+    stage.addElement('traffic', traffic);
+
+    var trafficlightmap = new FlxSprite(1840, 608).loadGraphic(hscriptPath + 'phillyTraffic_lightmap.png');
+    trafficlightmap.scrollFactor.set(0.9, 1);
+    trafficlightmap.antialiasing = true;
+    trafficlightmap.blend = 0;
+    trafficlightmap.alpha = 0.6;
+    addSprite(trafficlightmap, BEHIND_ALL);
+    stage.addElement('trafficlightmap', trafficlightmap);
+
+    if (erect)
+	addSprite(mist3, BEHIND_ALL);
+
+    var foreground = new FlxSprite(88, 317).loadGraphic(hscriptPath + 'phillyForeground.png');
+    foreground.antialiasing = true;
+    addSprite(foreground, BEHIND_ALL);
+    stage.addElement('foreground', foreground);
+
+    var spraycanpile = new FlxSprite(920, 1045).loadGraphic(statichscriptPath + 'SpraycanPile.png');
+    spraycanpile.antialiasing = true;
+    if (!erect) { //songData.player2 == 'darnell'
+	addSprite(spraycanpile, BEHIND_NONE);
+	stage.addElement('spraycanpile', spraycanpile);
+    }
+
+    if (erect) {
+	addSprite(mist0, BEHIND_NONE);
+	addSprite(mist1, BEHIND_NONE);
+	addSprite(mist2, BEHIND_NONE);
+    }
+}
+
+function erectStage() {
+    hscriptPath += 'erect/';
+
+    var colorShader = new FlxRuntimeShader('adjustColor');
+    colorShader.setFloat('hue', -5);
+    colorShader.setFloat('saturation', -40);
+    colorShader.setFloat('contrast', -25);
+    colorShader.setFloat('brightness', -20);
+
+    getHaxeActor('bf').shader = colorShader;
+    getHaxeActor('gf').shader = colorShader;
+    getHaxeActor('dad').shader = colorShader;
+
+    mist0 = new FlxBackdrop(hscriptPath + 'mistMid.png', 0x01);
+    mist0.scrollFactor.set(1.2, 1.2);
+    mist0.alpha = 0.6;
+    mist0.velocity.x = 172;
+
+    mist1 = new FlxBackdrop(hscriptPath + 'mistMid.png', 0x01);
+    mist1.scrollFactor.set(1.1, 1.1);
+    mist1.alpha = 0.6;
+    mist1.velocity.x = 150;
+
+    mist2 = new FlxBackdrop(hscriptPath + 'mistBack.png', 0x01);
+    mist2.scrollFactor.set(1.2, 1.2);
+    mist2.alpha = 0.8;
+    mist2.velocity.x = -80;
+
+    mist3 = new FlxBackdrop(hscriptPath + 'mistMid.png', 0x01);
+    mist3.scrollFactor.set(0.95, 0.95);
+    mist3.alpha = 0.5;
+    mist3.velocity.x = -50;
+
+    mist4 = new FlxBackdrop(hscriptPath + 'mistBack.png', 0x01);
+    mist4.scrollFactor.set(0.8, 0.8);
+    mist4.velocity.x = 40;
+    mist4.scale.set(0.7, 0.7);
+
+    mist5 = new FlxBackdrop(hscriptPath + 'mistBack.png', 0x01);
+    mist5.scrollFactor.set(0.5, 0.5);
+    mist5.velocity.x = 20;
+    mist5.scale.set(1.1, 1.1);
+
+    mists = [mist0, mist1, mist2, mist3, mist4, mist5];
+    for (aMist in mists) {
+	aMist.setPosition(-650, -100);
+	aMist.color = 0xFF5c5c5c;
+	aMist.blend = 0;
+    }
+    stage.addElement('mists', mists);
+
+    normalStage(true);
+}
+
+function changeLights(beat) {
+    lastChange = beat;
+    lightsStop = !lightsStop;
+
+    if (lightsStop){
+	traffic.animation.play('tored');
+	changeInterval = 20;
+    } else {
+	traffic.animation.play('togreen');
+	changeInterval = 30;
+
+	if (carWaiting == true) finishCarLights(carA);
+    }
+}
+
+function resetCar(left, right){
+    if (left) {
+	carWaiting = false;
+	carInterruptable = true;
+	if (carA != null) {
+	    FlxTween.cancelTweensOf(carA);
+	    carA.x = 1200;
+	    carA.y = 818;
+	    carA.angle = 0;
+	}
+    }
+
+    if (right) {
+	car2Interruptable = true;
+	if (carB != null) {
+	    FlxTween.cancelTweensOf(carB);
+	    carB.x = 1200;
+	    carB.y = 818;
+	    carB.angle = 0;
+	}
+    }
+}
+
+function songStart(song) {
+    resetCar(true, true);
+}
+
+function finishCarLights(sprite) {
+    carWaiting = false;
+    var duration = FlxG.random.float(1.8, 3);
+    var rotations = [-5, 18];
+    var offset = [306.6, 168.3];
+    var startdelay = FlxG.random.float(0.2, 1.2);
+
+    var path = [
+	getFlxPoint(1950 - offset[0] - 80, 980 - offset[1] + 15),
+	getFlxPoint(2400 - offset[0], 980 - offset[1] - 50),
+	getFlxPoint(3102 - offset[0], 1127 - offset[1] + 40)
+    ];
+
+    FlxTween.angle(sprite, rotations[0], rotations[1], duration, {ease: FlxEase.sineIn, startDelay: startdelay});
+    FlxTween.quadPath(sprite, path, duration, true, {
+	ease: FlxEase.sineIn,
+	startDelay: startdelay,
+	onComplete: function(_) {
+	    carInterruptable = true;
+	}
+    });
+}
+
+function driveCar(sprite, back) {
+    if (back) car2Interruptable = false else carInterruptable = false;
+    FlxTween.cancelTweensOf(sprite);
+    var variant = FlxG.random.int(1, 4);
+    sprite.animation.play('car' + variant);
+
+    var lightisstop = lightsStop;
+
+    var extraOffset = [0, 0];
+    var duration = 2;
+
+    switch(variant) {
+	case 1:
+	    duration = FlxG.random.float(1, 1.7);
+	case 2:
+	    extraOffset = [20, -15];
+	    duration = FlxG.random.float(0.6, 1.2);
+	case 3:
+	    extraOffset = [30, 50];
+	    duration = FlxG.random.float(1.5, 2.5);
+	case 4:
+	    extraOffset = [10, 60];
+	    duration = FlxG.random.float(1.5, 2.5);
+    }
+
+    var rotations = [-8, 18];
+    if (back)
+	rotations = [18, -8];
+    else if (lightisstop)
+	rotations = [-7, -5];
+
+    var offset = [306.6, 168.3];
+    sprite.offset.set(extraOffset[0], extraOffset[1]);
+
+    var path = [
+	getFlxPoint(1570 - offset[0], 1049 - offset[1] - 30),
+	getFlxPoint(2400 - offset[0], 980 - offset[1] - 50),
+	getFlxPoint(3102 - offset[0], 1127 - offset[1] + 40)
+    ];
+    if (back)
+	path = [
+	    getFlxPoint(3102 - offset[0], 1127 - offset[1] + 60),
+	    getFlxPoint(2400 - offset[0], 980 - offset[1] - 30),
+	    getFlxPoint(1570 - offset[0], 1049 - offset[1] - 10)
+	];
+    else if (lightsStop)
+	path = [
+	    getFlxPoint(1500 - offset[0] - 20, 1049 - offset[1] - 20),
+	    getFlxPoint(1770 - offset[0] - 80, 994 - offset[1] + 10),
+	    getFlxPoint(1950 - offset[0] - 80, 980 - offset[1] + 15)
+	];
+
+    daEase = lightisstop ? FlxEase.cubeOut : null;
+    FlxTween.angle(sprite, rotations[0], rotations[1], duration, {ease: daEase});
+    FlxTween.quadPath(sprite, path, duration, true, {
+	ease: daEase,
+	onComplete: function(_) {
+	    if (back) {
+		car2Interruptable = true;
+	    } else if (lightisstop) {
+		carWaiting = true;
+	    	if (lightsStop == false) finishCarLights(carA);
+	    } else {
+		carInterruptable = true;
+	    }
+	}
+    });
+}
+var trafficDanced = false;
+function beatHit(beat) {
+    if (FlxG.random.bool(10) && beat != (lastChange + changeInterval) && carInterruptable == true)
+	driveCar(carA, false);
+
+    if (FlxG.random.bool(10) && beat != (lastChange + changeInterval) && car2Interruptable == true && lightsStop == false) 
+	driveCar(carB, true);
+
+    if (beat == (lastChange + changeInterval)) 
+	changeLights(beat);
+}
+
+function pauseCars() {
+    if (carA != null)
+	CoolUtil.pauseTweensOf(carA);
+
+    if (carB != null)
+	CoolUtil.pauseTweensOf(carB);
+}
+
+function resumeCars() {
+    if (carA != null)
+	CoolUtil.resumeTweensOf(carA);
+
+    if (carB != null)
+	CoolUtil.resumeTweensOf(carB);
+}
+
+function onPause() {
+    pauseCars();
+}
+
+function onResume() {
+    resumeCars();
+}
+
+var _timer = 0;
+var sillyMist = [
+    [660, 0.35, 70],
+    [500, 0.3, 80],
+    [540, 0.4, 60],
+    [230, 0.3, 70],
+    [170, 0.35, 50],
+    [-80, 0.08, 100]
+];
+function update(elapsed) {
+    scrollingSky.scrollX -= elapsed * 22;
+
+    _timer += elapsed;
+    for (i in 0...mists.length) {
+	var aMist = sillyMist[i];
+	mists[i].y = aMist[0] + Math.sin(_timer * aMist[1]) * aMist[2];
+    }
+}

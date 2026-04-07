@@ -57,6 +57,13 @@ class AnimationDebug extends FlxState {
 	var greenSlider:FlxSlider;
 	var blueSlider:FlxSlider;
 
+	// camera
+	var followCamX:FlxUINumericStepper;
+	var followCamY:FlxUINumericStepper;
+	
+	var forceFollowCam:FlxUICheckBox;
+	var followingFollowCam:Bool = false;
+
 	// swapchars
 	var bfText:FlxUIInputText;
 	var dadText:FlxUIInputText;
@@ -174,6 +181,8 @@ class AnimationDebug extends FlxState {
 		FlxG.mouse.visible = true;
 		camBG.follow(camFollow);
 
+		updateCharInfo();
+
 		super.create();
 	}
 
@@ -188,7 +197,8 @@ class AnimationDebug extends FlxState {
 		var tab_group_anims = new FlxUI(null, UI_box);
 		tab_group_anims.name = "Anims";
 
-		animOffsetsCheck = new FlxUICheckBox(10, 70, null, null, "Move Anim Offsets", 100);
+		animOffsetsCheck = new FlxUICheckBox(150, 10, null, null, "Move Anim Offsets", 100);
+		animOffsetsCheck.checked = true;
 		animOffsetsCheck.callback = function() {
 			newSelector(animOffsetsCheck);
 			selectedConfig = 'animoffsets';
@@ -219,13 +229,25 @@ class AnimationDebug extends FlxState {
 		var tab_group_camera = new FlxUI(null, UI_box);
 		tab_group_camera.name = "Camera";
 
-		followCamCheck = new FlxUICheckBox(10, 10, null, null, "Move Follow Cam", 100);
+		followCamCheck = new FlxUICheckBox(150, 10, null, null, "Move Follow Cam", 100);
 		followCamCheck.callback = function() {
 			newSelector(followCamCheck);
 			selectedConfig = 'followcam';
 		}
 
+		followCamX = new FlxUINumericStepper(10, 10, 10, 0);
+		followCamY = new FlxUINumericStepper(70, 10, 10, 0);
+
+		forceFollowCam = new FlxUICheckBox(10, 50, null, null, "Force Follow Cam", 100);
+		forceFollowCam.callback = function() {
+			followingFollowCam = forceFollowCam.checked;
+		}
+
+		tab_group_camera.add(followCamX);
+		tab_group_camera.add(followCamY);
+
 		tab_group_camera.add(followCamCheck);
+		tab_group_camera.add(forceFollowCam);
 		UI_box.addGroup(tab_group_camera);
 	}
 
@@ -364,10 +386,7 @@ class AnimationDebug extends FlxState {
 		for (anim => offsets in char.animOffsets) {
 			var text:FlxText = new FlxText(10, 20 + (18 * daLoop), 0, anim + ": " + offsets, 15);
 			text.scrollFactor.set();
-			text.color = if (anim == char.animation.curAnim.name) 
-					FlxColor.RED;
-				else
-					FlxColor.BLUE;
+			text.color = anim == char.animation.curAnim.name ? FlxColor.RED : FlxColor.BLUE;
 			dumbTexts.add(text);
 
 			if (pushList)
@@ -393,6 +412,9 @@ class AnimationDebug extends FlxState {
 		char.gfOffsetX = Std.int(gfOffsetX.value);
 		char.gfOffsetY = Std.int(gfOffsetY.value);
 
+		char.followCamX = Std.int(followCamX.value);
+		char.followCamY = Std.int(followCamY.value);
+
 		if (char == dad) {
 			char.x = 100 + char.enemyOffsetX;
 			char.y = 100 + char.enemyOffsetY;
@@ -414,6 +436,9 @@ class AnimationDebug extends FlxState {
 		gfOffsetX.value = char.gfOffsetX;
 		gfOffsetY.value = char.gfOffsetY;
 
+		followCamX.value = char.followCamX;
+		followCamY.value = char.followCamY;
+
 		var testicon = new HealthIcon(char.curCharacter);
 
 		if (testicon.healthColors.length > 0) {
@@ -424,7 +449,10 @@ class AnimationDebug extends FlxState {
 	}
 
 	function createCharacters(replace:Bool = false) {
-		if (replace) remove(gf);
+		if (replace) {
+			remove(gf);
+			gf.destroy();
+		}
 		gf = new Character(400, 130, daSexyAnim);
 		gf.debugMode = true;
 		gf.x += gf.gfOffsetX;
@@ -432,7 +460,10 @@ class AnimationDebug extends FlxState {
 		gf.cameras = [camBG];
 		add(gf);
 
-	    if (replace) remove(dad);
+	    if (replace) {
+			remove(dad);
+			dad.destroy();
+		}
 	    dad = new Character(100, 100, daAnim);
 		dad.debugMode = true;
 		dad.x += dad.enemyOffsetX;
@@ -441,7 +472,10 @@ class AnimationDebug extends FlxState {
 		add(dad);
 		//dadHScript = FNFAssets.getText('assets/images/custom_chars/' + daAnim + '/char.xml');
 
-		if (replace) remove(bf);
+		if (replace) {
+			remove(bf);
+			bf.destroy();
+		}
 		bf = new Character(770, 450, daOtherAnim, true);
 		bf.debugMode = true;
 		bf.x += bf.playerOffsetX;
@@ -516,8 +550,8 @@ class AnimationDebug extends FlxState {
 					camFollow.velocity.x = 90 * multiplier;
 				else
 					camFollow.velocity.x = 0;
-			} else if (FlxG.keys.pressed.F)
-				if (!holdShift)
+			} else if (FlxG.keys.pressed.F || followingFollowCam)
+				if (!holdShift || followingFollowCam)
 					camFollow.setPosition(char.getMidpoint().x + char.followCamX, char.getMidpoint().y + char.followCamY);
 				else
 					camFollow.setPosition(char.getMidpoint().x, char.getMidpoint().y);
@@ -544,10 +578,7 @@ class AnimationDebug extends FlxState {
 			}
 
 			if (FlxG.keys.justPressed.G)
-				bf.flipX = !bf.flipX;
-
-			if (FlxG.keys.justPressed.H)
-				dad.flipX = !dad.flipX;
+				char.flipX = !char.flipX;
 
 			if (FlxG.keys.justPressed.Y) { //camera origin
 				camFollow.x = 0;
@@ -581,14 +612,66 @@ class AnimationDebug extends FlxState {
 
 			if (upP || rightP || downP || leftP) {
 				updateTexts();
-				if (upP)
-					char.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
-				if (downP)
-					char.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
-				if (leftP)
-					char.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
-				if (rightP)
-					char.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
+				if (upP) {
+					switch(selectedConfig) {
+						case 'animoffsets': 
+							char.animOffsets.get(animList[curAnim])[1] += multiplier;
+						case 'charoffsets':
+							if (char == dad)
+								enemyOffsetY.value -= multiplier;
+							else if (char == gf)
+								gfOffsetY.value -= multiplier;
+							else
+								playerOffsetY.value -= multiplier;
+						case 'followcam':
+							followCamY.value -= 10 * multiplier;
+					}
+				}
+				if (downP) {
+					switch(selectedConfig) {
+						case 'animoffsets': 
+							char.animOffsets.get(animList[curAnim])[1] -= multiplier;
+						case 'charoffsets':
+							if (char == dad)
+								enemyOffsetY.value += multiplier;
+							else if (char == gf)
+								gfOffsetY.value += multiplier;
+							else
+								playerOffsetY.value += multiplier;
+						case 'followcam':
+							followCamY.value += 10 * multiplier;
+					}
+				}
+				if (leftP) {
+					switch(selectedConfig) {
+						case 'animoffsets': 
+							char.animOffsets.get(animList[curAnim])[0] += multiplier;
+						case 'charoffsets':
+							if (char == dad)
+								enemyOffsetX.value -= multiplier;
+							else if (char == gf)
+								gfOffsetX.value -= multiplier;
+							else
+								playerOffsetX.value -= multiplier;
+						case 'followcam':
+							followCamX.value -= 10 * multiplier;
+					}
+				}
+				if (rightP) {
+					switch(selectedConfig) {
+						case 'animoffsets': 
+							char.animOffsets.get(animList[curAnim])[0] -= multiplier;
+						case 'charoffsets':
+							if (char == dad)
+								enemyOffsetX.value += multiplier;
+							else if (char == gf)
+								gfOffsetX.value += multiplier;
+							else
+								playerOffsetX.value += multiplier;
+						case 'followcam':
+							followCamX.value += 10 * multiplier;
+					}
+				}
 
 				updateTexts();
 				genBoyOffsets(false);
@@ -623,7 +706,8 @@ class AnimationDebug extends FlxState {
 						}
 						updateCharacter();
 					case 'followcam':
-							
+						followCamX.value += Math.round(FlxG.mouse.deltaX / camBG.zoom);
+						followCamY.value -= Math.round(FlxG.mouse.deltaY / camBG.zoom);
 				}
 			}
 			if (FlxG.mouse.pressedMiddle) {

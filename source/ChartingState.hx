@@ -563,6 +563,8 @@ class ChartingState extends MusicBeatState {
 
 	var stepperSusLength:FlxUINumericStepper;
 	var stepperAltNote:FlxUINumericStepper;
+	var roundStrumTimeButton:FlxButton;
+	var rawNoteTxt:FlxText;
 	function addNoteUI():Void {
 		var tab_group_note = new FlxUI(null, UI_box);
 		tab_group_note.name = 'Note';
@@ -578,7 +580,15 @@ class ChartingState extends MusicBeatState {
 		stepperAltNote.value = 0;
 		stepperAltNote.name = 'alt_anim_note';
 
+		var roundStrumTimeButton:FlxButton = new FlxButton(10, 200, "Round Strum Time", function() {
+			if (curSelectedNote == null) return;
+			curSelectedNote[0] = Math.round(curSelectedNote[0]);
+			updateNoteUI();
+			updateGrid();
+		});
+
 		var noteTypeButton:FlxButton = new FlxButton(10, 130, "Change Type", function() {
+			if (curSelectedNote == null) return;
 			curSelectedNote[1] %= _song.preferredNoteAmount * 2; // this looks so strange but it works
 			switch (noteType) {
 				case Mine: 
@@ -592,14 +602,19 @@ class ChartingState extends MusicBeatState {
 				case key: 
 					curSelectedNote[1] += _song.preferredNoteAmount * 2 * key;
 			}
+			updateNoteUI();
 			updateGrid();
 		});
+
+		rawNoteTxt = new FlxText(10, 180, 0, '[]', 10, false);
 
 		tab_group_note.add(lengthTxt);
 		tab_group_note.add(stepperSusLength);
 		tab_group_note.add(isAltNoteCheck);
 		tab_group_note.add(stepperAltNote);
+		tab_group_note.add(roundStrumTimeButton);
 		tab_group_note.add(noteTypeButton);
+		tab_group_note.add(rawNoteTxt);
 		UI_box.addGroup(tab_group_note);
 	}
 
@@ -647,20 +662,12 @@ class ChartingState extends MusicBeatState {
 		if (OptionsHandler.options.stressTankmen)
 			inst = CoolUtil.getSongFile(_song.song + "Shit", "assets/songs/" + _song.song + '/');
 
-		inst = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/', true, '-' + DifficultyManager.getDiffName(PlayState.storyDifficulty));
+		inst = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/', true, '-' + DifficultyManager.getDefaultForDiff(PlayState.storyDifficulty));
 
 		if (inst == null)
 			inst = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/');
 
 		FlxG.sound.playMusic(Sound.fromFile(inst), 0.6);
-		/*if (FNFAssets.exists("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Inst" + TitleState.soundExt)) {
-			FlxG.sound.playMusic(Sound.fromFile("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Inst" + TitleState.soundExt), 0.6);
-		} else if (FNFAssets.exists("assets/songs/" + _song.song.toLowerCase() + '/Inst' + TitleState.soundExt)) {
-			FlxG.sound.playMusic(Sound.fromFile("assets/songs/" + _song.song.toLowerCase() + '/Inst' + TitleState.soundExt), 0.6);
-		} else {
-			FlxG.sound.playMusic(Sound.fromFile("assets/music/" + daSong + "_Inst" + TitleState.soundExt), 0.6);
-		}*/
-		//FlxG.sound.playMusic(Sound.fromFile("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Inst" + TitleState.soundExt), 0.6);
 		#else
 		FlxG.sound.playMusic('assets/songs/' + _song.song.toLowerCase() + '/' + daSong + "_Inst" + TitleState.soundExt, 0.6);
 		#end
@@ -670,18 +677,11 @@ class ChartingState extends MusicBeatState {
 			if (OptionsHandler.options.stressTankmen)
 				vocalSound = CoolUtil.getSongFile(_song.song + "Shit", "assets/songs/" + _song.song + '/', false);
 
-			vocalSound = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/', false, '-' + DifficultyManager.getDiffName(PlayState.storyDifficulty));
+			vocalSound = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/', false, '-' + DifficultyManager.getDefaultForDiff(PlayState.storyDifficulty));
 
 			if (vocalSound == null)
 				vocalSound = CoolUtil.getSongFile(_song.song, "assets/songs/" + _song.song + '/', false);
 
-			/*if (FNFAssets.exists("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Voices" + TitleState.soundExt)) {
-				vocalSound = Sound.fromFile("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Voices" + TitleState.soundExt);
-			} else if (FNFAssets.exists("assets/songs/" + _song.song.toLowerCase() + '/Voices' + TitleState.soundExt)) {
-				vocalSound = Sound.fromFile("assets/songs/" + _song.song.toLowerCase() + '/Voices' + TitleState.soundExt);
-			} else {
-				vocalSound = Sound.fromFile("assets/music/" + daSong + "_Voices" + TitleState.soundExt);
-			}*/
 			vocals = new FlxSound().loadEmbedded(Sound.fromFile(vocalSound));
 			#else
 			vocals = new FlxSound().loadEmbedded("assets/songs/" + _song.song.toLowerCase() + '/' + daSong + "_Voices" + TitleState.soundExt);
@@ -734,6 +734,11 @@ class ChartingState extends MusicBeatState {
 					FlxG.log.add('changed bpm shit');
 				case "Alt Animation":
 					_song.notes[curSection].altAnim = check.checked;
+					if (_song.notes[curSection].altAnim && _song.notes[curSection].altAnimNum == 0)
+						_song.notes[curSection].altAnimNum = 1;
+					else if (!_song.notes[curSection].altAnim)
+						_song.notes[curSection].altAnimNum = 0;
+					updateSectionUI();
 				case "Is Moody":
 					_song.isMoody = check.checked;
 				case "Is Spooky":
@@ -772,7 +777,9 @@ class ChartingState extends MusicBeatState {
 					_song.notes[curSection].bpm = nums.value;
 					updateGrid();
 				case 'alt_anim_number':
-					_song.notes[curSection].altAnimNum = Std.int(nums.value);
+					_song.notes[curSection].altAnimNum = Std.int(nums.value); 
+					_song.notes[curSection].altAnim = _song.notes[curSection].altAnimNum == 0 ? false : true;
+					updateSectionUI();
 				case 'alt_anim_note':
 					if (curSelectedNote != null)
 						curSelectedNote[3] = nums.value;
@@ -1115,6 +1122,7 @@ class ChartingState extends MusicBeatState {
 			if (curSelectedNote[2] != null) {
 				curSelectedNote[2] += value;
 				curSelectedNote[2] = Math.max(curSelectedNote[2], 0);
+				if (curSelectedNote[2] <= 0 && curSelectedNote.length == 3) curSelectedNote.pop();
 			}
 		}
 
@@ -1256,9 +1264,8 @@ class ChartingState extends MusicBeatState {
 		check_altAnim.checked = sec.altAnim;
 		check_changeBPM.checked = sec.changeBPM;
 		// note that 0 implies regular anim and 1 implies default alt 
-		if (sec.altAnimNum == null) {
-			sec.altAnimNum == if (sec.altAnim) 1 else 0;
-		}
+		if (sec.altAnimNum == null)
+			sec.altAnimNum = sec.altAnim ? 1 : 0;
 		stepperAltAnim.value = sec.altAnimNum;
 		stepperSectionBPM.value = sec.bpm;
 
@@ -1288,6 +1295,7 @@ class ChartingState extends MusicBeatState {
 			// null is falsy
 			isAltNoteCheck.checked = cast curSelectedNote[3];
 			stepperAltNote.value = curSelectedNote[3] != null ? curSelectedNote[3] : 0;
+			rawNoteTxt.text = curSelectedNote.toString();
 		}
 	}
 
@@ -1373,7 +1381,7 @@ class ChartingState extends MusicBeatState {
 		for (i in sectionInfo) {
 			var daNoteInfo = i[1];
 			var daStrumTime = i[0];
-			var daSus = i[2];
+			var daSus = i[2] != null ? i[2] : 0;
 			var daLift = i[4];
 			
 			var note:EdtNote = new EdtNote(daStrumTime, daNoteInfo, daLift);
@@ -1397,7 +1405,7 @@ class ChartingState extends MusicBeatState {
 			for (i in nextSecInfo) {
 				var daNoteInfo = i[1];
 				var daStrumTime = i[0];
-				var daSus = i[2];
+				var daSus = i[2] != null ? i[2] : 0;
 				var daLift = i[4];
 			
 				var note:EdtNote = new EdtNote(daStrumTime, daNoteInfo, daLift);
@@ -1425,7 +1433,7 @@ class ChartingState extends MusicBeatState {
 			for (i in prevSecInfo) {
 				var daNoteInfo = i[1];
 				var daStrumTime = i[0];
-				var daSus = i[2];
+				var daSus = i[2] != null ? i[2] : 0;
 				var daLift = i[4];
 			
 				var note:EdtNote = new EdtNote(daStrumTime, daNoteInfo, daLift);
@@ -1456,7 +1464,6 @@ class ChartingState extends MusicBeatState {
 			changeBPM: false,
 			mustHitSection: true,
 			sectionNotes: [],
-			typeOfSection: 0,
 			altAnim: false,
 			altAnimNum: 0
 		};
@@ -1506,9 +1513,8 @@ class ChartingState extends MusicBeatState {
 	}
 
 	private function addNote():Void {
-		var noteStrum = getStrumTime(dummyArrow.y) + sectionStartTime();
+		var daNote = [getStrumTime(dummyArrow.y) + sectionStartTime()];
 		var noteData = Math.floor((FlxG.mouse.x - gridBG.x) / GRID_SIZE);
-		var noteSus = 0;
 		switch (noteType) {
 			case Mine: 
 				noteData += _song.preferredNoteAmount * 2;
@@ -1519,15 +1525,16 @@ class ChartingState extends MusicBeatState {
 			case key: 
 				noteData += _song.preferredNoteAmount * 2 * key;
 		}
-		_song.notes[curSection].sectionNotes.push([noteStrum, noteData, noteSus, false, useLiftNote]);
+		daNote[1] = noteData;
+		_song.notes[curSection].sectionNotes.push(daNote);
 
 		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
 
-		if (FlxG.keys.pressed.SHIFT)
-			_song.notes[curSection].sectionNotes.push([noteStrum, (noteData + _song.preferredNoteAmount * 2) % (_song.preferredNoteAmount * 2), noteSus, false, useLiftNote]);
-
-		trace(noteStrum);
-		trace(curSection);
+		if (FlxG.keys.pressed.SHIFT) {
+			var dupeNote = daNote;
+			daNote[1] = (noteData + _song.preferredNoteAmount * 2) % (_song.preferredNoteAmount * 2);
+			_song.notes[curSection].sectionNotes.push(dupeNote);
+		}
 
 		updateGrid();
 		updateNoteUI();

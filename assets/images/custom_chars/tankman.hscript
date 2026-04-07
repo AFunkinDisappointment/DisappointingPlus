@@ -1,35 +1,51 @@
 function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    if (FileSystem.exists(hscriptPath + 'char-pico.png'))
+	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'char-pico.png', hscriptPath + 'char-pico.xml'));
 
     char.frames = tex;
     char.animation.addByPrefix('idle', 'Tankman Idle Dance', 24, false);
     char.animation.addByPrefix('singUP', 'Tankman UP note', 24, false);
-    if (char.isPlayer) {
-        char.animation.addByPrefix('singLEFT','Tankman Note Left', 24, false);
-        char.animation.addByPrefix('singRIGHT', 'Tankman Right Note', 24, false);
-    } else {
-        char.animation.addByPrefix('singRIGHT','Tankman Note Left', 24, false);
-        char.animation.addByPrefix('singLEFT', 'Tankman Right Note', 24, false);
-    }
+    char.animation.addByPrefix('singRIGHT','Tankman Note Left', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Tankman Right Note', 24, false);
     char.animation.addByPrefix('singDOWN', 'Tankman DOWN note', 24, false);
+
     char.animation.addByPrefix('singUP-alt', 'TANKMAN UGH', 24, false);
     char.animation.addByPrefix('singDOWN-alt', 'PRETTY GOOD', 24, false);
 
+    char.animation.addByPrefix('ugh', 'TANKMAN UGH', 24, false);
+    char.animation.addByPrefix('augh', 'tankman ARGH', 24, false, true);
+    char.animation.addByPrefix('laugh', 'tankman laugh', 24, false, true);
+    char.animation.addByPrefix('beatit', 'tankman beat it', 24, false, true);
+
     char.addOffset('idle');
-    char.addOffset('singUP', 50, 56);
-    char.addOffset('singRIGHT',-12, -27);
-    char.addOffset('singLEFT', 90, -14);
+    char.addOffset('singUP', 50, 56, 25);
+    char.addOffset('singRIGHT', -12, -27, -21, -13);
+    char.addOffset('singLEFT', 90, -14, 90, -28);
     char.addOffset('singDOWN', 80, -100);
+
     char.addOffset('singUP-alt', -15, -7);
-    char.addOffset('singDOWN-alt', 0, 15);
+    char.addOffset('singDOWN-alt', 0, 15, 100);
+
+    char.addOffset('ugh', -15, -7);
+    char.addOffset('augh', 51, 3, 20, 4);
+    char.addOffset('laugh', -26, 13, -18);
+    char.addOffset('beatit', 84, -14, -10);
+
     char.playAnim('idle');
+    char.singPriority = ['ugh', 'augh'];
     char.addCamOffset('singUP-alt');
     char.addCamOffset('singDOWN-alt');
 
     char.flipX = true;
 
-    char.enemyOffsetX = 0;
+    if (char.isPlayer) {
+	char.followCamX = -250;
+	char.followCamY = 50;
+    }
+
     char.enemyOffsetY = 180;
+    char.playerOffsetY = -160;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;
@@ -40,8 +56,8 @@ function sing(direction, miss, alt, char) {
 function update(elapsed, char) {
     // do nothing...
 }
-var danced = false;
+var noDanceAnims = ['singDOWN-alt', 'laugh', 'beatit'];
 function dance(char) {
-    if (char.animation.curAnim.name != "singDOWN-alt")
+    if (!noDanceAnims.contains(char.animation.curAnim.name) || char.animation.curAnim.finished)
         char.playAnim('idle');
 }

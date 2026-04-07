@@ -15,6 +15,35 @@
       "anim": "HARD",
       "name": "hard"
     }
+    {
+      "offset": 20,
+      "anim": "HARD",
+      "name": "erect",
+      "defaults": "erect"
+    },
+    {
+      "offset": 20,
+      "anim": "idle",
+      "name": "nightmare",
+      "defaults": "erect"
+    },
+    {
+      "offset": 20,
+      "anim": "HARD",
+      "name": "bf",
+      "defaults": "bf"
+    },
+    {
+      "offset": 20,
+      "anim": "HARD",
+      "name": "pico",
+      "defaults": "pico"
+    },
+    {
+      "offset": 20,
+      "anim": "HARD",
+      "name": "key6"
+    }
   ],
   "defaultDiff": 1
 }

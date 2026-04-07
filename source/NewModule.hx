@@ -62,6 +62,7 @@ class NewModule extends MusicBeatState
 	var chartButton:FlxUIButton;
 	var chartTxt:FlxText;
 	var goodtobadChartButton:FlxUIButton;
+	var codetobadChartButton:FlxUIButton;
 	var clearChartsButton:FlxUIButton;
 	var chartedButtons:Array<FlxUIButton> = [];
 	var chartdiff:FlxUIInputText;
@@ -142,6 +143,12 @@ class NewModule extends MusicBeatState
 				portNewFNFSong();
 		});
 		add(goodtobadChartButton);
+
+		codetobadChartButton = new FlxUIButton(600, (FlxG.height / 2), "Codetobad Chart", function():Void {
+			if (metadataPath != null && chartPath != null)
+				portCodenameSong();
+		});
+		add(codetobadChartButton);
 
 		clearChartsButton = new FlxUIButton(700, (FlxG.height / 2) + 50, "Clear Charts", function():Void {
 			chartPath = null;
@@ -260,6 +267,7 @@ class NewModule extends MusicBeatState
 		basesong.stage = playdata.stage;
 
 		var difficulties:Array<String> = playdata.difficulties;
+		difficulties.push('picospeaker');
 
 		var charts = CoolUtil.parseJson(File.getContent(chartPath));
 
@@ -306,7 +314,6 @@ class NewModule extends MusicBeatState
 					sectionNotes: [],
 					bpm: newsong.bpm,
 					changeBPM: false,
-					typeOfSection: 0,
 					altAnim: false,
 					altAnimNum: 0
 				};
@@ -317,18 +324,18 @@ class NewModule extends MusicBeatState
 				var secNum = Math.floor(note.t/sillycrochet + 0.03125); //adding a half step
 				var newnote = [note.t, note.d];
 				if (note.l != null && note.l != 0)
-					newnote.push(note.l);
+					newnote[2] = note.l;
 				if (note.k != null) {
 					if (note.l == null || note.l == 0)
-						newnote.push(0);
-					newnote.push(switch(note.k) { // most special notes can be handled with alt nums
+						newnote[2] = 0;
+					newnote[3] = switch(note.k) { // most special notes can be handled with alt nums
 						case 'weekend-1-kickcan' | 'weekend-1-firegun':
 							2;
 						case 'weekend-1-kneecan':
 							3;
 						default:
 							1;
-					});
+					};
 				}
 				newsong.notes[secNum].sectionNotes.push(newnote);
 			}
@@ -455,8 +462,91 @@ class NewModule extends MusicBeatState
 		});
 	}
 
+	function portCodenameSong() {
+		var chart = CoolUtil.parseJson(File.getContent(chartPath));
+		var metadata = CoolUtil.parseJson(File.getContent(metadataPath));
+
+		var basesong:SwagSong = {
+			song: 'Test',
+			notes: [],
+			bpm: 150,
+			needsVoices: true,
+			player1: 'bf',
+			player2: 'dad',
+			stage: 'stage',
+			gf: 'gf',
+			isHey: false,
+			isCheer: false,
+			isSpooky: false,
+			isMoody: false,
+			speed: 1,
+			cutsceneType: "none",
+			uiType: 'normal',
+			forceLayout: 'none',
+			preferredNoteAmount: 4,
+			forceJudgements: false,
+			convertMineToNuke: false,
+			mania: 0,
+			stageID: 0
+		};
+
+		trace('basesong');
+
+		basesong.song = metadata.name;
+		basesong.bpm = metadata.bpm;
+		basesong.speed = chart.scrollSpeed;
+
+		var dadnotepacket:Array<Dynamic> = chart.strumLines[0].notes;
+		var bfnotepacket:Array<Dynamic> = chart.strumLines[1].notes;
+		dadnotepacket.sort(sortByShit);
+		bfnotepacket.sort(sortByShit);
+
+		var sillycrochet = (60 / basesong.bpm) * 4000; // sections in milliseconds
+		var funnySections = Math.ceil(bfnotepacket[bfnotepacket.length - 1].time / sillycrochet); // the amount of sections (rounded up)
+		for (i in 0...funnySections) {
+			var curSection:SwagSection = {
+				lengthInSteps: 16,
+				mustHitSection: true,
+				sectionNotes: [],
+				bpm: basesong.bpm,
+				changeBPM: false,
+				altAnim: false,
+				altAnimNum: 0
+			};
+			basesong.notes.push(curSection);
+		}
+
+		for (note in dadnotepacket) {
+			note.id += 4;
+		}
+
+		var notepackets = bfnotepacket.concat(dadnotepacket);
+		for (note in notepackets) {
+			var secNum = Math.floor(note.time/sillycrochet + 0.03125); //adding a half step
+			var newnote = [note.time, note.id];
+			if (note.sLen != null && note.sLen != 0)
+				newnote[2] = note.sLen;
+			basesong.notes[secNum].sectionNotes.push(newnote);
+		}
+
+		songStorage.push(['idk', basesong]);
+
+		FlxTimer.wait(0.5, function() {
+			for (song in 0...songStorage.length) {
+				var songButton = new FlxUIButton(800, (FlxG.height / 2) + 30*song, songStorage[song][0], function():Void {
+					saveLevel(songStorage[song][1], songStorage[song][0]);
+				});
+				add(songButton);
+				chartedButtons.push(songButton);
+			}
+		});
+	}
+
 	function sortByShit(Obj1, Obj2):Int {
-		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.t, Obj2.t);
+		if (Obj1.time != null)
+			return FlxSort.byValues(FlxSort.ASCENDING, Obj1.time, Obj2.time);
+		else
+			return FlxSort.byValues(FlxSort.ASCENDING, Obj1.t, Obj2.t);
 	}
 
 	private function saveLevel(song, diff) {

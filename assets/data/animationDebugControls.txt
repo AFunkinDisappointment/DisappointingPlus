@@ -1,0 +1,21 @@
+Controls:
+W/S - Change Animation
+Space - Replay Animation
+
+Arrow Keys - Manipulate Offsets
+Ctrl + Click - Manipulate Offsets with Mouse
+    (or Click with Drag Move Enabled)
+
+T - Change Current Character
+Shift + Click - Change to Hovered-over Character
+
+G - Flip Current Character
+
+J/K/I/L - Move Camera
+Middle Mouse - Move Camera with Mouse
+
+F - Move Camera to Current Character's Follow Cam
+Shift + F - Move Camera to Current Character's Midpoint
+
+E/Q - Increase/Decrease Zoom
+Scroll Wheel - Increase/Decrease Zoom

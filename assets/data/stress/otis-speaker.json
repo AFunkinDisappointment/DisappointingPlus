@@ -1,0 +1,1128 @@
+{
+     "song" : {
+         "notes" : [
+             {
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [0,0]
+                    ,[168,3]
+                    ,[337,0]
+                    ,[505,2]
+                    ,[589,1]
+                    ,[842,3]
+                    ,[926,2]
+                    ,[1011,0]
+                    ,[1179,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [1516,2]
+                    ,[1685,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [2696,0]
+                    ,[2865,3]
+                    ,[3034,0]
+                    ,[3202,2]
+                    ,[3286,1]
+                    ,[3539,3]
+                    ,[3623,2]
+                    ,[3708,0]
+                    ,[3876,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [4213,2]
+                    ,[4382,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [5393,0]
+                    ,[5561,3]
+                    ,[5730,0]
+                    ,[5898,2]
+                    ,[5982,1]
+                    ,[6235,3]
+                    ,[6319,2]
+                    ,[6404,0]
+                    ,[6572,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [6909,2]
+                    ,[7078,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [8089,0]
+                    ,[8258,3]
+                    ,[8427,0]
+                    ,[8595,2]
+                    ,[8679,1]
+                    ,[8932,3]
+                    ,[9016,2]
+                    ,[9101,0]
+                    ,[9185,3]
+                    ,[9269,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [9438,0]
+                    ,[9606,2]
+                    ,[9775,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [10786,2]
+                    ,[10955,1]
+                    ,[11123,3]
+                    ,[11292,2]
+                    ,[11376,0]
+                    ,[11629,1]
+                    ,[11713,3]
+                    ,[11797,2]
+                    ,[11966,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [12303,1]
+                    ,[12471,3]
+                    ,[12640,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [13483,2]
+                    ,[13652,1]
+                    ,[13820,0]
+                    ,[13989,2]
+                    ,[14073,3]
+                    ,[14326,1]
+                    ,[14410,0]
+                    ,[14494,2]
+                    ,[14662,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [15000,1]
+                    ,[15168,0]
+                    ,[15337,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [16179,2]
+                    ,[16348,1]
+                    ,[16516,3]
+                    ,[16685,2]
+                    ,[16769,0]
+                    ,[17022,1]
+                    ,[17106,3]
+                    ,[17190,2]
+                    ,[17359,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [17696,1]
+                    ,[17864,3]
+                    ,[18033,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [18876,2]
+                    ,[19045,1]
+                    ,[19213,0]
+                    ,[19382,2]
+                    ,[19466,3]
+                    ,[19719,1]
+                    ,[19803,0]
+                    ,[19887,2]
+                    ,[20055,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [20224,0]
+                    ,[20393,1]
+                    ,[20561,3]
+                    ,[20646,0]
+                    ,[20730,2]
+                    ,[20898,3]
+                    ,[21067,1]
+                    ,[21235,2]
+                    ,[21404,3]
+                    ,[21488,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [21573,2]
+                    ,[21910,1]
+                    ,[22415,3]
+                    ,[22584,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [22921,1]
+                    ,[23005,2]
+                    ,[23258,0]
+                    ,[23426,3]
+                    ,[23764,1]
+                    ,[23932,2]
+                    ,[24101,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [24269,2]
+                    ,[24606,1]
+                    ,[25111,3]
+                    ,[25280,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [25617,1]
+                    ,[25701,2]
+                    ,[25954,0]
+                    ,[26122,3]
+                    ,[26460,1]
+                    ,[26628,2]
+                    ,[26797,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [26966,3]
+                    ,[27303,1]
+                    ,[27471,2]
+                    ,[27808,3]
+                    ,[27893,0]
+                    ,[27977,2]
+                    ,[28146,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [28314,1]
+                    ,[28651,2]
+                    ,[28819,3]
+                    ,[29157,1]
+                    ,[29325,2]
+                    ,[29494,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [29662,0]
+                    ,[30000,1]
+                    ,[30168,3]
+                    ,[30505,2]
+                    ,[30674,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [31011,3]
+                    ,[31179,1]
+                    ,[31348,2]
+                    ,[31432,3]
+                    ,[31516,0]
+                    ,[31685,1]
+                    ,[31853,3]
+                    ,[32022,2]
+                    ,[32191,2]
+                    ,[32275,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [32359,0]
+                    ,[32527,3]
+                    ,[32696,0]
+                    ,[32864,2]
+                    ,[32948,1]
+                    ,[33201,3]
+                    ,[33285,2]
+                    ,[33370,0]
+                    ,[33538,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [33875,2]
+                    ,[34044,1]
+                    ,[34213,3]
+                    ,[34550,1]
+                    ,[34719,3]
+                    ,[34887,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [35055,0]
+                    ,[35224,3]
+                    ,[35393,0]
+                    ,[35561,2]
+                    ,[35645,1]
+                    ,[35898,3]
+                    ,[35982,2]
+                    ,[36067,0]
+                    ,[36235,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [36572,2]
+                    ,[36741,1]
+                    ,[36910,3]
+                    ,[36994,0]
+                    ,[37078,2]
+                    ,[37247,1]
+                    ,[37584,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [37752,0]
+                    ,[37920,3]
+                    ,[38089,0]
+                    ,[38257,2]
+                    ,[38341,1]
+                    ,[38594,3]
+                    ,[38678,2]
+                    ,[38763,0]
+                    ,[38931,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [39101,3]
+                    ,[39269,0]
+                    ,[39437,1]
+                    ,[39606,3]
+                    ,[39775,2]
+                    ,[39943,1]
+                    ,[40112,3]
+                    ,[40280,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [40448,0]
+                    ,[40617,3]
+                    ,[40786,0]
+                    ,[40954,2]
+                    ,[41038,1]
+                    ,[41291,3]
+                    ,[41460,0]
+                    ,[41544,2]
+                    ,[41628,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [41797,0]
+                    ,[41966,1]
+                    ,[42134,3]
+                    ,[42303,1]
+                    ,[42471,0]
+                    ,[42640,1]
+                    ,[42808,3]
+                    ,[42977,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [43146,0]
+                    ,[43314,3]
+                    ,[43483,0]
+                    ,[43651,2]
+                    ,[43735,1]
+                    ,[43988,3]
+                    ,[44072,2]
+                    ,[44157,0]
+                    ,[44325,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [44662,0]
+                    ,[44831,1]
+                    ,[45000,3]
+                    ,[45168,2]
+                    ,[45337,1]
+                    ,[45505,3]
+                    ,[45674,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [45842,0]
+                    ,[46011,3]
+                    ,[46180,0]
+                    ,[46348,2]
+                    ,[46432,1]
+                    ,[46685,3]
+                    ,[46769,2]
+                    ,[46854,0]
+                    ,[47022,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [47191,0]
+                    ,[47359,2]
+                    ,[47528,1]
+                    ,[47696,3]
+                    ,[47865,3]
+                    ,[48033,0]
+                    ,[48370,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [48539,0]
+                    ,[48707,3]
+                    ,[48876,0]
+                    ,[49044,2]
+                    ,[49128,1]
+                    ,[49381,3]
+                    ,[49465,2]
+                    ,[49550,0]
+                    ,[49718,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [49887,0]
+                    ,[50055,2]
+                    ,[50224,1]
+                    ,[50393,3]
+                    ,[50730,1]
+                    ,[50898,2]
+                    ,[51067,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [51235,0]
+                    ,[51404,3]
+                    ,[51404,3]
+                    ,[51573,1]
+                    ,[51741,2]
+                    ,[51741,2]
+                    ,[52078,1]
+                    ,[52162,2]
+                    ,[52247,0]
+                    ,[52415,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [52584,1]
+                    ,[52752,3]
+                    ,[52921,1]
+                    ,[52921,1]
+                    ,[53089,2]
+                    ,[53258,3]
+                    ,[53342,0]
+                    ,[53426,1]
+                    ,[53511,0]
+                    ,[53595,3]
+                    ,[53679,2]
+                    ,[53764,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [53932,0]
+                    ,[54438,0]
+                    ,[54606,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [55449,1]
+                    ,[55786,3]
+                    ,[55955,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [56629,1]
+                    ,[57134,3]
+                    ,[57303,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [58146,1]
+                    ,[58483,3]
+                    ,[58735,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [59325,0]
+                    ,[59831,0]
+                    ,[59999,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [60842,1]
+                    ,[61179,3]
+                    ,[61348,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [64719,1]
+                    ,[65056,2]
+                    ,[65561,1]
+                    ,[65730,3]
+                    ,[65898,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [66067,1]
+                    ,[66404,3]
+                    ,[66573,1]
+                    ,[66910,0]
+                    ,[67078,3]
+                    ,[67247,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [67415,1]
+                    ,[67752,2]
+                    ,[68257,1]
+                    ,[68426,3]
+                    ,[68594,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [68763,1]
+                    ,[69100,3]
+                    ,[69269,1]
+                    ,[69606,0]
+                    ,[69774,3]
+                    ,[69943,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [70112,1]
+                    ,[70449,2]
+                    ,[70954,1]
+                    ,[71123,3]
+                    ,[71291,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [71460,1]
+                    ,[71797,3]
+                    ,[71966,1]
+                    ,[72303,0]
+                    ,[72471,3]
+                    ,[72640,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [72808,1]
+                    ,[72977,0]
+                    ,[73145,2]
+                    ,[73314,3]
+                    ,[73483,0]
+                    ,[73650,1]
+                    ,[73819,3]
+                    ,[73987,0]
+                    ,[74073,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [74156,1]
+                    ,[74325,1]
+                    ,[74493,3]
+                    ,[74662,1]
+                    ,[74747,2]
+                    ,[74831,0]
+                    ,[75000,2]
+                    ,[75167,3]
+                    ,[75336,2]
+                    ,[75421,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [75505,0]
+                    ,[75674,1]
+                    ,[75842,0]
+                    ,[76011,1]
+                    ,[76179,3]
+                    ,[76348,2]
+                    ,[76516,3]
+                    ,[76685,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [76853,0]
+                    ,[77022,3]
+                    ,[77191,0]
+                    ,[77359,3]
+                    ,[77528,2]
+                    ,[77696,0]
+                    ,[77865,2]
+                    ,[78033,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [78202,1]
+                    ,[78370,3]
+                    ,[78539,1]
+                    ,[78707,3]
+                    ,[78876,2]
+                    ,[79044,1]
+                    ,[79213,2]
+                    ,[79382,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [79550,0]
+                    ,[79719,3]
+                    ,[79887,2]
+                    ,[80056,0]
+                    ,[80224,2]
+                    ,[80393,3]
+                    ,[80561,1]
+                    ,[80730,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [80898,0]
+                    ,[81067,1]
+                    ,[81235,0]
+                    ,[81404,1]
+                    ,[81572,3]
+                    ,[81741,2]
+                    ,[81909,3]
+                    ,[82078,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [82246,0]
+                    ,[82415,3]
+                    ,[82584,0]
+                    ,[82752,3]
+                    ,[82921,2]
+                    ,[83089,0]
+                    ,[83258,2]
+                    ,[83426,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [83595,1]
+                    ,[83763,3]
+                    ,[83932,1]
+                    ,[84100,3]
+                    ,[84269,2]
+                    ,[84437,1]
+                    ,[84606,2]
+                    ,[84775,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [84943,0]
+                    ,[85112,3]
+                    ,[85280,2]
+                    ,[85449,0]
+                    ,[85617,2]
+                    ,[85786,3]
+                    ,[85954,1]
+                    ,[86123,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [86292,3]
+                    ,[86629,0]
+                    ,[86966,3]
+                    ,[87303,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [87640,2]
+                    ,[87977,1]
+                    ,[88314,2]
+                    ,[88651,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [88988,0]
+                    ,[89325,2]
+                    ,[89662,0]
+                    ,[90000,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [90337,1]
+                    ,[90674,3]
+                    ,[91011,1]
+                    ,[91348,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [91685,3]
+                    ,[92022,0]
+                    ,[92359,3]
+                    ,[92696,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [93033,2]
+                    ,[93370,1]
+                    ,[93707,2]
+                    ,[94044,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [94381,0]
+                    ,[94718,2]
+                    ,[95055,0]
+                    ,[95393,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [95730,0]
+                    ,[95898,3]
+                    ,[95983,2]
+                    ,[96067,1]
+                    ,[96235,0]
+                    ,[96404,1]
+                    ,[96488,2]
+                    ,[96573,3]
+                    ,[96741,1]
+                    ,[96910,0]
+                    ,[96994,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [97078,2]
+                    ,[97415,0]
+                    ,[97500,3]
+                    ,[97584,1]
+                    ,[97752,2]
+                    ,[97921,1]
+                    ,[98005,3]
+                    ,[98089,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [98426,1]
+                    ,[98595,3]
+                    ,[98764,0]
+                    ,[98932,3]
+                    ,[99101,1]
+                    ,[99269,3]
+                    ,[99438,0]
+                    ,[99606,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [99775,2]
+                    ,[99943,0]
+                    ,[100112,3]
+                    ,[100280,1]
+                    ,[100365,0]
+                    ,[100449,2]
+                    ,[100617,0]
+                    ,[100702,2]
+                    ,[100786,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [101123,1]
+                    ,[101292,1]
+                    ,[101460,3]
+                    ,[101629,1]
+                    ,[101713,0]
+                    ,[101797,3]
+                    ,[101966,3]
+                    ,[102303,3]
+                    ,[102387,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [102471,0]
+                    ,[102808,3]
+                    ,[103146,0]
+                    ,[103483,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [103820,2]
+                    ,[104157,1]
+                    ,[104494,2]
+                    ,[104831,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [105168,3]
+                    ,[105337,0]
+                    ,[105505,2]
+                    ,[105674,0]
+                    ,[105758,1]
+                    ,[105842,3]
+                    ,[106011,0]
+                    ,[106179,2]
+                    ,[106348,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [106516,0]
+                    ,[106685,1]
+                    ,[106853,3]
+                    ,[107022,1]
+                    ,[107191,2]
+                    ,[107359,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [107865,0]
+                    ,[108033,3]
+                    ,[108202,0]
+                    ,[108370,2]
+                    ,[108454,1]
+                    ,[108707,3]
+                    ,[108791,2]
+                    ,[108876,0]
+                    ,[109044,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [109213,3]
+                    ,[109381,2]
+                    ,[109550,1]
+                    ,[110056,1]
+                    ,[110140,3]
+                    ,[110224,2]
+                    ,[110393,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [110561,0]
+                    ,[110729,3]
+                    ,[110898,0]
+                    ,[111066,2]
+                    ,[111150,1]
+                    ,[111403,3]
+                    ,[111487,2]
+                    ,[111572,0]
+                    ,[111740,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [111910,0]
+                    ,[112077,2]
+                    ,[112246,1]
+                    ,[112415,3]
+                    ,[112752,2]
+                    ,[113089,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [113258,0]
+                    ,[113426,3]
+                    ,[113595,0]
+                    ,[113763,2]
+                    ,[113847,1]
+                    ,[114100,3]
+                    ,[114184,2]
+                    ,[114269,0]
+                    ,[114437,1]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [114606,3]
+                    ,[114774,2]
+                    ,[114943,1]
+                    ,[115112,0]
+                    ,[115449,2]
+                    ,[115617,1]
+                    ,[115786,3]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [115955,0]
+                    ,[116123,3]
+                    ,[116207,2]
+                    ,[116292,1]
+                    ,[116376,2]
+                    ,[116460,3]
+                    ,[116544,1]
+                    ,[116629,0]
+                    ,[116713,1]
+                    ,[116797,3]
+                    ,[116882,2]
+                    ,[116966,1]
+                    ,[117134,3]
+                    ,[117219,2]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [117303,0]
+                    ,[117471,1]
+                    ,[117640,3]
+                    ,[117808,1]
+                    ,[117893,2]
+                    ,[117977,0]
+                ]
+                ,"mustHitSection" : true
+            }
+            ,{
+                 "lengthInSteps" : 16
+                ,"sectionNotes" : [
+                     [118651,3]
+                ]
+                ,"mustHitSection" : true
+            }
+        ]
+        ,"bpm" : 178
+        ,"song" : "Stress"
+    }
+}

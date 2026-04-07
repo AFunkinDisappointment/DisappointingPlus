@@ -1,11 +1,38 @@
-var train;
 var lights;
+var train;
 var trainSound;
+var colorShader;
 function start(song) {
+    setDefaultZoom(1.1);
+
+    getHaxeActor('bf').x += 40;
+    getHaxeActor('bf').y += 20;
+    getHaxeActor('dad').x += 150;
+    getHaxeActor('dad').y += 20;
+
+    setSwapOffsets('bf', [40, 20]);
+    setSwapOffsets('dad', [150, 20]);
+
+    var statichscriptPath = hscriptPath;
+    if (songData.stageID == 1) {
+	hscriptPath += 'erect/';
+
+	colorShader = new FlxRuntimeShader('adjustColor');
+	colorShader.setFloat('hue', -26);
+	colorShader.setFloat('saturation', -16);
+	colorShader.setFloat('contrast', 0);
+	colorShader.setFloat('brightness', -5);
+
+	getHaxeActor('bf').shader = colorShader;
+	getHaxeActor('gf').shader = colorShader;
+	getHaxeActor('dad').shader = colorShader;
+    }
+
     var bg = new FlxSprite(-100).loadGraphic(hscriptPath + 'sky.png');
     bg.scrollFactor.set(0.1, 0.1);
     bg.antialiasing = true;
     addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
 
     var city = new FlxSprite(-10).loadGraphic(hscriptPath + 'city.png');
     city.scrollFactor.set(0.3, 0.3);
@@ -13,33 +40,40 @@ function start(song) {
     city.scale.set(0.85, 0.85);
     city.updateHitbox();
     addSprite(city, BEHIND_ALL);
+    stage.addElement('city', city);
 
     lights = new FlxGroup();
     for (i in 0...5) {
         var light = new FlxSprite(-10).loadGraphic(hscriptPath + 'win' + i + '.png');
         light.setGraphicSize(Std.int(0.85 * light.width));
         light.updateHitbox();
-        light.visible = false;
+        light.alpha = 0;
         light.antialiasing = true;
         light.scrollFactor.set(0.3,0.3);
         lights.add(light);
     }
     addSprite(lights, BEHIND_ALL);
+    stage.addElement('lights', lights);
 
     var streetBehind = new FlxSprite(-40, 50).loadGraphic(hscriptPath + 'behindTrain.png');
     streetBehind.antialiasing = true;
     addSprite(streetBehind, BEHIND_ALL);
+    stage.addElement('streetBehind', streetBehind);
 
-    train = new FlxSprite(2000, 360).loadGraphic(hscriptPath + 'train.png');
+    train = new FlxSprite(2000, 360).loadGraphic(statichscriptPath + 'train.png');
     train.antialiasing = true;
+    if (colorShader != null)
+	train.shader = colorShader;
     addSprite(train, BEHIND_ALL);
+    stage.addElement('train', train);
 
-    trainSound = new FlxSound().loadEmbedded(FNFAssets.getSound(hscriptPath + 'train_passes.ogg'));
+    trainSound = new FlxSound().loadEmbedded(FNFAssets.getSound(statichscriptPath + 'train_passes.ogg'));
     FlxG.sound.list.add(trainSound);
 
     var street = new FlxSprite(-40, 50).loadGraphic(hscriptPath + 'street.png');
     street.antialiasing = true;
     addSprite(street, BEHIND_ALL);
+    stage.addElement('street', street);
 }
 
 var trainCooldown = 0;
@@ -48,16 +82,15 @@ var trainMoving = false;
 var trainFinishing = false;
 var trainFrameTiming = 0.0;
 var startedMoving = false;
-function beatHit(beat)
-{
-    if (!trainMoving) {
+function beatHit(beat) {
+    if (!trainMoving)
         trainCooldown += 1;
-    }
+
     if (beat % 4 == 0) {
-        lights.forEach(function(spr) {
-            spr.visible = false;
-        });
-        lights.members[FlxG.random.int(0,4)].visible = true;
+ 	lights.forEach(function(spr) {
+	    spr.alpha = 0;
+    	});
+        lights.members[FlxG.random.int(0,4)].alpha = 1;
     }
     if (beat % 8 == 4 && FlxG.random.bool(30) && !trainMoving && trainCooldown > 8) {
         trainCooldown = FlxG.random.int(-4,0);
@@ -65,8 +98,11 @@ function beatHit(beat)
     }
 }
 
-function update(elapsed)
-{
+function update(elapsed) {
+    lights.forEach(function(spr) {
+	if (spr.alpha > 0)
+	    spr.alpha -= (Conductor.crochet / 1000) * elapsed * 1.5;
+    });
     if (trainMoving) {
         trainFrameTiming += elapsed;
         if (trainFrameTiming >= 1/24) {
@@ -74,34 +110,6 @@ function update(elapsed)
             trainFrameTiming = 0.0;
         }
     }
-}
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
 }
 
 function doVroomVroom() {
@@ -113,7 +121,7 @@ function doVroomVroom() {
 function updateVroomVroom() {
     if (trainSound.time >= 4700) {
         startedMoving = true;
-        gf.playAnim("hairBlow");
+        getHaxeActor("gf").playAnim("hairBlow");
     }
     if (startedMoving) {
         train.x -= 400;
@@ -129,8 +137,9 @@ function updateVroomVroom() {
         }
     }
 }
+
 function resetVroomVroom() {
-    gf.playAnim("hairFall");
+    getHaxeActor("gf").playAnim("hairFall");
     train.x = FlxG.width + 200;
     trainMoving = false;
     trainCars = 8;

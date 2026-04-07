@@ -15,6 +15,7 @@ enum abstract AccuracyMode(Int) from Int to Int {
  * 
  */
 typedef TOptions = {
+    var showMemory:Bool;
     var skipVictoryScreen:Bool;
     var skipModifierMenu:Bool;
     var alwaysDoCutscenes:Bool;
@@ -97,6 +98,7 @@ class OptionsHandler {
         // these are the canon options
         // if your options aren't these it isn't canon
         if (lastOptions.danceMode) {
+            lastOptions.showMemory = false;
             lastOptions.skipVictoryScreen = false;
 			lastOptions.skipModifierMenu = true; // i'm going to use a special thing to do it
 			lastOptions.alwaysDoCutscenes = false;

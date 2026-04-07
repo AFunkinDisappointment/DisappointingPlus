@@ -1,0 +1,38 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'otis idle', 24, false);
+    char.animation.addByPrefix('shoot1', 'shoot back0', 24, false);
+    char.animation.addByPrefix('shoot2', 'shoot back low', 24, false);
+    char.animation.addByPrefix('shoot3', 'shoot forward0', 24, false);
+    char.animation.addByPrefix('shoot4', 'shoot forward low', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('shoot1', 0, 13);
+    char.addOffset('shoot2', -35, 21);
+    char.addOffset('shoot3', 238, 96);
+    char.addOffset('shoot4', 260, 23);
+
+    char.playAnim('idle');
+    char.like = "gf";
+    char.likeGf = true;
+    char.hasGun = true;
+
+    char.gfOffsetX = 50;
+    char.gfOffsetY = -30;
+
+    char.loadMappedAnims();
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+function dance(char) {
+    if (char.animation.curAnim.curFrame > 7 || char.animation.curAnim.name == 'idle')
+	char.playAnim('idle');
+}

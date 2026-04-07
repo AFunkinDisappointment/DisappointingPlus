@@ -1,0 +1,76 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'idle', 24, false);
+
+    char.animation.addByPrefix('singLEFT', 'left0', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'right0', 24, false);
+    char.animation.addByPrefix('singDOWN', 'down0', 24, false);
+    char.animation.addByPrefix('singUP', 'up0', 24, false);
+
+    char.animation.addByPrefix('singLEFTmiss', 'leftmiss', 24, false);
+    char.animation.addByPrefix('singRIGHTmiss', 'rightmiss', 24, false);
+    char.animation.addByPrefix('singDOWNmiss', 'downmiss', 24, false);
+    char.animation.addByPrefix('singUPmiss', 'upmiss', 24, false);
+
+    char.animation.addByPrefix('firstDeath', "firstDeath", 24, false);
+    char.animation.addByPrefix('deathLoop', "deathLoop", 24, true);
+    char.animation.addByPrefix('deathConfirm', "deathConfirm", 24, false);
+
+    char.addOffset('idle');
+    char.addOffset("singUP");
+    char.addOffset("singRIGHT");
+    char.addOffset("singLEFT");
+    char.addOffset("singDOWN");
+
+    char.addOffset("singUPmiss");
+    char.addOffset("singRIGHTmiss");
+    char.addOffset("singLEFTmiss");
+    char.addOffset("singDOWNmiss");
+
+    char.addOffset('firstDeath');
+    char.addOffset('deathLoop');
+    char.addOffset('deathConfirm');
+
+    char.setGraphicSize(Std.int(char.width * 6));
+    char.updateHitbox();
+
+    char.playAnim('idle');
+
+    char.width -= 100;
+    char.height -= 100;
+
+    char.antialiasing = false;
+    char.isPixel = true;
+    char.flipX = true;
+    char.like = "bf-pixel";
+    char.likeBf = true;
+
+    char.deathSound = 'fnf_loss_sfx-pixel-pico.ogg';
+    char.gameoverMusic = 'gameOver-pixel-pico.ogg';
+    char.gameoverMusicEnd = 'gameOverEnd-pixel-pico.ogg';
+        
+    char.followCamX = -300;
+    if (char.isPlayer) {
+	char.followCamY = -150;
+    } else {
+	char.followCamY = -200;
+    }
+    char.playerOffsetX = 150;
+    char.playerOffsetY = 160;
+    char.enemyOffsetX = 230;
+    char.enemyOffsetY = 500;
+    char.isPixel = true;
+}
+portraitOffset = [0, 0];
+dadVar = 8.0;
+isPixel = true;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+function dance(char) {
+    char.playAnim('idle');
+}

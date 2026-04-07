@@ -1,0 +1,115 @@
+var gorls;
+var bruh;
+function start(song) {
+    getHaxeActor("bf").x += 50;
+    getHaxeActor("bf").y += 60;
+    getHaxeActor('gf').x -= 100;
+    getHaxeActor('gf').y += 10;
+    getHaxeActor('bf').followCamX -= 100;
+
+    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
+    setSwapOffsets('bf', [50, 60]);
+    setSwapOffsets('gf', [-100, 10]);
+
+    var bg = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebSky.png');
+    bg.scrollFactor.set(0.1,0.1);
+    var widShit = Std.int(bg.width * 6);
+    bg.setGraphicSize(Std.int(6*bg.width));
+    bg.updateHitbox();
+    addSprite(bg, BEHIND_ALL);
+
+    var school = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebSchool.png');
+    school.setGraphicSize(widShit);
+    school.updateHitbox();
+    school.scrollFactor.set(0.6, 0.9);
+    addSprite(school, BEHIND_ALL);
+
+    var street = new FlxSprite(-200).loadGraphic(hscriptPath + 'weebStreet.png');
+    street.scrollFactor.set(0.95, 0.95);
+    street.setGraphicSize(widShit);
+    street.updateHitbox();
+    addSprite(street, BEHIND_ALL);
+
+    var treesBack = new FlxSprite(-30, 130).loadGraphic(hscriptPath + 'weebTreesBack.png');
+    treesBack.setGraphicSize(Std.int(widShit * 0.8));
+    treesBack.updateHitbox();
+    treesBack.scrollFactor.set(0.9, 0.9);
+    addSprite(treesBack, BEHIND_ALL);
+
+    var trees = new FlxSprite(-580, -800);
+    trees.frames = FlxAtlasFrames.fromSpriteSheetPacker(hscriptPath + 'weebTrees.png', hscriptPath + 'weebTrees.txt');
+    trees.animation.add("treeLoop", makeRangeArray(0, 18), 12, true);
+    trees.animation.play("treeLoop");
+    trees.setGraphicSize(Std.int(widShit * 1.4));
+    trees.updateHitbox();
+    trees.scrollFactor.set(0.85, 0.85);
+    addSprite(trees, BEHIND_ALL);
+
+    var petals = new FlxSprite(-200, -40);
+    petals.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'petals.png', hscriptPath + 'petals.xml');
+    petals.animation.addByPrefix("leaves", "PETALS ALL", 24, true);
+    petals.animation.play("leaves");
+    petals.setGraphicSize(Std.int(widShit * 1.4));
+    petals.scrollFactor.set(0.85, 0.85);
+    addSprite(petals, BEHIND_ALL);
+
+    gorls = new MetroSprite(-100, 190, false);
+    gorls.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgFreaks.png', hscriptPath + 'bgFreaks.xml');
+    gorls.animation.addByIndices("danceLeft", "BG girls group", makeRangeArray(14), "", 24, false);
+    gorls.animation.addByIndices("danceRight", "BG girls group", makeRangeArray(30, 15), "", 24, false);
+    if (songData.isMoody) {
+        gorls.animation.addByIndices("danceLeft", "BG fangirls dissuaded", makeRangeArray(14),"",24,false);
+	gorls.animation.addByIndices("danceRight", "BG fangirls dissuaded", makeRangeArray(30, 15), "", 24, false);
+    }
+    gorls.setGraphicSize(Std.int(6 * gorls.width));
+    gorls.updateHitbox();
+    gorls.animation.play("danceLeft", true);
+    gorls.antialiasing = false;
+    addSprite(gorls, BEHIND_ALL);
+
+    bruh = new FlxSprite().loadGraphic(hscriptPath + 'Scanlines.png');
+    bruh.alpha = 0.8;
+    bruh.antialiasing = true;
+    bruh.cameras = [camHUD];
+    bruh.visible = false;
+    addSprite(bruh, BEHIND_NONE);
+}
+
+var danceDir = false;
+function beatHit(beat) {
+    gorls.dance();
+}
+
+function update(elapsed) {
+    if (FlxG.keys.justPressed.SPACE)
+	bruh.visible = !bruh.visible;
+}
+
+function stepHit(step)
+{
+}
+
+function playerTwoTurn()
+{
+}
+
+function playerTwoMiss()
+{
+}
+
+function playerTwoSing()
+{
+}
+
+function playerOneTurn()
+{
+}
+
+function playerOneMiss()
+{
+}
+
+function playerOneSing()
+{
+}
+

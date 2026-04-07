@@ -48,7 +48,7 @@ class FreeplayState extends MusicBeatState {
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var intendedAccuracy:Float = 0;
-	var lerpAccuracy:Int = 0;
+	var lerpAccuracy:Float = 0;
 	var bg:FlxSprite;
 	var bgInfo:Array<String> = [];
 	var bgDir:Array<String> = [];
@@ -191,9 +191,8 @@ class FreeplayState extends MusicBeatState {
 
 		for (i in 0...songs.length) {
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true, false, false, null, null, null, true);
-			if (!OptionsHandler.options.style) {
+			if (!OptionsHandler.options.style)
 				songText.itemType = "Classic";
-			}
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
@@ -219,12 +218,12 @@ class FreeplayState extends MusicBeatState {
 			starArray.push(starCount);
 		}
 		
-		scoreText = new FlxText(FlxG.width * 0.62, 5, 0, "", 32);
+		scoreText = new FlxText(FlxG.width * 0.56, 5, 0, "", 32);
 		// scoreText.autoSize = false;
 		scoreText.setFormat("assets/fonts/vcr.ttf", 32, FlxColor.WHITE, RIGHT);
 		// scoreText.alignment = RIGHT;
 
-		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.4), 66, 0xFF000000);
+		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.45), 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
@@ -297,11 +296,11 @@ class FreeplayState extends MusicBeatState {
 		if (FlxG.sound.music.volume < 0.7 && (!soundTest || curDifficulty != 2)) {
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+
 		// why the fuck does this exist
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
-		lerpAccuracy = Std.int(Math.round(intendedAccuracy * 100));
-		if (Math.abs(lerpScore - intendedScore) <= 10)
-			lerpScore = intendedScore;
+		lerpAccuracy = Math.round(intendedAccuracy * 100) / 100;
+		if (Math.abs(lerpScore - intendedScore) <= 10) lerpScore = intendedScore;
 		if (!soundTest)
 			scoreText.text = "PERSONAL BEST:" + lerpScore + ", " + lerpAccuracy + "%";
 		else
@@ -438,7 +437,7 @@ class FreeplayState extends MusicBeatState {
 
 			#if !switch
 			intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
-			intendedAccuracy = Highscore.getAccuracy(songs[curSelected].songName, curDifficulty);
+			intendedAccuracy = Highscore.getAccuracy(songs[curSelected].songName, curDifficulty) * 100;
 			#end
 
 			for (star in starArray[curSelected]) {
@@ -513,7 +512,7 @@ class FreeplayState extends MusicBeatState {
 
 		// selector.y = (70 * curSelected) + 30;
 
-		#if !switch
+		#if false
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedAccuracy = Highscore.getAccuracy(songs[curSelected].songName, curDifficulty);
 		// lerpScore = 0;

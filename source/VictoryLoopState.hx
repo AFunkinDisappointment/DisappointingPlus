@@ -42,7 +42,6 @@ class VictoryLoopState extends MusicBeatSubstate {
 	public function new(x:Float, y:Float, gfX:Float, gfY:Float, accuracy:Float, score:Int, dadX:Float, dadY:Float) {
 		//var background:FlxSprite = new FlxSprite(0,0).makeGraphic(FlxG.width, FlxG.height, FlxColor.PINK);
 		//add(background);
-		var daStage = PlayState.curStage;
 		this.accuracy = accuracy;
 		var p1 = PlayState.SONG.player1;
 		gf = new Character(gfX,gfY,PlayState.SONG.gf);

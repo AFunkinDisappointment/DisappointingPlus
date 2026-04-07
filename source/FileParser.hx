@@ -72,24 +72,12 @@ class FileParser {
                     // only a fucking loser would do shit like this
                     // just imitating what sarv engine does:
                     // it allows ommision
-                    if (things[2] != "") {
-                        info.speakermood = things[2];
-                    } else {
-                        info.speakermood = "normal";
-                    }
+                    info.speakermood = things[2] != "" ? things[2] : "normal";
                     info.speech = things[3];
                 case 5:
                     info.speaker = things[1];
-                    if (things[2] != "") {
-                        info.speakermood = things[2];
-                    } else {
-                        info.speakermood = "normal";
-                    }
-                    if (things[3] != "") {
-                        info.boxmood = things[3];
-                    } else {
-                        info.boxmood = "normal";
-                    }
+                    info.speakermood = things[2] != "" ? things[2] : "normal";
+                    info.boxmood = things[3] != "" ? things[3] : "normal";
                     info.speech = things[4];
             } 
             textInfo.push(info);
@@ -169,8 +157,6 @@ class FileParser {
         splitData = useDialog.split("~");
         dialogueFile.defines.acceptSound = splitData[1];
 		useDialog = useDialog.substr(splitData[1].length + 2).trim();
-
-        
 
         for (dialog in dialogueList) {
             var advancedInfo:AdvancedDialogInfo = {dialogue: "", writingSpeed: 0.0, textShadowColor: FlxColor.WHITE, textColor: FlxColor.WHITE, speaker: "", skipAfter: 0, shakeDuration: 0, shakeDelay: 0, shakeAmount: 0.0, portraitColor: FlxColor.WHITE, musicVolume: 100, fontscale: 32, fontname: "lol", dialogueSound: "", dialogueBox: "", emotion: "", flashDelay: 0, flashDuration: 0, flipSides: false};

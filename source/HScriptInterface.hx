@@ -30,6 +30,19 @@ class HScriptInterface {
 			// if find ';' then it's a normal component
 			// if find '{' then it's a container function of some sort
 			// and, of course, '}' indicates the end of a container function
+			var txt = seperatedText[i];
+			var component:HScriptComponent;
+			if (txt.contains(';')) {
+				if (txt.contains(');'))
+					component = new HScriptComponent(txt, 'BasicFunction');
+				else
+					component = new HScriptComponent(txt);
+			} else if (txt.contains('{')) {
+				if (txt.contains('switch'))
+					component = new HScriptComponent(txt, 'SwitchContainer');
+				else
+					component = new HScriptComponent(txt, 'BasicContainer');
+			}
 		}
 	}
 }

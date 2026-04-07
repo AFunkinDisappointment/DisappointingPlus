@@ -40,13 +40,14 @@ typedef SwitchContainer = {
 }
 
 class HScriptComponent {
-	var rawCode:String;
-	var editCode:Dynamic;
+	public var rawCode:String;
+	public var editCode:Dynamic;
 
-	var codeType:String;
+	public var codeType:String;
 
-	public function new(codeString:String = '') {
+	public function new(codeString:String = '', codeType:String = 'BasicVariable') {
 		rawCode = codeString;
+		editCode = getData(rawCode);
 	}
 
 	function analyzeType() {

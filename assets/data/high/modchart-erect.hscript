@@ -1,0 +1,70 @@
+function start(song) {
+    FocusCamera({char: 0});
+}
+
+function stepHit(step) {
+    switch(step) {
+	case 32:
+		FocusCamera({char: 1});
+	case 96:
+		FocusCamera({char: 0});
+	case 160:
+		FocusCamera({char: 1});
+	case 224:
+		FocusCamera({char: 0});
+	case 288:
+		FocusCamera({char: 1});
+	case 352:
+		FocusCamera({char: 2, x: -100, y: 210, duration: 32, ease: 'expoOut'});
+	case 353:
+		ZoomCamera({zoom: 0.95, duration: 32, ease: 'expoOut', mode: 'stage'});
+	case 383:
+		ZoomCamera({duration: 32, ease: 'smoothStepInOut', mode: 'stage'});
+	case 384:
+		FocusCamera({char: 0, x: 60, duration: 32, ease: 'smoothStepInOut'});
+	case 408:
+		ZoomCamera({zoom: 1.1, duration: 6, ease: 'quadOut', mode: 'stage'});
+	case 412:
+		ZoomCamera({zoom: 1.2, duration: 6, ease: 'quadOut', mode: 'stage'});
+	case 416:
+		ZoomCamera({duration: 8, ease: 'quadOut', mode: 'stage'});
+	case 422:
+		FocusCamera({char: 1});
+	case 480:
+		FocusCamera({char: 0});
+	case 544:
+		FocusCamera({char: 1});
+	case 608:
+		FocusCamera({char: 2, x: -100, y: 210, duration: 32, ease: 'expoOut'});
+	case 609:
+		ZoomCamera({zoom: 0.95, duration: 32, ease: 'expoOut', mode: 'stage'});
+	case 639:
+		ZoomCamera({duration: 32, ease: 'smoothStepInOut', mode: 'stage'});
+	case 640:
+		FocusCamera({char: 0, x: 60, duration: 32, ease: 'smoothStepInOut'});
+	case 664:
+		ZoomCamera({zoom: 1.1, duration: 6, ease: 'quadOut', mode: 'stage'});
+	case 668:
+		ZoomCamera({zoom: 1.2, duration: 6, ease: 'quadOut', mode: 'stage'});
+	case 672:
+		FocusCamera({char: 2, x: -100, y: 210, duration: 32, ease: 'expoOut'});
+	case 673:
+		ZoomCamera({zoom: 0.95, duration: 32, ease: 'expoOut', mode: 'stage'});
+	case 704:
+		FocusCamera({char: 2, x: -220, y: 170, duration: 32, ease: 'sineOut'});
+	case 705:
+		ZoomCamera({zoom: 1.1, duration: 32, ease: 'sineOut', mode: 'stage'});
+	case 736:
+		FocusCamera({char: 2, x: -100, y: 210, duration: 32, ease: 'expoOut'});
+	case 737:
+		ZoomCamera({zoom: 0.95, duration: 32, ease: 'expoOut', mode: 'stage'});
+	case 768:
+		FocusCamera({char: 2, x: 90, y: 120, duration: 32, ease: 'sineOut'});
+	case 769:
+		ZoomCamera({zoom: 1.1, duration: 32, ease: 'sineOut', mode: 'stage'});
+	case 800:
+		FocusCamera({char: 2, x: -100, y: 210, duration: 32, ease: 'expoOut'});
+	case 801:
+		ZoomCamera({zoom: 0.95, duration: 32, ease: 'expoOut', mode: 'stage'});
+    }
+}

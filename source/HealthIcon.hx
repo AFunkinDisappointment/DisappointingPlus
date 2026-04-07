@@ -71,7 +71,12 @@ class HealthIcon extends FlxSprite {
 		return iconState = x;
 	}
 
+	var charJson:Dynamic;
+	var iconJson:Dynamic;
 	public function new(char:String = 'bf', isPlayer:Bool = false, ?isnormal:Bool = false) {
+		charJson = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/custom_chars"));
+		iconJson = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/icon_only_chars"));
+
 		player = isPlayer;
 		super();
 		antialiasing = true;
@@ -80,15 +85,11 @@ class HealthIcon extends FlxSprite {
 		scrollFactor.set();
 	}
 
+	var charIconPath = 'bf';
 	public function switchAnim(char:String = 'bf') {
-		var charJson:Dynamic = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/custom_chars"));
-		var iconJson:Dynamic = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/icon_only_chars"));
 		var iconFrames:Array<Int> = [];
-		var daJson:Dynamic = null;
-		if (Reflect.hasField(charJson, char))
-			daJson = Reflect.field(charJson, char);
-		else if (Reflect.hasField(iconJson, char))
-			daJson = Reflect.field(iconJson, char);
+		charIconPath = char;
+		var daJson:Dynamic = getCharFromJsons(char);
 
 		bopReset();
 
@@ -105,7 +106,7 @@ class HealthIcon extends FlxSprite {
 			if (isNormal)
 				interp = HealthIcon.iconBop('default');
 		}
-		var charPath = 'assets/images/custom_chars/' + char + '/';
+		var charPath = 'assets/images/custom_chars/' + charIconPath + '/';
 		if (FNFAssets.exists(charPath + "icons.png")) {
 			if (FNFAssets.exists(charPath + 'icons.xml')) { // i guess it works :thumbsup:
 				isAnimated = true;
@@ -115,6 +116,7 @@ class HealthIcon extends FlxSprite {
 				animation.addByPrefix('winning', 'winning', 24, true);
 				animation.addByPrefix('poisoned', 'poisoned', 24, true);
 			} else {
+				isAnimated = false;
 				var rawPic:BitmapData = FNFAssets.getBitmapData(charPath + "icons.png");
 				loadGraphic(rawPic, true, 150, 150);
 				animation.add('icon', iconFrames, false, player);
@@ -127,11 +129,31 @@ class HealthIcon extends FlxSprite {
 		if (!isAnimated)
 			animation.pause();
 
-		var daColors:Array<String> = daJson.colors;
-		healthColors = [];
-		for (color in daColors) {
-			healthColors.push(FlxColor.fromString(color));
+		if (daJson != null) {
+			var daColors:Array<String> = daJson.colors;
+			healthColors = [];
+			for (color in daColors) {
+				healthColors.push(FlxColor.fromString(color));
+			}
+		} else
+			healthColors = [0xFFFFFFFF];
+	}
+
+	function getCharFromJsons(char) {
+		var daChar:Dynamic = null;
+		if (Reflect.hasField(charJson, char))
+			daChar = Reflect.field(charJson, char);
+		else if (Reflect.hasField(iconJson, char))
+			daChar = Reflect.field(iconJson, char);
+
+		if (daChar == null) return null;
+
+		if ((daChar.icons is String)) {
+			charIconPath = daChar.icons;
+			daChar = getCharFromJsons(daChar.icons);
 		}
+
+		return daChar;
 	}
 
 	override function update(elapsed:Float) {

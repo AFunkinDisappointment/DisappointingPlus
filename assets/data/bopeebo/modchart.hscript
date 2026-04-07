@@ -1,45 +1,51 @@
-
 function start(song) {
 
 }
 
+function songStart(song) {
 
-function beatHit(beat)
-{
-    if (beat == 128 || beat == 129 || beat == 130) {
-        vocals.volume = 0;
-    }
 }
 
-function update(elapsed)
-{
+function beatHit(beat) {
 }
 
-function stepHit(step)
-{
+
+function update(elapsed) {
+
 }
 
-function playerTwoTurn()
-{
+function stepHit(step) {
+
+}
+
+function playerTwoTurn() {
     
 }
 
-function playerTwoMiss()
-{
+function playerTwoMiss() {
+
 }
 
-function playerTwoSing()
-{
+function playerTwoSing() {
+
 }
 
-function playerOneTurn()
-{
+function playerOneTurn() {
+
 }
 
-function playerOneMiss()
-{
+function playerOneMiss() {
+
 }
 
-function playerOneSing()
-{
+function playerOneSing() {
+
+}
+
+function noteLoaded(note) {
+
+}
+
+function noteHit(player1, note, wasGoodHit) {
+
 }

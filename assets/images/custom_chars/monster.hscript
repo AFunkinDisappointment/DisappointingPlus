@@ -1,25 +1,18 @@
 function init(char) {
-    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
-    char.frames = tex;
     char.animation.addByPrefix('idle', 'monster idle', 24, false);
     char.animation.addByPrefix('singUP', 'monster up note', 24, false);
-    char.animation.addByPrefix('singLEFT','Monster left note', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Monster left note', 24, false);
     char.animation.addByPrefix('singRIGHT', 'Monster Right note', 24, false);
     char.animation.addByPrefix('singDOWN', 'monster down', 24, false);
 
     char.addOffset('idle');
-    if (char.isPlayer) {
-	char.addOffset('singUP', -20, 84);
-	char.addOffset('singRIGHT', 40);
-	char.addOffset('singLEFT', -51);
-	char.addOffset('singDOWN', 2, -94);
-    } else {
-	char.addOffset('singUP', -20, 85);
-	char.addOffset('singRIGHT', -51);
-	char.addOffset('singLEFT', -30);
-	char.addOffset('singDOWN', -30, -94);
-    }
+    char.addOffset('singUP', -25, 87, -39, 89);
+    char.addOffset('singRIGHT', -51, 11, 25, 5);
+    char.addOffset('singLEFT', -35, 6, -60, 14);
+    char.addOffset('singDOWN', -46, -88, 4);
+
     char.addCamOffset('singRIGHT', -25);
     char.addCamOffset('singLEFT', 25);
 
@@ -30,7 +23,7 @@ function init(char) {
     char.enemyOffsetX = 0;
     char.enemyOffsetY = 100;
     char.playerOffsetX = 0;
-    char.playerOffsetY = 200;
+    char.playerOffsetY = -240;
     if (char.isPlayer) {
         char.followCamX = -50;
         char.followCamY = 30;

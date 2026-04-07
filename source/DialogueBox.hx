@@ -318,10 +318,7 @@ class DialogueBox extends FlxSpriteGroup {
 
 		portrait.updateHitbox();
 
-		if (curFlip)
-			portrait.flipX = true;
-		else
-			portrait.flipX = false;
+		portrait.flipX = curFlip;
 
 		if (curFlip)
 			portrait.x = 580 - portrait.width;

@@ -1,0 +1,48 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'Tankman Idle bloody', 24, false);
+    char.animation.addByPrefix('singUP', 'Tankman UP note bloody', 24, false);
+    char.animation.addByPrefix('singRIGHT','Tankman Note Left bloody', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Tankman Right Note bloody', 24, false);
+    char.animation.addByPrefix('singDOWN', 'Tankman DOWN note bloody', 24, false);
+
+    char.animation.addByPrefix('singDOWN-alt', 'pretty good', 24, false);
+    char.animation.addByPrefix('redheads', 'redheads anim', 24, false);
+
+    char.addOffset('idle', 0, 52);
+    char.addOffset('singUP', 47, 165);
+    char.addOffset('singLEFT', 90, 15);
+    char.addOffset('singRIGHT', -23, 17);
+    char.addOffset('singDOWN', 62, -105);
+
+    char.addOffset('singDOWN-alt', 0, 90);
+    char.addOffset('redheads', 110, 117);
+
+    char.playAnim('idle');
+    char.addCamOffset('singDOWN-alt');
+
+    char.flipX = true;
+
+    if (char.isPlayer) {
+	char.followCamX = -250;
+	char.followCamY = 50;
+    }
+
+    char.enemyOffsetY = 180;
+    char.playerOffsetY = -160;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+var noDanceAnims = ['singDOWN-alt', 'redheads'];
+function dance(char) {
+    if (!noDanceAnims.contains(char.animation.curAnim.name) || char.animation.curAnim.finished)
+        char.playAnim('idle');
+}

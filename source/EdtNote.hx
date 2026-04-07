@@ -129,8 +129,7 @@ class EdtNote extends FlxSprite
 		x += swagWidth * (noteData % NOTE_AMOUNT);
 		animation.play('Scroll');
 
-		if (noteData >= NOTE_AMOUNT * 10)
-		{
+		if (noteData >= NOTE_AMOUNT * 10) {
 			var sussyInfo = Math.floor(noteData / (NOTE_AMOUNT * 2));
 			sussyInfo -= 4;
 			var text = new FlxText(0, 0, 0, cast sussyInfo, 64);

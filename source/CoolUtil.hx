@@ -45,7 +45,7 @@ class CoolUtil {
 			'",\n    "icons": ',
 			',\n    "colors": [',
 			']\n  },',
-			'],\n   "iconbop": ',
+			'],\n    "iconbop": ',
 			'\n  },'
 		];
 
@@ -55,7 +55,11 @@ class CoolUtil {
 			trace(char);
 			var like = Reflect.field(epicCharFile, char).like;
 			trace(like);
-			var icons = Reflect.field(epicCharFile, char).icons.toString();
+			var icons = Reflect.field(epicCharFile, char).icons;
+			if ((icons is String))
+				icons = '"' + icons + '"';
+			else
+				icons = icons.toString();
 			trace(icons);
 			
 			var colors = Reflect.field(epicCharFile, char).colors;

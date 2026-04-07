@@ -1,0 +1,63 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'Pico Idle Dance', 24, false);
+    char.animation.addByPrefix('singUP', 'pico Up note0', 24, false);
+    char.animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
+
+    char.animation.addByPrefix('singUPmiss', 'note miss up piconene', 24, false);
+    char.animation.addByPrefix('singDOWNmiss', 'note miss down pico nene', 24, false);
+    char.animation.addByPrefix('singRIGHTmiss', 'note miss left pico nene', 24, false);
+    char.animation.addByPrefix('singLEFTmiss', 'note miss right pico nene', 24, false);
+
+    char.animation.addByPrefix('knifeToss', 'pico nene knife toss', 24, false);
+    char.animation.addByPrefix('laugh', 'pico nene laughing full', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('singUP', 3, 3, 56);
+    char.addOffset('singLEFT', 67, -20, 27, -16);
+    char.addOffset('singRIGHT', -48, -16, -48, -20);
+    char.addOffset('singDOWN', -25, -72, 93, -70);
+
+    char.addOffset('singUPmiss', 8, 4, 60, 2);
+    char.addOffset('singLEFTmiss', 68, -19, 28, -11);
+    char.addOffset('singRIGHTmiss', -45, -11, -45, -19);
+    char.addOffset('singDOWNmiss', -13, -74, 95);
+
+    char.addOffset('knifeToss', 221, 26, 14);
+    char.addOffset('laugh', 10, 7, 5);
+
+    char.playAnim('idle');
+
+    char.flipX = true;
+
+    char.enemyOffsetX = -100;
+    char.enemyOffsetY = 250;
+    char.playerOffsetX = 0;
+    char.playerOffsetY = -90;
+    if (char.isPlayer) {
+        char.followCamX = -200;
+        char.followCamY = 50;
+    } else {
+        char.followCamX = 150;
+        char.followCamY = -50;
+    }
+    char.midpointX = 0;
+    char.midpointY = 0;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+var noDanceAnims = ['knifeToss', 'laugh'];
+function dance(char) {
+    if (!noDanceAnims.contains(char.animation.curAnim.name) || char.animation.curAnim.finished)
+	char.playAnim('idle');
+}

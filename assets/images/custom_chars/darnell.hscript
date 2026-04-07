@@ -1,0 +1,62 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'Idle0', 24, false);
+    char.animation.addByPrefix('singUP', 'Pose Up0', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Pose Left0', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'Pose Right0', 24, false);
+    char.animation.addByPrefix('singDOWN', 'Pose Down0', 24, false);
+
+    char.animation.addByPrefix('singUP-hold', 'Up Flame Loop0', 24, true);
+    char.animation.addByPrefix('singLEFT-hold', 'Left Flame Loop0', 24, true);
+    char.animation.addByPrefix('singRIGHT-hold', 'Right Flame Loop0', 24, true);
+    char.animation.addByPrefix('singDOWN-hold', 'Down Flame Loop0', 24, true);
+
+    char.animation.addByPrefix('lightCan', 'Light Can0', 24, false);
+    char.animation.addByPrefix('kickCan', 'Kick Up0', 24, false);
+    char.animation.addByPrefix('kneeCan', 'Knee Forward0', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('singUP', 8, 5);
+    char.addOffset('singDOWN', 0, -3);
+    char.addOffset('singRIGHT', 4, 3);
+    char.addOffset('singLEFT', 1, 0);
+
+    char.addOffset('singUP-hold', 8, 5);
+    char.addOffset('singDOWN-hold', 0, -3);
+    char.addOffset('singRIGHT-hold', 4, 3);
+    char.addOffset('singLEFT-hold', 1, 0);
+
+    char.addOffset('lightCan', 7, -1);
+    char.addOffset('kickCan', 15, 9);
+    char.addOffset('kneeCan', 7, -1);
+    char.singPriority = ['lightCan', 'kickCan', 'kneeCan'];
+
+    char.playAnim('idle');
+
+    char.flipX = false;
+
+    char.enemyOffsetX = 0;
+    char.enemyOffsetY = 200;
+    char.playerOffsetX = -200;
+    char.playerOffsetY = -100;
+    if (char.isPlayer) {
+        char.followCamX = -50;
+        char.followCamY = 0;
+    } else {
+        char.followCamX = 259;
+        char.followCamY = -100;
+    }
+}
+portraitOffset = [0, 0];
+dadVar = 8;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+function dance(char) {
+    char.playAnim('idle');
+}

@@ -1,0 +1,94 @@
+function start(song) {
+    FocusCamera({char: 1});
+}
+
+function stepHit(step) {
+    switch(step) {
+	case 16:
+		FocusCamera({char: 0});
+	case 32:
+		FocusCamera({char: 1});
+	case 48:
+		FocusCamera({char: 0});
+	case 66:
+		FocusCamera({char: 1});
+	case 80:
+		FocusCamera({char: 0});
+	case 98:
+		FocusCamera({char: 1});
+	case 112:
+		FocusCamera({char: 0});
+	case 130:
+		FocusCamera({char: 1});
+	case 144:
+		FocusCamera({char: 0});
+	case 160:
+		FocusCamera({char: 1});
+	case 176:
+		FocusCamera({char: 0});
+	case 192:
+		FocusCamera({char: 1});
+	case 200:
+		FocusCamera({char: 1, x: 200, y: 80});
+	case 201:
+		ZoomCamera({zoom: 0.75, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 224:
+		FocusCamera({char: 0});
+	case 225:
+		ZoomCamera({zoom: 0.85, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 260:
+		FocusCamera({char: 1});
+	case 288:
+		FocusCamera({char: 0});
+	case 320:
+		FocusCamera({char: 1});
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 336:
+		FocusCamera({char: 0});
+	case 352:
+		ZoomCamera({zoom: 0.85, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 354:
+		FocusCamera({char: 1});
+	case 370:
+		FocusCamera({char: 0});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 384:
+		ZoomCamera({zoom: 0.85, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 386:
+		FocusCamera({char: 1});
+	case 402:
+		FocusCamera({char: 0});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 414:
+		ZoomCamera({zoom: 0.85, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 416:
+		FocusCamera({char: 1});
+	case 434:
+		FocusCamera({char: 0});
+		ZoomCamera({zoom: 0.95, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 448:
+		FocusCamera({char: 1});
+		ZoomCamera({zoom: 0.85, duration: 8, ease: 'expoOut', mode: 'direct'});
+	case 456:
+		FocusCamera({char: 1, x: 200, y: 80});
+	case 457:
+		ZoomCamera({zoom: 0.75, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 480:
+		FocusCamera({char: 0});
+	case 481:
+		ZoomCamera({zoom: 0.85, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 516:
+		FocusCamera({char: 1});
+	case 544:
+		FocusCamera({char: 0});
+		ZoomCamera({zoom: 0.9, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 560:
+		ZoomCamera({duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 568:
+		ZoomCamera({zoom: 1.1, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 572:
+		ZoomCamera({zoom: 1.15, duration: 16, ease: 'expoOut', mode: 'direct'});
+	case 576:
+		ZoomCamera({zoom: 0.8, duration: 60, ease: 'circOut', mode: 'direct'});
+    }
+}

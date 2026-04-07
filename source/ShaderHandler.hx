@@ -1,10 +1,12 @@
 package;
 
 import flixel.system.FlxAssets.FlxShader;
+import flixel.addons.display.FlxRuntimeShader;
 import flixel.FlxSprite;
 import hscript.Interp;
 import hscript.ParserEx;
 import hscript.InterpEx;
+using StringTools;
 
 class ShaderHandler {
 	// stuff
@@ -40,15 +42,16 @@ class ShaderHandler {
 		for (key in hscriptStates.keys())
 			setHaxeVar(name, value, key);
 	}
-	function makeHaxeState(usehaxe:String, path:String, filename:String) {
+	function makeHaxeState(usehaxe:String, path:String, filename:String, daShader:Dynamic) {
 		trace("opening a haxe state (because we are cool :))");
 		var parser = new ParserEx();
 		var program = parser.parseString(FNFAssets.getHscript(path + filename));
 		var interp = PluginManager.createSimpleInterp();
 		// set vars
 		interp.variables.set("FlxShader", FlxShader);
-		interp.variables.set("update", function update(elapsed:Float) {} );
-		interp.variables.set("new", function create() {} );
+		interp.variables.set("shader", daShader);
+		interp.variables.set("create", function create() {} );
+		interp.variables.set("update", function update(elapsed) {} );
 		// stuff
 		trace("set stuff");
 		interp.execute(program);
@@ -58,12 +61,25 @@ class ShaderHandler {
 
 
 	public function new(shader:String):Void {
-		makeHaxeState("shader", "assets/shaders/" + shader + "/", "shader");
-		callAllHScript("new", []);
+		//var frag = FNFAssets.getText("assets/shaders/" + shader + "/shader.frag");
+		//makeHaxeState("shader", "assets/shaders/", shader, new CoolRuntimeShader(frag));
+		//callAllHScript("new", []);
 	}
 
 	public function update(elapsed:Float):Void {
-		callAllHScript("update", [elapsed]);
+		//callAllHScript("update", [elapsed]);
 	}
+}
 
+class CoolRuntimeShader extends FlxRuntimeShader {
+	//uhhhhhh
+	public function new(frag) {
+		if ((frag is String)) {
+			if (StringTools.startsWith(frag, 'assets/'))
+				frag = FNFAssets.getText(frag + ".frag");
+			else
+				frag = FNFAssets.getText("assets/shaders/" + frag + ".frag");
+		}
+		super(frag);
+	}
 }

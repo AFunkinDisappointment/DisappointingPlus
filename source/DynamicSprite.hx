@@ -3,6 +3,9 @@ package;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxTiledSprite;
+import flixel.util.FlxAxes;
+import flixel.addons.display.FlxBackdrop;
 /**
  * A sprite that automatically handles loading files dynamically. This is used in hscripts by default.
  * Only overwrites "loadGraphic."
@@ -42,5 +45,21 @@ class DynamicAtlasFrames {
 			png = FNFAssets.getBitmapData(png);
 		}
         return FlxAtlasFrames.fromSpriteSheetPacker(png,txt);
+    }
+}
+
+class DynamicTiledSprite extends FlxTiledSprite {
+    override public function new(Graphic:FlxGraphicAsset, Width:Int, Height:Int, repeatX:Bool = true, repeatY:Bool = true) {
+        if ((Graphic is String))
+            Graphic = FNFAssets.getBitmapData(Graphic);
+        super(Graphic, Width, Height, repeatX, repeatY);
+    }
+}
+
+class DynamicBackdrop extends FlxBackdrop {
+    override public function new(Graphic:FlxGraphicAsset, repeatAxes:FlxAxes = XY, spacingX:Float = 0, spacingY:Float = 0) {
+        if ((Graphic is String))
+            Graphic = FNFAssets.getBitmapData(Graphic);
+        super(Graphic, repeatAxes, spacingX, spacingY);
     }
 }

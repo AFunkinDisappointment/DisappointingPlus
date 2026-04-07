@@ -1,10 +1,21 @@
+var colorShaderBF;
+var colorShaderDAD;
+var colorShaderGF;
 function start(song) {
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect'))
+	erectStage();
+    else
+	normalStage();
+}
+
+function normalStage() {
     setDefaultZoom(0.9);
 
     var bg = new FlxSprite(-600, -200).loadGraphic(hscriptPath + 'stageback.png');
     bg.scrollFactor.set(0.9, 0.9);
     bg.antialiasing = true;
     addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
 
     var stageFront = new FlxSprite(-650, 600).loadGraphic(hscriptPath + 'stagefront.png');
     stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
@@ -12,6 +23,7 @@ function start(song) {
     stageFront.antialiasing = true;
     stageFront.updateHitbox();
     addSprite(stageFront, BEHIND_ALL);
+    stage.addElement('stageFront', stageFront);
 
     var stagecurtains = new FlxSprite(-500, -300).loadGraphic(hscriptPath + 'stagecurtains.png');
     stagecurtains.setGraphicSize(Std.int(stageFront.width * 0.9));
@@ -19,43 +31,109 @@ function start(song) {
     stagecurtains.updateHitbox();
     stagecurtains.antialiasing = true;
     addSprite(stagecurtains, BEHIND_NONE);
+    stage.addElement('stagecurtains', stagecurtains);
 }
 
+function erectStage() {
+    setDefaultZoom(0.85);
 
-function beatHit(beat)
-{
+    hscriptPath += 'erect/';
 
+    getHaxeActor('bf').x += 50;
+    getHaxeActor('bf').y += 20;
+    getHaxeActor('gf').x -= 210;
+    getHaxeActor('gf').y += 10;
+    getHaxeActor('dad').x -= 270;
+
+    setSwapOffsets('bf', [50, 20]);
+    setSwapOffsets('gf', [-210, 10]);
+    setSwapOffsets('dad', [-270, 0]);
+
+    colorShaderBF = new FlxRuntimeShader('adjustColor');
+    colorShaderBF.setFloat('brightness', -23);
+    colorShaderBF.setFloat('hue', 12);
+    colorShaderBF.setFloat('contrast', 7);
+    colorShaderBF.setFloat('saturation', 0);
+    getHaxeActor('bf').shader = colorShaderBF;
+
+    colorShaderGF = new FlxRuntimeShader('adjustColor');
+    colorShaderGF.setFloat('brightness', -30);
+    colorShaderGF.setFloat('hue', -9);
+    colorShaderGF.setFloat('contrast', -4);
+    colorShaderGF.setFloat('saturation', 0);
+    getHaxeActor('gf').shader = colorShaderGF;
+
+    colorShaderDAD = new FlxRuntimeShader('adjustColor');
+    colorShaderDAD.setFloat('brightness', -33);
+    colorShaderDAD.setFloat('hue', -32);
+    colorShaderDAD.setFloat('contrast', -23);
+    colorShaderDAD.setFloat('saturation', 0);
+    getHaxeActor('dad').shader = colorShaderDAD;
+
+    var back = new FlxSprite(729, -170).loadGraphic(hscriptPath + 'backDark.png');
+    back.antialiasing = true;
+    addSprite(back, BEHIND_ALL);
+    stage.addElement('back', back);
+
+    var crowd = new FlxSprite(560, 290);
+    crowd.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'crowd.png', hscriptPath + 'crowd.xml');
+    crowd.animation.addByPrefix("idle", "Symbol 2 instance 1", 12, true);
+    crowd.animation.play("idle");
+    crowd.scrollFactor.set(0.8, 0.8);
+    crowd.antialiasing = true;
+    addSprite(crowd, BEHIND_ALL);
+    stage.addElement('crowd', crowd);
+
+    var smallLight = new FlxSprite(-361, 205).loadGraphic(hscriptPath + 'brightLightSmall.png');
+    smallLight.antialiasing = true;
+    smallLight.blend = 0;
+    addSprite(smallLight, BEHIND_ALL);
+    stage.addElement('smallLight', smallLight);
+
+    var bg = new FlxSprite(-603, -187).loadGraphic(hscriptPath + 'bg.png');
+    bg.antialiasing = true;
+    addSprite(bg, BEHIND_ALL);
+    stage.addElement('bg', bg);
+
+    var server = new FlxSprite(-361, 205).loadGraphic(hscriptPath + 'server.png');
+    server.antialiasing = true;
+    addSprite(server, BEHIND_ALL);
+    stage.addElement('server', server);
+
+    var greenlight = new FlxSprite(-171, 242).loadGraphic(hscriptPath + 'lightgreen.png');
+    greenlight.antialiasing = true;
+    greenlight.blend = 0;
+    addSprite(greenlight, BEHIND_ALL);
+
+    var redlight = new FlxSprite(-101, 560).loadGraphic(hscriptPath + 'lightred.png');
+    redlight.antialiasing = true;
+    redlight.blend = 0;
+    addSprite(redlight, BEHIND_ALL);
+
+    var orangelight = new FlxSprite(189, -195).loadGraphic(hscriptPath + 'orangelight.png');
+    orangelight.antialiasing = true;
+    orangelight.blend = 0;
+    addSprite(orangelight, BEHIND_ALL);
+
+    var lights = new FlxSprite(-601, -147).loadGraphic(hscriptPath + 'lights.png');
+    lights.scrollFactor.set(1.2, 1.2);
+    lights.antialiasing = true;
+    addSprite(lights, BEHIND_NONE);
+    stage.addElement('lights', lights);
+
+    var lightabove = new FlxSprite(804, -117).loadGraphic(hscriptPath + 'lightabove.png');
+    lightabove.antialiasing = true;
+    lightabove.blend = 0;
+    addSprite(lightabove, BEHIND_NONE);
 }
 
-function update(elapsed)
-{
+function characterAdded(char, type) {
+    switch(type) {
+	case 'bf':
+	    if (colorShaderBF != null) char.shader = colorShaderBF;
+	case 'dad':
+	    if (colorShaderDAD != null) char.shader = colorShaderDAD;
+	case 'gf':
+	    if (colorShaderGF != null) char.shader = colorShaderGF;
+    }
 }
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
-}
-

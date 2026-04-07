@@ -1,0 +1,44 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'monster idle', 24, false);
+    char.animation.addByPrefix('singUP', 'monster up note', 24, false);
+    char.animation.addByPrefix('singLEFT','Monster left note', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'Monster Right note', 24, false);
+    char.animation.addByPrefix('singDOWN', 'monster down', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('singUP', -20, 85, -20, 84);
+    char.addOffset('singRIGHT', -51, 0, 40);
+    char.addOffset('singLEFT', -30, 0, -51);
+    char.addOffset('singDOWN', -30, -94, 2);
+
+    char.addCamOffset('singRIGHT', -25);
+    char.addCamOffset('singLEFT', 25);
+
+    char.playAnim('idle');
+
+    char.flipX = false;
+
+    char.enemyOffsetY = 100;
+    char.playerOffsetY = 200;
+    if (char.isPlayer) {
+        char.followCamX = -50;
+        char.followCamY = 30;
+    } else {
+        char.followCamX = 150;
+        char.followCamY = -100;
+    }
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+function dance(char) {
+    char.playAnim('idle');
+}

@@ -1,5 +1,6 @@
 function init(char) {
     char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
     char.animation.addByPrefix('shoot1', 'Pico shoot 1', 24, false);
     char.animation.addByPrefix('shoot2', 'Pico shoot 2', 24, false);
     char.animation.addByPrefix('shoot3', 'Pico shoot 3', 24, false);
@@ -11,10 +12,14 @@ function init(char) {
     char.addOffset('shoot4', 439, -19);
 
     char.playAnim('shoot1');
-    char.loadMappedAnims();
     char.like = "gf";
     char.likeGf = true;
     char.hasGun = true;
+
+    char.gfOffsetX = -2;
+    char.gfOffsetY = -134;
+
+    char.loadMappedAnims();
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;
@@ -23,9 +28,9 @@ function sing(direction, miss, alt, char) {
     // do nothing...
 }
 function update(elapsed, char) {
-    // do nothing...
+    if (char.animation.curAnim != null && char.animation.curAnim.finished)
+	char.playAnim(char.animation.curAnim.name, false, false, char.animation.curAnim.frames.length - 3);
 }
-var danced = false;
 function dance(char) {
     // do nothing...
 }

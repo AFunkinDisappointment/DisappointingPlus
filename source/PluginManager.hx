@@ -63,6 +63,8 @@ class PluginManager {
     public static function addVarsToInterp<T:Interp>(interp:T):T {
 		interp.variables.set("Conductor", Conductor);
 		interp.variables.set("FlxSprite", DynamicSprite);
+        interp.variables.set("FlxTiledSprite", DynamicSprite.DynamicTiledSprite);
+        interp.variables.set("FlxBackdrop", DynamicSprite.DynamicBackdrop);
         interp.variables.set("getFlxPoint", function(x, y) {return FlxPoint.get(x, y);});
 		interp.variables.set("FlxSound", DynamicSound);
 		interp.variables.set("FlxAtlasFrames", DynamicSprite.DynamicAtlasFrames);
@@ -91,6 +93,8 @@ class PluginManager {
 		interp.variables.set("Std", Std);
 		interp.variables.set("StringTools", StringTools);
 		interp.variables.set("MetroSprite", MetroSprite);
+        interp.variables.set("FlxRuntimeShader", ShaderHandler.CoolRuntimeShader);
+        interp.variables.set("DropShadowShader", shaders.DropShadowShader);
 		interp.variables.set("FlxTrail", FlxTrail);
 		interp.variables.set("FlxEase", FlxEase);
 		interp.variables.set("Reflect", Reflect);
