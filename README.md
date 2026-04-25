@@ -20,6 +20,7 @@ Though, I would hope that the FNF community is past just porting a mod to anothe
 
 - The original Modding Plus can be found here: https://github.com/FunkinModdingPlus/ModdingPlus
 - Base FNF's code can be found here: https://github.com/ninjamuffin99/Funkin
+
 Note: I do use some code from newer version of base FNF, but I try my best to not copy and paste, when I can
 ## Credits for the Original Game
 
@@ -39,6 +40,7 @@ Note: I do use some code from newer version of base FNF, but I try my best to no
 - [Axy](https://github.com/timeless13GH) - Poggers help
 ## Disappointing+ Credits
  - [Roblox Disappointment](https://github.com/AFunkinDisappointment) - Mediocre Coder
+
 I didn't really need to credit myself, but I wanted to mention that most of the code is from the Modding Plus team listed above!
 This is just my sole additions to this defuncted engine.
 I'm definitely not that experienced, but I try my best!
