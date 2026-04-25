@@ -211,26 +211,9 @@ class Song {
 					0;
 			}
 		}
-		if (parsedJson.player1 == "bf-pixel" && OptionsHandler.options.stressTankmen) {
+		if (parsedJson.player1 == "bf-pixel" && OptionsHandler.options.stressTankmen)
 			parsedJson.player1 = "bulb-pixel";
-		}
-		// FIX THE CASTING ON WINDOWS/NATIVE
-		// Windows???
-		// trace(songData);
 
-		// trace('LOADED FROM JSON: ' + songData.notes);
-		/*
-			for (i in 0...songData.notes.length)
-			{
-				trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);
-				// songData.notes[i].sectionNotes = songData.notes[i].sectionNotes
-			}
-
-				daNotes = songData.notes;
-				daSong = songData.song;
-				daSections = songData.sections;
-				daBpm = songData.bpm;
-				daSectionLengths = songData.sectionLengths; */
 		if (jsonInput != folder + daDefault) {
 			// means this isn't (daDefault) difficulty
 			// lets finally overwrite notes

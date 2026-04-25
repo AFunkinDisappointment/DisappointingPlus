@@ -97,7 +97,7 @@ class DialogueBox extends FlxSpriteGroup {
 
 		setUp();
 		
-		FlxG.sound.playMusic(FNFAssets.getSound('assets/images/custom_dialogs/dialogMusic/' + curMusic+'.ogg'), 0);
+		FlxG.sound.playMusic(FNFAssets.getSound('assets/images/custom_dialogs/dialogMusic/' + curMusic + '.ogg'), 0);
 
 		FlxG.sound.music.fadeIn(1, 0, 0.8 * curVolume / 100);
 
@@ -366,7 +366,6 @@ class DialogueBox extends FlxSpriteGroup {
 
 		if (_dialogue.canFlip)
 			box.flipX = portrait.flipX;
-
 
 		dropText.font = swagDialogue.font = curFont;
 		dropText.size = swagDialogue.size = curFontScale;

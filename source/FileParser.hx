@@ -98,6 +98,7 @@ class FileParser {
 		trace(useDialog);
         dialogueFile.defines.backgroundColorA = Std.parseInt(splitData[1]);
         useDialog = useDialog.substr(splitData[1].length + 2).trim();
+
         splitData = useDialog.split("[");
         dialogueFile.defines.backgroundColorR = Std.parseInt(splitData[1]);
         useDialog = useDialog.substr(splitData[1].length + 2).trim();
@@ -160,7 +161,7 @@ class FileParser {
 
         for (dialog in dialogueList) {
             var advancedInfo:AdvancedDialogInfo = {dialogue: "", writingSpeed: 0.0, textShadowColor: FlxColor.WHITE, textColor: FlxColor.WHITE, speaker: "", skipAfter: 0, shakeDuration: 0, shakeDelay: 0, shakeAmount: 0.0, portraitColor: FlxColor.WHITE, musicVolume: 100, fontscale: 32, fontname: "lol", dialogueSound: "", dialogueBox: "", emotion: "", flashDelay: 0, flashDuration: 0, flipSides: false};
-
+            
             splitData = dialog.split(":");
             advancedInfo.speaker = splitData[1];
             dialog = dialog.substr(splitData[1].length + 2).trim();

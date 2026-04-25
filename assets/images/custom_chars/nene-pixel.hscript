@@ -1,0 +1,53 @@
+var abot;
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByIndices('danceLeft', 'idle', makeRangeArray(13), "", 24, false);
+    char.animation.addByIndices('danceRight', 'idle', makeRangeArray(27, 13), "", 24, false);
+
+    char.animation.addByPrefix('raiseKnife', 'raise', 24, false);
+    char.animation.addByPrefix('idleKnife', 'blink', 24, false);
+    char.animation.addByPrefix('lowerKnife', 'lower', 24, false);
+
+    char.addOffset('danceLeft');
+    char.addOffset('danceRight');
+
+    char.addOffset('raiseKnife', 0, 10);
+    char.addOffset('idleKnife', 0, 10);
+    char.addOffset('lowerKnife', 0, 10);
+
+    char.playAnim('danceRight');
+    char.like = "gf";
+    char.likeGf = true;
+    char.gfEpicLevel = Level_Boogie;
+    char.scale.set(6, 6);
+    char.updateHitbox();
+    char.isPixel = true;
+
+    abot = new Character(-68, -52, 'abot-pixel');
+    abot.x += abot.gfOffsetX;
+    abot.y += abot.gfOffsetY;
+    char.addChild(abot);
+
+    char.gfOffsetX = 60;
+    char.gfOffsetY = 0;
+    char.followCamX = -300;
+    char.followCamY = -250;
+    char.antialiasing = false;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = true;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    abot.dance();
+    danced = !danced;
+
+    if (danced)
+        char.playAnim('danceRight');
+    else
+        char.playAnim('danceLeft');
+}

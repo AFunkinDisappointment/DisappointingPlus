@@ -130,6 +130,43 @@
     "icons": "pico",
     "colors": ["#99FF7D"]
   },
+  "pico-speaker": {
+    "like": "pico-speaker",
+    "icons": "pico",
+    "colors": ["#99FF7D"]
+  },
+  "nene": {
+    "like": "nene",
+    "icons": "gf",
+    "colors": ["#EA687D"]
+  },
+  "nene-christmas": {
+    "like": "nene-christmas",
+    "icons": "gf",
+    "colors": ["#EA687D"]
+  },
+  "nene-dark": {
+    "like": "nene-dark",
+    "icons": "gf",
+    "colors": ["#EA687D"]
+  },
+  "nene-pixel": {
+    "like": "nene-pixel",
+    "icons": "gf",
+    "colors": ["#EA687D"]
+  },
+  "abot": {
+    "like": "abot",
+    "icons": "face"
+  },
+  "abot-dark": {
+    "like": "abot",
+    "icons": "face"
+  },
+  "abot-pixel": {
+    "like": "abot-pixel",
+    "icons": "face"
+  },
   "darnell": {
     "like": "darnell",
     "icons": [0,1],

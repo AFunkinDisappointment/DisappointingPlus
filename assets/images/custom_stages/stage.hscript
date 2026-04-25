@@ -39,14 +39,11 @@ function erectStage() {
 
     hscriptPath += 'erect/';
 
-    getHaxeActor('bf').x += 50;
-    getHaxeActor('bf').y += 20;
-    getHaxeActor('gf').x -= 210;
+    getHaxeActor('gf').x -= 160;
     getHaxeActor('gf').y += 10;
     getHaxeActor('dad').x -= 270;
 
-    setSwapOffsets('bf', [50, 20]);
-    setSwapOffsets('gf', [-210, 10]);
+    setSwapOffsets('gf', [-160, 10]);
     setSwapOffsets('dad', [-270, 0]);
 
     colorShaderBF = new FlxRuntimeShader('adjustColor');
@@ -62,6 +59,8 @@ function erectStage() {
     colorShaderGF.setFloat('contrast', -4);
     colorShaderGF.setFloat('saturation', 0);
     getHaxeActor('gf').shader = colorShaderGF;
+    if (StringTools.startsWith(getHaxeActor('gf').curCharacter, 'nene'))
+	getHaxeActor('gf').children[0].shader = colorShaderGF;
 
     colorShaderDAD = new FlxRuntimeShader('adjustColor');
     colorShaderDAD.setFloat('brightness', -33);
@@ -127,7 +126,7 @@ function erectStage() {
     addSprite(lightabove, BEHIND_NONE);
 }
 
-function characterAdded(char, type) {
+function onCharacterAdded(char, type) {
     switch(type) {
 	case 'bf':
 	    if (colorShaderBF != null) char.shader = colorShaderBF;

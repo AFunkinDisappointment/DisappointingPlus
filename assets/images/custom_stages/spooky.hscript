@@ -31,6 +31,13 @@ function normalStage() {
 function erectStage() {
     hscriptPath += 'erect/';
 
+    getHaxeActor('bf').x += 250;
+    getHaxeActor('gf').x += 100;
+    getHaxeActor('gf').scrollFactor.set(1, 1);
+
+    setSwapOffsets('bf', [250, 0]);
+    setSwapOffsets('gf', [100, 0]);
+
     var bgtrees = new FlxSprite(200, 50);
     bgtrees.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgtrees.png', hscriptPath + 'bgtrees.xml');
     bgtrees.animation.addByPrefix('idle', 'bgtrees', 5, true);
@@ -49,21 +56,13 @@ function erectStage() {
     addSprite(lightbg, BEHIND_ALL);
     stage.addElement('lightbg', lightbg);
 
-    var darkstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsDark.png');
-    addSprite(darkstairs, BEHIND_ALL);
-    stage.addElement('darkstairs', darkstairs);
-
-    lightstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsLight.png');
-    lightstairs.alpha = 0;
-    addSprite(lightstairs, BEHIND_ALL);
-    stage.addElement('lightstairs', lightstairs);
-
     if (gf.characterExists(getHaxeActor("gf").curCharacter + '-dark'))
     	darkgf = addCharacter(getHaxeActor("gf").curCharacter + '-dark', 'gf');
     else { // no dark mode
 	darkgf = addCharacter(getHaxeActor("gf").curCharacter, 'gf');
 	darkgf.color = 0xFF191919;
     }
+    darkgf.scrollFactor.set(1, 1);
     darkgf.beNormal = false;
     addSprite(darkgf, BEHIND_ALL);
     stage.addElement('darkgf', darkgf);
@@ -87,6 +86,15 @@ function erectStage() {
     darkdad.beNormal = false;
     addSprite(darkdad, BEHIND_DAD);
     stage.addElement('darkdad', darkdad);
+
+    var darkstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsDark.png');
+    addSprite(darkstairs, BEHIND_NONE);
+    stage.addElement('darkstairs', darkstairs);
+
+    lightstairs = new FlxSprite(966, -225).loadGraphic(hscriptPath + 'stairsLight.png');
+    lightstairs.alpha = 0;
+    addSprite(lightstairs, BEHIND_NONE);
+    stage.addElement('lightstairs', lightstairs);
 
     getHaxeActor("gf").alpha = 0;
     getHaxeActor("boyfriend").alpha = 0;
@@ -155,5 +163,7 @@ function beatHit(beat) {
 function update(elapsed) {
     darkbf.playAnim(getHaxeActor("boyfriend").animation.curAnim.name, true, false, getHaxeActor("boyfriend").animation.curAnim.curFrame);
     darkgf.playAnim(getHaxeActor("gf").animation.curAnim.name, true, false, getHaxeActor("gf").animation.curAnim.curFrame);
+    if (StringTools.startsWith(darkgf.curCharacter, 'nene'))
+	darkgf.children[0].playAnim(getHaxeActor("gf").children[0].animation.curAnim.name, true, false, getHaxeActor("gf").children[0].animation.curAnim.curFrame);
     darkdad.playAnim(getHaxeActor("dad").animation.curAnim.name, true, false, getHaxeActor("dad").animation.curAnim.curFrame);
 }

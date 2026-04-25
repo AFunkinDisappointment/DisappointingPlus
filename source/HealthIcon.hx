@@ -93,7 +93,7 @@ class HealthIcon extends FlxSprite {
 
 		bopReset();
 
-		if (daJson != null) {
+		if (daJson != null && Reflect.hasField(daJson, 'icons')) {
 			iconFrames = daJson.icons;
 			if (isNormal) {
 				if (daJson.iconbop != null)
@@ -129,7 +129,7 @@ class HealthIcon extends FlxSprite {
 		if (!isAnimated)
 			animation.pause();
 
-		if (daJson != null) {
+		if (daJson != null && Reflect.hasField(daJson, 'colors')) {
 			var daColors:Array<String> = daJson.colors;
 			healthColors = [];
 			for (color in daColors) {

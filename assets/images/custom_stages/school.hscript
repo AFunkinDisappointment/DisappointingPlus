@@ -18,7 +18,10 @@ function start(song) {
 	hscriptPath += 'erect/';
 
 	makeRimShader(getHaxeActor("bf"), 'bf');
-	makeRimShader(getHaxeActor("gf"), 'gf');
+	var daGF = getHaxeActor("gf");
+	makeRimShader(daGF, 'gf');
+	if (daGF.curCharacter == 'nene-pixel')
+	    makeAbotShaders(daGF.children[0]);
 	makeRimShader(getHaxeActor("dad"), 'dad');
     }
 
@@ -85,6 +88,7 @@ function start(song) {
 	    gorls.animation.addByIndices("danceRight", "BG girls group", makeRangeArray(30, 15), "", 24, false);
         }
 	gorls.scale.set(6, 6);
+	gorls.updateHitbox();
 	gorls.animation.play("danceLeft", true);
 	gorls.antialiasing = false;
 	addSprite(gorls, BEHIND_ALL);
@@ -115,8 +119,8 @@ function makeRimShader(char, type) {
 	    rim.distance = 3;
 	    rim.threshold = 0.3;
     }
-    if (FileSystem.exists(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png')) {
-	rim.loadAltMask(hscriptPath + 'erect/masks/' + char.curCharacter + '_mask.png');
+    if (FileSystem.exists(hscriptPath + 'masks/' + char.curCharacter + '_mask.png')) {
+	rim.loadAltMask(hscriptPath + 'masks/' + char.curCharacter + '_mask.png');
 	rim.useAltMask = true;
 	rim.maskThreshold = 1;
     }
@@ -125,6 +129,37 @@ function makeRimShader(char, type) {
     };
 }
 stage.addFunction('makeRimShader', makeRimShader);
+
+function makeAbotShaders(char) {
+    var abotSpeaker = char.children[1];
+    var rim = new DropShadowShader();
+    rim.setAdjustColor(-66, -10, 24, -23);
+    rim.color = 0xFF52351d;
+    rim.antialiasAmt = 0;
+    rim.threshold = 1;
+    rim.distance = 5;
+    rim.angle = 90;
+    abotSpeaker.shader = rim;
+
+    rim.attachedSprite = abotSpeaker;
+    abotSpeaker.animation.callback = function() {
+	rim.updateFrameInfo(abotSpeaker.frame);
+    };
+
+    rim.loadAltMask(hscriptPath + 'masks/aBotPixelSpeaker_mask.png');
+    rim.maskThreshold = 0;
+    rim.useAltMask = true;
+
+    var noRimShader = new FlxRuntimeShader('adjustColor');
+    noRimShader.setFloat('hue', -10);
+    noRimShader.setFloat('saturation', -23);
+    noRimShader.setFloat('brightness', -66);
+    noRimShader.setFloat('contrast', 24);
+
+    char.shader = noRimShader;
+    char.children[0].shader = noRimShader;
+    char.children[2].shader = noRimShader;
+}
 
 function beatHit(beat) {
     gorls.dance();

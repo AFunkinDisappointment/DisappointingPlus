@@ -172,6 +172,8 @@ function erectStage() {
 
     getHaxeActor('bf').shader = colorShader;
     getHaxeActor('gf').shader = colorShader;
+    if (StringTools.startsWith(getHaxeActor('gf').curCharacter, 'nene'))
+	getHaxeActor('gf').children[0].shader = colorShader;
     getHaxeActor('dad').shader = colorShader;
 
     mist0 = new FlxBackdrop(hscriptPath + 'mistMid.png', 0x01);
@@ -210,7 +212,7 @@ function erectStage() {
 	aMist.color = 0xFF5c5c5c;
 	aMist.blend = 0;
     }
-    stage.addElement('mists', mists);
+    //stage.addElement('mists', mists);
 
     normalStage(true);
 }

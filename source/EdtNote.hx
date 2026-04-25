@@ -23,19 +23,19 @@ import sys.io.File;
 #end
 
 
-class EdtNote extends FlxSprite
-{
+class EdtNote extends FlxSprite {
 	public var mustBeUpdated:Bool = false;
+
 	public var strumTime:Float = 0;
+	public var noteData:Int = 0;
+	public var sustainLength:Float = 0;
 
 	public var mustPress:Bool = false;
-	public var noteData:Int = 0;
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
 	public var duoMode:Bool = false;
 	public var oppMode:Bool = false;
-	public var sustainLength:Float = 0;
 
 	public var funnyMode:Bool = false;
 	public var noteScore:Float = 1;
@@ -59,24 +59,20 @@ class EdtNote extends FlxSprite
 	public var consistentHealth:Bool = false;
 	// How relatively hard it is to hit the note. Lower numbers are harder, with 0 being literally impossible
 	public var timingMultiplier:Float = 1;
-	// whether to play the sing animation for hitting this note
-	public var shouldBeSung:Bool = true;
 	public var ignoreHealthMods:Bool = false;
 	public var nukeNote = false;
 	public var drainNote = false;
 
 	var currentKey = null; // I tried pulling this from Playstate but it was being weird...
 
+	static var noteFrames:FlxAtlasFrames;
 	static var coolCustomGraphics:Array<FlxGraphic> = [];
 
 	// altNote can be int or bool. int just determines what alt is played
 	// format: [strumTime:Float, noteDirection:Int, sustainLength:Float, altNote:Union<Bool, Int>, isLiftNote:Bool, healMultiplier:Float, damageMultipler:Float, consistentHealth:Bool, timingMultiplier:Float, shouldBeSung:Bool, ignoreHealthMods:Bool, animSuffix:Union<String, Int>]
-	public function new(strumTime:Float, noteData:Int, ?LiftNote:Bool = false) {
+	public function new(strumTime:Float, noteData:Int) {
 		super();
 		// uh oh notedata sussy :flushed:
-		isLiftNote = LiftNote;
-		if (isLiftNote)
-			shouldBeSung = false;
 		x += 50;
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
@@ -100,8 +96,10 @@ class EdtNote extends FlxSprite
 			sussy = true;
 		}
 
-		frames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/normal/NOTE_assets.png',
+		if (noteFrames == null)
+			noteFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/normal/NOTE_assets.png',
 			'assets/images/custom_ui/ui_packs/normal/NOTE_assets.xml');
+		frames = noteFrames;
 		if (sussy) {
 			// we need to load a unique instance
 			// we only need 1 unique instance per number so we do save the graphics

@@ -1,49 +1,8 @@
-function start(song) {
-
-}
-
 function beatHit(beat) {
     switch (beat) {
-        case 16:
+        case 16, 80:
             gfSpeed = 2;
-        case 48:
-            gfSpeed = 1;
-        case 80:
-            gfSpeed = 2;
-        case 112:
+        case 48, 112:
             gfSpeed = 1;
     }
-}
-
-function update(elapsed)
-{
-}
-
-function stepHit(step)
-{
-}
-
-function playerTwoTurn()
-{
-
-}
-
-function playerTwoMiss()
-{
-}
-
-function playerTwoSing()
-{
-}
-
-function playerOneTurn()
-{
-}
-
-function playerOneMiss()
-{
-}
-
-function playerOneSing()
-{
 }

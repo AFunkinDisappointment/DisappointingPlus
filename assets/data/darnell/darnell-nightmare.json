@@ -16,8 +16,6 @@
                     ,[1161,7]
                     ,[1354,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -31,8 +29,6 @@
                     ,[2903,3]
                     ,[2903,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -46,8 +42,6 @@
                     ,[4258,3]
                     ,[4451,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -63,8 +57,6 @@
                     ,[5903,0]
                     ,[5999,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -79,8 +71,6 @@
                     ,[7354,7]
                     ,[7548,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -98,8 +88,6 @@
                     ,[9096,3]
                     ,[9096,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -113,8 +101,6 @@
                     ,[10451,2]
                     ,[10645,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -131,8 +117,6 @@
                     ,[12000,1]
                     ,[12193,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -147,8 +131,6 @@
                     ,[13548,4]
                     ,[13741,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -163,8 +145,6 @@
                     ,[15096,4]
                     ,[15290,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -181,8 +161,6 @@
                     ,[16645,2]
                     ,[16839,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -197,8 +175,6 @@
                     ,[18193,5]
                     ,[18194,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -213,8 +189,6 @@
                     ,[19934,5]
                     ,[19935,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -232,8 +206,6 @@
                     ,[21290,4]
                     ,[21290,6,241]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -248,8 +220,6 @@
                     ,[22935,0]
                     ,[23129,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -264,8 +234,6 @@
                     ,[24387,3]
                     ,[24581,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -282,8 +250,6 @@
                     ,[25935,7]
                     ,[26129,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -298,8 +264,6 @@
                     ,[27483,6]
                     ,[27677,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -316,8 +280,6 @@
                     ,[29032,0]
                     ,[29226,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -334,8 +296,6 @@
                     ,[30581,3]
                     ,[30774,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -349,8 +309,6 @@
                     ,[31935,1,193]
                     ,[32323,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -368,8 +326,6 @@
                     ,[33677,5]
                     ,[33871,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -387,8 +343,6 @@
                     ,[35419,5]
                     ,[35419,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -404,8 +358,6 @@
                     ,[36773,6,96]
                     ,[36967,6,96]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -421,8 +373,6 @@
                     ,[38322,5]
                     ,[38516,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -442,8 +392,6 @@
                     ,[40064,2]
                     ,[40064,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -460,8 +408,6 @@
                     ,[41419,6]
                     ,[41612,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -483,8 +429,6 @@
                     ,[43161,1]
                     ,[43161,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -505,8 +449,6 @@
                     ,[44709,7]
                     ,[44806,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -527,8 +469,6 @@
                     ,[46257,6]
                     ,[46354,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -551,8 +491,6 @@
                     ,[47806,0]
                     ,[47903,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -573,8 +511,6 @@
                     ,[49355,0]
                     ,[49452,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -591,8 +527,6 @@
                     ,[50709,5,96]
                     ,[50903,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -610,8 +544,6 @@
                     ,[52451,5]
                     ,[52451,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -628,8 +560,6 @@
                     ,[53806,3]
                     ,[54000,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -645,8 +575,6 @@
                     ,[55355,0]
                     ,[55548,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -661,8 +589,6 @@
                     ,[56902,7]
                     ,[57096,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -683,8 +609,6 @@
                     ,[58645,5]
                     ,[58645,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -703,8 +627,6 @@
                     ,[60000,1]
                     ,[60194,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -720,8 +642,6 @@
                     ,[61548,0]
                     ,[61742,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -744,8 +664,6 @@
                     ,[63290,7]
                     ,[63387,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -766,8 +684,6 @@
                     ,[64839,6]
                     ,[64936,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -789,8 +705,6 @@
                     ,[66387,3]
                     ,[66484,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -812,8 +726,6 @@
                     ,[67935,0]
                     ,[68032,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -834,8 +746,6 @@
                     ,[69484,4]
                     ,[69581,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -856,8 +766,6 @@
                     ,[71032,5]
                     ,[71129,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -880,8 +788,6 @@
                     ,[72581,3]
                     ,[72677,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -903,22 +809,16 @@
                     ,[74129,2]
                     ,[74226,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -934,8 +834,6 @@
                     ,[78581,7]
                     ,[78774,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -951,8 +849,6 @@
                     ,[80128,6]
                     ,[80323,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -968,8 +864,6 @@
                     ,[81677,4]
                     ,[81870,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -986,8 +880,6 @@
                     ,[83226,4]
                     ,[83420,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1002,8 +894,6 @@
                     ,[84581,1,241]
                     ,[84968,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1021,8 +911,6 @@
                     ,[86468,0]
                     ,[86516,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1039,8 +927,6 @@
                     ,[87871,3]
                     ,[88064,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1058,8 +944,6 @@
                     ,[89613,0]
                     ,[89710,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1084,8 +968,6 @@
                     ,[90968,7]
                     ,[91161,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1110,8 +992,6 @@
                     ,[92516,7]
                     ,[92710,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1134,8 +1014,6 @@
                     ,[94064,4]
                     ,[94257,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1152,8 +1030,6 @@
                     ,[95613,4]
                     ,[95807,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1171,8 +1047,6 @@
                     ,[97161,2]
                     ,[97355,1]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1190,8 +1064,6 @@
                     ,[98710,1]
                     ,[98903,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1211,8 +1083,6 @@
                     ,[100258,1]
                     ,[100452,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1230,8 +1100,6 @@
                     ,[102000,0]
                     ,[102097,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1245,8 +1113,6 @@
                     ,[103354,7]
                     ,[103547,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1260,8 +1126,6 @@
                     ,[105096,4]
                     ,[105097,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1277,8 +1141,6 @@
                     ,[106452,3]
                     ,[106645,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1295,8 +1157,6 @@
                     ,[108097,0]
                     ,[108194,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1311,8 +1171,6 @@
                     ,[109548,0,387]
                     ,[109742,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1331,8 +1189,6 @@
                     ,[111290,7]
                     ,[111290,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1346,8 +1202,6 @@
                     ,[112645,2]
                     ,[112839,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1364,8 +1218,6 @@
                     ,[114194,1]
                     ,[114387,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1388,8 +1240,6 @@
                     ,[115935,7]
                     ,[116032,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1410,8 +1260,6 @@
                     ,[117483,6]
                     ,[117580,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1434,8 +1282,6 @@
                     ,[119032,3]
                     ,[119129,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1457,8 +1303,6 @@
                     ,[120581,0]
                     ,[120677,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1479,8 +1323,6 @@
                     ,[122129,7]
                     ,[122226,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1500,8 +1342,6 @@
                     ,[123581,5]
                     ,[123678,7]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1522,8 +1362,6 @@
                     ,[125226,3]
                     ,[125323,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1544,8 +1382,6 @@
                     ,[126774,3]
                     ,[126871,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1559,8 +1395,6 @@
                     ,[128129,7]
                     ,[128322,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1572,8 +1406,6 @@
                     ,[129483,7]
                     ,[129870,4]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1588,8 +1420,6 @@
                     ,[131226,1]
                     ,[131419,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1604,8 +1434,6 @@
                     ,[132774,3]
                     ,[132968,0]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1619,8 +1447,6 @@
                     ,[134322,7]
                     ,[134516,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1636,8 +1462,6 @@
                     ,[136064,7]
                     ,[136064,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1655,8 +1479,6 @@
                     ,[137419,1]
                     ,[137613,2]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1674,8 +1496,6 @@
                     ,[139161,0]
                     ,[139258,3]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1689,8 +1509,6 @@
                     ,[140515,4]
                     ,[140708,5]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1704,8 +1522,6 @@
                     ,[142064,7]
                     ,[142257,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
@@ -1718,47 +1534,35 @@
                     ,[143225,4]
                     ,[143419,6]
                 ]
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
                 ,"sectionNotes" : []
-                ,"bpm" : 155
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
         ]
-        ,"gf" : "gf"
+        ,"gf" : "nene"
         ,"bpm" : 155
         ,"needsVoices" : true
         ,"stageID" : 1

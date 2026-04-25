@@ -1,6 +1,6 @@
 [
   {
-    "name" : "All"
+    "name" : "All",
     "songs" : [
      {
        "week" : 0,
@@ -13,9 +13,9 @@
     "name": "Base Game",
     "songs": [
       {
-	"name":"Tutorial",
-	"character":"gf",
-	"week": 0
+        "name": "Tutorial",
+	      "character": "gf",
+	      "week": 0
       },
       {
         "name": "Bopeebo",
@@ -108,7 +108,7 @@
       {
         "name": "Test",
         "character": "face",
-        "week": 6,
+        "week": 6
       },
       {
         "name": "Ugh",
@@ -128,17 +128,17 @@
       {
         "name": "Darnell",
         "character": "darnell",
-        "week": 0,
+        "week": 0
       },
       {
         "name": "Lit-Up",
         "character": "darnell",
-        "week": 0,
+        "week": 0
       },
       {
         "name": "2hot",
         "character": "darnell",
-        "week": 0,
+        "week": 0
       }
     ]
   }

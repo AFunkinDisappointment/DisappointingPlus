@@ -1,0 +1,76 @@
+var abot;
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByIndices('danceLeft', 'Idle', makeRangeArray(14), "", 24, false);
+    char.animation.addByIndices('danceRight', 'Idle', makeRangeArray(29, 15), "", 24, false);
+
+    char.animation.addByPrefix('cheer', 'ComboCheer', 24, false);
+
+    char.animation.addByPrefix('fawn', 'ComboFawn', 24, false);
+
+    char.animation.addByIndices('sad', 'Laugh', makeRangeArray(11), "", 24, false);
+    char.animation.addByIndices('sad-hold', 'Laugh', makeRangeArray(11, 7), "", 24, true);
+
+    char.animation.addByPrefix('knife-raise', 'KnifeRaise', 24, false);
+    char.animation.addByPrefix('knife-idle', 'KnifeIdle', 24, false);
+    char.animation.addByPrefix('knife-lower', 'KnifeLower', 24, false);
+
+    //char.animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", makeRangeArray(3), "", 24);
+    //char.animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", makeRangeArray(11), "", 24, false);
+
+    char.addOffset('danceLeft');
+    char.addOffset('danceRight');
+
+    char.addOffset('cheer', -120, 50);
+
+    char.addOffset('fawn', -50, -25);
+
+    char.addOffset('sad');
+    char.addOffset('sad-hold');
+
+    char.addOffset('knife-raise', 0, 52);
+    char.addOffset('knife-idle', -99, 52);
+    char.addOffset('knife-lower', 135, 52);
+
+    //char.addOffset('hairBlow', 45, -8);
+    //char.addOffset('hairFall', 0, -9);
+
+    abot = new Character(-50, 0, 'abot');
+    abot.x += abot.gfOffsetX;
+    abot.y += abot.gfOffsetY;
+    char.addChild(abot);
+
+    if (char.isPlayer) {
+	char.flipX = true;
+	char.followCamY = 150;
+    } else {
+	char.followCamX = 150;
+	char.followCamY = 0;
+    }
+
+    char.gfOffsetX = 60;
+
+    char.playAnim('danceRight');
+    char.like = "gf";
+    char.likeGf = true;
+    char.gfEpicLevel = Level_Sadness;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    abot.dance();
+    if (!StringTools.startsWith(char.animation.curAnim.name, 'hair')) {
+        danced = !danced;
+
+        if (danced)
+            char.playAnim('danceRight');
+        else
+            char.playAnim('danceLeft');
+    }
+}

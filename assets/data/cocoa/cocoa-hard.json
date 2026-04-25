@@ -746,25 +746,6 @@
                 ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
-            ,{
-                 "typeOfSection" : 0
-                ,"sectionNotes" : []
-                ,"lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"bpm" : 100
-                ,"changeBPM" : false
-                ,"mustHitSection" : true
-            }
-            ,{
-                 "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : []
-                ,"bpm" : 100
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
-                ,"mustHitSection" : true
-            }
         ]
         ,"player2" : "parents-christmas"
         ,"song" : "Cocoa"

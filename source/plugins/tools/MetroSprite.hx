@@ -2,7 +2,7 @@ package plugins.tools;
 
 import flixel.FlxSprite;
 // utility sprite that handles dancing for you
-class MetroSprite extends DynamicSprite {
+class MetroSprite extends DisSprite {
     var danceDir:Bool = false;
     public var danceInPlace:Bool = false;
     /**
@@ -11,7 +11,7 @@ class MetroSprite extends DynamicSprite {
      * @param y Y Position
      * @param danceInPlace If true, acts like bf, otherwise acts like gf. 
      */
-    public function new (x:Float, y:Float, danceInPlace:Bool) {
+    public function new (x:Float, y:Float, danceInPlace:Bool = true) {
         super(x, y);
         this.danceInPlace = danceInPlace;
     }
@@ -19,14 +19,13 @@ class MetroSprite extends DynamicSprite {
      * Handles playing animations automatically. You still have to call this every  beat!
      * @param beat The current beat. Unused. 
      */
-    public function dance(beat:Int):Void {
+    public function dance():Void {
         danceDir = !danceDir;
-        if (danceInPlace) {
+        if (danceInPlace)
             animation.play("idle", true);
-        } else if (danceDir) {
+        else if (danceDir)
             animation.play("danceRight", true);
-        } else {
+        else
             animation.play("danceLeft", true);
-        }
     }
  }

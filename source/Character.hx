@@ -53,7 +53,7 @@ typedef TCharacterRefJson = {
 	var icons:Array<Int>;
 	var ?colors:Array<String>;
 }
-class Character extends FlxSprite {
+class Character extends DisSprite {
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var camOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
@@ -80,7 +80,7 @@ class Character extends FlxSprite {
 	public var midpointY:Int = 0;
 	public var holdTimer:Float = 0;
 	public var animationNotes:Array<Dynamic> = [];
-	public var singPriority:Array<String> = [];
+	public var singPriority:Array<String> = ['hey', 'cheer', 'fawn', 'sad'];
 	public var like:String = "bf";
 	public var beNormal:Bool = true;
 	/**
@@ -228,7 +228,7 @@ class Character extends FlxSprite {
 			if (alt > 0) {
 				if (alt == 1 && animation.getByName(directName + missName + '-alt') != null)
 					missAltSupported = true;
-				else if (alt > 1 && animation.getByName(directName + missName +"-" + alt + "alt") != null)
+				else if (alt > 1 && animation.getByName(directName + missName + "-alt" + alt) != null)
 					missAltSupported = true;
 			}
 			if (missSupported && (alt == 0 || missAltSupported))
@@ -237,8 +237,8 @@ class Character extends FlxSprite {
 		if (alt > 0 && (!miss || missAltSupported)) {
 			if (alt == 1 && animation.getByName(directName + '-alt') != null)
 				directName += "-alt";
-			else if (alt > 1 && animation.getByName(directName + "-" + alt + "alt") != null)
-				directName += "-" + alt + "alt";
+			else if (alt > 1 && animation.getByName(directName + "-alt" + alt) != null)
+				directName += "-alt" + alt;
 		}
 		// if we have to miss, but miss isn't supported...
 		if (miss && !(missSupported)) {
@@ -252,8 +252,8 @@ class Character extends FlxSprite {
 		if (alt > 0) {
 			if (alt == 1 && animation.getByName(directName + '-alt') != null)
 				directName += "-alt";
-			else if (alt > 1 &&  animation.getByName(directName + "-" + alt + "alt") != null)
-				directName += "-" + alt + "alt";
+			else if (alt > 1 &&  animation.getByName(directName + "-alt" + alt) != null)
+				directName += "-alt" + alt;
 		}
 		callInterp("sing", [direction, miss, alt, this]);
 		playAnim(directName, true);

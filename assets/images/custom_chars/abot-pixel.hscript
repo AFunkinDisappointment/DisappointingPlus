@@ -1,0 +1,56 @@
+var abotHead;
+var abotSpeaker;
+function init(char) {
+    char.loadSparrow(hscriptPath + 'aBotPixelBody.png', hscriptPath + 'aBotPixelBody.xml');
+
+    abotHead = new DisSprite(-210, 1/*-325, 72*/).loadSparrow(hscriptPath + 'abotHead.png', hscriptPath + 'abotHead.xml');
+    abotHead.animation.addByPrefix('toleft', 'toleft', 24, false);
+    abotHead.animation.addByPrefix('toright', 'toright', 24, false);
+    abotHead.scale.set(6, 6);
+    abotHead.updateHitbox();
+    abotHead.antialiasing = false;
+
+    abotSpeaker = new DisSprite(-456, -91/*-78, 9*/).loadSparrow(hscriptPath + 'aBotPixelSpeaker.png', hscriptPath + 'aBotPixelSpeaker.xml');
+    abotSpeaker.animation.addByPrefix('idle', 'danceLeft', 24, false);
+    abotSpeaker.scale.set(6, 6);
+    abotSpeaker.updateHitbox();
+    abotSpeaker.antialiasing = false;
+
+    var abotBack = new DisSprite(-170, -80).loadGraphic(hscriptPath + 'aBotPixelBack.png'); //-55
+    abotBack.scale.set(6, 6);
+    abotBack.updateHitbox();
+    abotBack.antialiasing = false;
+
+    char.addChild(abotHead);
+    char.addChild(abotSpeaker);
+    char.addChild(abotBack);
+
+    char.animation.addByPrefix('idle', 'danceLeft', 24, false);
+    char.animation.addByPrefix('lowerKnife', 'return', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('lowerKnife');
+
+    char.playAnim('idle');
+    char.like = "gf";
+    char.likeGf = true;
+    char.gfEpicLevel = Level_Boogie;
+    char.scale.set(6, 6);
+    char.updateHitbox();
+    char.isPixel = true;
+
+    char.gfOffsetX = 360;
+    char.gfOffsetY = 480;
+    char.followCamX = -300;
+    char.followCamY = -250;
+    char.antialiasing = false;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+function update(elapsed, char) {
+    // do nothing...
+}
+function dance(char) {
+    abotSpeaker.animation.play('idle', true);
+    char.playAnim('idle', true);
+}

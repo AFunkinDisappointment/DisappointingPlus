@@ -4,7 +4,6 @@
         ,"stage" : "stage"
         ,"player1" : "pico"
         ,"player2" : "dad"
-        ,"forceJudgements" : false
         ,"notes" : [
              {
                  "lengthInSteps" : 16
@@ -2869,7 +2868,7 @@
                 ,"mustHitSection" : true
             }
         ]
-        ,"gf" : "gf"
+        ,"gf" : "nene"
         ,"bpm" : 180
         ,"mania" : 0
         ,"needsVoices" : true

@@ -1,35 +1,51 @@
 function init(char) {
-    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    if (char.isDie) {
+	char.loadTextureAtlas(hscriptPath + 'char-dead');
+	char.animation.addByTimelineIndices('firstDeath', char.library.timeline, makeRangeArray(46), 24, false);
+	char.animation.addByTimelineIndices('deathLoop', char.library.timeline, makeRangeArray(68, 46), 24, true);
+	char.animation.addByTimelineIndices('deathConfirm', char.library.timeline, makeRangeArray(118, 68), 24, false);
 
-    char.animation.addByPrefix('idle', 'Pico Idle Dance', 24, false);
-    char.animation.addByPrefix('singUP', 'pico Up note0', 24, false);
-    char.animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
-    char.animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
-    char.animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
+	char.addOffset('firstDeath', 524, 46); //136
+	char.addOffset('deathLoop', 524, 46);
+	char.addOffset('deathConfirm', 524, 46);
+	char.playAnim('firstDeath');
+    } else {
+	char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
-    char.animation.addByPrefix('singUPmiss', 'note miss up piconene', 24, false);
-    char.animation.addByPrefix('singDOWNmiss', 'note miss down pico nene', 24, false);
-    char.animation.addByPrefix('singRIGHTmiss', 'note miss left pico nene', 24, false);
-    char.animation.addByPrefix('singLEFTmiss', 'note miss right pico nene', 24, false);
+	char.animation.addByPrefix('idle', 'Pico Idle Dance', 24, false);
+	char.animation.addByPrefix('singUP', 'pico Up note0', 24, false);
+	char.animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
+	char.animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
+	char.animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
 
-    char.animation.addByPrefix('knifeToss', 'pico nene knife toss', 24, false);
-    char.animation.addByPrefix('laugh', 'pico nene laughing full', 24, false);
+	char.animation.addByPrefix('singUPmiss', 'note miss up piconene', 24, false);
+	char.animation.addByPrefix('singDOWNmiss', 'note miss down pico nene', 24, false);
+	char.animation.addByPrefix('singRIGHTmiss', 'note miss left pico nene', 24, false);
+	char.animation.addByPrefix('singLEFTmiss', 'note miss right pico nene', 24, false);
 
-    char.addOffset('idle');
-    char.addOffset('singUP', 3, 3, 56);
-    char.addOffset('singLEFT', 67, -20, 27, -16);
-    char.addOffset('singRIGHT', -48, -16, -48, -20);
-    char.addOffset('singDOWN', -25, -72, 93, -70);
+	char.animation.addByPrefix('knifeToss', 'pico nene knife toss', 24, false);
+	char.animation.addByPrefix('laugh', 'pico nene laughing full', 24, false);
 
-    char.addOffset('singUPmiss', 8, 4, 60, 2);
-    char.addOffset('singLEFTmiss', 68, -19, 28, -11);
-    char.addOffset('singRIGHTmiss', -45, -11, -45, -19);
-    char.addOffset('singDOWNmiss', -13, -74, 95);
+	char.addOffset('idle');
+	char.addOffset('singUP', 3, 3, 56);
+	char.addOffset('singLEFT', 67, -20, 27, -16);
+	char.addOffset('singRIGHT', -48, -16, -48, -20);
+	char.addOffset('singDOWN', -25, -72, 93, -70);
 
-    char.addOffset('knifeToss', 221, 26, 14);
-    char.addOffset('laugh', 10, 7, 5);
+	char.addOffset('singUPmiss', 8, 4, 60, 2);
+	char.addOffset('singLEFTmiss', 68, -19, 28, -11);
+	char.addOffset('singRIGHTmiss', -45, -11, -45, -19);
+	char.addOffset('singDOWNmiss', -13, -74, 95);
 
-    char.playAnim('idle');
+	char.addOffset('knifeToss', 221, 26, 14);
+	char.addOffset('laugh', 10, 7, 5);
+
+	char.playAnim('idle');
+    }
+
+    char.deathSound = 'fnf_loss_sfx-pico-and-nene.ogg';
+    char.gameoverMusic = 'gameOver-pico.ogg';
+    char.gameoverMusicEnd = 'gameOverEnd-pico.ogg';
 
     char.flipX = true;
 
@@ -44,8 +60,6 @@ function init(char) {
         char.followCamX = 150;
         char.followCamY = -50;
     }
-    char.midpointX = 0;
-    char.midpointY = 0;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;

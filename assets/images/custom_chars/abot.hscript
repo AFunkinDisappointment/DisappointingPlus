@@ -1,0 +1,57 @@
+var pupil;
+function init(char) {
+    char.loadTextureAtlas(hscriptPath + 'abotSystem');
+
+    var stereoBG = new FlxSprite(165, 30).loadGraphic(hscriptPath + 'stereoBG.png');
+    char.addChild(stereoBG);
+
+    var eyeColor = 0xFFFFFFFF;
+    if (char.curCharacter == 'abot-dark')
+	eyeColor = 0xFF6F96CE;
+    var eyeWhites = new FlxSprite(40, 250).makeGraphic(120, 60, eyeColor);
+    char.addChild(eyeWhites);
+
+    pupil = new DisSprite(50, 240).loadTextureAtlas(hscriptPath + 'systemEyes'); 
+    pupil.antialiasing = true;
+    pupil.animation.addByTimeline('idle', pupil.library.timeline, 24, true);
+    pupil.animation.play('idle');
+    pupil.animation.pause();
+    char.addChild(pupil);
+
+    char.animation.addByTimeline('idle', char.library.timeline, 24, false);
+
+    char.addOffset('idle');
+
+    char.playAnim('idle');
+
+    char.gfOffsetX = -50;
+    char.gfOffsetY = 320;
+}
+isPixel = false;
+function update(elapsed, char) {
+    /*if (pupil && pupil.animation.isPlaying) {
+	if (lookingLeft && pupil.anim.curAnim.curFrame >= 30) {
+	    lookingLeft = false;
+	    pupil.animation.pause();
+	} else if (!lookingLeft && pupil.anim.curAnim.curFrame >= 17) {
+	    lookingLeft = true;
+	    pupil.animation.pause();
+	}
+    }*/
+}
+function dance(char) {
+    char.playAnim('idle');
+    char.animation.curAnim.curFrame = 1;
+}
+/*var lookingLeft = false;
+function movePupilsLeft() {
+    if (lookingLeft) return;
+    pupil.animation.play('idle');
+    pupil.anim.curAnim.curFrame = 0;
+}
+
+function movePupilsRight() {
+    if (!lookingLeft) return;
+    pupil.animation.play('idle');
+    pupil.anim.curAnim.curFrame = 17;
+}*/

@@ -103,6 +103,7 @@ class Highscore {
 			if (!songFCLevels.exists(bestOfAll) || songFCLevels.get(bestOfAll) <= rating)
 				setFCLevel(bestOfAll, rating);
 		}
+		songFlush();
 	}
 	public static function saveWeekScore(week:String = 'Tutorial', score:Int = 0, ?diff:Int = 0, ?accuracy:Float = 0, ?saving:String = "best"):Void {
 		var daWeek:String = formatSong('week-' + week, diff, saving);
@@ -116,6 +117,7 @@ class Highscore {
 			setScore(daWeek, score);
 			setAccuracy(daWeek, accuracy);
 		}
+		songFlush();
 	}
 
 	public static function deleteSongScore(song:String = 'Tutorial', ?diff:Int = 0):Void {
@@ -128,13 +130,14 @@ class Highscore {
 			songJudge.remove(daSong);
 			songOptionsUsed.remove(daSong);
 			songModifiersUsed.remove(daSong);
-			songFlush(daSong);
 		}
+		songFlush();
 	}
 	public static function deleteWeekScore(week:String = 'Tutorial', ?diff:Int = 0):Void {
 		var daWeek:String = formatSong('week-' + week, diff, 'best');
 		setScore(daWeek, 0);
 		setAccuracy(daWeek, 0);
+		songFlush();
 	}
 
 	/**
@@ -143,40 +146,40 @@ class Highscore {
 	static function setScore(song:String, score:Int):Void {
 		// Reminder that I don't need to format this song, it should come formatted!
 		songScores.set(song, score);
-		FlxG.save.data.songScores = songScores;
-		FlxG.save.flush();
+		//FlxG.save.data.songScores = songScores;
+		//FlxG.save.flush();
 	}
 	public static function setComplete(song:String, combo:Bool) {
 		songCompletions.set(song, combo);
-		FlxG.save.data.songCompletions = songCompletions;
-		FlxG.save.flush();
+		//FlxG.save.data.songCompletions = songCompletions;
+		//FlxG.save.flush();
 	}
 	public static function setAccuracy(song:String, accuracy:Float):Void {
 		songAccuracy.set(song,accuracy);
-		FlxG.save.data.songAccuracy = songAccuracy;
-		FlxG.save.flush();
+		//FlxG.save.data.songAccuracy = songAccuracy;
+		//FlxG.save.flush();
 	}
 	static function setFCLevel(song:String, level:Int ):Void {
 		songFCLevels.set(song, level);
-		FlxG.save.data.songFCLevels = songFCLevels;
-		FlxG.save.flush();
+		//FlxG.save.data.songFCLevels = songFCLevels;
+		//FlxG.save.flush();
 	}
 	static function setJudge(song:String, judge:Int):Void {
 		songJudge.set(song, judge);
-		FlxG.save.data.songJudge = songJudge;
-		FlxG.save.flush();
+		//FlxG.save.data.songJudge = songJudge;
+		//FlxG.save.flush();
 	}
 	static function setOptionsUsed(song:String, options:TOptions):Void {
 		songOptionsUsed.set(song, options);
-		FlxG.save.data.songOptionsUsed = songOptionsUsed;
-		FlxG.save.flush();
+		//FlxG.save.data.songOptionsUsed = songOptionsUsed;
+		//FlxG.save.flush();
 	}
 	static function setModifiersUsed(song:String, modifiers:Dynamic):Void {
 		songModifiersUsed.set(song, modifiers);
-		FlxG.save.data.songModifiersUsed = songModifiersUsed;
-		FlxG.save.flush();
+		//FlxG.save.data.songModifiersUsed = songModifiersUsed;
+		//FlxG.save.flush();
 	}
-	static function songFlush(song:String):Void {
+	static function songFlush():Void {
 		FlxG.save.data.songScores = songScores;
 		FlxG.save.data.songCompletions = songCompletions;
 		FlxG.save.data.songAccuracy = songAccuracy;

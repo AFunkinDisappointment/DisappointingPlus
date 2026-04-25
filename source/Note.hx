@@ -237,19 +237,15 @@ class Note extends DynamicSprite {
 		trueNoteData = noteData;
 		this.noteData = noteData % NOTE_AMOUNT;
 		// overloading : )
-		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4) {
+		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4) 
 			mineNote = true;
-		}
-		if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6) {
+		if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6)
 			isLiftNote = true;
-		}
 		// die : )
-		if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8) {
+		if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8)
 			nukeNote = true;
-		}
-		if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10) {
+		if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10)
 			drainNote = true;
-		}
 		if (noteData >= NOTE_AMOUNT * 10 && specialNoteJson != null) {
 			// special note...
 			// get the note thingie

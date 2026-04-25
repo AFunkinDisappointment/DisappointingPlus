@@ -1,4 +1,4 @@
-# Friday Night Funkin
+# Friday Night Funkin Disappointing Plus
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FTheDrawingCoder-Gamer%2FFunkin%2Fbadge%3Fref%3Dmaster&style=for-the-badge)](https://actions-badge.atrox.dev/TheDrawingCoder-Gamer/Funkin/goto?ref=master)
 ![Azure DevOps builds](https://img.shields.io/azure-devops/build/benharless820/7af207e5-72fd-483f-9a48-6fc65e63abb9/4?label=pipelines&style=for-the-badge)
 [![forthebadge](https://forthebadge.com/images/badges/fuck-it-ship-it.svg)](https://forthebadge.com)
@@ -7,24 +7,26 @@
 [![forthebadge](https://forthebadge.com/images/badges/it-works-why.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/just-plain-nasty.svg)](https://forthebadge.com)
 
-This is the repository for Friday Night Funkin Modding Plus, a mod for FNF to add more features for modders and players alike.
+This is the repository for Friday Night Funkin Disappointing Plus, a fork of Modding Plus, set on continuing to use and update an
+outdated engine for the fun of it!
 
-Any mods made with this mod must have express permission from the creator of songs included. 
+Feel free to use this in any of your mods! You're passing up using something better, like Psych engine, or even base FNF itself, just so you know.
+
+But remember, any mods made with this mod must have express permission from the creator of songs included. 
 (for example, if you include the Whitty Mod, you should have express permission from Nate Anim8, KadeDev, and SockClip.
-I at least would like to see the main author and a majority of secondary offers get express permission)
-If an author gives express disapproval, and the mod is up, you should take your mod down. I own the code to this mod so I can (and will)
-take down mods that don't follow this rule.
+I, at least, would like to see the main author and a majority of secondary offers get express permission)
+If an author gives express disapproval, and the mod is up, you should take your mod down. 
+Though, I would hope that the FNF community is past just porting a mod to another engine and reuploading it as their own.
 
-
-- Get the cutting edge build: https://dev.azure.com/benharless820/FNF%20Modding%20Plus/_build
-- Play the Original Game: https://github.com/ninjamuffin99/Funkin
-- Need Help? FNF Modding Plus Discord: https://discord.gg/xeC748FR
-- Trello Page (todo list): https://trello.com/b/cFjJJIjF/fnf-modding-plus
+- The original Modding Plus can be found here: https://github.com/FunkinModdingPlus/ModdingPlus
+- Base FNF's code can be found here: https://github.com/ninjamuffin99/Funkin
+Note: I do use some code from newer version of base FNF, but I try my best to not copy and paste, when I can
 ## Credits for the Original Game
 
 - [ninjamuffin99](https://twitter.com/ninja_muffin99) - Programmer
 - [PhantomArcade3K](https://twitter.com/phantomarcade3k) and [Evilsk8r](https://twitter.com/evilsk8r) - Art
 - [KawaiSprite](https://twitter.com/kawaisprite) - Musician
+- [Additional Credits](https://github.com/FunkinCrew/funkin.assets/blob/main/exclude/data/credits.json)
 ## Modding+ Credits
 
 - [BulbyVR](https://github.com/TheDrawingCoder-Gamer) - Owner/Programmer
@@ -35,13 +37,19 @@ take down mods that don't follow this rule.
 - [Drippy](https://github.com/TrafficKid) - GitHub Wikipedia
 - [GwebDev](https://github.com/GrowtopiaFli) - Edited WebM code
 - [Axy](https://github.com/timeless13GH) - Poggers help
+## Disappointing+ Credits
+ - [Roblox Disappointment](https://github.com/AFunkinDisappointment) - Mediocre Coder
+I didn't really need to credit myself, but I wanted to mention that most of the code is from the Modding Plus team listed above!
+This is just my sole additions to this defuncted engine.
+I'm definitely not that experienced, but I try my best!
+
 ## Build instructions
 
 THESE INSTRUCTIONS ARE FOR COMPILING THE GAME'S SOURCE CODE!!!
 
-IF YOU WANT TO JUST DOWNLOAD AND INSTALL AND PLAY THE GAME NORMALLY, GO TO GAMEBANANA TO DOWNLOAD THE GAME FOR PC!!
+IF YOU WANT TO JUST DOWNLOAD, INSTALL, AND PLAY THE GAME NORMALLY, GO TO THE GITHUB'S RELEASES TO DOWNLOAD THE GAME FOR PC!!
 
-https://gamebanana.com/gamefiles/14264
+https://github.com/AFunkinDisappointment/DisappointingPlus/releases
 
 IF YOU WANT TO COMPILE THE GAME YOURSELF, OR PLAY ON MAC OR LINUX, CONTINUE READING!!!
 

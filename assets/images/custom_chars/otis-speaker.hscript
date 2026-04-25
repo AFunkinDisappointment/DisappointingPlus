@@ -1,3 +1,4 @@
+var abot;
 function init(char) {
     char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
@@ -18,8 +19,12 @@ function init(char) {
     char.likeGf = true;
     char.hasGun = true;
 
+    abot = new Character(-50, 0, 'abot');
+    abot.x += abot.gfOffsetX;
+    abot.y += abot.gfOffsetY;
+    char.addChild(abot);
+
     char.gfOffsetX = 50;
-    char.gfOffsetY = -30;
 
     char.loadMappedAnims();
 }
@@ -33,6 +38,7 @@ function update(elapsed, char) {
     // do nothing...
 }
 function dance(char) {
+    abot.dance();
     if (char.animation.curAnim.curFrame > 7 || char.animation.curAnim.name == 'idle')
 	char.playAnim('idle');
 }

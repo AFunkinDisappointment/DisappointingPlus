@@ -103,6 +103,8 @@ function erect() {
 
     getHaxeActor('bf').shader = colorShader;
     getHaxeActor('gf').shader = colorShader;
+    if (StringTools.startsWith(getHaxeActor('gf').curCharacter, 'nene'))
+	getHaxeActor('gf').children[0].shader = colorShader;
     getHaxeActor('dad').shader = colorShader;
 
     normal(true);

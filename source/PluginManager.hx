@@ -29,6 +29,9 @@ import lime.system.System;
 import sys.io.File;
 import sys.FileSystem;
 
+import animate.FlxAnimate;
+import animate.FlxAnimateFrames;
+
 class PluginManager {
     public static var interp = new InterpEx();
     public static var hscriptClasses:Array<String> = [];
@@ -63,11 +66,14 @@ class PluginManager {
     public static function addVarsToInterp<T:Interp>(interp:T):T {
 		interp.variables.set("Conductor", Conductor);
 		interp.variables.set("FlxSprite", DynamicSprite);
+        interp.variables.set("DisSprite", DisSprite);
         interp.variables.set("FlxTiledSprite", DynamicSprite.DynamicTiledSprite);
         interp.variables.set("FlxBackdrop", DynamicSprite.DynamicBackdrop);
         interp.variables.set("getFlxPoint", function(x, y) {return FlxPoint.get(x, y);});
 		interp.variables.set("FlxSound", DynamicSound);
 		interp.variables.set("FlxAtlasFrames", DynamicSprite.DynamicAtlasFrames);
+        interp.variables.set("FlxAnimate", FlxAnimate);
+        interp.variables.set("FlxAnimateFrames", FlxAnimateFrames);
 		interp.variables.set("FlxGroup", flixel.group.FlxGroup);
 		interp.variables.set("FlxAngle", flixel.math.FlxAngle);
 		interp.variables.set("FlxMath", flixel.math.FlxMath);

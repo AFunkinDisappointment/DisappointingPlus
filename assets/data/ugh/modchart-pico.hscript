@@ -9,14 +9,14 @@ function stepHit(step) {
 	case 1:
 		SetCameraBop({rate: 1, intensity: 0.8});
 	case 16:
-		dad.playAnim("augh", true);
+		getHaxeActor('dad').playAnim("augh", true);
 		FocusCamera({char: 0});
 	case 32:
 		FocusCamera({char: 1});
 	case 48:
 		FocusCamera({char: 0});
 	case 60:
-		dad.playAnim("singUP-alt", false);
+		getHaxeActor('dad').playAnim("singUP-alt", false);
 	case 63:
 		SetCameraBop({rate: 2, intensity: 1.5});
 	case 64:
@@ -27,7 +27,7 @@ function stepHit(step) {
 	case 111:
 		FocusCamera({char: 1});
 	case 112:
-		dad.playAnim("laugh", true);
+		getHaxeActor('dad').playAnim("laugh", true);
 		ZoomCamera({zoom: 1.05, duration: 32, ease: 'expoOut', mode: 'stage'});
 	case 148:
 		FocusCamera({char: 1, x: 150, y: -10});
@@ -59,7 +59,7 @@ function stepHit(step) {
 	case 384:
 		FocusCamera({char: 1});
 	case 400:
-		dad.playAnim("singUP-alt", true);
+		getHaxeActor('dad').playAnim("singUP-alt", true);
 	case 402:
 		FocusCamera({char: 1});
 	case 416:
@@ -82,15 +82,14 @@ function stepHit(step) {
 		FocusCamera({char: 0, x: 50, duration: 16, ease: 'expoOut'});
 	case 524:
 		ZoomCamera({zoom: 1.08, duration: 32, ease: 'expoOut', mode: 'stage'});
-		boyfriend.playAnim("burpSmile", false);
+		getHaxeActor('boyfriend').playAnim("burpSmile", false);
 	case 527:
 		ZoomCamera({zoom: 1.04, duration: 32, ease: 'expoOut', mode: 'stage'});
 	case 528:
-		dad.playAnim("augh", false);
+		getHaxeActor("dad").playAnim("augh");
 		FocusCamera({char: 1, duration: 16, ease: 'expoOut'});
-	case 535:
-		dad.playAnim("beatit", false);
 	case 536:
+		getHaxeActor("dad").playAnim("beatit");
 		ZoomCamera({zoom: 1.1, duration: 32, ease: 'expoOut', mode: 'stage'});
 	case 544:
 		ZoomCamera({zoom: 1.05, duration: 32, ease: 'expoOut', mode: 'stage'});
@@ -136,7 +135,7 @@ function stepHit(step) {
 		FocusCamera({char: 1, x: 150, y: -10});
 		ZoomCamera({duration: 32, ease: 'expoOut', mode: 'stage'});
 	case 828:
-		dad.playAnim("singUP-alt", false);
+		getHaxeActor('dad').playAnim("singUP-alt", false);
 	case 832:
 		FocusCamera({char: 0});
 		ZoomCamera({zoom: 1.05, duration: 32, ease: 'expoOut', mode: 'stage'});

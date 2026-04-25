@@ -1,0 +1,68 @@
+var abot;
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByIndices('danceLeft', 'Nene Idle', makeRangeArray(14), "", 24, false);
+    char.animation.addByIndices('danceRight', 'Nene Idle', makeRangeArray(29, 15), "", 24, false);
+
+    char.animation.addByPrefix('cheer', 'combo celebration 1 nene', 24, false);
+
+    char.animation.addByPrefix('fawn', 'fawn nene', 24, false);
+
+    char.animation.addByIndices('sad', 'laughing nene', makeRangeArray(11), "", 24, false);
+    char.animation.addByIndices('sad-hold', 'laughing nene', makeRangeArray(11, 7), "", 24, true);
+
+    char.animation.addByPrefix('knife-raise', 'knife raise', 24, false);
+    char.animation.addByPrefix('knife-idle', 'knife high held', 24, false);
+    char.animation.addByPrefix('knife-lower', 'knife lower', 24, false);
+
+    char.addOffset('danceLeft');
+    char.addOffset('danceRight');
+
+    char.addOffset('cheer', -120, 50);
+
+    char.addOffset('fawn', -50, -25);
+
+    char.addOffset('sad');
+    char.addOffset('sad-hold');
+
+    char.addOffset('knife-raise', 0, 52);
+    char.addOffset('knife-idle', -99, 52);
+    char.addOffset('knife-lower', 0, 52);
+
+    abot = new Character(-50, 0, 'abot-dark');
+    abot.x += abot.gfOffsetX;
+    abot.y += abot.gfOffsetY;
+    char.addChild(abot);
+
+    if (char.isPlayer) {
+	char.flipX = true;
+	char.followCamY = 150;
+    } else {
+	char.followCamX = 150;
+	char.followCamY = 0;
+    }
+
+    char.gfOffsetX = 60;
+
+    char.playAnim('danceRight');
+    char.like = "gf";
+    char.likeGf = true;
+    char.gfEpicLevel = Level_Sadness;
+}
+portraitOffset = [0, 0];
+dadVar = 4.0;
+isPixel = false;
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    abot.dance();
+    danced = !danced;
+
+    if (danced)
+        char.playAnim('danceRight');
+    else
+        char.playAnim('danceLeft');
+}

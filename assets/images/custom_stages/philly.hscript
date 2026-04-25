@@ -25,6 +25,8 @@ function start(song) {
 
 	getHaxeActor('bf').shader = colorShader;
 	getHaxeActor('gf').shader = colorShader;
+	if (StringTools.startsWith(getHaxeActor('gf').curCharacter, 'nene'))
+	    getHaxeActor('gf').children[0].shader = colorShader;
 	getHaxeActor('dad').shader = colorShader;
     }
 
@@ -114,9 +116,8 @@ function update(elapsed) {
 
 function doVroomVroom() {
     trainMoving = true;
-    if (!trainSound.playing) {
+    if (!trainSound.playing)
         trainSound.play(false);
-    }
 }
 function updateVroomVroom() {
     if (trainSound.time >= 4700) {
@@ -125,22 +126,22 @@ function updateVroomVroom() {
     }
     if (startedMoving) {
         train.x -= 400;
+	train.visible = true;
         if (train.x < -2000 && !trainFinishing) {
             train.x = -1150;
             trainCars -= 1;
-            if (trainCars <= 0) {
+            if (trainCars <= 0)
                 trainFinishing = true;
-            }
         }
-        if (train.x < -4000 && trainFinishing) {
+        if (train.x < -4000 && trainFinishing)
             resetVroomVroom();
-        }
     }
 }
 
 function resetVroomVroom() {
     getHaxeActor("gf").playAnim("hairFall");
     train.x = FlxG.width + 200;
+    train.visible = false;
     trainMoving = false;
     trainCars = 8;
     trainFinishing = false;

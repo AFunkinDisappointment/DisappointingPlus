@@ -1,51 +1,27 @@
-function start(song) {
+function start(song) {}
 
-}
+function songStart(song) {}
 
-function songStart(song) {
+function beatHit(beat) {}
 
-}
+function update(elapsed) {}
 
-function beatHit(beat) {
-}
+function stepHit(step) {}
 
+function playerTwoTurn() {}
 
-function update(elapsed) {
+function playerTwoMiss() {}
 
-}
+function playerTwoSing() {}
 
-function stepHit(step) {
+function playerOneTurn() {}
 
-}
+function playerOneMiss() {}
 
-function playerTwoTurn() {
-    
-}
+function playerOneSing() {}
 
-function playerTwoMiss() {
+function noteLoaded(note) {}
 
-}
+function noteHit(player1, note, wasGoodHit) {}
 
-function playerTwoSing() {
-
-}
-
-function playerOneTurn() {
-
-}
-
-function playerOneMiss() {
-
-}
-
-function playerOneSing() {
-
-}
-
-function noteLoaded(note) {
-
-}
-
-function noteHit(player1, note, wasGoodHit) {
-
-}
+function onCharacterAdded(char, type) {}

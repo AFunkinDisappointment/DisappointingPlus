@@ -4,2557 +4,825 @@
         ,"stage" : "spooky"
         ,"player1" : "pico"
         ,"player2" : "spooky"
-        ,"forceJudgements" : false
         ,"notes" : [
              {
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         11636
-                        ,7
-                    ]
-                    ,[
-                         12000
-                        ,7
-                    ]
-                    ,[
-                         12363
-                        ,6
-                    ]
-                    ,[
-                         12545
-                        ,4
-                    ]
-                    ,[
-                         12727
-                        ,5
-                    ]
-                    ,[
-                         12909
-                        ,7
-                    ]
+                     [11636,7]
+                    ,[12000,7]
+                    ,[12363,6]
+                    ,[12545,4]
+                    ,[12727,5]
+                    ,[12909,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         13090
-                        ,4
-                    ]
-                    ,[
-                         13454
-                        ,5
-                    ]
-                    ,[
-                         13818
-                        ,7
-                    ]
-                    ,[
-                         14000
-                        ,7
-                    ]
-                    ,[
-                         14181
-                        ,7
-                        ,181
-                    ]
+                     [13090,4]
+                    ,[13454,5]
+                    ,[13818,7]
+                    ,[14000,7]
+                    ,[14181,7,181]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         14545
-                        ,7
-                    ]
-                    ,[
-                         14909
-                        ,7
-                    ]
-                    ,[
-                         15272
-                        ,7
-                    ]
-                    ,[
-                         15454
-                        ,6
-                    ]
-                    ,[
-                         15636
-                        ,4
-                    ]
-                    ,[
-                         15818
-                        ,5
-                    ]
+                     [14545,7]
+                    ,[14909,7]
+                    ,[15272,7]
+                    ,[15454,6]
+                    ,[15636,4]
+                    ,[15818,5]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         16000
-                        ,4
-                    ]
-                    ,[
-                         16363
-                        ,4
-                    ]
-                    ,[
-                         16727
-                        ,6
-                    ]
-                    ,[
-                         17090
-                        ,4
-                    ]
-                    ,[
-                         17272
-                        ,7
-                    ]
+                     [16000,4]
+                    ,[16363,4]
+                    ,[16727,6]
+                    ,[17090,4]
+                    ,[17272,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         17454
-                        ,0
-                        ,181
-                    ]
-                    ,[
-                         18000
-                        ,2
-                    ]
-                    ,[
-                         18090
-                        ,0
-                    ]
-                    ,[
-                         18181
-                        ,3
-                    ]
-                    ,[
-                         18363
-                        ,1
-                    ]
-                    ,[
-                         18545
-                        ,0
-                    ]
-                    ,[
-                         18545
-                        ,2
-                    ]
-                    ,[
-                         18727
-                        ,3
-                    ]
+                     [17454,0,181]
+                    ,[18000,2]
+                    ,[18090,0]
+                    ,[18181,3]
+                    ,[18363,1]
+                    ,[18545,0]
+                    ,[18545,2]
+                    ,[18727,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         18909
-                        ,2
-                        ,227
-                    ]
-                    ,[
-                         19454
-                        ,3
-                    ]
-                    ,[
-                         19545
-                        ,0
-                    ]
-                    ,[
-                         19636
-                        ,3
-                    ]
-                    ,[
-                         19818
-                        ,1
-                    ]
-                    ,[
-                         20000
-                        ,2
-                    ]
-                    ,[
-                         20000
-                        ,3
-                    ]
-                    ,[
-                         20181
-                        ,0
-                    ]
+                     [18909,2,227]
+                    ,[19454,3]
+                    ,[19545,0]
+                    ,[19636,3]
+                    ,[19818,1]
+                    ,[20000,2]
+                    ,[20000,3]
+                    ,[20181,0]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         20363
-                        ,3
-                    ]
-                    ,[
-                         20727
-                        ,0
-                        ,159
-                    ]
-                    ,[
-                         20909
-                        ,3
-                    ]
-                    ,[
-                         21090
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         21272
-                        ,2
-                    ]
-                    ,[
-                         21454
-                        ,0
-                    ]
-                    ,[
-                         21636
-                        ,1
-                        ,136
-                    ]
+                     [20363,3]
+                    ,[20727,0,159]
+                    ,[20909,3]
+                    ,[21090,1,136]
+                    ,[21272,2]
+                    ,[21454,0]
+                    ,[21636,1,136]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         21818
-                        ,3
-                    ]
-                    ,[
-                         22000
-                        ,1
-                    ]
-                    ,[
-                         22181
-                        ,0
-                        ,227
-                    ]
-                    ,[
-                         22545
-                        ,3
-                        ,227
-                    ]
+                     [21818,3]
+                    ,[22000,1]
+                    ,[22181,0,227]
+                    ,[22545,3,227]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         23272
-                        ,6
-                    ]
-                    ,[
-                         23454
-                        ,5
-                    ]
-                    ,[
-                         23636
-                        ,4
-                    ]
-                    ,[
-                         23818
-                        ,4
-                    ]
-                    ,[
-                         23909
-                        ,7
-                    ]
-                    ,[
-                         24000
-                        ,6
-                    ]
-                    ,[
-                         24181
-                        ,4
-                    ]
-                    ,[
-                         24363
-                        ,6
-                    ]
-                    ,[
-                         24545
-                        ,5
-                    ]
+                     [23272,6]
+                    ,[23454,5]
+                    ,[23636,4]
+                    ,[23818,4]
+                    ,[23909,7]
+                    ,[24000,6]
+                    ,[24181,4]
+                    ,[24363,6]
+                    ,[24545,5]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         24727
-                        ,6
-                    ]
-                    ,[
-                         25090
-                        ,6
-                    ]
-                    ,[
-                         25454
-                        ,6
-                    ]
-                    ,[
-                         25636
-                        ,5
-                    ]
-                    ,[
-                         25818
-                        ,4
-                    ]
-                    ,[
-                         26000
-                        ,7
-                    ]
+                     [24727,6]
+                    ,[25090,6]
+                    ,[25454,6]
+                    ,[25636,5]
+                    ,[25818,4]
+                    ,[26000,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         26181
-                        ,4
-                    ]
-                    ,[
-                         26545
-                        ,4
-                    ]
-                    ,[
-                         26727
-                        ,4
-                    ]
-                    ,[
-                         26818
-                        ,6
-                    ]
-                    ,[
-                         26909
-                        ,7
-                    ]
-                    ,[
-                         27090
-                        ,4
-                    ]
-                    ,[
-                         27272
-                        ,5
-                    ]
-                    ,[
-                         27454
-                        ,7
-                    ]
+                     [26181,4]
+                    ,[26545,4]
+                    ,[26727,4]
+                    ,[26818,6]
+                    ,[26909,7]
+                    ,[27090,4]
+                    ,[27272,5]
+                    ,[27454,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         27636
-                        ,6
-                    ]
-                    ,[
-                         28000
-                        ,6
-                    ]
-                    ,[
-                         28363
-                        ,6
-                    ]
-                    ,[
-                         28545
-                        ,7
-                    ]
-                    ,[
-                         28727
-                        ,4
-                    ]
-                    ,[
-                         28909
-                        ,5
-                    ]
+                     [27636,6]
+                    ,[28000,6]
+                    ,[28363,6]
+                    ,[28545,7]
+                    ,[28727,4]
+                    ,[28909,5]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         29090
-                        ,2
-                    ]
-                    ,[
-                         29272
-                        ,1
-                    ]
-                    ,[
-                         29454
-                        ,3
-                    ]
-                    ,[
-                         29636
-                        ,1
-                    ]
-                    ,[
-                         29727
-                        ,3
-                    ]
-                    ,[
-                         29818
-                        ,1
-                    ]
-                    ,[
-                         29818
-                        ,0
-                    ]
-                    ,[
-                         30000
-                        ,2
-                    ]
-                    ,[
-                         30181
-                        ,0
-                    ]
-                    ,[
-                         30363
-                        ,3
-                    ]
+                     [29090,2]
+                    ,[29272,1]
+                    ,[29454,3]
+                    ,[29636,1]
+                    ,[29727,3]
+                    ,[29818,1]
+                    ,[29818,0]
+                    ,[30000,2]
+                    ,[30181,0]
+                    ,[30363,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         30545
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         30909
-                        ,3
-                        ,250
-                    ]
-                    ,[
-                         31272
-                        ,0
-                    ]
-                    ,[
-                         31454
-                        ,3
-                    ]
-                    ,[
-                         31636
-                        ,1
-                    ]
-                    ,[
-                         31818
-                        ,3
-                    ]
+                     [30545,0,136]
+                    ,[30909,3,250]
+                    ,[31272,0]
+                    ,[31454,3]
+                    ,[31636,1]
+                    ,[31818,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         32000
-                        ,2
-                    ]
-                    ,[
-                         32000
-                        ,1
-                    ]
-                    ,[
-                         32363
-                        ,1
-                    ]
-                    ,[
-                         32545
-                        ,3
-                    ]
-                    ,[
-                         32590
-                        ,0
-                    ]
-                    ,[
-                         32727
-                        ,2
-                    ]
-                    ,[
-                         32909
-                        ,1
-                    ]
-                    ,[
-                         33090
-                        ,3
-                    ]
-                    ,[
-                         33272
-                        ,1
-                    ]
+                     [32000,2]
+                    ,[32000,1]
+                    ,[32363,1]
+                    ,[32545,3]
+                    ,[32590,0]
+                    ,[32727,2]
+                    ,[32909,1]
+                    ,[33090,3]
+                    ,[33272,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         33454
-                        ,0
-                        ,113
-                    ]
-                    ,[
-                         33818
-                        ,3
-                        ,227
-                    ]
-                    ,[
-                         34181
-                        ,2
-                    ]
-                    ,[
-                         34363
-                        ,1
-                    ]
-                    ,[
-                         34545
-                        ,3
-                    ]
-                    ,[
-                         34727
-                        ,1
-                    ]
+                     [33454,0,113]
+                    ,[33818,3,227]
+                    ,[34181,2]
+                    ,[34363,1]
+                    ,[34545,3]
+                    ,[34727,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         34909
-                        ,6
-                    ]
-                    ,[
-                         34909
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         35090
-                        ,7
-                    ]
-                    ,[
-                         35272
-                        ,4
-                    ]
-                    ,[
-                         35454
-                        ,6
-                    ]
-                    ,[
-                         35454
-                        ,3
-                        ,227
-                    ]
-                    ,[
-                         35636
-                        ,7
-                    ]
-                    ,[
-                         35818
-                        ,4
-                    ]
-                    ,[
-                         36000
-                        ,6
-                    ]
-                    ,[
-                         36181
-                        ,7
-                    ]
+                     [34909,6]
+                    ,[34909,0,136]
+                    ,[35090,7]
+                    ,[35272,4]
+                    ,[35454,6]
+                    ,[35454,3,227]
+                    ,[35636,7]
+                    ,[35818,4]
+                    ,[36000,6]
+                    ,[36181,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         36363
-                        ,4
-                    ]
-                    ,[
-                         36545
-                        ,6
-                    ]
-                    ,[
-                         36727
-                        ,7
-                    ]
-                    ,[
-                         36727
-                        ,1
-                        ,181
-                    ]
-                    ,[
-                         36909
-                        ,4
-                    ]
-                    ,[
-                         37090
-                        ,4
-                    ]
-                    ,[
-                         37090
-                        ,3
-                        ,181
-                    ]
-                    ,[
-                         37272
-                        ,7
-                    ]
-                    ,[
-                         37454
-                        ,4
-                    ]
-                    ,[
-                         37454
-                        ,1
-                        ,181
-                    ]
+                     [36363,4]
+                    ,[36545,6]
+                    ,[36727,7]
+                    ,[36727,1,181]
+                    ,[36909,4]
+                    ,[37090,4]
+                    ,[37090,3,181]
+                    ,[37272,7]
+                    ,[37454,4]
+                    ,[37454,1,181]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         37818
-                        ,6
-                    ]
-                    ,[
-                         37818
-                        ,0
-                    ]
-                    ,[
-                         38000
-                        ,7
-                    ]
-                    ,[
-                         38181
-                        ,4
-                    ]
-                    ,[
-                         38363
-                        ,6
-                    ]
-                    ,[
-                         38363
-                        ,3
-                    ]
-                    ,[
-                         38545
-                        ,7
-                    ]
-                    ,[
-                         38727
-                        ,4
-                    ]
-                    ,[
-                         38909
-                        ,6
-                    ]
-                    ,[
-                         39090
-                        ,7
-                    ]
+                     [37818,6]
+                    ,[37818,0]
+                    ,[38000,7]
+                    ,[38181,4]
+                    ,[38363,6]
+                    ,[38363,3]
+                    ,[38545,7]
+                    ,[38727,4]
+                    ,[38909,6]
+                    ,[39090,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         39272
-                        ,4
-                    ]
-                    ,[
-                         39454
-                        ,5
-                    ]
-                    ,[
-                         39545
-                        ,5
-                    ]
-                    ,[
-                         39636
-                        ,7
-                    ]
-                    ,[
-                         39636
-                        ,1
-                        ,159
-                    ]
-                    ,[
-                         39818
-                        ,4
-                    ]
-                    ,[
-                         40000
-                        ,3
-                        ,181
-                    ]
-                    ,[
-                         40000
-                        ,7
-                    ]
-                    ,[
-                         40181
-                        ,4
-                    ]
-                    ,[
-                         40363
-                        ,7
-                    ]
-                    ,[
-                         40363
-                        ,1
-                        ,181
-                    ]
+                     [39272,4]
+                    ,[39454,5]
+                    ,[39545,5]
+                    ,[39636,7]
+                    ,[39636,1,159]
+                    ,[39818,4]
+                    ,[40000,3,181]
+                    ,[40000,7]
+                    ,[40181,4]
+                    ,[40363,7]
+                    ,[40363,1,181]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         40727
-                        ,3
-                    ]
-                    ,[
-                         40818
-                        ,1
-                    ]
-                    ,[
-                         40909
-                        ,0
-                    ]
-                    ,[
-                         41090
-                        ,3
-                    ]
-                    ,[
-                         41090
-                        ,7
-                        ,272
-                    ]
-                    ,[
-                         41272
-                        ,0
-                    ]
-                    ,[
-                         41363
-                        ,2
-                    ]
-                    ,[
-                         41454
-                        ,0
-                    ]
-                    ,[
-                         41454
-                        ,1
-                    ]
-                    ,[
-                         41636
-                        ,3
-                    ]
-                    ,[
-                         41818
-                        ,7
-                        ,181
-                    ]
-                    ,[
-                         41818
-                        ,2
-                    ]
-                    ,[
-                         42000
-                        ,1
-                    ]
+                     [40727,3]
+                    ,[40818,1]
+                    ,[40909,0]
+                    ,[41090,3]
+                    ,[41090,7,272]
+                    ,[41272,0]
+                    ,[41363,2]
+                    ,[41454,0]
+                    ,[41454,1]
+                    ,[41636,3]
+                    ,[41818,7,181]
+                    ,[41818,2]
+                    ,[42000,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         42181
-                        ,0
-                    ]
-                    ,[
-                         42272
-                        ,1
-                    ]
-                    ,[
-                         42363
-                        ,3
-                    ]
-                    ,[
-                         42545
-                        ,2
-                        ,136
-                    ]
-                    ,[
-                         42545
-                        ,7
-                        ,90
-                    ]
-                    ,[
-                         42727
-                        ,0
-                    ]
-                    ,[
-                         42818
-                        ,1
-                    ]
-                    ,[
-                         42909
-                        ,3
-                    ]
-                    ,[
-                         42909
-                        ,2
-                    ]
-                    ,[
-                         43090
-                        ,3
-                    ]
-                    ,[
-                         43272
-                        ,1
-                    ]
-                    ,[
-                         43272
-                        ,7
-                    ]
-                    ,[
-                         43454
-                        ,0
-                    ]
+                     [42181,0]
+                    ,[42272,1]
+                    ,[42363,3]
+                    ,[42545,2,136]
+                    ,[42545,7,90]
+                    ,[42727,0]
+                    ,[42818,1]
+                    ,[42909,3]
+                    ,[42909,2]
+                    ,[43090,3]
+                    ,[43272,1]
+                    ,[43272,7]
+                    ,[43454,0]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         43636
-                        ,1
-                        ,181
-                    ]
-                    ,[
-                         43636
-                        ,3
-                    ]
-                    ,[
-                         44181
-                        ,2
-                    ]
-                    ,[
-                         44181
-                        ,0
-                        ,204
-                    ]
-                    ,[
-                         44545
-                        ,0
-                    ]
-                    ,[
-                         44636
-                        ,3
-                    ]
-                    ,[
-                         44727
-                        ,1
-                    ]
-                    ,[
-                         44818
-                        ,0
-                    ]
-                    ,[
-                         44909
-                        ,3
-                    ]
+                     [43636,1,181]
+                    ,[43636,3]
+                    ,[44181,2]
+                    ,[44181,0,204]
+                    ,[44545,0]
+                    ,[44636,3]
+                    ,[44727,1]
+                    ,[44818,0]
+                    ,[44909,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         45090
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         45454
-                        ,3
-                        ,136
-                    ]
-                    ,[
-                         45818
-                        ,0
-                        ,204
-                    ]
-                    ,[
-                         46181
-                        ,2
-                        ,181
-                    ]
+                     [45090,1,136]
+                    ,[45454,3,136]
+                    ,[45818,0,204]
+                    ,[46181,2,181]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         46545
-                        ,4
-                    ]
-                    ,[
-                         46818
-                        ,7
-                    ]
-                    ,[
-                         46909
-                        ,5
-                    ]
-                    ,[
-                         47090
-                        ,4
-                    ]
-                    ,[
-                         47272
-                        ,7
-                    ]
-                    ,[
-                         47454
-                        ,5
-                    ]
-                    ,[
-                         47636
-                        ,6
-                    ]
-                    ,[
-                         47818
-                        ,7
-                    ]
+                     [46545,4]
+                    ,[46818,7]
+                    ,[46909,5]
+                    ,[47090,4]
+                    ,[47272,7]
+                    ,[47454,5]
+                    ,[47636,6]
+                    ,[47818,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         48000
-                        ,4
-                    ]
-                    ,[
-                         48181
-                        ,6
-                    ]
-                    ,[
-                         48363
-                        ,7
-                    ]
-                    ,[
-                         48545
-                        ,4
-                    ]
-                    ,[
-                         48727
-                        ,7
-                    ]
-                    ,[
-                         48909
-                        ,6
-                    ]
-                    ,[
-                         49090
-                        ,4
-                    ]
+                     [48000,4]
+                    ,[48181,6]
+                    ,[48363,7]
+                    ,[48545,4]
+                    ,[48727,7]
+                    ,[48909,6]
+                    ,[49090,4]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         49454
-                        ,4
-                    ]
-                    ,[
-                         49545
-                        ,7
-                    ]
-                    ,[
-                         49636
-                        ,6
-                    ]
-                    ,[
-                         49818
-                        ,7
-                    ]
-                    ,[
-                         50000
-                        ,4
-                    ]
-                    ,[
-                         50181
-                        ,6
-                    ]
-                    ,[
-                         50363
-                        ,7
-                    ]
-                    ,[
-                         50545
-                        ,4
-                    ]
-                    ,[
-                         50636
-                        ,7
-                    ]
-                    ,[
-                         50727
-                        ,6
-                    ]
+                     [49454,4]
+                    ,[49545,7]
+                    ,[49636,6]
+                    ,[49818,7]
+                    ,[50000,4]
+                    ,[50181,6]
+                    ,[50363,7]
+                    ,[50545,4]
+                    ,[50636,7]
+                    ,[50727,6]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         50909
-                        ,4
-                    ]
-                    ,[
-                         51090
-                        ,5
-                    ]
-                    ,[
-                         51181
-                        ,5
-                    ]
-                    ,[
-                         51272
-                        ,4
-                    ]
-                    ,[
-                         51272
-                        ,1
-                        ,113
-                    ]
-                    ,[
-                         51454
-                        ,7
-                    ]
-                    ,[
-                         51636
-                        ,6
-                    ]
-                    ,[
-                         51636
-                        ,2
-                    ]
-                    ,[
-                         51818
-                        ,7
-                    ]
-                    ,[
-                         51818
-                        ,3
-                        ,136
-                    ]
-                    ,[
-                         52000
-                        ,2
-                        ,136
-                    ]
-                    ,[
-                         52000
-                        ,4
-                    ]
-                    ,[
-                         52181
-                        ,3
-                        ,136
-                    ]
+                     [50909,4]
+                    ,[51090,5]
+                    ,[51181,5]
+                    ,[51272,4]
+                    ,[51272,1,113]
+                    ,[51454,7]
+                    ,[51636,6]
+                    ,[51636,2]
+                    ,[51818,7]
+                    ,[51818,3,136]
+                    ,[52000,2,136]
+                    ,[52000,4]
+                    ,[52181,3,136]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         52363
-                        ,1
-                    ]
-                    ,[
-                         52454
-                        ,0
-                    ]
-                    ,[
-                         52545
-                        ,2
-                    ]
-                    ,[
-                         52545
-                        ,3
-                    ]
-                    ,[
-                         52727
-                        ,7
-                        ,295
-                    ]
-                    ,[
-                         52727
-                        ,1
-                    ]
-                    ,[
-                         52909
-                        ,0
-                    ]
-                    ,[
-                         53000
-                        ,3
-                    ]
-                    ,[
-                         53090
-                        ,1
-                    ]
-                    ,[
-                         53090
-                        ,0
-                    ]
-                    ,[
-                         53272
-                        ,3
-                    ]
-                    ,[
-                         53454
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         53454
-                        ,7
-                        ,227
-                    ]
-                    ,[
-                         53636
-                        ,2
-                        ,136
-                    ]
+                     [52363,1]
+                    ,[52454,0]
+                    ,[52545,2]
+                    ,[52545,3]
+                    ,[52727,7,295]
+                    ,[52727,1]
+                    ,[52909,0]
+                    ,[53000,3]
+                    ,[53090,1]
+                    ,[53090,0]
+                    ,[53272,3]
+                    ,[53454,0,136]
+                    ,[53454,7,227]
+                    ,[53636,2,136]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         53818
-                        ,1
-                    ]
-                    ,[
-                         53909
-                        ,0
-                    ]
-                    ,[
-                         54000
-                        ,2
-                    ]
-                    ,[
-                         54000
-                        ,3
-                    ]
-                    ,[
-                         54181
-                        ,7
-                        ,113
-                    ]
-                    ,[
-                         54182
-                        ,1
-                    ]
-                    ,[
-                         54364
-                        ,0
-                    ]
-                    ,[
-                         54455
-                        ,3
-                    ]
-                    ,[
-                         54545
-                        ,1
-                    ]
-                    ,[
-                         54545
-                        ,0
-                    ]
-                    ,[
-                         54727
-                        ,3
-                    ]
-                    ,[
-                         54909
-                        ,7
-                    ]
-                    ,[
-                         54909
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         55090
-                        ,2
-                    ]
+                     [53818,1]
+                    ,[53909,0]
+                    ,[54000,2]
+                    ,[54000,3]
+                    ,[54181,7,113]
+                    ,[54182,1]
+                    ,[54364,0]
+                    ,[54455,3]
+                    ,[54545,1]
+                    ,[54545,0]
+                    ,[54727,3]
+                    ,[54909,7]
+                    ,[54909,0,136]
+                    ,[55090,2]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         55272
-                        ,1
-                    ]
-                    ,[
-                         55318
-                        ,3
-                        ,227
-                    ]
-                    ,[
-                         55818
-                        ,1
-                    ]
-                    ,[
-                         55863
-                        ,3
-                        ,227
-                    ]
-                    ,[
-                         56181
-                        ,0
-                    ]
-                    ,[
-                         56272
-                        ,2
-                    ]
-                    ,[
-                         56363
-                        ,0
-                    ]
-                    ,[
-                         56454
-                        ,3
-                    ]
-                    ,[
-                         56545
-                        ,1
-                    ]
+                     [55272,1]
+                    ,[55318,3,227]
+                    ,[55818,1]
+                    ,[55863,3,227]
+                    ,[56181,0]
+                    ,[56272,2]
+                    ,[56363,0]
+                    ,[56454,3]
+                    ,[56545,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         56727
-                        ,3
-                    ]
-                    ,[
-                         57090
-                        ,0
-                    ]
-                    ,[
-                         57454
-                        ,3
-                    ]
-                    ,[
-                         57454
-                        ,7
-                    ]
-                    ,[
-                         57636
-                        ,4
-                    ]
-                    ,[
-                         57818
-                        ,2
-                        ,272
-                    ]
-                    ,[
-                         57818
-                        ,5
-                    ]
-                    ,[
-                         58000
-                        ,6
-                    ]
+                     [56727,3]
+                    ,[57090,0]
+                    ,[57454,3]
+                    ,[57454,7]
+                    ,[57636,4]
+                    ,[57818,2,272]
+                    ,[57818,5]
+                    ,[58000,6]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         58181
-                        ,7
-                    ]
-                    ,[
-                         58545
-                        ,7
-                    ]
-                    ,[
-                         58727
-                        ,5
-                    ]
-                    ,[
-                         58909
-                        ,6
-                    ]
-                    ,[
-                         59090
-                        ,4
-                    ]
-                    ,[
-                         59272
-                        ,5
-                    ]
-                    ,[
-                         59454
-                        ,7
-                    ]
+                     [58181,7]
+                    ,[58545,7]
+                    ,[58727,5]
+                    ,[58909,6]
+                    ,[59090,4]
+                    ,[59272,5]
+                    ,[59454,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         59636
-                        ,4
-                        ,272
-                    ]
-                    ,[
-                         60000
-                        ,6
-                    ]
-                    ,[
-                         60363
-                        ,6
-                    ]
-                    ,[
-                         60545
-                        ,6
-                    ]
-                    ,[
-                         60727
-                        ,6
-                        ,181
-                    ]
+                     [59636,4,272]
+                    ,[60000,6]
+                    ,[60363,6]
+                    ,[60545,6]
+                    ,[60727,6,181]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         61090
-                        ,6
-                    ]
-                    ,[
-                         61454
-                        ,6
-                    ]
-                    ,[
-                         61454
-                        ,2
-                    ]
-                    ,[
-                         61545
-                        ,3
-                    ]
-                    ,[
-                         61636
-                        ,7
-                    ]
-                    ,[
-                         61636
-                        ,1
-                    ]
-                    ,[
-                         61818
-                        ,2
-                    ]
-                    ,[
-                         61818
-                        ,5
-                    ]
-                    ,[
-                         62000
-                        ,3
-                    ]
-                    ,[
-                         62000
-                        ,4
-                    ]
-                    ,[
-                         62181
-                        ,7
-                    ]
-                    ,[
-                         62181
-                        ,0
-                    ]
-                    ,[
-                         62363
-                        ,4
-                    ]
-                    ,[
-                         62363
-                        ,2
-                    ]
-                    ,[
-                         62454
-                        ,3
-                    ]
+                     [61090,6]
+                    ,[61454,6]
+                    ,[61454,2]
+                    ,[61545,3]
+                    ,[61636,7]
+                    ,[61636,1]
+                    ,[61818,2]
+                    ,[61818,5]
+                    ,[62000,3]
+                    ,[62000,4]
+                    ,[62181,7]
+                    ,[62181,0]
+                    ,[62363,4]
+                    ,[62363,2]
+                    ,[62454,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         62545
-                        ,4
-                    ]
-                    ,[
-                         62545
-                        ,0
-                    ]
-                    ,[
-                         62727
-                        ,2
-                    ]
-                    ,[
-                         62909
-                        ,1
-                    ]
-                    ,[
-                         62909
-                        ,4
-                    ]
-                    ,[
-                         63272
-                        ,6
-                    ]
-                    ,[
-                         63272
-                        ,3
-                    ]
-                    ,[
-                         63636
-                        ,4
-                    ]
-                    ,[
-                         63636
-                        ,3
-                    ]
-                    ,[
-                         63818
-                        ,7
-                    ]
+                     [62545,4]
+                    ,[62545,0]
+                    ,[62727,2]
+                    ,[62909,1]
+                    ,[62909,4]
+                    ,[63272,6]
+                    ,[63272,3]
+                    ,[63636,4]
+                    ,[63636,3]
+                    ,[63818,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         64000
-                        ,0
-                        ,181
-                    ]
-                    ,[
-                         64546
-                        ,2
-                    ]
-                    ,[
-                         64636
-                        ,0
-                    ]
-                    ,[
-                         64727
-                        ,3
-                    ]
-                    ,[
-                         64909
-                        ,1
-                    ]
-                    ,[
-                         65091
-                        ,0
-                    ]
-                    ,[
-                         65091
-                        ,2
-                    ]
-                    ,[
-                         65273
-                        ,3
-                    ]
+                     [64000,0,181]
+                    ,[64546,2]
+                    ,[64636,0]
+                    ,[64727,3]
+                    ,[64909,1]
+                    ,[65091,0]
+                    ,[65091,2]
+                    ,[65273,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         65455
-                        ,2
-                        ,227
-                    ]
-                    ,[
-                         66000
-                        ,3
-                    ]
-                    ,[
-                         66091
-                        ,0
-                    ]
-                    ,[
-                         66182
-                        ,3
-                    ]
-                    ,[
-                         66364
-                        ,1
-                    ]
-                    ,[
-                         66546
-                        ,2
-                    ]
-                    ,[
-                         66546
-                        ,3
-                    ]
-                    ,[
-                         66727
-                        ,0
-                    ]
+                     [65455,2,227]
+                    ,[66000,3]
+                    ,[66091,0]
+                    ,[66182,3]
+                    ,[66364,1]
+                    ,[66546,2]
+                    ,[66546,3]
+                    ,[66727,0]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         66909
-                        ,3
-                    ]
-                    ,[
-                         67273
-                        ,0
-                        ,159
-                    ]
-                    ,[
-                         67455
-                        ,3
-                    ]
-                    ,[
-                         67636
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         67818
-                        ,2
-                    ]
-                    ,[
-                         68000
-                        ,0
-                        ,113
-                    ]
-                    ,[
-                         68182
-                        ,1
-                    ]
+                     [66909,3]
+                    ,[67273,0,159]
+                    ,[67455,3]
+                    ,[67636,1,136]
+                    ,[67818,2]
+                    ,[68000,0,113]
+                    ,[68182,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         68364
-                        ,3
-                    ]
-                    ,[
-                         68546
-                        ,1
-                    ]
-                    ,[
-                         68727
-                        ,0
-                        ,227
-                    ]
-                    ,[
-                         69091
-                        ,3
-                        ,227
-                    ]
+                     [68364,3]
+                    ,[68546,1]
+                    ,[68727,0,227]
+                    ,[69091,3,227]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         69818
-                        ,6
-                    ]
-                    ,[
-                         70000
-                        ,7
-                    ]
-                    ,[
-                         70181
-                        ,4
-                    ]
-                    ,[
-                         70363
-                        ,7
-                    ]
-                    ,[
-                         70454
-                        ,6
-                    ]
-                    ,[
-                         70545
-                        ,4
-                    ]
-                    ,[
-                         70727
-                        ,7
-                    ]
-                    ,[
-                         70909
-                        ,6
-                    ]
-                    ,[
-                         71090
-                        ,7
-                    ]
+                     [69818,6]
+                    ,[70000,7]
+                    ,[70181,4]
+                    ,[70363,7]
+                    ,[70454,6]
+                    ,[70545,4]
+                    ,[70727,7]
+                    ,[70909,6]
+                    ,[71090,7]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         71272
-                        ,6
-                    ]
-                    ,[
-                         71272
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         71636
-                        ,6
-                    ]
-                    ,[
-                         71636
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         71818
-                        ,4
-                    ]
-                    ,[
-                         72000
-                        ,2
-                    ]
-                    ,[
-                         72000
-                        ,6
-                    ]
-                    ,[
-                         72090
-                        ,0
-                    ]
-                    ,[
-                         72181
-                        ,7
-                    ]
-                    ,[
-                         72181
-                        ,3
-                    ]
-                    ,[
-                         72363
-                        ,4
-                    ]
-                    ,[
-                         72363
-                        ,1
-                    ]
-                    ,[
-                         72545
-                        ,6
-                    ]
-                    ,[
-                         72545
-                        ,0
-                    ]
+                     [71272,6]
+                    ,[71272,1,136]
+                    ,[71636,6]
+                    ,[71636,1,136]
+                    ,[71818,4]
+                    ,[72000,2]
+                    ,[72000,6]
+                    ,[72090,0]
+                    ,[72181,7]
+                    ,[72181,3]
+                    ,[72363,4]
+                    ,[72363,1]
+                    ,[72545,6]
+                    ,[72545,0]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         72727
-                        ,4
-                    ]
-                    ,[
-                         72727
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         73090
-                        ,4
-                    ]
-                    ,[
-                         73090
-                        ,2
-                    ]
-                    ,[
-                         73181
-                        ,3
-                    ]
-                    ,[
-                         73272
-                        ,4
-                    ]
-                    ,[
-                         73272
-                        ,0
-                    ]
-                    ,[
-                         73363
-                        ,7
-                    ]
-                    ,[
-                         73454
-                        ,6
-                    ]
-                    ,[
-                         73454
-                        ,1
-                    ]
-                    ,[
-                         73454
-                        ,2
-                    ]
-                    ,[
-                         73636
-                        ,7
-                    ]
-                    ,[
-                         73636
-                        ,3
-                    ]
-                    ,[
-                         73818
-                        ,6
-                    ]
-                    ,[
-                         73818
-                        ,0
-                    ]
-                    ,[
-                         73818
-                        ,2
-                    ]
-                    ,[
-                         74000
-                        ,1
-                    ]
-                    ,[
-                         74000
-                        ,4
-                    ]
+                     [72727,4]
+                    ,[72727,1,136]
+                    ,[73090,4]
+                    ,[73090,2]
+                    ,[73181,3]
+                    ,[73272,4]
+                    ,[73272,0]
+                    ,[73363,7]
+                    ,[73454,6]
+                    ,[73454,1]
+                    ,[73454,2]
+                    ,[73636,7]
+                    ,[73636,3]
+                    ,[73818,6]
+                    ,[73818,0]
+                    ,[73818,2]
+                    ,[74000,1]
+                    ,[74000,4]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         74181
-                        ,6
-                    ]
-                    ,[
-                         74181
-                        ,3
-                    ]
-                    ,[
-                         74181
-                        ,0
-                    ]
-                    ,[
-                         74363
-                        ,7
-                    ]
-                    ,[
-                         74545
-                        ,6
-                    ]
-                    ,[
-                         74545
-                        ,0
-                    ]
-                    ,[
-                         74545
-                        ,3
-                    ]
-                    ,[
-                         74727
-                        ,4
-                    ]
-                    ,[
-                         74909
-                        ,2
-                    ]
-                    ,[
-                         74909
-                        ,5
-                    ]
-                    ,[
-                         75090
-                        ,7
-                    ]
-                    ,[
-                         75090
-                        ,3
-                    ]
-                    ,[
-                         75272
-                        ,4
-                    ]
-                    ,[
-                         75272
-                        ,1
-                    ]
-                    ,[
-                         75454
-                        ,7
-                    ]
-                    ,[
-                         75454
-                        ,1
-                    ]
+                     [74181,6]
+                    ,[74181,3]
+                    ,[74181,0]
+                    ,[74363,7]
+                    ,[74545,6]
+                    ,[74545,0]
+                    ,[74545,3]
+                    ,[74727,4]
+                    ,[74909,2]
+                    ,[74909,5]
+                    ,[75090,7]
+                    ,[75090,3]
+                    ,[75272,4]
+                    ,[75272,1]
+                    ,[75454,7]
+                    ,[75454,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         75636
-                        ,2
-                    ]
-                    ,[
-                         75818
-                        ,1
-                    ]
-                    ,[
-                         76000
-                        ,3
-                    ]
-                    ,[
-                         76182
-                        ,1
-                    ]
-                    ,[
-                         76273
-                        ,3
-                    ]
-                    ,[
-                         76364
-                        ,1
-                    ]
-                    ,[
-                         76364
-                        ,0
-                    ]
-                    ,[
-                         76546
-                        ,2
-                    ]
-                    ,[
-                         76727
-                        ,0
-                    ]
-                    ,[
-                         76909
-                        ,3
-                    ]
+                     [75636,2]
+                    ,[75818,1]
+                    ,[76000,3]
+                    ,[76182,1]
+                    ,[76273,3]
+                    ,[76364,1]
+                    ,[76364,0]
+                    ,[76546,2]
+                    ,[76727,0]
+                    ,[76909,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         77091
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         77455
-                        ,3
-                        ,250
-                    ]
-                    ,[
-                         77818
-                        ,0
-                    ]
-                    ,[
-                         78000
-                        ,3
-                    ]
-                    ,[
-                         78182
-                        ,1
-                    ]
-                    ,[
-                         78364
-                        ,3
-                    ]
+                     [77091,0,136]
+                    ,[77455,3,250]
+                    ,[77818,0]
+                    ,[78000,3]
+                    ,[78182,1]
+                    ,[78364,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         78546
-                        ,2
-                    ]
-                    ,[
-                         78546
-                        ,1
-                    ]
-                    ,[
-                         78909
-                        ,1
-                    ]
-                    ,[
-                         79091
-                        ,3
-                    ]
-                    ,[
-                         79136
-                        ,0
-                    ]
-                    ,[
-                         79273
-                        ,2
-                    ]
-                    ,[
-                         79455
-                        ,1
-                    ]
-                    ,[
-                         79636
-                        ,3
-                    ]
-                    ,[
-                         79818
-                        ,1
-                    ]
+                     [78546,2]
+                    ,[78546,1]
+                    ,[78909,1]
+                    ,[79091,3]
+                    ,[79136,0]
+                    ,[79273,2]
+                    ,[79455,1]
+                    ,[79636,3]
+                    ,[79818,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         80000
-                        ,0
-                        ,113
-                    ]
-                    ,[
-                         80364
-                        ,3
-                        ,227
-                    ]
-                    ,[
-                         80727
-                        ,2
-                    ]
-                    ,[
-                         80909
-                        ,1
-                    ]
-                    ,[
-                         81091
-                        ,3
-                    ]
-                    ,[
-                         81273
-                        ,1
-                    ]
+                     [80000,0,113]
+                    ,[80364,3,227]
+                    ,[80727,2]
+                    ,[80909,1]
+                    ,[81091,3]
+                    ,[81273,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         81454
-                        ,0
-                        ,136
-                    ]
-                    ,[
-                         81636
-                        ,2
-                    ]
-                    ,[
-                         81818
-                        ,1
-                        ,136
-                    ]
-                    ,[
-                         82000
-                        ,3
-                        ,227
-                    ]
+                     [81454,0,136]
+                    ,[81636,2]
+                    ,[81818,1,136]
+                    ,[82000,3,227]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         82909
-                        ,1
-                    ]
-                    ,[
-                         83090
-                        ,0
-                    ]
-                    ,[
-                         83272
-                        ,3
-                    ]
-                    ,[
-                         83454
-                        ,1
-                    ]
-                    ,[
-                         83636
-                        ,3
-                    ]
-                    ,[
-                         83818
-                        ,0
-                    ]
-                    ,[
-                         84000
-                        ,2
-                    ]
-                    ,[
-                         84181
-                        ,3
-                    ]
+                     [82909,1]
+                    ,[83090,0]
+                    ,[83272,3]
+                    ,[83454,1]
+                    ,[83636,3]
+                    ,[83818,0]
+                    ,[84000,2]
+                    ,[84181,3]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         84545
-                        ,0
-                    ]
-                    ,[
-                         84727
-                        ,3
-                        ,272
-                    ]
+                     [84545,0]
+                    ,[84727,3,272]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
                 ,"sectionNotes" : [
-                     [
-                         86909
-                        ,1
-                    ]
+                     [86909,1]
                 ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
             ,{
                  "lengthInSteps" : 16
-                ,"altAnim" : false
-                ,"typeOfSection" : 0
-                ,"sectionNotes" : [
-
-                ]
-                ,"bpm" : 165
-                ,"altAnimNum" : 0
-                ,"changeBPM" : false
+                ,"sectionNotes" : []
                 ,"mustHitSection" : true
             }
         ]
-        ,"gf" : "gf"
+        ,"gf" : "nene"
         ,"bpm" : 165
         ,"needsVoices" : true
         ,"stageID" : 1

@@ -553,6 +553,7 @@ class FreeplayState extends MusicBeatState {
 		// trace(Highscore.getComplete(songs[0].songName, curDifficulty));
 		
 		var coolors = iconArray[curSelected].healthColors;
+		FlxTween.cancelTweensOf(bg);
 		FlxTween.color(bg, 0.5, bg.color, coolors[0]);
 		
 		if (OptionsHandler.options.style) {
