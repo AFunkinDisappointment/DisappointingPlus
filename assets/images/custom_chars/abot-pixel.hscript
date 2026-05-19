@@ -1,22 +1,22 @@
 var abotHead;
 var abotSpeaker;
 function init(char) {
-    char.loadSparrow(hscriptPath + 'aBotPixelBody.png', hscriptPath + 'aBotPixelBody.xml');
+    char.loadSparrow(hscriptPath + 'aBotPixelBody');
 
-    abotHead = new DisSprite(-210, 1/*-325, 72*/).loadSparrow(hscriptPath + 'abotHead.png', hscriptPath + 'abotHead.xml');
+    abotHead = new DisSprite(-210, 1).loadSparrow(hscriptPath + 'abotHead');
     abotHead.animation.addByPrefix('toleft', 'toleft', 24, false);
     abotHead.animation.addByPrefix('toright', 'toright', 24, false);
     abotHead.scale.set(6, 6);
     abotHead.updateHitbox();
     abotHead.antialiasing = false;
 
-    abotSpeaker = new DisSprite(-456, -91/*-78, 9*/).loadSparrow(hscriptPath + 'aBotPixelSpeaker.png', hscriptPath + 'aBotPixelSpeaker.xml');
+    abotSpeaker = new DisSprite(-456, -91).loadSparrow(hscriptPath + 'aBotPixelSpeaker');
     abotSpeaker.animation.addByPrefix('idle', 'danceLeft', 24, false);
     abotSpeaker.scale.set(6, 6);
     abotSpeaker.updateHitbox();
     abotSpeaker.antialiasing = false;
 
-    var abotBack = new DisSprite(-170, -80).loadGraphic(hscriptPath + 'aBotPixelBack.png'); //-55
+    var abotBack = new DisSprite(-167, -80).loadGraphic(hscriptPath + 'aBotPixelBack.png');
     abotBack.scale.set(6, 6);
     abotBack.updateHitbox();
     abotBack.antialiasing = false;
@@ -35,15 +35,17 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;
+    char.noFlip = true;
+
     char.scale.set(6, 6);
     char.updateHitbox();
     char.isPixel = true;
+    char.antialiasing = false;
 
     char.gfOffsetX = 360;
     char.gfOffsetY = 480;
     char.followCamX = -300;
     char.followCamY = -250;
-    char.antialiasing = false;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;

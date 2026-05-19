@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import lime.utils.Assets;
 import lime.system.System;
 import flash.display.BitmapData;
+import lime.app.Future;
 import flixel.graphics.frames.FlxAtlasFrames;
 #if sys
 import sys.io.File;
@@ -28,6 +29,10 @@ enum abstract IconState(Int) from Int to Int {
 	var Dying;
 	var Poisoned;
 	var Winning;
+}
+typedef IconData = {
+	var json:Dynamic;
+	var path:String;
 }
 class HealthIcon extends FlxSprite {
 	public var player:Bool = false;
@@ -71,9 +76,9 @@ class HealthIcon extends FlxSprite {
 		return iconState = x;
 	}
 
-	var charJson:Dynamic;
-	var iconJson:Dynamic;
-	public function new(char:String = 'bf', isPlayer:Bool = false, ?isnormal:Bool = false) {
+	static var charJson:Dynamic;
+	static var iconJson:Dynamic;
+	public function new(char:String = 'bf', isPlayer:Bool = false, ?isnormal:Bool = false, ?loadAsync:Bool = false) {
 		charJson = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/custom_chars"));
 		iconJson = CoolUtil.parseJson(FNFAssets.getJson("assets/images/custom_chars/icon_only_chars"));
 
@@ -81,15 +86,14 @@ class HealthIcon extends FlxSprite {
 		super();
 		antialiasing = true;
 		isNormal = isnormal;
-		switchAnim(char);
+		switchAnim(char, loadAsync);
 		scrollFactor.set();
 	}
 
-	var charIconPath = 'bf';
-	public function switchAnim(char:String = 'bf') {
+	public function switchAnim(char:String = 'bf', ?async:Bool = false):Dynamic {
 		var iconFrames:Array<Int> = [];
-		charIconPath = char;
-		var daJson:Dynamic = getCharFromJsons(char);
+		final daData:Dynamic = getIconFromJsons(char);
+		final daJson:Dynamic = daData.json;
 
 		bopReset();
 
@@ -106,28 +110,6 @@ class HealthIcon extends FlxSprite {
 			if (isNormal)
 				interp = HealthIcon.iconBop('default');
 		}
-		var charPath = 'assets/images/custom_chars/' + charIconPath + '/';
-		if (FNFAssets.exists(charPath + "icons.png")) {
-			if (FNFAssets.exists(charPath + 'icons.xml')) { // i guess it works :thumbsup:
-				isAnimated = true;
-				frames = DynamicSprite.DynamicAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
-				animation.addByPrefix('icon', 'normal', 24, true);
-				animation.addByPrefix('dying', 'dying', 24, true);
-				animation.addByPrefix('winning', 'winning', 24, true);
-				animation.addByPrefix('poisoned', 'poisoned', 24, true);
-			} else {
-				isAnimated = false;
-				var rawPic:BitmapData = FNFAssets.getBitmapData(charPath + "icons.png");
-				loadGraphic(rawPic, true, 150, 150);
-				animation.add('icon', iconFrames, false, player);
-			}
-		} else {
-			loadGraphic('assets/images/iconGrid.png', true, 150, 150);
-			animation.add('icon', iconFrames, false, player);
-		}
-		animation.play('icon');
-		if (!isAnimated)
-			animation.pause();
 
 		if (daJson != null && Reflect.hasField(daJson, 'colors')) {
 			var daColors:Array<String> = daJson.colors;
@@ -137,26 +119,99 @@ class HealthIcon extends FlxSprite {
 			}
 		} else
 			healthColors = [0xFFFFFFFF];
+
+		final charPath = 'assets/images/custom_chars/' + daData.path + '/';
+		if (FNFAssets.exists(charPath + "icons.png")) {
+			if (async) {
+				return FNFAssets.loadBitmapData(charPath + "icons.png").then(function(image) {
+					if (FNFAssets.exists(charPath + "icons.xml")) {
+						isAnimated = true;
+						frames = DynamicSprite.DynamicAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
+						animation.addByPrefix('icon', 'normal', 24, true);
+						animation.addByPrefix('dying', 'dying', 24, true);
+						animation.addByPrefix('winning', 'winning', 24, true);
+						animation.addByPrefix('poisoned', 'poisoned', 24, true);
+					} else {
+						isAnimated = false;
+						loadGraphic(image, true, 150, 150);
+						animation.add('icon', iconFrames, false, player);
+					}
+					animation.play('icon');
+					if (!isAnimated)
+						animation.pause();
+					return Future.withValue(this);
+				}).onComplete(function(icon) { return icon; });
+			} else {
+				if (FNFAssets.exists(charPath + 'icons.xml')) { // i guess it works :thumbsup:
+					isAnimated = true;
+					frames = DynamicSprite.DynamicAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
+					animation.addByPrefix('icon', 'normal', 24, true);
+					animation.addByPrefix('dying', 'dying', 24, true);
+					animation.addByPrefix('winning', 'winning', 24, true);
+					animation.addByPrefix('poisoned', 'poisoned', 24, true);
+				} else {
+					isAnimated = false;
+					var rawPic:BitmapData = FNFAssets.getBitmapData(charPath + "icons.png");
+					loadGraphic(rawPic, true, 150, 150);
+					animation.add('icon', iconFrames, false, player);
+				}
+			}
+		} else {
+			loadGraphic('assets/images/iconGrid.png', true, 150, 150);
+			animation.add('icon', iconFrames, false, player);
+		}
+		animation.play('icon');
+		if (!isAnimated)
+			animation.pause();
+		return this;
 	}
 
-	function getCharFromJsons(char) {
+	public function loadIcon(iconName:String):Future<HealthIcon> {
+		final daData:IconData = getIconFromJsons(iconName);
+		final daJson = daData.json;
+		var daFrame = 0;
+		if (daJson != null && Reflect.hasField(daJson, 'icons'))
+			daFrame = daJson.icons[0];
+
+		final charPath = 'assets/images/custom_chars/' + daData.path + '/';
+		return FNFAssets.loadBitmapData(charPath + "icons.png")
+			.then(function(image) {
+				if (FNFAssets.exists(charPath + "icons.xml")) {
+					frames = DynamicSprite.DynamicAtlasFrames.fromSparrow(charPath + 'icons.png', charPath + 'icons.xml');
+					animation.addByPrefix('icon', 'normal', 24, true);
+				} else {
+					loadGraphic(image, true, 150, 150);
+					animation.add('icon', [daFrame], false);
+				}
+				animation.play('icon');
+				return Future.withValue(this);
+			}).onComplete(function(icon) { return icon; });
+	}
+
+	static function getIconFromJsons(char:String):IconData {
+		var daChar:Dynamic = getIconJson(char);
+		if (daChar == null) return null;
+		
+		var iconPath = char;
+		if ((daChar.icons is String)) {
+			iconPath = daChar.icons;
+			daChar = getIconJson(daChar.icons);
+		}
+
+		return {path: iconPath, json: daChar};
+	}
+
+	static function getIconJson(char:String):Dynamic {
 		var daChar:Dynamic = null;
 		if (Reflect.hasField(charJson, char))
 			daChar = Reflect.field(charJson, char);
 		else if (Reflect.hasField(iconJson, char))
 			daChar = Reflect.field(iconJson, char);
 
-		if (daChar == null) return null;
-
-		if ((daChar.icons is String)) {
-			charIconPath = daChar.icons;
-			daChar = getCharFromJsons(daChar.icons);
-		}
-
 		return daChar;
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float):Void {
 		super.update(elapsed);
 
 		if (sprTracker != null)
@@ -170,7 +225,7 @@ class HealthIcon extends FlxSprite {
 		}
 	}
 
-	public function dance() {
+	public function dance():Void {
 		if (interp != null)
 			callInterp("dance", [this]);
 		else if (isNormal) {
@@ -179,7 +234,7 @@ class HealthIcon extends FlxSprite {
 		}
 	}
 
-	public function bopReset() {
+	public function bopReset():Void {
 		if (interp != null)
 			callInterp("bopReset", [this]);
 		else if (isNormal) {

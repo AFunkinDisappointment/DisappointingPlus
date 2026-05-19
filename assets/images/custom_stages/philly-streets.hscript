@@ -31,18 +31,16 @@ function start(song) {
     getHaxeActor('dad').y += 350;
     getHaxeActor('dad').followCamX += 150;
 
-    setSwapOffsets('bf', [1200, 350]);
-    setSwapOffsets('gf', [750, 275]);
-    setSwapOffsets('dad', [525, 350]);
+    stage.setOffsets('bf', 1200, 350).setCamOffsets('bf', -300);
+    stage.setOffsets('gf', 750, 275);
+    stage.setOffsets('dad', 525, 350).setCamOffsets('dad', 150);
 
     statichscriptPath = hscriptPath;
 
-    switch(songData.stageID) {
-	case 1:
-	    erectStage();
-	default:
-	    normalStage(false);
-    }
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect/'))
+	erectStage();
+    else
+	normalStage(false);
 
     resetCar(true, true);
 }

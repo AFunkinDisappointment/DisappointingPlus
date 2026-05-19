@@ -2,13 +2,8 @@ function init(char) {
     char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
     char.animation.addByPrefix('cheer', 'GF Cheer', 24, false);
-    if (char.isPlayer) {
-        char.animation.addByPrefix('singLEFT', 'GF Right Note', 24, false);
-        char.animation.addByPrefix('singRIGHT', 'GF left note', 24, false);
-    } else {
-        char.animation.addByPrefix('singLEFT', 'GF left note', 24, false);
-        char.animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
-    }
+    char.animation.addByPrefix('singLEFT', 'GF left note', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
     char.animation.addByPrefix('singUP', 'GF Up Note', 24, false);
     char.animation.addByPrefix('singDOWN', 'GF Down Note', 24, false);
     char.animation.addByIndices('sad', 'gf sad', makeRangeArray(12), "", 24, false);
@@ -32,8 +27,9 @@ function init(char) {
 
     char.addOffset('scared', -2, -17);
 
+    char.noFlip = true;
+
     if (char.isPlayer) {
-	char.flipX = true;
 	char.followCamY = 150;
     } else {
 	char.followCamX = 0;

@@ -9,12 +9,12 @@ function start(song) {
     getHaxeActor('bf').y += 20;
     getHaxeActor('dad').x += 150;
     getHaxeActor('dad').y += 20;
-
-    setSwapOffsets('bf', [40, 20]);
-    setSwapOffsets('dad', [150, 20]);
+ 
+    stage.setOffsets('bf', 40, 20);
+    stage.setOffsets('dad', 150, 20);
 
     var statichscriptPath = hscriptPath;
-    if (songData.stageID == 1) {
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect/')) {
 	hscriptPath += 'erect/';
 
 	colorShader = new FlxRuntimeShader('adjustColor');
@@ -69,7 +69,10 @@ function start(song) {
     addSprite(train, BEHIND_ALL);
     stage.addElement('train', train);
 
-    trainSound = new FlxSound().loadEmbedded(FNFAssets.getSound(statichscriptPath + 'train_passes.ogg'));
+    if (FileSystem.exists(statichscriptPath + 'train_passes.ogg'))
+	trainSound = new FlxSound().loadEmbedded(FNFAssets.getSound(statichscriptPath + 'train_passes.ogg'));
+    else
+	trainSound = new FlxSound().loadEmbedded(FNFAssets.getSound('assets/sounds/train_passes.ogg'));
     FlxG.sound.list.add(trainSound);
 
     var street = new FlxSprite(-40, 50).loadGraphic(hscriptPath + 'street.png');

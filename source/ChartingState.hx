@@ -397,24 +397,17 @@ class ChartingState extends MusicBeatState {
 		var stageIDText = new FlxText(stageID.x + 70, stageID.y, 0, "Stage ID", 8, false);
 		var cutsceneText = new FlxText(cutsceneTextField.x + 70, cutsceneTextField.y, 0, "Cutscene", 8, false);
 
-		charDropdown = new ChartCharDropdown(450, 150, 'bf');
-		charDropdown.scrollFactor.set();
-
 		var player1Button:FlxButton = new FlxButton(10, 115, "Browse", function() {
-			charDropdown.charType = 'bf';
-			add(charDropdown);
+			doCharDropdown('bf');
 		});
 		var player2Button:FlxButton = new FlxButton(120, 115, "Browse", function() {
-			charDropdown.charType = 'dad';
-			add(charDropdown);
+			doCharDropdown('dad');
 		});
 		var gfButton:FlxButton = new FlxButton(10, 155, "Browse", function() {
-			charDropdown.charType = 'gf';
-			add(charDropdown);
+			doCharDropdown('gf');
 		});
 		var stageButton:FlxButton = new FlxButton(120, 155, "Browse", function() {
-			charDropdown.charType = 'stage';
-			add(charDropdown);
+			doCharDropdown('stage');
 		});
 
 		var tab_group_char = new FlxUI(null, UI_box);
@@ -443,6 +436,15 @@ class ChartingState extends MusicBeatState {
 
 		UI_box.addGroup(tab_group_char);
 		UI_box.scrollFactor.set();
+	}
+
+	function doCharDropdown(dropType:String = 'bf') {
+		if (charDropdown == null) {
+			charDropdown = new ChartCharDropdown(450, 150, dropType);
+			charDropdown.scrollFactor.set();
+		} else
+			charDropdown.charType = dropType;
+		add(charDropdown);
 	}
 
 	var stepperLength:FlxUINumericStepper;
@@ -936,7 +938,8 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.pressed.SHIFT)
 				PlayState.startingPosition = Conductor.songPosition;
 
-			charDropdown.destroy();
+			if (charDropdown != null)
+				charDropdown.destroy();
 
 			PlayState.SONG = _song;
 			FlxG.sound.music.stop();
@@ -950,7 +953,7 @@ class ChartingState extends MusicBeatState {
 		if (!typingShit.hasFocus && !player1TextField.hasFocus 
 		&& !player2TextField.hasFocus && !gfTextField.hasFocus 
 		&& !stageTextField.hasFocus && !cutsceneTextField.hasFocus 
-		&& !uiTextField.hasFocus && !charDropdown.searchBox.hasFocus) {
+		&& !uiTextField.hasFocus && (charDropdown == null || !charDropdown.searchBox.hasFocus)) {
 			if (FlxG.keys.justPressed.E) 
 				changeNoteSustain(Conductor.stepCrochet);
 			if (FlxG.keys.justPressed.Q)

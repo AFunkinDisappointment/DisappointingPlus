@@ -1,0 +1,40 @@
+var logoBl;
+var logo;
+function start() {
+    initMusic('assets/music/title.ogg', 140);
+
+    var bg = new FlxSprite().loadGraphic(hscriptPath + 'bg.png');
+    bg.screenCenter();
+    bg.antialiasing = true;
+    addSprite(bg);
+
+    logoBl = new FlxSprite().loadGraphic(hscriptPath + 'logo.png');
+    logoBl.color = 0x000000;
+    logoBl.screenCenter();
+    logoBl.y -= 25;
+    logoBl.antialiasing = true;
+    addSprite(logoBl);
+
+    logo = new FlxSprite().loadGraphic(hscriptPath + 'logo.png');
+    logo.screenCenter();
+    logo.y -= 25;
+    logo.antialiasing = true;
+    addSprite(logo);
+
+    FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: FlxEase.PINGPONG});
+    FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: FlxEase.PINGPONG, startDelay: 0.1});
+}
+
+var thing = 1;
+function beatHit(beat) {
+    if (beat % 2 == 0) {
+	thing *= -1;
+	FlxTween.tween(logoBl, {y: logoBl.y + 50 * thing}, 0.6, {ease: FlxEase.quadInOut, type: FlxEase.PINGPONG});
+	FlxTween.tween(logo, {y: logoBl.y + 50 * thing}, 0.6, {ease: FlxEase.quadInOut, type: FlxEase.PINGPONG, startDelay: 0.1});
+    }
+}
+
+function enterPressed() {
+    FlxG.sound.music.stop();
+    FlxG.sound.play('assets/music/titleShoot.ogg', 0.7);
+}

@@ -63,6 +63,8 @@ class Character extends DisSprite {
 	public var gameoverMusicEnd = 'gameOverEnd.ogg';
 
 	public var isPlayer:Bool = false;
+	public var noFlip:Bool = false;
+
 	public var curCharacter:String = 'bf';
 	public var altAnim:String = "";
 	public var altNum:Int = 0;
@@ -80,7 +82,8 @@ class Character extends DisSprite {
 	public var midpointY:Int = 0;
 	public var holdTimer:Float = 0;
 	public var animationNotes:Array<Dynamic> = [];
-	public var singPriority:Array<String> = ['hey', 'cheer', 'fawn', 'sad'];
+	public var singPriority:Array<String> = [];
+	public var noDanceAnims:Array<String> = ['cheer', 'fawn', 'sad'];
 	public var like:String = "bf";
 	public var beNormal:Bool = true;
 	/**
@@ -176,7 +179,7 @@ class Character extends DisSprite {
 		callInterp("init", [this]);
 		dance();
 
-		if (isPlayer) {
+		if (isPlayer && !noFlip) {
 			flipX = !flipX;
 			// Doesn't flip for BF, since his are already in the right place???
 			if (!likeBf && !isDie && animation.getByName('singRIGHT') != null) {
@@ -201,7 +204,7 @@ class Character extends DisSprite {
 			}
 		}
 	}
-	public function characterExists(character:String):Bool {
+	public static function characterExists(character:String):Bool {
 		var charJson = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_chars/custom_chars'));
 		return (Reflect.hasField(charJson, character) && FileSystem.exists('assets/images/custom_chars/' + character));
 	}
@@ -316,19 +319,15 @@ class Character extends DisSprite {
 	}
 
 	private var danced:Bool = false;
-
-	/**
-	 * FOR GF DANCING SHIT
-	 */
 	public function dance() {
-		if (!debugMode && beNormal) {
+		if (!debugMode && beNormal && (animation.curAnim == null || !noDanceAnims.contains(animation.curAnim.name) || animation.curAnim.finished)) {
 			if (interp != null)
 				callInterp("dance", [this]);
 			else
 				playAnim('idle');
-			if (color == 0xCFAFFF) {
+
+			if (color == 0xCFAFFF)
 				color = FlxColor.WHITE;
-			}
 		}
 	}
 

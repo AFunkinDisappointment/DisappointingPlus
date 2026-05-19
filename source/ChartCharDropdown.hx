@@ -40,21 +40,22 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 	var downButton:FlxUIButton;
 	var exitButton:FlxUIButton;
 
-	public var charType = 'bf';
-	var charButtons:Array<Dynamic> = [];
-	var stageButtons:Array<Dynamic> = [];
+	public var charType(default, set):String = 'bf';
+	public var shownButtons:Array<FlxUIButton>;
+	var charButtons:Array<FlxUIButton> = [];
+	var stageButtons:Array<FlxUIButton> = [];
 
-	var buttonHeight = 3;
-	var buttonWidth = 3;
+	var buttonHeight:Int = 3;
+	var buttonWidth:Int = 3;
 
 	public function new(daX:Int, daY:Int, charTypee:String = 'bf') {
 		super(daX, daY);
 
-		var epicCharFile:Dynamic = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_chars/custom_chars'));
+		final epicCharFile:Dynamic = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_chars/custom_chars'));
 		var allChars:Array<Dynamic> = Reflect.fields(epicCharFile);
 		allChars.sort(sortAlph);
 
-		var epicStageFile:Dynamic = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_stages/custom_stages'));
+		final epicStageFile:Dynamic = CoolUtil.parseJson(FNFAssets.getJson('assets/images/custom_stages/custom_stages'));
 		var allStages:Array<Dynamic> = Reflect.fields(epicStageFile);
 		allStages.sort(sortAlph);
 
@@ -68,7 +69,6 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 		charIcon.setGraphicSize(45, 45);
 
 		for (char in allChars) {
-			charIcon.switchAnim(char);
 			var charButton = new FlxUIButton(10, 10, char, function():Void {
 				ChartingState.setCharacter(char, charType);
 			});
@@ -77,7 +77,11 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 			charButtonLabel.offset.y -= 10;
 			charButtonLabel.setFormat('assets/fonts/vcr.ttf', 10, 0xFFFFFFFF, 'center', OUTLINE, 0xFF404040);
 			charButton.resize(50, 50);
-			charButton.addIcon(charIcon);
+
+			charIcon.loadIcon(char).onComplete(function(icon) {
+				charButton.addIcon(icon);
+			});
+
 			charButtons.push(charButton);
 			add(charButton);
 		}
@@ -129,7 +133,7 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 		return a == b ? 0 : a > b ? 1 : -1;
 	}
 
-	override function destroy() {
+	/*override function destroy() {
 		for (button in charButtons) {
 			charButtons.remove(button);
 			button.destroy();
@@ -145,26 +149,20 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 		upButton.destroy();
 		downButton.destroy();
 		exitButton.destroy();
-	}
+	}*/
 
-	var scroll = 0;
+	var scroll:Int = 0;
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (scroll < 0)
 			scroll = 0;
 		var totalButtons = [1, 1];
-		var shownButtons = charButtons;
-		switch(charType) {
-			case 'bf' | 'dad' | 'gf':
-				for (button in stageButtons) {
-					button.y = -2500;
-				}
-			case 'stage':
-				shownButtons = stageButtons;
-				for (button in charButtons) {
-					button.y = -2500;
-				}
+		for (button in stageButtons) {
+			button.y = -2500;
+		}
+		for (button in charButtons) {
+			button.y = -2500;
 		}
 		for (button in shownButtons) {
 			if (button.getLabel().text.indexOf(searchBox.text) != -1) {
@@ -175,7 +173,7 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 				}
 				button.y = searchBox.y + 40 - scroll + 55 * (totalButtons[1] - 1);
 				if (button.y < searchBox.y + 15 || button.y > searchBox.y + 180)
-					button.y = -2500;		
+					button.y = -2500;
 				totalButtons[0] += 1;
 			} else
 				button.y = -2500;
@@ -184,5 +182,15 @@ class ChartCharDropdown extends FlxTypedSpriteGroup<FlxSprite> {
 			scroll = (totalButtons[1] - buttonHeight) * 55;
 		else if (totalButtons[1] <= buttonHeight)
 			scroll = 0;
+	}
+
+	function set_charType(value) {
+		switch(value) {
+			case 'bf' | 'dad' | 'gf':
+				shownButtons = charButtons;
+			case 'stage':
+				shownButtons = stageButtons;
+		}
+		return charType = value;
 	}
 }

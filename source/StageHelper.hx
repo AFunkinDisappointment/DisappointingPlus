@@ -3,39 +3,94 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSort;
+import flixel.math.FlxPoint;
 
 typedef CharacterInfo = {
-	var x:Int;
-	var y:Int;
-	var ?camOffsetX:Int;
-	var ?camOffsetY:Int;
-	var ?zIndex:Int;
-	var ?scrollFactor:Array<Float>;
+	var x:Float;
+	var y:Float;
+	var camOffsetX:Int;
+	var camOffsetY:Int;
+	var scrollFactor:FlxPoint;
+	var zIndex:Int;
 }
 
 class StageHelper extends FlxSpriteGroup {
 	public var interp:Interp;
 	public var name:String = 'stage';
 	public var defaultZoom:Float = 1.05;
-	public var boyfriendInfo:CharacterInfo;
+
+	public var bfInfo:CharacterInfo;
 	public var dadInfo:CharacterInfo;
 	public var gfInfo:CharacterInfo;
 
 	public var elements:Map<String, Dynamic> = [];
-	//public var characters:Map<String, Character> = [];
 	public var zIndexes:Map<FlxSprite, Int> = [];
 	var highestZ:Int = 0;
 	public var functions:Map<String, Dynamic> = [];
+
 	public function new(stageName:String = 'stage', ?stageInterp:Interp) {
 		super();
 
-		dadInfo = {x: 100, y: 100};
-		gfInfo = {x: 400, y: 130};
-		boyfriendInfo = {x: 770, y: 450};
+		dadInfo = defaultInfo('dad');
+		gfInfo = defaultInfo('gf');
+		bfInfo = defaultInfo('bf');
 
 		name = stageName;
 		if (stageInterp != null) interp = stageInterp;
 	}
+
+	// Char Infos
+
+	public static function defaultInfo(?char:String = 'dad') {
+		var info:CharacterInfo = {x: 100, y: 100, camOffsetX: 0, camOffsetY: 0, scrollFactor: FlxPoint.get(1, 1), zIndex: -69};
+		switch(char) {
+			case 'bf':
+				info.x = 770;
+				info.y = 450;
+			case 'gf':
+				info.x = 400;
+				info.y = 130;
+		}
+		return info;
+	}
+
+	public function setOffsets(char:String = 'dad', offx:Float = 0, offy:Float = 0, ?addition:Bool = true) {
+		var info = getInfo(char);
+		if (addition) {
+			offx += info.x;
+			offy += info.y;
+		}
+		info.x = offx;
+		info.y = offy;
+		return this;
+	}
+
+	public function setCamOffsets(char:String = 'dad', offx:Int = 0, offy:Int = 0, ?addition:Bool = true) {
+		var info = getInfo(char);
+		if (addition) {
+			offx += info.camOffsetX;
+			offy += info.camOffsetY;
+		}
+		info.camOffsetX = offx;
+		info.camOffsetY = offy;
+		return this;
+	}
+
+	public function setScrollFactor(char:String = 'dad', scrollx:Float = 1, scrolly:Float = 1) {
+		getInfo(char).scrollFactor.set(scrollx, scrolly);
+		return this;
+	}
+
+	public function getInfo(char:String = 'dad') {
+		switch(char) {
+			case 'dad': return dadInfo;
+			case 'bf' | 'boyfriend': return bfInfo;
+			case 'gf': return gfInfo;
+			default: return null;
+		}
+	}
+
+	// Elements
 
 	public function addElement(name:String, element:Dynamic, ?zIndex:Int) {
 		elements.set(name, element);
@@ -64,25 +119,7 @@ class StageHelper extends FlxSpriteGroup {
 		}
 	}
 
-	/*public function addCharacter(name:String, char:Character, ?zIndex:Int = 0) {
-		characters.set(name, char);
-
-		zIndex.set(char, zIndex);
-		this.add(char);
-	}
-
-	public function getCharacter(name:String) {
-		return characters.get(name);
-	}
-
-	public function removeCharacter(name:String, ?destroy:Bool = true) {
-		var char = getCharacter(name);
-
-		if (char != null) {
-			characters.remove(name);
-			if (destroy) char.destroy();
-		}
-	}*/
+	// Z Index
 
 	public function getZIndex(element:String) {
 		return zIndexes.get(getElement(element));
@@ -105,17 +142,29 @@ class StageHelper extends FlxSpriteGroup {
 		sort(sortByZIndex, FlxSort.ASCENDING);
 	}
 
+	// Functions
+
+	public function addFunction(name:String, afunction:Dynamic) {
+		functions.set(name, afunction);
+	}
+
+	public function getFunction(name:String) {
+		return functions.get(name);
+	}
+
+	public function doFunction(name:String) {
+		var method = getFunction(name);
+		return method();
+	}
+
+	// Sprite Group Stuff
+
 	public function clearStage():Void {
 		for (element in elements) {
 			remove(element);
 			element.destroy();
 		}
 		elements.clear();
-		/*for (character in characters) {
-			remove(character);
-			character.destroy();
-		}
-		characters.clear();*/
 		functions.clear();
 	}
 
@@ -133,18 +182,5 @@ class StageHelper extends FlxSpriteGroup {
 
 		if (clipRect != null)
 			clipRectTransform(sprite, clipRect);
-	}
-
-	public function addFunction(name:String, afunction:Dynamic) {
-		functions.set(name, afunction);
-	}
-
-	public function getFunction(name:String) {
-		return functions.get(name);
-	}
-
-	public function doFunction(name:String) {
-		var method = getFunction(name);
-		return method();
 	}
 }

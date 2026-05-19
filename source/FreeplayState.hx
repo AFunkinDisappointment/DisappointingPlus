@@ -247,18 +247,22 @@ class FreeplayState extends MusicBeatState {
 			record.y -= record.height / 1.5;
 			add(record);
 		}
+		infoPanel = new SongInfoPanel(FlxG.width - 500, 100, songs[0].songName, curDifficulty);
 		var qtooltip = new Tooltip(10, 0, Action.LEFT_TAB, "info backwards", Keyboard, true);
 		qtooltip.y = FlxG.height - qtooltip.height;
 		var etooltip = new Tooltip(10, qtooltip.y, Action.RIGHT_TAB, "info forwards", Keyboard, true);
 		etooltip.x = qtooltip.x + qtooltip.width + 10;
-		infoPanel = new SongInfoPanel(FlxG.width - 500, 100, songs[0].songName, curDifficulty);
-		if (!soundTest && OptionsHandler.options.style) {
-			add(etooltip);
-			add(qtooltip);
-			add(infoPanel);
+		
+		add(etooltip);
+		add(qtooltip);
+		add(infoPanel);
+
+		if (soundTest || !OptionsHandler.options.style) {
+			etooltip.visible = false;
+			qtooltip.visible = false;
+			infoPanel.visible = false;
 		}
 		changeSelection();
-		changeDiff();
 
 		// FlxG.sound.playMusic('assets/music/title' + TitleState.soundExt, 0);
 		// FlxG.sound.music.fadeIn(2, 0, 0.8);
@@ -432,8 +436,10 @@ class FreeplayState extends MusicBeatState {
 		if (!soundTest) {
 			// get valid one : )
 			// also forces
-			var difficultyObject:Dynamic = DifficultyManager.changeDifficultySans(curDifficulty, change, songs[curSelected].songName);
+			final difficultyObject:Dynamic = DifficultyManager.changeDifficultySans(curDifficulty, change, songs[curSelected].songName);
+			
 			curDifficulty = difficultyObject.difficulty;
+			diffText.text = difficultyObject.text;
 
 			#if !switch
 			intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -442,21 +448,15 @@ class FreeplayState extends MusicBeatState {
 
 			for (star in starArray[curSelected]) {
 				var offset = star.diff == curDifficulty ? 25 : 0;
-
-				FlxTween.num(star.selectoffset, offset, 0.2, {ease: FlxEase.expoOut}, function(num) {
-					star.selectoffset = num;
-				});
+				if (star.selectoffset != offset) {
+					FlxTween.cancelTweensOf(star);
+					FlxTween.num(star.selectoffset, offset, 0.2, {ease: FlxEase.expoOut}, function(num) {
+						star.selectoffset = num;
+					});
+				}
 			}
-
-			diffText.text = difficultyObject.text;
 		} else {
-			curDifficulty += change;
-			if (curDifficulty > 2) {
-				curDifficulty = 0;
-			}
-			if (curDifficulty < 0) {
-				curDifficulty = 2;
-			}
+			curDifficulty = (curDifficulty + change) % 3;
 			switch (curDifficulty) {
 				case 0:
 					diffText.text = "Both tracks";
@@ -559,7 +559,6 @@ class FreeplayState extends MusicBeatState {
 		if (OptionsHandler.options.style) {
 			record.changeColor(coolors, songs[curSelected].songCharacter, songs[curSelected].week,
 				songs[curSelected].songName, curDifficulty);
-			
 		}
 		
 		infoPanel.changeSong(songs[curSelected].songName, curDifficulty);

@@ -26,6 +26,7 @@ function init(char) {
 
     char.gfOffsetX = -50;
     char.gfOffsetY = 320;
+    char.noFlip = true;
 }
 isPixel = false;
 function update(elapsed, char) {

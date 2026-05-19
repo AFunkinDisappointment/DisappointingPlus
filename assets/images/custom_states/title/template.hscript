@@ -1,0 +1,24 @@
+function start() {
+    makeBaseTitle(hscriptPath);
+    gf.x -= 450;
+    logo.x += 575;
+    logo.y += 10;
+}
+
+function update(elapsed) {
+    titleText.y = (titleText.y + 3) % FlxG.height;
+}
+
+var danced = false;
+function beatHit(beat) {
+    danced = !danced;
+    if (danced)
+	FlxTween.tween(logo, {angle: 5}, 0.07, {ease: FlxEase.BounceIn});
+    else
+	FlxTween.tween(logo, {angle: -5}, 0.07, {ease: FlxEase.BounceIn});
+}
+
+function enterPressed() {
+    FlxG.sound.music.pause();
+    FlxG.sound.play('assets/music/titleShoot.ogg', 0.7);
+}

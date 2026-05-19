@@ -6,8 +6,9 @@ function start(song) {
     getHaxeActor('gf').y += 10;
     getHaxeActor('bf').followCamX -= 100;
 
-    setSwapOffsets('bf', [50, 60]);
-    setSwapOffsets('gf', [100, 10]);
+    stage.setOffsets('bf', 50, 60);
+    stage.setOffsets('gf', -100, 10);
+    stage.bfInfo.camOffsetX -= 100;
 
     var bg = new FlxSprite(400, 200);
     bg.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'animatedEvilSchool.png', hscriptPath + 'animatedEvilSchool.xml');

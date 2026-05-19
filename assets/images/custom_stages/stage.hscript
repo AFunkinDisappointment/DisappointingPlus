@@ -43,8 +43,8 @@ function erectStage() {
     getHaxeActor('gf').y += 10;
     getHaxeActor('dad').x -= 270;
 
-    setSwapOffsets('gf', [-160, 10]);
-    setSwapOffsets('dad', [-270, 0]);
+    stage.setOffsets('gf', -160, 10);
+    stage.dadInfo.x -= 270;
 
     colorShaderBF = new FlxRuntimeShader('adjustColor');
     colorShaderBF.setFloat('brightness', -23);

@@ -11,7 +11,7 @@ var sniper;
 var guy;
 var colorShader;
 function start(song) {
-    if (songData.stageID == 1)
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect/'))
 	erectStage();
     else
 	normalStage();
@@ -26,9 +26,9 @@ function normalStage() {
     getHaxeActor("dad").x -= 80;
     getHaxeActor("dad").y += 60;
 
-    setSwapOffsets('bf', [40, 0]);
-    setSwapOffsets('gf', [-90, -65]);
-    setSwapOffsets('dad', [-80, 60]);
+    stage.bfInfo.x += 40;
+    stage.setOffsets('gf', -90, -65);
+    stage.setOffsets('dad', -80, 60);
 
     var sky = new FlxSprite(-400, -400).loadGraphic(hscriptPath + 'tankSky.png');
     sky.scrollFactor.set();
@@ -171,15 +171,15 @@ function erectStage() {
 
     getHaxeActor("boyfriend").x += 360;
     getHaxeActor("boyfriend").y += 25;
-    getHaxeActor("gf").x += 50;
-    getHaxeActor("gf").scrollFactor.set(1, 1);
+    getHaxeActor("gf").x += 25; // there's two of these to prevent abot from becoming herobrine
+    getHaxeActor("gf").x += 25; // not really the best fix, but hopefully I'll fix the problem
     getHaxeActor("dad").x -= 80;
     getHaxeActor("dad").y += 40;
     getHaxeActor("dad").followCamX += 50;
 
-    setSwapOffsets('bf', [360, 25]);
-    setSwapOffsets('gf', [50, 0]);
-    setSwapOffsets('dad', [-80, 40]);
+    stage.setOffsets('bf', 360, 25);
+    stage.gfInfo.x += 50;
+    stage.setOffsets('dad', -80, 40).setCamOffsets('dad', 50);
 
     makeRimShader(getHaxeActor("boyfriend"), 'bf');
     makeRimShader(getHaxeActor("gf"), 'gf');

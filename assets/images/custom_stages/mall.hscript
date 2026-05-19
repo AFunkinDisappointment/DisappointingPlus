@@ -6,11 +6,11 @@ var statichscriptPath;
 function start(song) {
     setDefaultZoom(0.8);
     getHaxeActor("bf").x += 200;
-    setSwapOffsets('bf', [200, 0]);
+    stage.bfInfo.x += 200;
 
     statichscriptPath = hscriptPath;
 
-    if (songData.stageID == 1)
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect/'))
 	erect();
     else
 	normal(false);

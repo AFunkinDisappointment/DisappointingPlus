@@ -15,6 +15,7 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.hasGun = true;
+    char.noFlip = true;
 
     char.gfOffsetX = -2;
     char.gfOffsetY = -134;
@@ -25,7 +26,12 @@ portraitOffset = [0, 0];
 dadVar = 4.0;
 isPixel = false;
 function sing(direction, miss, alt, char) {
-    // do nothing...
+    switch(direction) {
+	case 0, 1:
+	    char.playAnim('shoot' + FlxG.random.int(3, 4), true);
+	case 2, 3:
+	    char.playAnim('shoot' + FlxG.random.int(1, 2), true);
+    }
 }
 function update(elapsed, char) {
     if (char.animation.curAnim != null && char.animation.curAnim.finished)

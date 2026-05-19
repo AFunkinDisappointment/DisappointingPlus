@@ -1,6 +1,5 @@
 package;
 
-// NO NOT WEEK 7 THAT CAN FUCK OFF
 // A helper class to make supporting web easier
 #if sys
 import sys.FileSystem;
@@ -8,6 +7,7 @@ import sys.io.File;
 #end
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
+import lime.app.Future;
 import openfl.display.BitmapData;
 import openfl.media.Sound;
 import haxe.io.Path;
@@ -64,7 +64,7 @@ class FNFAssets {
 		return getAmbigAsset([id], CoolUtil.JSON_EXT, AssetType.TEXT);
 	}
 	static public function getHscript(id:String):Null<String> {
-		return getAmbigAsset([id], CoolUtil.HSCRIPT_EXT,AssetType.TEXT);
+		return getAmbigAsset([id], CoolUtil.HSCRIPT_EXT, AssetType.TEXT);
 	}
 	/**
 	 * A safer way to get assets. Checks if the first asset exists and if not ALWAYS uses 2nd asset.
@@ -76,9 +76,8 @@ class FNFAssets {
 	 */
 	public static function getAssetWithBackup(id:String, backupID:String, type:AssetType):Dynamic {
 		// backup id should always exist
-		if (FNFAssets.exists(id)) {
+		if (FNFAssets.exists(id))
 			return FNFAssets.getAsset(id, type);
-		}
 		return FNFAssets.getAsset(backupID, type);
 	} 
 	/**
@@ -109,31 +108,24 @@ class FNFAssets {
 	 * @return Dynamic WARNING, if it doesn't find anything it will return null.
 	 */
 	public static function getAmbigAsset(id:Array<String>, ext:Array<String>, type:AssetType):Dynamic {
-		for (path in id)
-		{
-			for (ex in ext)
-			{
+		for (path in id) {
+			for (ex in ext) {
 				if (exists(path + '.' + ex))
-				{
 					return getAsset(path + '.' + ex, type);
-				}
 			}
 		}
 		return null;
 	}
 	public static function existsAmbig(id:Array<String>, extension:Array<String>):String {
-		for (path in id)
-		{
-			for (ext in extension)
-			{
+		for (path in id) {
+			for (ext in extension) {
 				if (exists(path + '.' + ext))
 					return path + '.' + ext;
 			}
 		}
 		return '';
 	}
-	public static function getBytes(id:String):Bytes
-	{
+	public static function getBytes(id:String):Bytes {
 		#if sys
 		// if there a library strip it out..
 		// future proofing ftw
@@ -214,13 +206,37 @@ class FNFAssets {
                 path = id;
 			else return Assets.getBitmapData(id, useCache);
 			try {
-			return BitmapData.fromFile(path);
+				return BitmapData.fromFile(path);
 			} catch (e:Any) {
-			throw 'File $path doesn\'t exist or cannot be read.';
+				throw 'File $path doesn\'t exist or cannot be read.';
 			}
-            
         #else
             return Assets.getBitmapData(id, useCache);
+        #end
+    }
+
+	/**
+     * Get bitmap data of a file, asychronously.
+     * @param id Path of file
+     * @param useCache Whether to reuse assets if file was already requested. Only works on non-dynamically loaded assets.
+     * @return Future<BitmapData> the data of the file, but in the future.
+     */
+    public static function loadBitmapData(id:String, ?useCache:Bool=true):Future<BitmapData> {
+        #if sys
+			if (!isInScope(id))
+				throw "Tried to access a file that is out of scope.";
+            // idk if this works lol
+			var path = Assets.exists(id) ? Assets.getPath(id) : null;
+            if (path == null)
+                path = id;
+			else return Assets.loadBitmapData(id, useCache);
+			try {
+				return BitmapData.loadFromFile(path);
+			} catch (e:Any) {
+				throw 'File $path doesn\'t exist or cannot be read.';
+			}
+        #else
+            return Assets.loadBitmapData(id, useCache);
         #end
     }
     /**
@@ -239,12 +255,9 @@ class FNFAssets {
 			else
 				// prefer using assets as it uses a cache??
 				return Assets.getSound(id, useCache);
-		try
-		{
+		try {
 			return Sound.fromFile(path);
-		}
-		catch (e:Any)
-		{
+		} catch (e:Any) {
 			throw 'File $path doesn\'t exist or cannot be read.';
 		}
         #else
@@ -262,10 +275,9 @@ class FNFAssets {
 				throw "Tried to access a file that is out of scope.";
 			try {
 				File.saveContent(id, data);
-			}	catch(e:Any) {
+			} catch(e:Any) {
 				throw "Couldn't save to "+ id +". Is it in use?";
 			}
-           
         #else
             askToSave(id, data);
         #end
@@ -275,17 +287,13 @@ class FNFAssets {
 	 * @param id File to save to 
 	 * @param data Bytes to save. 
 	 */
-	public static function saveBytes(id:String, data:Bytes)
-	{
+	public static function saveBytes(id:String, data:Bytes) {
 		#if sys
 		if (!isInScope(id))
 			throw "Tried to access a file that is out of scope.";
-		try
-		{
+		try {
 			File.saveBytes(id, data);
-		}
-		catch (e:Any)
-		{
+		} catch (e:Any) {
 			throw "Couldn't save to " + id + ". Is it in use?";
 		}
 		#else
@@ -297,8 +305,7 @@ class FNFAssets {
 	 * @param id Path to save to.
 	 * @param data Data. Can be anything. 
 	 */
-	public static function askToSave(id:String, data:Dynamic)
-	{
+	public static function askToSave(id:String, data:Dynamic) {
 		_file = new FileReference();
 
 		_file.addEventListener(Event.COMPLETE, onSaveComplete);
@@ -307,23 +314,20 @@ class FNFAssets {
 		var idSus = Path.withoutDirectory(id);
 		_file.save(data, idSus);
 	}
-	static function onSaveComplete(_):Void
-	{
+	static function onSaveComplete(_):Void {
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
 		FlxG.log.notice("Successfully saved LEVEL DATA.");
 	};
-	static function onSaveCancel(_):Void
-	{
+	static function onSaveCancel(_):Void {
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 		_file = null;
 	};
-	static function onSaveError(_):Void
-	{
+	static function onSaveError(_):Void {
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
 		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);

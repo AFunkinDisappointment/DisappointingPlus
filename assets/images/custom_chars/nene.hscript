@@ -29,9 +29,9 @@ function init(char) {
     char.addOffset('sad');
     char.addOffset('sad-hold');
 
-    char.addOffset('knife-raise', 0, 52);
-    char.addOffset('knife-idle', -99, 52);
-    char.addOffset('knife-lower', 135, 52);
+    char.addOffset('knife-raise', 0, 51);
+    char.addOffset('knife-idle', -98, 51);
+    char.addOffset('knife-lower', 135, 51);
 
     //char.addOffset('hairBlow', 45, -8);
     //char.addOffset('hairFall', 0, -9);
@@ -39,10 +39,9 @@ function init(char) {
     abot = new Character(-50, 0, 'abot');
     abot.x += abot.gfOffsetX;
     abot.y += abot.gfOffsetY;
-    char.addChild(abot);
+    char.adoptChildren(abot);
 
     if (char.isPlayer) {
-	char.flipX = true;
 	char.followCamY = 150;
     } else {
 	char.followCamX = 150;
@@ -55,6 +54,7 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Sadness;
+    char.noFlip = true;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;

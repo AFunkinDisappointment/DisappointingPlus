@@ -20,6 +20,9 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;
+    char.noFlip = true;
+
+    char.antialiasing = false;
     char.scale.set(6, 6);
     char.updateHitbox();
     char.isPixel = true;
@@ -27,13 +30,12 @@ function init(char) {
     abot = new Character(-68, -52, 'abot-pixel');
     abot.x += abot.gfOffsetX;
     abot.y += abot.gfOffsetY;
-    char.addChild(abot);
+    char.adoptChildren(abot);
 
     char.gfOffsetX = 60;
     char.gfOffsetY = 0;
     char.followCamX = -300;
     char.followCamY = -250;
-    char.antialiasing = false;
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;

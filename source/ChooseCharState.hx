@@ -26,9 +26,7 @@ import haxe.Json;
 import tjson.TJSON;
 using StringTools;
 
-
-class ChooseCharState extends MusicBeatState
-{
+class ChooseCharState extends MusicBeatState {
     public static var characters:Array<String>;
     var char:Character;
     var anim:String = PlayState.SONG.player1;
@@ -40,17 +38,16 @@ class ChooseCharState extends MusicBeatState
 
     var dadMenu:Bool = false;
 
-    public function new(anim:String = "bf")
-    {
+    public function new(anim:String = "bf") {
         super();
         this.anim = anim;
     }
 
-    override function create()
-    {
+    override function create() {
+        grpAlphabet = new FlxTypedGroup<Alphabet>();
+
         var menuBG:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuDesat.png');
         menuBG.color = 0xFFea71fd;
-        grpAlphabet = new FlxTypedGroup<Alphabet>();
         menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
         menuBG.updateHitbox();
         menuBG.screenCenter();
@@ -59,7 +56,7 @@ class ChooseCharState extends MusicBeatState
 
         var charJson:Dynamic = null;
 
-        char = new Character(600, 250, anim);
+        char = new Character(600, 250, anim, true);
         char.x += char.playerOffsetX;
 		char.y += char.playerOffsetY;
         add(char);
@@ -73,15 +70,15 @@ class ChooseCharState extends MusicBeatState
             // characters = mergeArray(Reflect.fields(charJson), Reflect.fields(regCharacters)); // this doesn't work, try to make this work or just ignore it
             // reg characters should be first
             characters = Reflect.fields(charJson);
+            characters.sort(sortAlph);
         }
 
-        for(character in 0...characters.length){ //add chars
+        for (character in 0...characters.length) { //add chars
             var awesomeChar = new Alphabet(0, 10, "   "+characters[character], true, false, false);
             awesomeChar.isMenuItem = true;
             awesomeChar.targetY = character;
             grpAlphabet.add(awesomeChar);
 
-            trace(characters[character]);
             var icon:HealthIcon = new HealthIcon(characters[character]);
 			icon.sprTracker = awesomeChar;
 			// icons won't be visible 
@@ -103,6 +100,12 @@ class ChooseCharState extends MusicBeatState
         return res;
     }
 
+    function sortAlph(a:String, b:String) { // might have borrowed this :)
+		a = a.toUpperCase();
+		b = b.toUpperCase();
+		return a == b ? 0 : a > b ? 1 : -1;
+	}
+
     override function update(elapsed:Float) {
         super.update(elapsed);
         if (controls.BACK)
@@ -122,7 +125,6 @@ class ChooseCharState extends MusicBeatState
     }
 
     function changeSelection(change:Int = 0) {
-
         FlxG.sound.play('assets/sounds/scrollMenu' + TitleState.soundExt, 0.4);
 
         curSelected += change;
@@ -133,33 +135,28 @@ class ChooseCharState extends MusicBeatState
         if (curSelected >= characters.length)
             curSelected = 0;
 
-
         var bullShit:Int = 0;
-        for (i in 0...iconArray.length)
-		{
+        for (i in 0...iconArray.length) {
 			iconArray[i].alpha = 0.6;
 		}
 
 		iconArray[curSelected].alpha = 1;
 
-        for (item in grpAlphabet.members)
-        {
+        for (item in grpAlphabet.members) {
             item.targetY = bullShit - curSelected;
             bullShit++;
 
             item.alpha = 0.6;
             // item.setGraphicSize(Std.int(item.width * 0.8));
 
-            if (item.targetY == 0)
-            {
+            if (item.targetY == 0) {
                 item.alpha = 1;
                 // item.setGraphicSize(Std.int(item.width));
             }
         }
     }
 
-    function chooseSelection()
-    {
+    function chooseSelection() {
         remove(char);
         if (!dadMenu) {
             char = new Character(600, 250, curChar, true);

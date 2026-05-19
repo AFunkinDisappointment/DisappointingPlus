@@ -1,9 +1,8 @@
 function init(char) {
-    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
 
-    char.frames = tex;
     char.animation.addByIndices('danceLeft', 'GF IDLE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-    char.animation.addByIndices('danceRight', 'GF IDLE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+    char.animation.addByIndices('danceRight', 'GF IDLE', makeRangeArray(29, 15), "", 24, false);
 
     char.addOffset('danceLeft');
     char.addOffset('danceRight');
@@ -12,8 +11,11 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;
-    char.setGraphicSize(Std.int(char.width * 6));
+    char.scale.set(6, 6);
     char.updateHitbox();
+    char.isPixel = true;
+
+    char.noFlip = true;
 
     char.gfOffsetX = 280;
     char.gfOffsetY = 290;
@@ -23,7 +25,6 @@ function init(char) {
 }
 portraitOffset = [0, 0];
 dadVar = 4.0;
-isPixel = true;
 function update(elapsed, char) {
     // do nothing...
 }

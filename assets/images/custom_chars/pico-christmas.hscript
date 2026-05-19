@@ -1,6 +1,7 @@
 function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
-    tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'dead.png', hscriptPath + 'dead.xml'));
+    if (FileSystem.exists(hscriptPath + 'dead.png'))
+	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'dead.png', hscriptPath + 'dead.xml'));
 
     char.frames = tex;
     char.animation.addByPrefix('idle', 'Pico Idle Dance xmas', 24, false);
@@ -8,35 +9,28 @@ function init(char) {
     char.animation.addByPrefix('singDOWN', 'Pico Down Note xmas', 24, false);
     char.animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS xmas', 24, false);
     char.animation.addByPrefix('singUPmiss', 'pico Up note miss xmas', 24, false);
+
     char.animation.addByPrefix('singLEFT', 'Pico Note Right xmas', 24, false);
     char.animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT xmas', 24, false);
     char.animation.addByPrefix('singLEFTmiss', 'Pico Note Right Miss xmas', 24, false);
-    char.animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss xmas', 24,false);
+    char.animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss xmas', 24, false);
+
     char.animation.addByIndices('firstDeath', 'DEATH PICO xmas', makeRangeArray(47), "", 24, false);
     char.animation.addByIndices('deathLoop', 'DEATH PICO xmas', makeRangeArray(63, 48), "", 24, true);
 
     char.addOffset('idle');
-    if (char.isPlayer) {
-        char.addOffset('singUP', 21, 24);
-        char.addOffset('singLEFT', 66, -15);
-        char.addOffset('singRIGHT', -99, -4);
-	char.addOffset('singDOWN', 54, -87);
-        char.addOffset('singDOWNmiss', 50, -47);
-        char.addOffset('singUPmiss', 29, 60);
-        char.addOffset('singRIGHTmiss', -55, 45);
-        char.addOffset('singLEFTmiss', 68, 20);
-    } else {
-        char.addOffset('singUP', -29, 27);
-        char.addOffset('singLEFT', 65, 9);
-        char.addOffset('singRIGHT', -68, -7);
-        char.addOffset('singDOWN', 200, -70);
-        char.addOffset('singDOWNmiss', 210, -28);
-        char.addOffset('singUPmiss', -19, 67);
-        char.addOffset('singRIGHTmiss', -60, 41);
-        char.addOffset('singLEFTmiss', 62, 64);
-    }
-    char.addOffset('firstDeath', 225, 125);
-    char.addOffset('deathLoop', 225, 125);
+    char.addOffset('singUP', -29, 27, 21, 24);
+    char.addOffset('singLEFT', 65, 9, 66, -15);
+    char.addOffset('singRIGHT', -68, -7, -99, -4);
+    char.addOffset('singDOWN', 200, -70, 54, -87);
+ 
+    char.addOffset('singDOWNmiss', 210, -28, 50, -47);
+    char.addOffset('singUPmiss', -19, 67, 29, 60);
+    char.addOffset('singRIGHTmiss', -60, 41, -97, 43);
+    char.addOffset('singLEFTmiss', 62, 64, 68, 20);
+
+    char.addOffset('firstDeath', 160, 80);
+    char.addOffset('deathLoop', 160, 80);
 
     char.playAnim('idle');
 

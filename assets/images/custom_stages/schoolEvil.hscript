@@ -7,9 +7,10 @@ function start(song) {
     getHaxeActor('gf').y -= 30;
     getHaxeActor('dad').y += 150;
 
-    setSwapOffsets('bf', [160, 50]);
-    setSwapOffsets('gf', [100, -30]);
-    setSwapOffsets('dad', [0, 150]);
+    stage.setOffsets('bf', 160, 50);
+    stage.bfInfo.camOffsetX -= 175;
+    stage.setOffsets('gf', 100, -30);
+    stage.dadInfo.y += 150;
 
     wiggle = new FlxRuntimeShader('wiggle');
     wiggle.setFloat('uSpeed', 2);

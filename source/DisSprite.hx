@@ -35,7 +35,7 @@ class DisSprite extends FlxAnimate {
         return super.loadGraphic(Graphic, Animated, Width, Height, Unique, Key);
     }
 
-    public function loadSparrow(png:FlxGraphicAsset, xml:String) {
+    public function loadSparrow(png:FlxGraphicAsset, ?xml:String) {
         if (xml == null) {
             if ((png is String)) {
                 xml = png + '.xml';
@@ -52,7 +52,7 @@ class DisSprite extends FlxAnimate {
         return frames.addAtlas(addedFrames);
     }*/
 
-    public function loadSpriteSheetPacker(png:FlxGraphicAsset, txt:String) {
+    public function loadSpriteSheetPacker(png:FlxGraphicAsset, ?txt:String) {
         if (txt == null) {
             if ((png is String)) {
                 txt = png + '.txt';
@@ -109,14 +109,13 @@ class DisSprite extends FlxAnimate {
         return this;
     }
 
-    public function removeChildren() {
-        if (children != null) {
+    public function removeChildren(?destroy:Bool = false) {
+        if (destroy)
             for (child in children) {
                 // destroy child
                 FlxDestroyUtil.destroy(child);
             }
-            children = [];
-        }
+        children = [];
     }
 
     // simple function to place the parent at the end of the currently added children (position used when drawing)
@@ -124,6 +123,22 @@ class DisSprite extends FlxAnimate {
         if (children != null)
             parentPos = children.length;
         return this;
+    }
+
+    // for adding a child of children of its own to avoid inconsistencies
+    public function adoptChildren(childHaver:DisSprite) {
+        var takenParent = false;
+        for (i in 0...childHaver.children.length) {
+            final child = childHaver.children[i];
+            if (i == childHaver.parentPos) {
+                takenParent = true;
+                addChild(childHaver, false);
+            }
+            if (child != null)
+                addChild(child, false);
+        }
+        if (!takenParent) addChild(childHaver, false);
+        childHaver.removeChildren();
     }
 
     // flxspritegroup stuff
@@ -204,7 +219,7 @@ class DisSprite extends FlxAnimate {
 
     override function set_angle(value:Float):Float {
         setThingy('angle', value, true);
-        return angle = value;
+        return super.set_angle(value);
     }
 
     override function set_flipX(value:Bool):Bool {

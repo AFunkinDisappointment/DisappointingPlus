@@ -23,7 +23,7 @@ function start(song) {
     getHaxeActor("bf").y -= 250;
     getHaxeActor("bf").followCamX -= 200;
 
-    setSwapOffsets('bf', [260, -250]);
+    stage.setOffsets('bf', 260, -250).setCamOffsets('bf', -200);
 
     if (songData.stageID == 1)
 	erect(song);
@@ -203,7 +203,8 @@ function resetVroomVroom() {
     vroomVroomCanVroom = true;
 }
 function doVroomVroom() {
-    FlxG.sound.play(FNFAssets.getSound(statichscriptPath + 'carPass' + FlxG.random.int(0,1)+'.ogg'));
+    if (FileSystem.exists(statichscriptPath + 'carPass0.ogg'))
+	FlxG.sound.play(FNFAssets.getSound(statichscriptPath + 'carPass' + FlxG.random.int(0,1)+'.ogg'));
     fastcar.velocity.x = FlxG.random.int(170,220) / FlxG.elapsed;
     vroomVroomCanVroom = false;
     new FlxTimer().start(2, function(tmr) {

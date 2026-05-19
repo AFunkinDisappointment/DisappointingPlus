@@ -169,7 +169,7 @@
   },
   "darnell": {
     "like": "darnell",
-    "icons": [0,1],
+    "icons": [0,1,2,3],
     "colors": ["#735EB0"]
   },
   "otis-speaker": {

@@ -7,10 +7,11 @@ var lightstairs;
 var darkbf;
 var darkgf;
 var darkdad;
+var lightningSound;
 function start(song) {
     statichscriptPath = hscriptPath;
 
-    if (songData.stageID == 1) {
+    if (songData.stageID == 1 && FileSystem.exists(hscriptPath + 'erect/')) {
 	erectness = true;
 	erectStage();
     } else
@@ -26,6 +27,12 @@ function normalStage() {
     bg.antialiasing = true;
     addSprite(bg, BEHIND_ALL);
     stage.addElement('bg', bg);
+
+    if (FileSystem.exists(statichscriptPath + 'lightning.ogg'))
+	lightningSound = new FlxSound().loadEmbedded(FNFAssets.getSound(statichscriptPath + 'lightning.ogg'));
+    else
+	lightningSound = new FlxSound().loadEmbedded(FNFAssets.getSound('assets/sounds/thunder_1.ogg'));
+    FlxG.sound.list.add(lightningSound);
 }
 
 function erectStage() {
@@ -33,10 +40,9 @@ function erectStage() {
 
     getHaxeActor('bf').x += 250;
     getHaxeActor('gf').x += 100;
-    getHaxeActor('gf').scrollFactor.set(1, 1);
 
-    setSwapOffsets('bf', [250, 0]);
-    setSwapOffsets('gf', [100, 0]);
+    stage.bfInfo.x += 250;
+    stage.gfInfo.x += 100;
 
     var bgtrees = new FlxSprite(200, 50);
     bgtrees.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'bgtrees.png', hscriptPath + 'bgtrees.xml');
@@ -56,7 +62,7 @@ function erectStage() {
     addSprite(lightbg, BEHIND_ALL);
     stage.addElement('lightbg', lightbg);
 
-    if (gf.characterExists(getHaxeActor("gf").curCharacter + '-dark'))
+    if (Character.characterExists(getHaxeActor("gf").curCharacter + '-dark'))
     	darkgf = addCharacter(getHaxeActor("gf").curCharacter + '-dark', 'gf');
     else { // no dark mode
 	darkgf = addCharacter(getHaxeActor("gf").curCharacter, 'gf');
@@ -67,7 +73,7 @@ function erectStage() {
     addSprite(darkgf, BEHIND_ALL);
     stage.addElement('darkgf', darkgf);
 
-    if (gf.characterExists(getHaxeActor("bf").curCharacter + '-dark'))
+    if (Character.characterExists(getHaxeActor("bf").curCharacter + '-dark'))
 	darkbf = addCharacter(getHaxeActor("bf").curCharacter + '-dark', 'bf');
     else { // no dark mode
 	darkbf = addCharacter(getHaxeActor("bf").curCharacter, 'bf');
@@ -77,7 +83,7 @@ function erectStage() {
     addSprite(darkbf, BEHIND_BF);
     stage.addElement('darkbf', darkbf);
 
-    if (gf.characterExists(getHaxeActor("dad").curCharacter + '-dark'))
+    if (Character.characterExists(getHaxeActor("dad").curCharacter + '-dark'))
 	darkdad = addCharacter(getHaxeActor("dad").curCharacter + '-dark', 'dad');
     else { // no dark mode
 	darkdad = addCharacter(getHaxeActor("dad").curCharacter, 'dad');
@@ -96,6 +102,12 @@ function erectStage() {
     addSprite(lightstairs, BEHIND_NONE);
     stage.addElement('lightstairs', lightstairs);
 
+    if (FileSystem.exists(statichscriptPath + 'lightning.ogg'))
+	lightningSound = new FlxSound().loadEmbedded(FNFAssets.getSound(statichscriptPath + 'lightning.ogg'));
+    else
+	lightningSound = new FlxSound().loadEmbedded(FNFAssets.getSound('assets/sounds/thunder_1.ogg'));
+    FlxG.sound.list.add(lightningSound);
+
     getHaxeActor("gf").alpha = 0;
     getHaxeActor("boyfriend").alpha = 0;
     getHaxeActor("dad").alpha = 0;
@@ -105,7 +117,7 @@ var lightningBeat = 0;
 var lightningOffset = 8;
 function beatHit(beat) {
     if (FlxG.random.bool(10) && beat > lightningBeat + lightningOffset) {
-        FlxG.sound.play(FNFAssets.getSound(statichscriptPath + 'lightning.ogg'));
+        lightningSound.play(true);
 	if (erectness) {
 	    getHaxeActor("boyfriend").alpha = 1;
 	    getHaxeActor("gf").alpha = 1;

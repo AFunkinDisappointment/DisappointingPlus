@@ -12,6 +12,8 @@ function init(char) {
     char.followCamX = 50;
     char.followCamY = -200;
 
+    char.noFlip = true;
+
     char.like = "gf";
     char.likeGf = true;
     char.gfEpicLevel = Level_Boogie;

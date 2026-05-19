@@ -18,13 +18,15 @@ function init(char) {
     char.like = "gf";
     char.likeGf = true;
     char.hasGun = true;
+    char.noFlip = true;
 
-    abot = new Character(-50, 0, 'abot');
+    abot = new Character(-50, 20, 'abot');
     abot.x += abot.gfOffsetX;
     abot.y += abot.gfOffsetY;
-    char.addChild(abot);
+    char.adoptChildren(abot);
 
     char.gfOffsetX = 50;
+    char.gfOffsetY = -20;
 
     char.loadMappedAnims();
 }
@@ -32,7 +34,22 @@ portraitOffset = [0, 0];
 dadVar = 4.0;
 isPixel = false;
 function sing(direction, miss, alt, char) {
-    // do nothing...
+    switch(direction) {
+	case 0:
+	    char.playAnim('shoot4', true);
+	case 1:
+	    char.playAnim('shoot3', true);
+	case 2:
+	    char.playAnim('shoot1', true);
+	case 3:
+	    char.playAnim('shoot2', true);
+    }
+    /*switch(direction) {
+	case 0, 1:
+	    char.playAnim('shoot' + FlxG.random.int(3, 4), true);
+	case 2, 3:
+	    char.playAnim('shoot' + FlxG.random.int(1, 2), true);
+    }*/
 }
 function update(elapsed, char) {
     // do nothing...

@@ -1,16 +1,21 @@
-
 function start(song) {
     if (debug) {
         currentPlayState.snapToStrumline = true; 
-    for (strum in enemyStrums) {
-        strum.x = -1000;
-        strum.visible = false;
-    }
-    for (strum in playerStrums) {
-        strum.x -= 300;
-    }
+	for (strum in enemyStrums) {
+            strum.x = -1000;
+            strum.visible = false;
+	}
+	for (strum in playerStrums) {
+	    strum.x -= 300;
+	}
     }
     
+    enemyStrums.changeType('pixel', true);
+}
+
+function noteLoaded(note) {
+    if (!note.mustPress)
+	note.switchType('pixel');
 }
 
 

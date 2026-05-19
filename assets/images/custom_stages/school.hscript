@@ -6,13 +6,12 @@ function start(song) {
     getHaxeActor('bf').followCamX -= 200;
     getHaxeActor('gf').x += 75;
     getHaxeActor('gf').y += 25;
-    getHaxeActor('gf').scrollFactor.set(1, 1);
     getHaxeActor("dad").x += 100;
 
-    // char swap offsets [0 = bf.x, 1 = bf.y, 2 = gf.x, 3 = gf.y, 4 = dad.x, 5 = dad.y];
-    setSwapOffsets('bf', [250, 0]);
-    setSwapOffsets('gf', [75, 25]);
-    setSwapOffsets('dad', [100, 0]);
+    stage.bfInfo.x += 250;
+    stage.bfInfo.camOffsetX -= 200;
+    stage.setOffsets('gf', 75, 25);
+    stage.dadInfo.x += 100;
 
     if (songData.stageID == 1) {
 	hscriptPath += 'erect/';
