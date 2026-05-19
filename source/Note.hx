@@ -206,7 +206,8 @@ class Note extends DynamicSprite {
 	public var oppntAnim:Null<String> = null;
 	public var classes:Null<Array<String>> = [];
 	public var coolId:Null<String> = null;
-	public var animSuffix:Null<String> = null
+	public var animSuffix:Null<String> = null;
+	public var numSuffix:Null<Dynamic> = null;
 	public var oppntSing:Null<SingInfo>;
 	public var customNotePath:Null<String> = null;
 	public var customSustainPath:Null<String> = null;
