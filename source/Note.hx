@@ -225,12 +225,13 @@ class Note extends DynamicSprite {
 		isSustainNote = sustainNote;
 
 		var curUiType:TUI = Reflect.field(Judgement.uiJson, PlayState.SONG.uiType);
-		var notePresets;
+		/*var notePresets;
 		if (FNFAssets.exists('assets/images/custom_ui/ui_packs/' + curUiType.uses + '/multiNotePresets.json'))
 			notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/images/custom_ui/ui_packs/' + curUiType.uses + '/multiNotePresets.json'));
 		else
 			notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/data/defaultNotePresets.json'));
-		currentKey = Reflect.field(notePresets, 'key' + NOTE_AMOUNT);
+		currentKey = Reflect.field(notePresets, 'key' + NOTE_AMOUNT);*/
+		currentKey = new NoteKeys(curUiType.uses);
 		
 		x += 50;
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
@@ -325,7 +326,7 @@ class Note extends DynamicSprite {
 		}
 		if (isLiftNote) {
 			shouldBeSung = false;
-			//dontStrum = true;
+			dontStrum = true;
 		}
 
 		if (prevNote != null && isSustainNote) {
@@ -374,7 +375,7 @@ class Note extends DynamicSprite {
 				animSuffix = ' ' + animSuffix;
 
 			final flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData % NOTE_AMOUNT+1) : noteData % NOTE_AMOUNT;
-			final noteName = currentKey[flipNoteVar].note;
+			final noteName = currentKey.getNote(flipNoteVar);
 			if (isLiftNote)
 				animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}0');
 			else if (nukeNote)
@@ -449,7 +450,7 @@ class Note extends DynamicSprite {
 					animSuffix = ' ' + animSuffix;
 
 				final flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData % NOTE_AMOUNT+1)  : noteData % NOTE_AMOUNT;
-				final noteName = currentKey[flipNoteVar].note;
+				final noteName = currentKey.getNote(flipNoteVar);
 				if (isLiftNote)
 					animation.addByPrefix('Scroll', noteName + ' lift${animSuffix}');
 				else if (nukeNote)
@@ -656,7 +657,7 @@ class Note extends DynamicSprite {
 			}
 
 			final flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData+1) : noteData;
-			final noteName = currentKey[flipNoteVar].note;
+			final noteName = currentKey.getNote(flipNoteVar);
 			if (isLiftNote)
 				animation.addByPrefix('Scroll', noteName + ' lift0');
 			else if (nukeNote)
@@ -724,7 +725,7 @@ class Note extends DynamicSprite {
 				}
 
 				final flipNoteVar = PlayState.flippedNotes ? NOTE_AMOUNT - (noteData+1) : noteData;
-				final noteName = currentKey[flipNoteVar].note;
+				final noteName = currentKey.getNote(flipNoteVar);
 				if (isLiftNote)
 					animation.addByPrefix('Scroll', noteName + ' lift');
 				else if (nukeNote)
@@ -845,13 +846,12 @@ class Note extends DynamicSprite {
 				tooLate = true;
 			}
 		} else {
-			if (!dontStrum) {
+			if (!dontCountNote) {
 				canBeHit = false;
 
 				if (strumTime <= Conductor.songPosition)
 					wasGoodHit = true;
 			}
-			
 		}
 
 		if (tooLate) {

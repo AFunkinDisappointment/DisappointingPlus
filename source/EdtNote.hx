@@ -5,23 +5,8 @@ import Judgement.TUI;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.util.typeLimit.OneOfTwo;
-import lime.system.System;
 import DynamicSprite.DynamicAtlasFrames;
-using StringTools;
-
-#if sys
-import flash.media.Sound;
-import haxe.io.Path;
-import lime.media.AudioBuffer;
-import openfl.utils.ByteArray;
-import sys.FileSystem;
-import sys.io.File;
-#end
-
 
 class EdtNote extends FlxSprite {
 	public var mustBeUpdated:Bool = false;
@@ -31,11 +16,6 @@ class EdtNote extends FlxSprite {
 	public var sustainLength:Float = 0;
 
 	public var mustPress:Bool = false;
-	public var canBeHit:Bool = false;
-	public var tooLate:Bool = false;
-	public var wasGoodHit:Bool = false;
-	public var duoMode:Bool = false;
-	public var oppMode:Bool = false;
 
 	public var funnyMode:Bool = false;
 	public var noteScore:Float = 1;
@@ -44,13 +24,8 @@ class EdtNote extends FlxSprite {
 	public var isPixel:Bool = false;
 
 	public static var swagWidth:Float = 160 * 0.7;
-	public static var PURP_NOTE:Int = 0;
-	public static var GREEN_NOTE:Int = 2;
-	public static var BLUE_NOTE:Int = 1;
-	public static var RED_NOTE:Int = 3;
 	public static var NOTE_AMOUNT:Int = 4;
 
-	public var rating = "miss";
 	public var isLiftNote:Bool = false;
 	public var mineNote:Bool = false;
 	public var healMultiplier:Float = 1;
@@ -59,17 +34,13 @@ class EdtNote extends FlxSprite {
 	public var consistentHealth:Bool = false;
 	// How relatively hard it is to hit the note. Lower numbers are harder, with 0 being literally impossible
 	public var timingMultiplier:Float = 1;
-	public var ignoreHealthMods:Bool = false;
 	public var nukeNote = false;
 	public var drainNote = false;
 
-	var currentKey = null; // I tried pulling this from Playstate but it was being weird...
+	static var currentKey:NoteKeys = null;
 
 	static var noteFrames:FlxAtlasFrames;
 	static var coolCustomGraphics:Array<FlxGraphic> = [];
-
-	// altNote can be int or bool. int just determines what alt is played
-	// format: [strumTime:Float, noteDirection:Int, sustainLength:Float, altNote:Union<Bool, Int>, isLiftNote:Bool, healMultiplier:Float, damageMultipler:Float, consistentHealth:Bool, timingMultiplier:Float, shouldBeSung:Bool, ignoreHealthMods:Bool, animSuffix:Union<String, Int>]
 	public function new(strumTime:Float, noteData:Int) {
 		super();
 		// uh oh notedata sussy :flushed:
@@ -79,22 +50,23 @@ class EdtNote extends FlxSprite {
 		this.strumTime = strumTime;
 		NOTE_AMOUNT = ChartingState._song.preferredNoteAmount;
 
-		var notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/data/defaultNotePresets.json'));
-		currentKey = Reflect.field(notePresets, 'key' + NOTE_AMOUNT);
+		if (currentKey == null)
+			currentKey = new NoteKeys('normal');
+		else if (currentKey.keyAmount != NOTE_AMOUNT)
+			currentKey.changeKeyAmount(NOTE_AMOUNT);
 
 		this.noteData = noteData;
 		var sussy:Bool = false;
-		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4) {
+		if (noteData >= NOTE_AMOUNT * 2 && noteData < NOTE_AMOUNT * 4)
 			mineNote = true;
-		} else if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6) {
+		else if (noteData >= NOTE_AMOUNT * 4 && noteData < NOTE_AMOUNT * 6)
 			isLiftNote = true;
-		} else if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8) {
+		else if (noteData >= NOTE_AMOUNT * 6 && noteData < NOTE_AMOUNT * 8)
 			nukeNote = true;
-		} else if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10) {
+		else if (noteData >= NOTE_AMOUNT * 8 && noteData < NOTE_AMOUNT * 10)
 			drainNote = true;
-		} else if (noteData >= NOTE_AMOUNT * 10) {
+		else if (noteData >= NOTE_AMOUNT * 10)
 			sussy = true;
-		}
 
 		if (noteFrames == null)
 			noteFrames = DynamicAtlasFrames.fromSparrow('assets/images/custom_ui/ui_packs/normal/NOTE_assets.png',
@@ -110,7 +82,7 @@ class EdtNote extends FlxSprite {
 			frames = FlxAtlasFrames.fromSparrow(coolCustomGraphics[sussyInfo], 'assets/images/custom_ui/ui_packs/normal/NOTE_assets.xml');
 		}
 
-		var noteName = currentKey[noteData % NOTE_AMOUNT].note;
+		var noteName = currentKey.getNote(noteData % NOTE_AMOUNT);
 		if (isLiftNote)
 			animation.addByPrefix('Scroll', noteName + ' lift0');
 		else if (nukeNote)

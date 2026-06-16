@@ -872,7 +872,7 @@ class ChartingState extends MusicBeatState {
 			});
 		}
 
-		if (curStep % 4 == 0 && curStep >= sectionStartStep(1)) { //16 * (curSection + 1)
+		if (curStep % 4 == 0 && curStep >= sectionStartStep(1)) {
 			trace(curStep);
 			trace((_song.notes[curSection].lengthInSteps) * (curSection + 1));
 			trace('DUMBSHIT');
@@ -881,12 +881,9 @@ class ChartingState extends MusicBeatState {
 				addSection();
 
 			changeSection(curSection + 1, false);
-		} else if (curStep < sectionStartStep()) {
+		} else if (curStep < sectionStartStep())
 			changeSection(curSection - 1, false);
-		}
 
-		//FlxG.watch.addQuick('daBeat', curBeat);
-		//FlxG.watch.addQuick('daStep', curStep);
 		if (FlxG.mouse.justPressed) {
 			if (FlxG.mouse.overlaps(curRenderedNotes)) {
 				curRenderedNotes.forEach(function(note:EdtNote) {

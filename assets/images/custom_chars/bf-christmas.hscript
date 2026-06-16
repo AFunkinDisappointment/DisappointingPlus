@@ -2,6 +2,8 @@ function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
     if (FileSystem.exists(hscriptPath + 'dead.png'))
 	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'dead.png', hscriptPath + 'dead.xml'));
+    if (FileSystem.exists(hscriptPath + 'censored.png'))
+	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'censored.png', hscriptPath + 'censored.xml'));
 
     char.frames = tex;
     char.animation.addByPrefix('idle', 'BF idle dance', 24, false);
@@ -21,6 +23,9 @@ function init(char) {
     char.animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
     char.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
+    char.animation.addByPrefix('singDOWN-censor', 'bf swear down', 24, false);
+    char.animation.addByPrefix('singRIGHT-censor', 'bf swear right', 24, false);
+
     char.animation.addByPrefix('firstDeath', 'BF dies', 24, false);
     char.animation.addByPrefix('deathLoop', 'BF Dead Loop', 24, true);
     char.animation.addByPrefix('deathConfirm', 'BF Dead confirm', 24, false);
@@ -34,6 +39,9 @@ function init(char) {
     char.addOffset('singRIGHTmiss', -36, 18);
     char.addOffset('singLEFTmiss', 7, 19);
     char.addOffset('singDOWNmiss', -14, -19);
+
+    char.addOffset('singRIGHT-censor', -49, -5);
+    char.addOffset('singDOWN-censor', -13, -50);
 
     char.addOffset('firstDeath', 24, 4);
     char.addOffset('deathLoop', 24, -1);

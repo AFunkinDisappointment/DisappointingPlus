@@ -12,13 +12,16 @@ function init(char) {
     char.animation.addByPrefix('singLEFTmiss', 'Pico Note Right Miss', 24, false);
     char.animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss', 24,false);
 
+    char.animation.addByPrefix('hey', 'Pico HEY!!', 24, false);
+    char.animation.addByPrefix('cheer', 'Pico YEAH cheer', 24, false);
+
     char.animation.addByPrefix('burpShit', 'burpshit', 24, false);
     char.animation.addByPrefix('burpSmile', 'burpsmile', 24, false);
     char.animation.addByPrefix('shit', 'shit', 24, false);
 
     char.addOffset('idle');
     char.addOffset('singUP', -29, 27, 14);
-    char.addOffset('singLEFT', 65, 9, 81, -19);
+    char.addOffset('singLEFT', 65, 9, 85, -11);
     char.addOffset('singRIGHT', -68, -7, -48, 0);
     char.addOffset('singDOWN', 200, -70, 90, -80);
 
@@ -27,9 +30,12 @@ function init(char) {
     char.addOffset('singRIGHTmiss', -60, 41, -40, 53);
     char.addOffset('singLEFTmiss', 62, 64, 72, 24);
 
-    char.addOffset('burpShit', 33, -3);
-    char.addOffset('burpSmile', 33, -3);
-    char.addOffset('shit', 0, -3);
+    char.addOffset('hey');
+    char.addOffset('cheer');
+
+    char.addOffset('burpShit', 37);
+    char.addOffset('burpSmile', 37);
+    char.addOffset('shit', 1, 1);
 
     char.playAnim('idle');
 

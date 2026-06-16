@@ -1,5 +1,6 @@
 package;
 
+import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -11,7 +12,9 @@ import sys.FileSystem;
 #end
 
 class Strumline extends FlxTypedSpriteGroup<StrumNote> {
-	var currentKey:Dynamic;
+	public var type:String = 'normal';
+	public var currentKey:NoteKeys;
+	public var noteSplashes:FlxTypedGroup<NoteSplash>;
 	public function new(x:Float, y:Float, type:String = 'normal', ?transition:Bool = false) {
 		super(x, y);
 
@@ -25,25 +28,28 @@ class Strumline extends FlxTypedSpriteGroup<StrumNote> {
 				spr.destroy();
 			});
 
-		var daType = Reflect.field(Judgement.uiJson, type);
-
-		var presetJson:String = 'assets/data/defaultNotePresets.json';
-		if (FNFAssets.exists('assets/images/custom_ui/ui_packs/' + daType.uses + '/multiNotePresets.json'))
-			presetJson = 'assets/images/custom_ui/ui_packs/' + daType.uses + '/multiNotePresets.json';
-
-		var notePresets = CoolUtil.parseJson(FNFAssets.getText(presetJson));
-		currentKey = Reflect.field(notePresets, 'key' + Note.NOTE_AMOUNT);
+		this.type = type;
+		final daType = Reflect.field(Judgement.uiJson, type);
+		if (currentKey == null)
+			currentKey = new NoteKeys(daType.uses);
+		else
+			currentKey.newKey(daType.uses);
 
 		for (i in 0...Note.NOTE_AMOUNT) {
 			var babyArrow:StrumNote = new StrumNote(Note.swagWidth * i, 0, i, type, currentKey);
 			add(babyArrow);
 		}
 
+		if (noteSplashes != null) noteSplashes.clear();
+		noteSplashes = new FlxTypedGroup<NoteSplash>();
+		var sploosh = new NoteSplash(0, 0, 0, type);
+		noteSplashes.add(sploosh);
+
 		if (transition)
 			transIn();
 	}
 
-	public function transIn() {
+	public function transIn():Void {
 		for (i in 0...this.length)  {
 			var arrow = members[i];
 			arrow.y -= 10;
@@ -52,7 +58,7 @@ class Strumline extends FlxTypedSpriteGroup<StrumNote> {
 		}
 	}
 
-	public function resetStrums() {
+	public function resetStrums():Void {
 		forEach(function(spr:StrumNote) {
 			spr.x = Note.swagWidth * spr.ID;
 			if (Note.NOTE_AMOUNT > 4)
@@ -61,6 +67,13 @@ class Strumline extends FlxTypedSpriteGroup<StrumNote> {
 			spr.resetStrumSize();
 		});
 	}
+
+	public function doSplash(c:Int = 0) {
+		var newsplash = noteSplashes.recycle(NoteSplash, () -> new NoteSplash(0, 0, 0, type));
+		newsplash.setupNoteSplash(members[c].x, members[c].y, c);
+		noteSplashes.add(newsplash);
+		return newsplash;
+	}
 }
 
 class StrumNote extends FlxSprite {
@@ -68,15 +81,13 @@ class StrumNote extends FlxSprite {
 	public var isPixel:Bool = false;
 	public var normalSize:Float = 0.7;
 
-	public function new(x:Float = 0, y:Float = 0, noteId:Int = 0, type:String = 'normal', ?currentKey:Dynamic) {
+	public function new(x:Float = 0, y:Float = 0, noteId:Int = 0, type:String = 'normal', ?currentKey:NoteKeys) {
 		super(x, y);
 
-		var daType = Reflect.field(Judgement.uiJson, type);
+		var daType:Judgement.TUI = Reflect.field(Judgement.uiJson, type);
 
-		if (currentKey == null) {
-			var notePresets = CoolUtil.parseJson(FNFAssets.getText('assets/data/defaultNotePresets.json'));
-			currentKey = Reflect.field(notePresets, 'key' + Note.NOTE_AMOUNT);
-		}
+		if (currentKey == null)
+			currentKey = new NoteKeys(type);
 
 		this.ID = noteId;
 		this.type = type;
@@ -99,7 +110,7 @@ class StrumNote extends FlxSprite {
 			final frameRateMult = isPixel ? 0.5 : 1;
 			
 			final flippedID = PlayState.flippedNotes ? Note.NOTE_AMOUNT - (ID + 1) : ID;
-			var currentNote = currentKey[flippedID];
+			final currentNote = currentKey.getData(flippedID);
 			animation.addByPrefix('static', currentNote.idle, 24 * frameRateMult);
 			animation.addByPrefix('pressed', currentNote.pressed, 24 * frameRateMult, false);
 			animation.addByPrefix('confirm', currentNote.confirm, 24 * frameRateMult, false);
@@ -146,5 +157,6 @@ class StrumNote extends FlxSprite {
 
 	public function resetStrumSize() {
 		scale.x = scale.y = normalSize;
+		updateHitbox();
 	}
 }

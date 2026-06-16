@@ -12,6 +12,17 @@ function init(char) {
     char.animation.addByPrefix('singLEFT-alt', 'Parent Left Note Mom', 24, false);
     char.animation.addByPrefix('singRIGHT-alt', 'Parent Right Note Mom', 24, false);
 
+    char.animation.addByIndices('idle-hold', 'Parent Christmas Idle', makeRangeArray(13, 10), '', 24, true);
+    char.animation.addByIndices('singUP-hold', 'Parent Up Note Dad', makeRangeArray(13, 4), '', 24, true);
+    char.animation.addByIndices('singLEFT-hold', 'Parent Left Note Dad', makeRangeArray(15, 4), '', 24, true);
+    char.animation.addByIndices('singRIGHT-hold', 'Parent Right Note Dad', makeRangeArray(15, 4), '', 24, true);
+    char.animation.addByIndices('singDOWN-hold', 'Parent Down Note Dad', makeRangeArray(14, 4), '', 24, true);
+
+    char.animation.addByIndices('singUP-alt-hold', 'Parent Up Note Mom', makeRangeArray(13, 4), '', 24, true);
+    char.animation.addByIndices('singLEFT-alt-hold', 'Parent Left Note Mom', makeRangeArray(14, 4), '', 24, true);
+    char.animation.addByIndices('singRIGHT-alt-hold', 'Parent Right Note Mom', makeRangeArray(14, 4), '', 24, true);
+    char.animation.addByIndices('singDOWN-alt-hold', 'Parent Down Note Mom', makeRangeArray(14, 4), '', 24, true);
+
     char.addOffset('idle');
     char.addOffset('singUP', -47, 24, -39, 25);
     char.addOffset('singRIGHT', -1, -23, -61, 19);
@@ -22,6 +33,16 @@ function init(char) {
     char.addOffset('singDOWN-alt', -30, -27, 0, -25);
     char.addOffset('singLEFT-alt', -30, 15, -61, 19);
     char.addOffset('singRIGHT-alt', -1, -24, 75, -20);
+
+    char.addOffset('singUP-hold', -47, 24, -39, 25);
+    char.addOffset('singRIGHT-hold', -1, -23, -61, 19);
+    char.addOffset('singLEFT-hold', -30, 16, 75, -21);
+    char.addOffset('singDOWN-hold', -31, -29, 1, -25);
+
+    char.addOffset('singUP-alt-hold', -47, 24, -38, 28);
+    char.addOffset('singDOWN-alt-hold', -30, -27, 0, -25);
+    char.addOffset('singLEFT-alt-hold', -30, 15, -61, 19);
+    char.addOffset('singRIGHT-alt-hold', -1, -24, 75, -20);
     char.playAnim('idle');
 
     char.flipX = false;

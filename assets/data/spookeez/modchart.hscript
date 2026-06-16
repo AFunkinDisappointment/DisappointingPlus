@@ -1,0 +1,11 @@
+function noteLoaded(note) {
+    if (note.altNum > 0) 
+	note.noteHit = 'cheer';
+}
+
+function cheer(note) {
+    if (note.mustPress)
+	getHaxeActor('bf').playAnim('cheer', true);
+    else
+	getHaxeActor('dad').playAnim('cheer', true);
+}

@@ -32,7 +32,7 @@ function init(char) {
     char.addOffset('deathLoop');
     char.addOffset('deathConfirm');
 
-    char.setGraphicSize(Std.int(char.width * 6));
+    char.scale.set(6, 6);
     char.updateHitbox();
 
     char.playAnim('idle');
@@ -49,11 +49,25 @@ function init(char) {
     char.deathSound = 'fnf_loss_sfx-pixel-pico.ogg';
     char.gameoverMusic = 'gameOver-pixel-pico.ogg';
     char.gameoverMusicEnd = 'gameOverEnd-pixel-pico.ogg';
-        
-    char.followCamX = -300;
+
+    if (char.isDie) {
+	var playGF = PlayState.instance.gf;
+	var nene = new DisSprite(playGF.x + 120, playGF.y + 40).loadSparrow(hscriptPath + 'nene-toss');
+	nene.animation.addByPrefix('throw', 'knifetosscolor', 24, false);
+	nene.animation.play('throw');
+	nene.scale.set(6, 6);
+	nene.updateHitbox();
+	nene.animation.finishCallback = function() {
+	    nene.visible = false;
+	};
+	char.addChild(nene, false);
+    }
+    
     if (char.isPlayer) {
+	char.followCamX = -300;
 	char.followCamY = -150;
     } else {
+	char.followCamX = 0;
 	char.followCamY = -200;
     }
     char.playerOffsetX = 150;

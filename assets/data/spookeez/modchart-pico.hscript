@@ -2,6 +2,26 @@ function start(song) {
     FocusCamera({char: 0});
 }
 
+function noteLoaded(note) {
+    if (note.altNum > 0) {
+	if (!note.mustPress || note.altNum == 1)
+	    note.noteHit = 'cheer';
+	else
+	    note.noteHit = 'hey';
+    }
+}
+
+function hey(note) {
+    getHaxeActor('bf').playAnim('hey', true);
+}
+
+function cheer(note) {
+    if (note.mustPress)
+	getHaxeActor('bf').playAnim('cheer', true);
+    else
+	getHaxeActor('dad').playAnim('cheer', true);
+}
+
 function stepHit(step) {
     switch(step) {
 	case 1:

@@ -176,6 +176,19 @@ class FNFAssets {
 				#end
 		}
     }
+
+	// checks for files with the suffix, if found, returns with that suffix, if not, returns the original file
+	static public function getFileWithSuffixes(id:String, suffixes:Array<String>, ext:String = 'txt'):String {
+		for (suffix in suffixes) {
+			if (exists(id + suffix + '.' + ext))
+				return id + suffix + '.' + ext;
+		}
+		if (exists(id + '.' + ext))
+			return id + '.' + ext;
+		else
+			return '';
+	}
+
 	/**
 	 * Check if a file is in the cwd. Used to prevent sussy bakas from being sussy
 	 * @param id 

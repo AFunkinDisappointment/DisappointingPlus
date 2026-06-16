@@ -1,3 +1,4 @@
+var retry;
 function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
     if (FileSystem.exists(hscriptPath + 'dead.png'))
@@ -17,6 +18,7 @@ function init(char) {
 
     char.animation.addByIndices('firstDeath', 'DEATH PICO xmas', makeRangeArray(47), "", 24, false);
     char.animation.addByIndices('deathLoop', 'DEATH PICO xmas', makeRangeArray(63, 48), "", 24, true);
+    char.animation.addByIndices('deathConfirm', 'DEATH PICO xmas', makeRangeArray(63, 48), "", 24, false);
 
     char.addOffset('idle');
     char.addOffset('singUP', -29, 27, 21, 24);
@@ -31,10 +33,32 @@ function init(char) {
 
     char.addOffset('firstDeath', 160, 80);
     char.addOffset('deathLoop', 160, 80);
+    char.addOffset('deathConfirm', 160, 80);
 
     char.playAnim('idle');
 
     char.flipX = true;
+
+    if (char.isDie) {
+	retry = new DisSprite(245, -70).loadSparrow(hscriptPath + 'retry');
+	retry.animation.addByPrefix('idle', 'Retry Text Loop', 24, true);
+	retry.animation.addByPrefix('confirm', 'Retry Text Confirm', 24, false);
+	retry.animation.play('idle');
+	retry.antialiasing = true;
+	retry.visible = false;
+
+	var playGF = PlayState.instance.gf;
+	var nene = new DisSprite(playGF.x + 120, playGF.y + 40).loadSparrow(hscriptPath + 'nene-toss');
+	nene.animation.addByPrefix('throw', 'knife toss xmas', 24, false);
+	nene.animation.play('throw');
+	nene.antialiasing = true;
+	nene.animation.finishCallback = function() {
+	    nene.visible = false;
+	};
+	char.addChild(nene, false);
+	char.insertParent();
+	char.addChild(retry);
+    }
 
     char.deathSound = 'fnf_loss_sfx-pico.ogg';
     char.gameoverMusic = 'gameOver-pico.ogg';
@@ -63,7 +87,17 @@ function sing(direction, miss, alt, char) {
     // do nothing...
 }
 function update(elapsed, char) {
-    // do nothing...
+    if (char.isDie) {
+	if (char.animation.curAnim.name == 'firstDeath' && char.animation.curAnim.curFrame >= 35 && !retry.visible) {
+	    retry.visible = true;
+	    retry.animation.play('idle', true);
+	} else if (char.animation.curAnim.name == 'deathConfirm') {
+	    char.playAnim('deathLoop');
+	    retry.x -= 250;
+	    retry.y -= 200;
+	    retry.animation.play('confirm');
+	}
+    }
 }
 var danced = false;
 function dance(char) {

@@ -67,9 +67,9 @@ class SaveDataState extends MusicBeatState {
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic('assets/images/menuDesat.png');
 			optionList = [
 							{name: "Controls...", value: false, intName:'controls', desc:"Edit bindings!", ignore: true,},
-							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "Changes the max fps (also changes update rate)", amount: 60, defAmount: 60, max: 240, min: 10, precision: 10,},
+							{name: "Fps Cap", value: false, intName: "fpsCap", desc: "Changes the max fps (also changes update rate)", amount: 60, defAmount: 60, max: 240, min: 10, precision: 10},
 							{name: "Show Memory Counter", value: false, intName: "showMemory", desc: "Shows the memory counter in the top left"}, 
-							{name: "Scroll Speed", value: false, intName: "scrollSpeed", desc: "Sets the scroll speed (1 uses the song's scroll speed)", amount: 1.0, defAmount: 1.0, max: 10.0, min: 1.0, precision: 0.1,},
+							{name: "Scroll Speed", value: false, intName: "scrollSpeed", desc: "Sets the scroll speed (1 uses the song's scroll speed)", amount: 1.0, defAmount: 1.0, max: 10.0, min: 1.0, precision: 0.1},
 							{name: "Downscroll", value: false, intName: "downscroll", desc: "Put da arrows on the bottom and have em scroll down"},
 							{name: "Middlescroll", value: false, intName: "midscroll", desc: "Become the main attraction. Your story will be told"},
 							{name: "Always Show Cutscenes", intName: "alwaysDoCutscenes", value: false, desc: "Force show cutscenes, even in freeplay"}, 
@@ -79,6 +79,7 @@ class SaveDataState extends MusicBeatState {
 							{name: "Judge", value: false, intName: "judge", desc: "The Judge to use.", amount: cast Judge.Jury.Classic, defAmount: cast Judge.Jury.Classic, max: 10},
 							{name: "Ghost Tapping", value: false, intName: "useCustomInput", desc: "Whether to allow spamming"},
 							{name: "Sing Whenever", value: false, intName: "singYourHeartOut", desc: "Lets you do the sing animation whenever you want (Requires ghost tapping)"},
+							{name: "Modern Sustains", value: false, intName: "modernSustains", desc: "Sustain notes will play animations like in modern FNF, not repeating the animation"},
 							{name: "Move cam with notes", value: false, intName: "camNotes", desc: "Moves the camera in the direction of the notes."},
 							// sorry, always ignore bad timing :penisve:
 							/*{name: "Ignore Bad Timing", value: false, intName:"ignoreShittyTiming", desc: "Even with new input on, if you hit a note really poorly, it counts as a miss. This disables that."},*/
@@ -150,15 +151,6 @@ class SaveDataState extends MusicBeatState {
 		// although it isn't as laggy thanks to assets
 		
 		preferredSave = curOptions.preferredSave;
-		/*
-		optionList[0].value = curOptions.alwaysDoCutscenes;
-		optionList[1].value = curOptions.skipModifierMenu;
-		optionList[2].value = curOptions.skipVictoryScreen;
-		optionList[3].value = curOptions.downscroll;
-		optionList[4].value = curOptions.useCustomInput;
-		optionList[5].value = curOptions.DJFKKeys;
-		optionList[6].value = curOptions.showSongPos;
-		*/
 		saves = new FlxTypedSpriteGroup<SaveFile>();
 		menuBG.color = 0xFF7194fc;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
@@ -292,9 +284,8 @@ class SaveDataState extends MusicBeatState {
 						FlxG.sound.play('assets/sounds/custom_menu_sounds/'
 							+ CoolUtil.parseJson(FNFAssets.getText("assets/sounds/custom_menu_sounds/custom_menu_sounds.json")).customMenuConfirm+'/confirmMenu.ogg');
 						// don't edit the djkf
-						if (FlxG.save.data.songScores == null) {
+						if (FlxG.save.data.songScores == null)
 							FlxG.save.data.songScores = ["tutorial" => 0];
-						}
 						Highscore.load();
 					} else {
 						saves.members[curSelected].askToConfirm(true);
@@ -372,7 +363,6 @@ class SaveDataState extends MusicBeatState {
 							checkmarks.members[optionsSelected].visible = !checkmarks.members[optionsSelected].visible;
 							optionList[optionsSelected].value = checkmarks.members[optionsSelected].visible;
 						}
-						
 				}
 
 				FlxG.sound.play('assets/sounds/custom_menu_sounds/'
@@ -385,7 +375,7 @@ class SaveDataState extends MusicBeatState {
 		if (!numberDisplays[optionsSelected].visible)
 			return;
 		numberDisplays[optionsSelected].changeAmount(increase);
-		optionList[optionsSelected].amount = Std.int(numberDisplays[optionsSelected].value);
+		optionList[optionsSelected].amount = numberDisplays[optionsSelected].value;
 		if (numberDisplays[optionsSelected].value == numberDisplays[optionsSelected].useDefaultValue && optionList[optionsSelected].value) {
 			toggleSelection();
 		}
@@ -430,7 +420,6 @@ class SaveDataState extends MusicBeatState {
 				curSelected = saves.members.length - 1;
 			if (curSelected >= saves.members.length)
 				curSelected = 0;
-
 
 			var bullShit:Int = 0;
 

@@ -1,3 +1,4 @@
+var retry;
 function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
     if (FileSystem.exists(hscriptPath + 'shooting.png'))
@@ -8,6 +9,10 @@ function init(char) {
     	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'censored.png', hscriptPath + 'censored.xml'));
     if (FileSystem.exists(hscriptPath + 'intro.png'))
 	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'intro.png', hscriptPath + 'intro.xml'));
+    if (FileSystem.exists(hscriptPath + 'hey.png'))
+    	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'hey.png', hscriptPath + 'hey.xml'));
+    if (FileSystem.exists(hscriptPath + 'cheer.png'))
+    	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'cheer.png', hscriptPath + 'cheer.xml'));
     if (FileSystem.exists(hscriptPath + 'dead.png'))
 	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'dead.png', hscriptPath + 'dead.xml'));
 
@@ -38,12 +43,16 @@ function init(char) {
     char.animation.addByPrefix('shoot', 'Pico Shoot Hip Full0', 24, false);
     char.animation.addByPrefix('shootMISS', 'Pico Hit Can0', 24, false);
 
+    char.animation.addByPrefix('hey', 'Pico HEY!!', 24, false);
+    char.animation.addByPrefix('cheer', 'Pico YEAH cheer', 24, false);
+
     char.animation.addByPrefix('burpShit', 'burpshit', 24, false);
     char.animation.addByPrefix('burpSmile', 'burpsmile', 24, false);
     char.animation.addByPrefix('shit', 'shit', 24, false);
 
-    char.animation.addByIndices('firstDeath', 'Pico Death Stab',  makeRangeArray(47, 1), "", 24, false);
+    char.animation.addByIndices('firstDeath', 'Pico Death Stab', makeRangeArray(47, 1), "", 24, false);
     char.animation.addByIndices('deathLoop', 'Pico Death Stab', makeRangeArray(63, 48), "", 24, true);
+    char.animation.addByIndices('deathConfirm', 'Pico Death Stab', [48], "", 24, false);
 
     char.addOffset('idle');
 
@@ -72,14 +81,37 @@ function init(char) {
 
     char.addOffset('firstDeath', 210, 90);
     char.addOffset('deathLoop', 210, 90);
+    char.addOffset('deathConfirm', 210, 90);
 
-    char.singPriority = ['cock', 'shoot'];
+    char.singPriority = ['cock', 'shoot', 'hey', 'cheer'];
+    char.noDanceAnims = ['burpShit', 'burpSmile', 'shit'];
 
     char.playAnim('idle');
 
     char.flipX = true;
     char.like = "bf";
     char.likeBf = true;
+
+    if (char.isDie) {
+	retry = new DisSprite(195, -70).loadSparrow(hscriptPath + 'retry');
+	retry.animation.addByPrefix('idle', 'Retry Text Loop', 24, true);
+	retry.animation.addByPrefix('confirm', 'Retry Text Confirm', 24, false);
+	retry.animation.play('idle');
+	retry.antialiasing = true;
+	retry.visible = false;
+
+	var playGF = PlayState.instance.gf;
+	var nene = new DisSprite(playGF.x + 120, playGF.y + 40).loadSparrow(hscriptPath + 'nene-toss');
+	nene.animation.addByPrefix('throw', 'knife toss', 24, false);
+	nene.animation.play('throw');
+	nene.antialiasing = true;
+	nene.animation.finishCallback = function() {
+	    nene.visible = false;
+	};
+	char.addChild(nene, false);
+	char.insertParent();
+	char.addChild(retry);
+    }
 
     char.deathSound = 'fnf_loss_sfx-pico.ogg';
     char.gameoverMusic = 'gameOver-pico.ogg';
@@ -104,10 +136,18 @@ function sing(direction, miss, alt, char) {
     // Do nothing...
 }
 function update(elapsed, char) {
-    // Do nothing...
+    if (char.isDie) {
+	if (char.animation.curAnim.name == 'firstDeath' && char.animation.curAnim.curFrame >= 35 && !retry.visible) {
+	    retry.visible = true;
+	    retry.animation.play('idle', true);
+	} else if (char.animation.curAnim.name == 'deathConfirm') {
+	    char.playAnim('deathLoop');
+	    retry.x -= 250;
+	    retry.y -= 200;
+	    retry.animation.play('confirm');
+	}
+    }
 }
-var noDanceAnims = ['burpShit', 'burpSmile', 'shit'];
 function dance(char) {
-    if (!noDanceAnims.contains(char.animation.curAnim.name) || char.animation.curAnim.finished)
-	char.playAnim('idle');
+    char.playAnim('idle');
 }

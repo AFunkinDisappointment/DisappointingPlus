@@ -1,0 +1,109 @@
+var picoPlayer;
+var picoOpponent;
+var bgmusic;
+function start(song) {
+    camHUD.visible = false;
+
+    boyfriend.visible = false;
+    dad.visible = false;
+
+    picoPlayer = new DisSprite(stage.bfInfo.x - 536, stage.bfInfo.y - 259).loadTextureAtlas(hscriptPath + 'pico_doppleganger');
+    //picoPlayer.addAtlasAnimation('shoot', 878, 301);
+    //picoPlayer.addAtlasAnimation('explode', 1179, 268);
+    //picoPlayer.addAtlasAnimation('loop', 14447, 8, 24, true);
+    //picoPlayer.addAtlasAnimation('cigarette', 1455, 301);
+    picoPlayer.animation.addByTimelineIndices('shoot', picoPlayer.library.timeline, makeRangeArray(878 + 301, 878), 24, false);
+    picoPlayer.animation.addByTimelineIndices('explode', picoPlayer.library.timeline, makeRangeArray(1179 + 268, 1179), 24, false);
+    picoPlayer.animation.addByTimelineIndices('loop', picoPlayer.library.timeline, makeRangeArray(1447 + 8, 1447), 24, true);
+    picoPlayer.animation.addByTimelineIndices('cigarette', picoPlayer.library.timeline, makeRangeArray(1455 + 301, 1455), 24, false);
+    picoPlayer.antialiasing = true;
+    picoPlayer.shader = boyfriend.shader;
+
+    picoOpponent = new DisSprite(stage.dadInfo.x - 501, stage.dadInfo.y + 91).loadTextureAtlas(hscriptPath + 'pico_doppleganger');
+    picoOpponent.animation.addByTimelineIndices('shoot', picoPlayer.library.timeline, makeRangeArray(301), 24, false);
+    picoOpponent.animation.addByTimelineIndices('explode', picoPlayer.library.timeline, makeRangeArray(301 + 268, 301), 24, false);
+    picoOpponent.animation.addByTimelineIndices('loop', picoPlayer.library.timeline, makeRangeArray(569 + 8, 569), 24, true);
+    picoOpponent.animation.addByTimelineIndices('cigarette', picoPlayer.library.timeline, makeRangeArray(577 + 301, 577), 24, false);
+    picoOpponent.antialiasing = true;
+    picoOpponent.shader = dad.shader;
+
+    addSprite(picoPlayer, BEHIND_BF);
+    addSprite(picoOpponent, BEHIND_DAD);
+
+    FocusCamera({char: 2, y: 200, ease: 'instant'});
+
+    var playerShoots = FlxG.random.bool(50);
+    var explode = FlxG.random.bool(8);
+
+    new FlxTimer().start(0.1, function(tmr) {
+	var sufx = explode ? '2' : '';
+        bgmusic = new FlxSound().loadEmbedded(FNFAssets.getSound(hscriptPath + 'cutscene' + sufx + '.ogg'));
+        bgmusic.play();
+
+	playSoundAfter('picoGasp', 0.3);
+
+	var picoShooter = playerShoots ? picoPlayer : picoOpponent;
+	var picoOther = !playerShoots ? picoPlayer : picoOpponent;
+
+	picoShooter.animation.play('shoot');
+	if (explode) {
+	    picoOther.animation.play('explode');
+	    playSoundAfter('picoCigarette2', 3.7);
+	    playSoundAfter('picoExplode', 8.75);
+	} else {
+	    picoOther.animation.play('cigarette');
+	    playSoundAfter('picoCigarette', 3.7);
+	}
+
+	playSoundAfter('picoShoot', 6.29);
+	playSoundAfter('picoSpin', 10.33);
+
+	new FlxTimer().start(13, function(tmr) {
+	    bgmusic.stop();
+	    camHUD.visible = true;
+	    if (explode && playerShoots) {
+		dad.alpha = 0;
+		dad.shader = null;
+		dad.color = 0x7FFFFF;
+		FlxTween.tween(dad, {alpha: 0.4}, 0.6);
+	    }
+	    dad.visible = true;
+	    if (explode && !playerShoots) {
+		boyfriend.alpha = 0;
+		boyfriend.shader = null;
+		boyfriend.color = 0x7FFFFF;
+		FlxTween.tween(boyfriend, {alpha: 0.4}, 0.6);
+	    }
+	    boyfriend.visible = true;
+	    picoShooter.destroy();
+	    if (!explode) picoOther.destroy();
+	    currentPlayState.startCountdown();
+	    FocusCamera({char: -2});
+	});
+    });
+}
+
+function playSoundAfter(sound, time) {
+    new FlxTimer().start(time, function(tmr) {FlxG.sound.play(FNFAssets.getSound(hscriptPath + 'sounds/' + sound + '.ogg'));});
+}
+
+function skipCutscene() {
+    bgmusic.stop();
+    camHUD.visible = true;
+    dad.visible = true;
+    boyfriend.visible = true;
+    picoPlayer.destroy();
+    picoOpponent.destroy();
+    currentPlayState.startCountdown();
+    FocusCamera({char: -2});
+}
+
+function update(elapsed) {
+    if (picoPlayer.animation.curAnim != null && picoPlayer.animation.curAnim.finished && picoPlayer.animation.curAnim.name == 'explode')
+	picoPlayer.animation.play('loop');
+    if (picoOpponent.animation.curAnim != null && picoOpponent.animation.curAnim.finished && picoOpponent.animation.curAnim.name == 'explode')
+	picoOpponent.animation.play('loop');
+
+    if (FlxG.keys.justPressed.ENTER)
+	skipCutscene();
+}

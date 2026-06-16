@@ -1,0 +1,46 @@
+function init(char) {
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'Dad idle dance', 24, false);
+    char.animation.addByPrefix('singUP', 'Dad Sing Note UP', 24, false);
+    char.animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
+    char.animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24, false);
+    char.animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24, false);
+
+    char.addOffset('idle');
+    char.addOffset('singUP', -6, 50);
+    char.addOffset('singDOWN', 0, -30, 35);
+    char.addOffset('singRIGHT', -5, 27, -28, 10);
+    char.addOffset('singLEFT', -10, 10, 48, 27);
+
+    char.playAnim('idle');
+
+    char.flipX = false;
+
+    char.enemyOffsetX = 0;
+    char.enemyOffsetY = 0;
+    char.playerOffsetX = 0;
+    char.playerOffsetY = -350;
+    if (char.isPlayer) {
+        char.followCamX = -50;
+        char.followCamY = 0;
+    } else {
+        char.followCamX = 259;
+        char.followCamY = -100;
+    }
+    char.midpointX = 0;
+    char.midpointY = 0;
+}
+portraitOffset = [0, 0];
+dadVar = 6.1;
+isPixel = false;
+function sing(direction, miss, alt, char) {
+    // do nothing...
+}
+function update(elapsed, char) {
+    // do nothing...
+}
+var danced = false;
+function dance(char) {
+    char.playAnim('idle');
+}

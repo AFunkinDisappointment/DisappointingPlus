@@ -2,6 +2,20 @@ function start(song) {
     FocusCamera({char: 1});
 }
 
+function noteLoaded(note) {
+    if (note.altNum == 1 && note.mustPress)
+	note.noteHit = 'censorNote';
+}
+
+function censorNote(note) {
+    switch(note.noteData) {
+	case 1:
+	    getHaxeActor('bf').playAnim('singDOWN-censor', true);
+	case 3:
+	    getHaxeActor('bf').playAnim('singRIGHT-censor', true);
+    }
+}
+
 function stepHit(step) {
     switch(step) {
 	case 1:

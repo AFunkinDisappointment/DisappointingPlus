@@ -1,6 +1,42 @@
 Hey there, how's it going? I made this update log so people can actually know what I add when I update Disappointing Plus.
 Just a disclaimer, I only started making this after 1.3.0, so some of the updates before that may be wrong.
 
+1.5.3
+[Additions]
+	- PlayState now has an 'instance', which is 'currentPlayState' from modcharts but callable for other hscripts
+	- Added additional objects to Pico's death animations
+	- Added "pico-doppleganger" cutscene
+	- Added cheers to Spookeez
+	- Added censored notes to Pico (Pico Mix) and Cocoa (Erect)
+	- Added pixel note splashes from modern FNF
+	- Added more multiKeyPreset functionality
+		- Definitions:
+			- A stored version of the note presets that can be called multiple times within keys
+			- You can still do it the old way, like if that note is only used once, plus backwards compatablity
+		- Splash Animations
+			- With {splashes: ['splashname1', 'splashname2']}, you can call specific animations for note splashes
+			- Works with any amount of splash animations
+			- If left null, it uses default splash names, with the note's animation name
+				- Example: if note = 'orange', then splash = 'note impact 1 orange'
+	- Added hold animations to 'dad' and 'parents'
+	- Added 'dad-old' and 'parents-old', which lack the hold animations
+	- Added "Modern Sustains" option
+		- When enabled, sustain notes will play animations like in modern FNF, not repeating the animation during the sustain
+
+[Bug Fixes]
+	- Decimals now properly set in SaveDataState (options menu)
+	- Note splashes can no longer become really slow
+	- "InCutscene" is now set to true on non-dialogue cutscenes
+	- Cutscene hscripts are disconnected and no longer called when a cutscene ends
+	- Invalid death sounds and music no longer crash the game
+	- Characters without a death animation will still play the gameover music
+
+[Changes]
+	- "dontStrum" for notes now only affect whether or not the note is strumed when hit
+		- "shouldBeSung" now doesn't affect a note's struming
+		- "dontCountNote" now determines if non-players will hit the note
+	- Note splashes now spawn where the note's strum is, not where the note itself is
+
 1.5.2
 [Additions]
 	- Added ability to customize TitleState via Hscripts

@@ -21,6 +21,7 @@ typedef TOptions = {
     var alwaysDoCutscenes:Bool;
     var useCustomInput:Bool;
     var singYourHeartOut:Bool;
+    var modernSustains:Bool;
     // var DJFKKeys:Bool;
     var allowEditOptions:Bool;
     var downscroll:Bool;
@@ -104,6 +105,7 @@ class OptionsHandler {
 			lastOptions.alwaysDoCutscenes = false;
 			lastOptions.useCustomInput = true;
             lastOptions.singYourHeartOut = false;
+            lastOptions.modernSustains = true;
             lastOptions.allowEditOptions = false;
             lastOptions.useSaveDataMenu = false;
             // lastOptions.downscroll // we are going to add this to a special new menu

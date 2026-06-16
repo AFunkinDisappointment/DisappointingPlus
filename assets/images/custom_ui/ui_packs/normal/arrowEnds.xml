@@ -19,21 +19,30 @@
 	<SubTexture name="red star hold piece0000" x="21" y="0" width="7" height="6"/>
 	<SubTexture name="red star hold end0000" x="21" y="6" width="7" height="6"/>
 
-	<SubTexture name="purple mine hold piece0000" x="0" y="12" width="7" height="6"/>
-	<SubTexture name="purple mine hold end0000" x="0" y="18" width="7" height="6"/>
-	<SubTexture name="blue mine hold piece0000" x="0" y="12" width="7" height="6"/>
-	<SubTexture name="blue mine hold end0000" x="0" y="18" width="7" height="6"/>
-	<SubTexture name="green mine hold piece0000" x="0" y="12" width="7" height="6"/>
-	<SubTexture name="green mine hold end0000" x="0" y="18" width="7" height="6"/>
-	<SubTexture name="red mine hold piece0000" x="0" y="12" width="7" height="6"/>
-	<SubTexture name="red mine hold end0000" x="0" y="18" width="7" height="6"/>
+	<SubTexture name="purple lift hold piece0000" x="0" y="12" width="7" height="6"/>
+	<SubTexture name="purple lift hold end0000" x="0" y="18" width="7" height="6"/>
+	<SubTexture name="blue lift hold piece0000" x="7" y="12" width="7" height="6"/>
+	<SubTexture name="blue lift hold end0000" x="7" y="18" width="7" height="6"/>
+	<SubTexture name="green lift hold piece0000" x="14" y="12" width="7" height="6"/>
+	<SubTexture name="green lift hold end0000" x="14" y="18" width="7" height="6"/>
+	<SubTexture name="red lift hold piece0000" x="21" y="12" width="7" height="6"/>
+	<SubTexture name="red lift hold end0000" x="21" y="18" width="7" height="6"/>
 
-	<SubTexture name="purple nuke hold piece0000" x="7" y="12" width="7" height="6"/>
-	<SubTexture name="purple nuke hold end0000" x="7" y="18" width="7" height="6"/>
-	<SubTexture name="blue nuke hold piece0000" x="7" y="12" width="7" height="6"/>
-	<SubTexture name="blue nuke hold end0000" x="7" y="18" width="7" height="6"/>
-	<SubTexture name="green nuke hold piece0000" x="7" y="12" width="7" height="6"/>
-	<SubTexture name="green nuke hold end0000" x="7" y="18" width="7" height="6"/>
-	<SubTexture name="red nuke hold piece0000" x="7" y="12" width="7" height="6"/>
-	<SubTexture name="red nuke hold end0000" x="7" y="18" width="7" height="6"/>
+	<SubTexture name="purple mine hold piece0000" x="0" y="24" width="7" height="6"/>
+	<SubTexture name="purple mine hold end0000" x="0" y="30" width="7" height="6"/>
+	<SubTexture name="blue mine hold piece0000" x="0" y="24" width="7" height="6"/>
+	<SubTexture name="blue mine hold end0000" x="0" y="30" width="7" height="6"/>
+	<SubTexture name="green mine hold piece0000" x="0" y="24" width="7" height="6"/>
+	<SubTexture name="green mine hold end0000" x="0" y="30" width="7" height="6"/>
+	<SubTexture name="red mine hold piece0000" x="0" y="24" width="7" height="6"/>
+	<SubTexture name="red mine hold end0000" x="0" y="30" width="7" height="6"/>
+
+	<SubTexture name="purple nuke hold piece0000" x="14" y="24" width="7" height="6"/>
+	<SubTexture name="purple nuke hold end0000" x="14" y="30" width="7" height="6"/>
+	<SubTexture name="blue nuke hold piece0000" x="14" y="24" width="7" height="6"/>
+	<SubTexture name="blue nuke hold end0000" x="14" y="30" width="7" height="6"/>
+	<SubTexture name="green nuke hold piece0000" x="14" y="24" width="7" height="6"/>
+	<SubTexture name="green nuke hold end0000" x="14" y="30" width="7" height="6"/>
+	<SubTexture name="red nuke hold piece0000" x="14" y="24" width="7" height="6"/>
+	<SubTexture name="red nuke hold end0000" x="14" y="30" width="7" height="6"/>
 </TextureAtlas>

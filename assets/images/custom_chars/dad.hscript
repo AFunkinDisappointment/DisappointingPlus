@@ -1,24 +1,28 @@
 function init(char) {
-    var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
-    
-    char.frames = tex;
-    char.animation.addByPrefix('idle', 'Dad idle dance', 31, false);
+    char.frames = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+
+    char.animation.addByPrefix('idle', 'Dad idle dance', 24, false);
     char.animation.addByPrefix('singUP', 'Dad Sing Note UP', 24, false);
     char.animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
     char.animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24, false);
     char.animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24, false);
 
+    char.animation.addByIndices('idle-hold', 'Dad idle dance', [11, 12], '', 12, true);
+    char.animation.addByIndices('singUP-hold', 'Dad Sing Note UP', [12, 13, 14, 15], '', 24, true);
+    char.animation.addByIndices('singLEFT-hold', 'Dad Sing Note LEFT', [12, 13, 14, 15], '', 24, true);
+    char.animation.addByIndices('singRIGHT-hold', 'Dad Sing Note RIGHT', [14, 15, 16, 17], '', 24, true);
+    char.animation.addByIndices('singDOWN-hold', 'Dad Sing Note DOWN', makeRangeArray(16, 3), '', 24, true);
+
     char.addOffset('idle');
+    char.addOffset('idle-hold');
     char.addOffset('singUP', -6, 50);
-    if (char.isPlayer) {
-        char.addOffset('singDOWN', 35, -30);
-        char.addOffset('singRIGHT', -28, 10);
-        char.addOffset('singLEFT', 48, 27);
-    } else {
-        char.addOffset('singDOWN', 0, -30);
-        char.addOffset('singRIGHT', 0, 27);
-        char.addOffset('singLEFT', -10, 10);
-    }
+    char.addOffset('singUP-hold', -6, 50);
+    char.addOffset('singDOWN', 0, -30, 35);
+    char.addOffset('singDOWN-hold', 0, -30, 35);
+    char.addOffset('singRIGHT', -5, 27, -28, 10);
+    char.addOffset('singRIGHT-hold', -5, 27, -28, 10);
+    char.addOffset('singLEFT', -10, 10, 48, 27);
+    char.addOffset('singLEFT-hold', -10, 10, 48, 27);
 
     char.playAnim('idle');
 

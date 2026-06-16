@@ -1,5 +1,7 @@
 function init(char) {
     var tex = FlxAtlasFrames.fromSparrow(hscriptPath + 'char.png', hscriptPath + 'char.xml');
+    if (FileSystem.exists(hscriptPath + 'cheer.png'))
+    	tex.addAtlas(FlxAtlasFrames.fromSparrow(hscriptPath + 'cheer.png', hscriptPath + 'cheer.xml'));
 
     char.frames = tex;
     char.animation.addByPrefix('idle', 'BF idle dance', 24, false);
@@ -20,6 +22,7 @@ function init(char) {
     char.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
 
     char.animation.addByPrefix('hey', "BF HEY", 24, false);
+    char.animation.addByPrefix('cheer', "Cheer", 24, false);
     char.animation.addByPrefix('scared', 'BF idle shaking', 24);
     char.animation.addByPrefix('dodge', "boyfriend dodge", 24, false);
 
@@ -28,36 +31,29 @@ function init(char) {
     char.animation.addByPrefix('deathConfirm', 'BF Dead confirm', 24, false);
 
     char.addOffset('idle');
-    if (char.isPlayer) {
-        char.addOffset('singUP', -38, 28);
-        char.addOffset('singRIGHT', -46, -5);
-        char.addOffset('singLEFT', 11, -6);
-        char.addOffset('singDOWN', -10, -50);
-        char.addOffset('singUPmiss', -37, 24);
-        char.addOffset('singRIGHTmiss', -42, 20);
-    	char.addOffset('singLEFTmiss', 6, 20);
-    	char.addOffset('singDOWNmiss', -11, -19);
-    	char.addOffset('hey', 1, 5);
-    	char.addOffset('scared', -1, 1);
-    	char.addOffset('dodge', -6, -13);
-    } else {
-        char.addOffset('singUP', 7, 31);
-        char.addOffset('singRIGHT', -36, -7);
-        char.addOffset('singLEFT', 44, -5);
-        char.addOffset('singDOWN', -20, -50);
-    	char.addOffset('singUPmiss', 11, 24);
-    	char.addOffset('singRIGHTmiss', -33, 22);
-    	char.addOffset('singLEFTmiss', 50, 20);
-    	char.addOffset('singDOWNmiss', -12, -20);
-    	char.addOffset('hey', 3, 5);
-    	char.addOffset('scared', 0, 1);
-    	char.addOffset('dodge', -34, -15);
-    }
+    char.addOffset('singUP', 7, 31, -38, 28);
+    char.addOffset('singRIGHT', -36, -7, -46, -5);
+    char.addOffset('singLEFT', 44, -5, 11, -6);
+    char.addOffset('singDOWN', -20, -50, -10);
+
+    char.addOffset('singUPmiss', 11, 24, -37);
+    char.addOffset('singRIGHTmiss', -33, 22, -42, 20);
+    char.addOffset('singLEFTmiss', 50, 20, 6);
+    char.addOffset('singDOWNmiss', -12, -20, -11, -19);
+
+    char.addOffset('hey', 3, 5, 1);
+    char.addOffset('cheer', 53, 20, -27);
+    char.addOffset('scared', 0, 1, -1);
+    char.addOffset('dodge', -34, -15, -6, -13);
+
     char.addOffset('firstDeath', 37, 11);
     char.addOffset('deathLoop', 37, 5);
     char.addOffset('deathConfirm', 37, 69);
 
     char.playAnim('idle');
+
+    char.singPriority.push('cheer');
+    char.singPriority.push('dodge');
 
     char.flipX = true;
     char.like = "bf";
@@ -68,11 +64,11 @@ function init(char) {
     char.playerOffsetX = 0;
     char.playerOffsetY = 0;
     if (char.isPlayer) {
-        char.followCamX = 0;
-        char.followCamY = 0;
+        char.followCamX = -100;
+        char.followCamY = -50;
     } else {
         char.followCamX = 250;
-        char.followCamY = 0;
+        char.followCamY = -50;
     }
     char.midpointX = 0;
     char.midpointY = 0;

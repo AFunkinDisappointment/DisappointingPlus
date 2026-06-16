@@ -1,44 +1,40 @@
 {
      "song" : {
-         "speed" : 2.6
-        ,"stage" : "spooky"
-        ,"player1" : "pico"
-        ,"player2" : "spooky"
+         "player1" : "pico"
         ,"notes" : [
              {
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [1200,3,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [2800,2,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [4200,1]
                     ,[4400,0]
                     ,[4600,1]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [4800,3]
-                    ,[6000,3]
+                    ,[6000,3,0,2]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [6400,4]
                     ,[6599,5]
                     ,[6799,7]
@@ -46,11 +42,11 @@
                     ,[7599,6]
                     ,[7799,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [7999,5]
                     ,[8200,7]
                     ,[8400,7]
@@ -58,11 +54,11 @@
                     ,[9200,4]
                     ,[9400,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [9600,1,300]
                     ,[10000,0]
                     ,[10200,3]
@@ -72,11 +68,11 @@
                     ,[10800,0]
                     ,[11000,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [11200,1,300]
                     ,[11600,3]
                     ,[11800,2]
@@ -84,11 +80,11 @@
                     ,[12400,3]
                     ,[12600,0,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [12800,6]
                     ,[12999,7]
                     ,[13099,5]
@@ -98,11 +94,11 @@
                     ,[13799,7]
                     ,[13999,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [14399,5]
                     ,[14599,4]
                     ,[14699,5]
@@ -112,15 +108,15 @@
                     ,[15200,3]
                     ,[15399,4]
                     ,[15400,2]
-                    ,[15599,6]
+                    ,[15599,6,0,1]
                     ,[15600,0]
                     ,[15800,2]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [16000,3]
                     ,[16200,1]
                     ,[16400,0]
@@ -130,24 +126,24 @@
                     ,[17000,0]
                     ,[17200,1,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [17800,2]
                     ,[18000,0]
                     ,[18400,1]
                     ,[18600,3]
                     ,[18800,4]
-                    ,[18800,2,250]
+                    ,[18800,2,0,1]
                     ,[19000,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [19200,6]
                     ,[19400,7]
                     ,[19500,5]
@@ -156,11 +152,11 @@
                     ,[20300,7]
                     ,[20600,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [20800,6]
                     ,[21000,4]
                     ,[21100,5]
@@ -170,11 +166,11 @@
                     ,[22000,7]
                     ,[22200,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [22400,6]
                     ,[22600,7]
                     ,[22700,5]
@@ -183,11 +179,11 @@
                     ,[23500,7]
                     ,[23800,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [24000,6]
                     ,[24200,4]
                     ,[24300,5]
@@ -198,11 +194,11 @@
                     ,[25400,1]
                     ,[25500,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [25600,1]
                     ,[25700,2]
                     ,[25800,0]
@@ -215,11 +211,11 @@
                     ,[27000,2]
                     ,[27100,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [27200,3]
                     ,[27300,2]
                     ,[27400,0]
@@ -230,11 +226,11 @@
                     ,[28300,1]
                     ,[28300,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [28800,1]
                     ,[28800,3]
                     ,[29200,2]
@@ -242,11 +238,11 @@
                     ,[29800,1]
                     ,[30000,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [30400,1]
                     ,[30600,0]
                     ,[31000,0]
@@ -254,11 +250,11 @@
                     ,[31599,7]
                     ,[31799,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [31999,4]
                     ,[32199,5]
                     ,[32399,7]
@@ -266,11 +262,11 @@
                     ,[33200,6]
                     ,[33400,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [33600,5]
                     ,[33800,7]
                     ,[34000,7]
@@ -278,11 +274,11 @@
                     ,[34800,4]
                     ,[35000,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [35200,1,300]
                     ,[35600,0]
                     ,[35800,3]
@@ -292,11 +288,11 @@
                     ,[36400,0]
                     ,[36600,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [36800,1,300]
                     ,[37200,3]
                     ,[37400,2]
@@ -304,11 +300,11 @@
                     ,[38000,1]
                     ,[38200,3,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [38400,6]
                     ,[38600,7]
                     ,[38700,5]
@@ -318,11 +314,11 @@
                     ,[39400,7]
                     ,[39600,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [40000,5]
                     ,[40200,4]
                     ,[40300,5]
@@ -332,15 +328,15 @@
                     ,[40800,3]
                     ,[41000,4]
                     ,[41000,0]
-                    ,[41200,6]
+                    ,[41200,6,0,1]
                     ,[41200,2]
                     ,[41400,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [41600,0]
                     ,[41800,1]
                     ,[42000,3]
@@ -350,24 +346,24 @@
                     ,[42600,0]
                     ,[42800,1]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [43400,1]
                     ,[43600,3]
                     ,[44000,1]
                     ,[44200,0]
                     ,[44400,4]
-                    ,[44400,2,250]
                     ,[44600,7]
+                    ,[44400,2,0,1]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [44800,6]
                     ,[45000,7]
                     ,[45100,5]
@@ -377,11 +373,11 @@
                     ,[45900,7]
                     ,[46200,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [46400,6]
                     ,[46600,4]
                     ,[46700,5]
@@ -394,11 +390,11 @@
                     ,[47800,7]
                     ,[47900,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [48000,6]
                     ,[48200,7]
                     ,[48200,0]
@@ -414,11 +410,11 @@
                     ,[49250,0,250]
                     ,[49400,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [49600,6]
                     ,[49800,4]
                     ,[49800,2]
@@ -432,12 +428,14 @@
                     ,[50600,3,150]
                     ,[50800,1]
                     ,[51000,0]
+                    ,[51000,7]
+                    ,[50700,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [51200,1]
                     ,[51300,2]
                     ,[51400,0]
@@ -450,11 +448,11 @@
                     ,[52600,2]
                     ,[52700,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [52800,3]
                     ,[52900,2]
                     ,[53000,0]
@@ -465,11 +463,11 @@
                     ,[53900,1]
                     ,[53900,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [54400,1]
                     ,[54400,3]
                     ,[54800,2]
@@ -477,22 +475,22 @@
                     ,[55400,1]
                     ,[55600,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [56000,2]
                     ,[56200,0]
                     ,[56600,1]
                     ,[56800,3,250]
                     ,[57200,0,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [57600,4]
                     ,[57650,6,250]
                     ,[58000,7,300]
@@ -501,11 +499,11 @@
                     ,[58700,4]
                     ,[58800,5,300]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [59200,6,100]
                     ,[59400,7,100]
                     ,[59600,4,150]
@@ -514,11 +512,11 @@
                     ,[60000,5,300]
                     ,[60400,6,300]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [60800,5]
                     ,[61200,5]
                     ,[61400,7]
@@ -527,11 +525,11 @@
                     ,[62150,1]
                     ,[62200,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [62400,5]
                     ,[62400,0]
                     ,[62800,5]
@@ -546,11 +544,11 @@
                     ,[63800,7]
                     ,[63800,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [64000,1]
                     ,[64200,0]
                     ,[64200,2]
@@ -560,11 +558,11 @@
                     ,[65200,1]
                     ,[65200,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [65600,0]
                     ,[65800,3]
                     ,[66200,2]
@@ -573,11 +571,11 @@
                     ,[66800,2]
                     ,[66800,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [67200,1]
                     ,[67400,3]
                     ,[67800,0]
@@ -586,11 +584,11 @@
                     ,[68400,1]
                     ,[68400,2]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [68800,0]
                     ,[69000,3]
                     ,[69400,1]
@@ -598,11 +596,11 @@
                     ,[69800,0]
                     ,[70000,3,250]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [70400,6]
                     ,[70600,6]
                     ,[70800,7]
@@ -611,11 +609,11 @@
                     ,[71600,5]
                     ,[71800,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [72000,6]
                     ,[72200,6]
                     ,[72400,7]
@@ -623,11 +621,11 @@
                     ,[73000,7]
                     ,[73200,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [73600,6]
                     ,[73800,6]
                     ,[74000,7]
@@ -636,11 +634,11 @@
                     ,[74800,5]
                     ,[75000,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [75200,6]
                     ,[75200,2]
                     ,[75400,6]
@@ -656,11 +654,11 @@
                     ,[76400,1]
                     ,[76600,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [76800,1]
                     ,[76800,0]
                     ,[77000,2]
@@ -673,11 +671,11 @@
                     ,[78000,3]
                     ,[78200,1]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [78400,0]
                     ,[78400,2]
                     ,[78600,1]
@@ -689,11 +687,11 @@
                     ,[79600,2]
                     ,[79800,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [80000,1]
                     ,[80000,3]
                     ,[80200,2]
@@ -706,11 +704,11 @@
                     ,[81200,1]
                     ,[81400,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [81600,4,300]
                     ,[81600,1]
                     ,[81600,3]
@@ -727,11 +725,11 @@
                     ,[82800,3]
                     ,[83000,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [83200,6]
                     ,[83400,6]
                     ,[83600,7]
@@ -740,11 +738,11 @@
                     ,[84400,5]
                     ,[84600,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [84800,6]
                     ,[85000,6]
                     ,[85200,7]
@@ -752,11 +750,11 @@
                     ,[85800,7]
                     ,[86000,5]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [86400,6]
                     ,[86600,6]
                     ,[86800,7]
@@ -765,11 +763,11 @@
                     ,[87600,5]
                     ,[87800,7]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [88000,6]
                     ,[88000,3]
                     ,[88200,6]
@@ -785,11 +783,11 @@
                     ,[89200,2]
                     ,[89400,3]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [89600,5,125]
                     ,[89600,1]
                     ,[89600,0]
@@ -805,11 +803,11 @@
                     ,[90800,3]
                     ,[91000,1]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [91200,0]
                     ,[91200,2]
                     ,[91400,1]
@@ -821,11 +819,11 @@
                     ,[92400,2]
                     ,[92600,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [92800,1]
                     ,[92800,3]
                     ,[93000,2]
@@ -838,11 +836,11 @@
                     ,[94000,1]
                     ,[94200,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : [
+                 "sectionNotes" : [
                      [94400,1]
                     ,[94400,3]
                     ,[94600,2]
@@ -855,39 +853,43 @@
                     ,[95600,3]
                     ,[95800,0]
                 ]
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : []
+                 "sectionNotes" : []
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : []
+                 "sectionNotes" : []
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : []
+                 "sectionNotes" : []
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : []
+                 "sectionNotes" : []
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
             ,{
-                 "lengthInSteps" : 16
-                ,"sectionNotes" : []
+                 "sectionNotes" : []
+                ,"lengthInSteps" : 16
                 ,"mustHitSection" : true
             }
         ]
-        ,"gf" : "nene"
-        ,"bpm" : 150
-        ,"needsVoices" : true
-        ,"stageID" : 1
+        ,"player2" : "spooky"
         ,"song" : "Spookeez"
+        ,"speed" : 2.6
+        ,"stageID" : 1
+        ,"needsVoices" : true
+        ,"stage" : "spooky"
         ,"uiType" : "normal"
+        ,"bpm" : 150
+        ,"gf" : "nene"
     }
 }
